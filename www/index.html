@@ -10,7 +10,7 @@
   * { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
   #touchUI button { position: fixed; z-index: 3; border-radius: 50%; background: rgba(79, 216, 255, 0.16); color: #cfeeff;
     border: 2px solid rgba(79, 216, 255, 0.6); padding: 0; letter-spacing: 0; }
-  #dashBtn { right: 22px; top: 30vh; width: 72px; height: 72px; font-size: 12px; }
+  #dashBtn { right: 22px; top: max(30vh, 150px); width: 72px; height: 72px; font-size: 12px; }
   #pauseBtn { right: 18px; top: 92px; width: 44px; height: 44px; font-size: 15px; }
   @media (max-height: 520px) {
     .panel { padding: 16px 22px; }
@@ -70,59 +70,67 @@
 <body>
 <canvas id="game" tabindex="0"></canvas>
 <div id="touchUI" hidden>
-  <button id="pauseBtn" aria-label="Pause">II</button>
-  <button id="dashBtn">ESQUIVE</button>
+  <button id="pauseBtn" aria-label="Pause" data-i18n-aria="pause">II</button>
+  <button id="dashBtn" data-i18n="dodgeBtn">ESQUIVE</button>
 </div>
 <div id="overlay">
   <div class="panel">
     <div id="mainView">
       <h1 id="title">DRONE STRIKE</h1>
-      <p class="sub" id="subtitle">Pilotez votre drone et abattez les drones ennemis, vague après vague.</p>
+      <p class="sub" id="subtitle"></p>
       <p class="stats" id="stats" hidden></p>
       <div class="keys" id="keys"></div>
       <p class="sub" id="loadout"></p>
       <div class="btns">
-        <button id="resumeBtn" hidden>REPRENDRE</button>
+        <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
         <button id="startBtn">JOUER</button>
-        <button id="optBtn" class="ghost">PARAMÈTRES</button>
-        <button id="quitBtn" class="ghost" hidden>QUITTER</button>
+        <button id="optBtn" class="ghost" data-i18n="settings">PARAMÈTRES</button>
+        <button id="quitBtn" class="ghost" hidden data-i18n="quit">QUITTER</button>
       </div>
     </div>
     <div id="setView" hidden>
-      <h2>PARAMÈTRES</h2>
-      <div class="aim"><span class="lbl">Son</span>
-        <button data-opt="sound" data-val="1">Activé</button>
-        <button data-opt="sound" data-val="0">Désactivé</button>
+      <h2 data-i18n="settings">PARAMÈTRES</h2>
+      <div class="aim"><span class="lbl" data-i18n="language">Langue</span>
+        <button data-opt="lang" data-val="fr" lang="fr">Français</button>
+        <button data-opt="lang" data-val="en" lang="en">English</button>
+        <button data-opt="lang" data-val="es" lang="es">Español</button>
+        <button data-opt="lang" data-val="it" lang="it">Italiano</button>
+        <button data-opt="lang" data-val="zh" lang="zh">中文</button>
+        <button data-opt="lang" data-val="ru" lang="ru">Русский</button>
       </div>
-      <div class="aim" id="vibRow"><span class="lbl">Vibration</span>
-        <button data-opt="vib" data-val="1">Activée</button>
-        <button data-opt="vib" data-val="0">Désactivée</button>
+      <div class="aim"><span class="lbl" data-i18n="sound">Son</span>
+        <button data-opt="sound" data-val="1" data-i18n="on">Activé</button>
+        <button data-opt="sound" data-val="0" data-i18n="off">Désactivé</button>
       </div>
-      <div class="aim"><span class="lbl">Difficulté</span>
-        <button data-opt="diff" data-val="easy">Facile</button>
-        <button data-opt="diff" data-val="normal">Moyen</button>
-        <button data-opt="diff" data-val="hard">Difficile</button>
+      <div class="aim" id="vibRow"><span class="lbl" data-i18n="vibration">Vibration</span>
+        <button data-opt="vib" data-val="1" data-i18n="vibOn">Activée</button>
+        <button data-opt="vib" data-val="0" data-i18n="vibOff">Désactivée</button>
       </div>
-      <div class="aim"><span class="lbl">Drone</span>
-        <button data-opt="drone" data-val="poly">Polyvalent</button>
-        <button data-opt="drone" data-val="eclair">Éclaireur</button>
-        <button data-opt="drone" data-val="blinde">Blindé</button>
-        <button data-opt="drone" data-val="assaut">Assaut</button>
+      <div class="aim"><span class="lbl" data-i18n="difficulty">Difficulté</span>
+        <button data-opt="diff" data-val="easy" data-i18n="easy">Facile</button>
+        <button data-opt="diff" data-val="normal" data-i18n="normal">Moyen</button>
+        <button data-opt="diff" data-val="hard" data-i18n="hard">Difficile</button>
+      </div>
+      <div class="aim"><span class="lbl" data-i18n="drone">Drone</span>
+        <button data-opt="drone" data-val="poly" data-i18n="d_poly">Polyvalent</button>
+        <button data-opt="drone" data-val="eclair" data-i18n="d_eclair">Éclaireur</button>
+        <button data-opt="drone" data-val="blinde" data-i18n="d_blinde">Blindé</button>
+        <button data-opt="drone" data-val="assaut" data-i18n="d_assaut">Assaut</button>
       </div>
       <p class="sub" id="droneDesc"></p>
-      <p class="sub" id="nextNote" hidden>La difficulté et le drone s'appliquent à la prochaine partie.</p>
+      <p class="sub" id="nextNote" hidden data-i18n="nextNote">La difficulté et le drone s'appliquent à la prochaine partie.</p>
       <div id="ctrlSec">
-        <h3>Commandes</h3>
-        <div class="aim"><span class="lbl">Visée</span>
-          <button class="ghost" data-aim="mouse">Souris</button>
-          <button class="ghost" data-aim="keys">Clavier</button>
+        <h3 data-i18n="controls">Commandes</h3>
+        <div class="aim"><span class="lbl" data-i18n="aim">Visée</span>
+          <button class="ghost" data-aim="mouse" data-i18n="mouse">Souris</button>
+          <button class="ghost" data-aim="keys" data-i18n="keyboard">Clavier</button>
         </div>
         <div class="binds" id="bindList"></div>
-        <p class="sub" id="bindHint">Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.</p>
-        <div class="btns" style="margin-bottom:16px"><button id="resetBtn" class="ghost">COMMANDES PAR DÉFAUT</button></div>
+        <p class="sub" id="bindHint" data-i18n="bindHint">Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.</p>
+        <div class="btns" style="margin-bottom:16px"><button id="resetBtn" class="ghost" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button></div>
       </div>
       <div class="btns">
-        <button id="backBtn">RETOUR</button>
+        <button id="backBtn" data-i18n="back">RETOUR</button>
       </div>
     </div>
   </div>
@@ -153,6 +161,123 @@
   var WORLD_W = 2600, WORLD_H = 1800;
   var TAU = Math.PI * 2;
 
+  // ---------- Langues ----------
+  var LANGS = ['fr', 'en', 'es', 'it', 'zh', 'ru'];
+  var T = {
+    play: ['JOUER', 'PLAY', 'JUGAR', 'GIOCA', '开始游戏', 'ИГРАТЬ'],
+    restart: ['RECOMMENCER', 'RESTART', 'REINICIAR', 'RICOMINCIA', '重新开始', 'ЗАНОВО'],
+    replay: ['REJOUER', 'PLAY AGAIN', 'VOLVER A JUGAR', 'RIGIOCA', '再玩一次', 'ЕЩЁ РАЗ'],
+    resume: ['REPRENDRE', 'RESUME', 'CONTINUAR', 'RIPRENDI', '继续', 'ПРОДОЛЖИТЬ'],
+    settings: ['PARAMÈTRES', 'SETTINGS', 'AJUSTES', 'IMPOSTAZIONI', '设置', 'НАСТРОЙКИ'],
+    quit: ['QUITTER', 'QUIT', 'SALIR', 'ESCI', '退出', 'ВЫЙТИ'],
+    back: ['RETOUR', 'BACK', 'VOLVER', 'INDIETRO', '返回', 'НАЗАД'],
+    language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык'],
+    sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
+    vibration: ['Vibration', 'Vibration', 'Vibración', 'Vibrazione', '振动', 'Вибрация'],
+    on: ['Activé', 'On', 'Activado', 'Attivo', '开', 'Вкл.'],
+    off: ['Désactivé', 'Off', 'Desactivado', 'Disattivo', '关', 'Выкл.'],
+    vibOn: ['Activée', 'On', 'Activada', 'Attiva', '开', 'Вкл.'],
+    vibOff: ['Désactivée', 'Off', 'Desactivada', 'Disattiva', '关', 'Выкл.'],
+    difficulty: ['Difficulté', 'Difficulty', 'Dificultad', 'Difficoltà', '难度', 'Сложность'],
+    easy: ['Facile', 'Easy', 'Fácil', 'Facile', '简单', 'Лёгкая'],
+    normal: ['Moyen', 'Medium', 'Media', 'Media', '中等', 'Средняя'],
+    hard: ['Difficile', 'Hard', 'Difícil', 'Difficile', '困难', 'Сложная'],
+    drone: ['Drone', 'Drone', 'Dron', 'Drone', '无人机', 'Дрон'],
+    d_poly: ['Polyvalent', 'All-rounder', 'Polivalente', 'Versatile', '全能型', 'Универсал'],
+    d_eclair: ['Éclaireur', 'Scout', 'Explorador', 'Esploratore', '侦察型', 'Разведчик'],
+    d_blinde: ['Blindé', 'Armored', 'Blindado', 'Corazzato', '装甲型', 'Бронированный'],
+    d_assaut: ['Assaut', 'Assault', 'Asalto', 'Assalto', '突击型', 'Штурмовик'],
+    desc_poly: ['Équilibré : 100 points de vie, vitesse et cadence moyennes.', 'Balanced: 100 health, average speed and fire rate.', 'Equilibrado: 100 puntos de vida, velocidad y cadencia medias.', 'Equilibrato: 100 punti vita, velocità e cadenza medie.', '均衡：100 生命值，速度和射速中等。', 'Сбалансированный: 100 очков здоровья, средняя скорость и скорострельность.'],
+    desc_eclair: ['Très rapide, esquive plus fréquente, mais fragile (75 points de vie).', 'Very fast, dodges more often, but fragile (75 health).', 'Muy rápido, esquiva más a menudo, pero frágil (75 puntos de vida).', 'Molto veloce, schiva più spesso, ma fragile (75 punti vita).', '速度极快，闪避更频繁，但较脆弱（75 生命值）。', 'Очень быстрый, чаще уклоняется, но хрупкий (75 очков здоровья).'],
+    desc_blinde: ['Résistant (160 points de vie), tirs lourds à double dégâts, mais lent.', 'Tough (160 health), heavy shots with double damage, but slow.', 'Resistente (160 puntos de vida), disparos pesados con daño doble, pero lento.', 'Resistente (160 punti vita), colpi pesanti a danno doppio, ma lento.', '坚固（160 生命值），重型射击造成双倍伤害，但速度慢。', 'Прочный (160 очков здоровья), тяжёлые выстрелы с двойным уроном, но медленный.'],
+    desc_assaut: ['Cadence de tir élevée, blindage léger (90 points de vie).', 'High fire rate, light armor (90 health).', 'Cadencia de disparo alta, blindaje ligero (90 puntos de vida).', 'Cadenza di fuoco elevata, corazza leggera (90 punti vita).', '射速高，装甲轻（90 生命值）。', 'Высокая скорострельность, лёгкая броня (90 очков здоровья).'],
+    nextNote: ['La difficulté et le drone s\'appliquent à la prochaine partie.', 'Difficulty and drone apply from the next game.', 'La dificultad y el dron se aplican en la próxima partida.', 'Difficoltà e drone si applicano dalla prossima partita.', '难度和无人机将在下一局生效。', 'Сложность и дрон применяются со следующей игры.'],
+    controls: ['Commandes', 'Controls', 'Controles', 'Comandi', '操作', 'Управление'],
+    aim: ['Visée', 'Aiming', 'Apuntado', 'Mira', '瞄准', 'Прицел'],
+    mouse: ['Souris', 'Mouse', 'Ratón', 'Mouse', '鼠标', 'Мышь'],
+    keyboard: ['Clavier', 'Keyboard', 'Teclado', 'Tastiera', '键盘', 'Клавиатура'],
+    bindHint: ['Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.', 'Click a control, then press the key or mouse button you want. Esc to cancel.', 'Haz clic en un control y pulsa la tecla o el botón del ratón que quieras. Esc para cancelar.', 'Fai clic su un comando, poi premi il tasto o il pulsante del mouse desiderato. Esc per annullare.', '点击一个操作，然后按下想要的按键或鼠标键。按 Esc 取消。', 'Нажмите на действие, затем нужную клавишу или кнопку мыши. Esc — отмена.'],
+    resetCtrl: ['COMMANDES PAR DÉFAUT', 'DEFAULT CONTROLS', 'CONTROLES PREDETERMINADOS', 'COMANDI PREDEFINITI', '恢复默认操作', 'УПРАВЛЕНИЕ ПО УМОЛЧАНИЮ'],
+    dodgeBtn: ['ESQUIVE', 'DODGE', 'ESQUIVAR', 'SCHIVA', '闪避', 'РЫВОК'],
+    pause: ['Pause', 'Pause', 'Pausa', 'Pausa', '暂停', 'Пауза'],
+    pauseTitle: ['PAUSE', 'PAUSED', 'PAUSA', 'PAUSA', '已暂停', 'ПАУЗА'],
+    a_up: ['Voler vers le haut', 'Fly up', 'Volar hacia arriba', 'Vola su', '向上飞', 'Лететь вверх'],
+    a_down: ['Voler vers le bas', 'Fly down', 'Volar hacia abajo', 'Vola giù', '向下飞', 'Лететь вниз'],
+    a_left: ['Voler à gauche', 'Fly left', 'Volar a la izquierda', 'Vola a sinistra', '向左飞', 'Лететь влево'],
+    a_right: ['Voler à droite', 'Fly right', 'Volar a la derecha', 'Vola a destra', '向右飞', 'Лететь вправо'],
+    a_fire: ['Tirer', 'Shoot', 'Disparar', 'Spara', '射击', 'Стрелять'],
+    a_dash: ['Esquive rapide', 'Quick dodge', 'Esquiva rápida', 'Schivata rapida', '快速闪避', 'Быстрый рывок'],
+    a_pause: ['Pause', 'Pause', 'Pausa', 'Pausa', '暂停', 'Пауза'],
+    a_aimUp: ['Viser en haut', 'Aim up', 'Apuntar arriba', 'Mira in alto', '向上瞄准', 'Целиться вверх'],
+    a_aimDown: ['Viser en bas', 'Aim down', 'Apuntar abajo', 'Mira in basso', '向下瞄准', 'Целиться вниз'],
+    a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево'],
+    a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо'],
+    pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…'],
+    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Record : {best}', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Best: {best}', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Récord: {best}', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Record: {best}', '无人机：{drone}  ·  难度：{diff}  ·  最高分：{best}', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Рекорд: {best}'],
+    intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.'],
+    introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.'],
+    h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец'],
+    h_dragFly: ['Glisser pour voler', 'Drag to fly', 'Desliza para volar', 'Trascina per volare', '滑动以飞行', 'Проведите, чтобы лететь'],
+    h_rightThumb: ['Pouce droit', 'Right thumb', 'Pulgar derecho', 'Pollice destro', '右手拇指', 'Правый палец'],
+    h_dragAim: ['Glisser pour viser et tirer', 'Drag to aim and shoot', 'Desliza para apuntar y disparar', 'Trascina per mirare e sparare', '滑动以瞄准并射击', 'Проведите, чтобы целиться и стрелять'],
+    h_button: ['Bouton {b}', '{b} button', 'Botón {b}', 'Pulsante {b}', '{b} 按钮', 'Кнопка {b}'],
+    h_dodgeDesc: ['Esquive rapide (invulnérable un instant)', 'Quick dodge (briefly invulnerable)', 'Esquiva rápida (invulnerable un instante)', 'Schivata rapida (invulnerabile per un istante)', '快速闪避（短暂无敌）', 'Быстрый рывок (ненадолго неуязвим)'],
+    h_fly: ['Voler', 'Fly', 'Volar', 'Volare', '飞行', 'Полёт'],
+    h_aim: ['Viser', 'Aim', 'Apuntar', 'Mirare', '瞄准', 'Прицел'],
+    h_shoot: ['Tirer', 'Shoot', 'Disparar', 'Sparare', '射击', 'Стрельба'],
+    h_held: ['{k} (maintenu)', '{k} (hold)', '{k} (mantener)', '{k} (tieni premuto)', '{k}（按住）', '{k} (удерживать)'],
+    pausedTouch: ['Partie en pause.', 'Game paused.', 'Partida en pausa.', 'Partita in pausa.', '游戏已暂停。', 'Игра на паузе.'],
+    pausedKey: ['Appuyez sur {k} pour reprendre.', 'Press {k} to resume.', 'Pulsa {k} para continuar.', 'Premi {k} per riprendere.', '按 {k} 继续。', 'Нажмите {k}, чтобы продолжить.'],
+    downed: ['DRONE ABATTU', 'DRONE DOWN', 'DRON DERRIBADO', 'DRONE ABBATTUTO', '无人机被击落', 'ДРОН СБИТ'],
+    newRecord: ['Nouveau record !', 'New record!', '¡Nuevo récord!', 'Nuovo record!', '新纪录！', 'Новый рекорд!'],
+    destroyed: ['Votre drone a été détruit.', 'Your drone was destroyed.', 'Tu dron ha sido destruido.', 'Il tuo drone è stato distrutto.', '你的无人机已被摧毁。', 'Ваш дрон уничтожен.'],
+    colon: [' : ', ': ', ': ', ': ', '：', ': '],
+    st_score: ['Score', 'Score', 'Puntuación', 'Punteggio', '得分', 'Очки'],
+    st_wave: ['Vague atteinte', 'Wave reached', 'Oleada alcanzada', 'Ondata raggiunta', '到达波次', 'Достигнутая волна'],
+    st_kills: ['Drones abattus', 'Drones shot down', 'Drones derribados', 'Droni abbattuti', '击落无人机', 'Сбито дронов'],
+    st_best: ['Meilleur score ({d})', 'Best score ({d})', 'Mejor puntuación ({d})', 'Miglior punteggio ({d})', '最高分（{d}）', 'Лучший счёт ({d})'],
+    b_wave: ['VAGUE {n}', 'WAVE {n}', 'OLEADA {n}', 'ONDATA {n}', '第 {n} 波', 'ВОЛНА {n}'],
+    b_heal: ['+30 RÉPARATION', '+30 REPAIR', '+30 REPARACIÓN', '+30 RIPARAZIONE', '+30 修复', '+30 РЕМОНТ'],
+    b_rapid: ['TIR RAPIDE', 'RAPID FIRE', 'FUEGO RÁPIDO', 'FUOCO RAPIDO', '快速射击', 'СКОРОСТРЕЛЬНОСТЬ'],
+    b_shield: ['BOUCLIER', 'SHIELD', 'ESCUDO', 'SCUDO', '护盾', 'ЩИТ'],
+    b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ'],
+    c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ'],
+    c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ'],
+    hud_hp: ['INTÉGRITÉ', 'INTEGRITY', 'INTEGRIDAD', 'INTEGRITÀ', '机体完整度', 'ПРОЧНОСТЬ'],
+    hud_wave: ['VAGUE {w}   ·   ENNEMIS {e}', 'WAVE {w}   ·   ENEMIES {e}', 'OLEADA {w}   ·   ENEMIGOS {e}', 'ONDATA {w}   ·   NEMICI {e}', '波次 {w}   ·   敌人 {e}', 'ВОЛНА {w}   ·   ВРАГИ {e}'],
+    hud_best: ['RECORD {n}', 'BEST {n}', 'RÉCORD {n}', 'RECORD {n}', '最高分 {n}', 'РЕКОРД {n}'],
+    k_Mouse0: ['Clic gauche', 'Left click', 'Clic izquierdo', 'Clic sinistro', '鼠标左键', 'Левая кнопка мыши'],
+    k_Mouse1: ['Clic molette', 'Middle click', 'Clic central', 'Clic centrale', '鼠标中键', 'Средняя кнопка мыши'],
+    k_Mouse2: ['Clic droit', 'Right click', 'Clic derecho', 'Clic destro', '鼠标右键', 'Правая кнопка мыши'],
+    k_Mouse3: ['Souris 4', 'Mouse 4', 'Ratón 4', 'Mouse 4', '鼠标键 4', 'Кнопка мыши 4'],
+    k_Mouse4: ['Souris 5', 'Mouse 5', 'Ratón 5', 'Mouse 5', '鼠标键 5', 'Кнопка мыши 5'],
+    k_Space: ['Espace', 'Space', 'Espacio', 'Spazio', '空格', 'Пробел'],
+    k_ShiftLeft: ['Maj gauche', 'Left Shift', 'Mayús izq.', 'Maiusc sinistro', '左 Shift', 'Левый Shift'],
+    k_ShiftRight: ['Maj droite', 'Right Shift', 'Mayús der.', 'Maiusc destro', '右 Shift', 'Правый Shift'],
+    k_ControlLeft: ['Ctrl gauche', 'Left Ctrl', 'Ctrl izq.', 'Ctrl sinistro', '左 Ctrl', 'Левый Ctrl'],
+    k_ControlRight: ['Ctrl droite', 'Right Ctrl', 'Ctrl der.', 'Ctrl destro', '右 Ctrl', 'Правый Ctrl'],
+    k_Enter: ['Entrée', 'Enter', 'Intro', 'Invio', '回车', 'Enter'],
+    k_Backspace: ['Retour arrière', 'Backspace', 'Retroceso', 'Backspace', '退格', 'Backspace'],
+    k_CapsLock: ['Verr. maj', 'Caps Lock', 'Bloq Mayús', 'Bloc Maiusc', '大写锁定', 'Caps Lock']
+  };
+  function detectLang() {
+    try {
+      var list = navigator.languages || [navigator.language];
+      for (var i = 0; i < list.length; i++) {
+        var l = String(list[i] || '').slice(0, 2).toLowerCase();
+        if (LANGS.indexOf(l) >= 0) return l;
+      }
+    } catch (err) { /* ignore */ }
+    return 'en';
+  }
+  function tr(key, vars) {
+    var row = T[key];
+    if (!row) return key;
+    var i = LANGS.indexOf(cfg.lang), out = row[i < 0 ? 1 : i];
+    if (vars) for (var v in vars) out = out.split('{' + v + '}').join(vars[v]);
+    return out;
+  }
+
   // ---------- Input & key bindings ----------
   var ACTIONS = [
     ['up', 'Voler vers le haut'], ['down', 'Voler vers le bas'], ['left', 'Voler à gauche'], ['right', 'Voler à droite'],
@@ -174,7 +299,7 @@
   };
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff' };
   var D = DIFFS.normal, gameDiff = 'normal';
-  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly' };
+  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', lang: detectLang() };
   function bestKey(d) { return 'droneStrikeBest' + (d === 'normal' ? '' : '_' + d); }
   function readBest(d) { try { return parseInt(localStorage.getItem(bestKey(d)) || '0', 10) || 0; } catch (err) { return 0; } }
   function vib(pattern) { try { if (cfg.vib && navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* ignore */ } }
@@ -192,6 +317,7 @@
       if (saved.vib === false) cfg.vib = false;
       if (DIFFS[saved.diff]) cfg.diff = saved.diff;
       if (DRONES[saved.drone]) cfg.drone = saved.drone;
+      if (LANGS.indexOf(saved.lang) >= 0) cfg.lang = saved.lang;
     }
   } catch (err) { /* réglages par défaut */ }
   function saveCfg() { try { localStorage.setItem('droneStrikeKeys', JSON.stringify(cfg)); } catch (err) { /* ignore */ } }
@@ -203,11 +329,9 @@
     }
   } catch (err) { /* ignore */ }
   var AZERTY = { KeyQ: 'A', KeyW: 'Z', KeyA: 'Q', KeyZ: 'W', KeyM: ',', Semicolon: 'M' };
-  var NAMES = { Mouse0: 'Clic gauche', Mouse1: 'Clic molette', Mouse2: 'Clic droit', Mouse3: 'Souris 4', Mouse4: 'Souris 5',
-                Space: 'Espace', ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', ShiftLeft: 'Maj gauche',
-                ShiftRight: 'Maj droite', ControlLeft: 'Ctrl gauche', ControlRight: 'Ctrl droite', AltLeft: 'Alt', AltRight: 'Alt Gr',
-                Enter: 'Entrée', Tab: 'Tab', Backspace: 'Retour arrière', CapsLock: 'Verr. maj' };
+  var NAMES = { ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', AltLeft: 'Alt', AltRight: 'Alt Gr', Tab: 'Tab' };
   function labelFor(code) {
+    if (T['k_' + code]) return tr('k_' + code);
     if (NAMES[code]) return NAMES[code];
     if (cfg.labels[code]) return cfg.labels[code];
     if (layout && layout.get && layout.get(code)) return layout.get(code).toUpperCase();
@@ -317,35 +441,52 @@
   var mainView = document.getElementById('mainView'), setView = document.getElementById('setView');
   var bindList = document.getElementById('bindList'), elLoad = document.getElementById('loadout'), quitBtn = document.getElementById('quitBtn');
   var ctrlSec = document.getElementById('ctrlSec'), vibRow = document.getElementById('vibRow'), droneDesc = document.getElementById('droneDesc'), nextNote = document.getElementById('nextNote');
+  function renderStatic() {
+    try { document.documentElement.lang = cfg.lang; } catch (err) { /* ignore */ }
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = tr(els[i].getAttribute('data-i18n'));
+    var ar = document.querySelectorAll('[data-i18n-aria]');
+    for (i = 0; i < ar.length; i++) ar[i].setAttribute('aria-label', tr(ar[i].getAttribute('data-i18n-aria')));
+  }
+  function renderText() {
+    startBtn.textContent = tr(state === 'pause' ? 'restart' : state === 'over' ? 'replay' : 'play');
+    if (state === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
+    else if (state === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
+    else if (state === 'over') {
+      var c = tr('colon');
+      elTitle.textContent = tr('downed');
+      elSub.textContent = tr(lastRecord ? 'newRecord' : 'destroyed');
+      elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + score + '</strong><br>' + esc(tr('st_wave')) + c + '<strong>' + wave +
+        '</strong><br>' + esc(tr('st_kills')) + c + '<strong>' + kills + '</strong><br>' + esc(tr('st_best', { d: tr(gameDiff) })) + c + '<strong>' + best + '</strong>';
+    }
+  }
   function renderHelp() {
+    renderStatic(); renderText();
     var menu = state === 'menu';
     elLoad.hidden = !menu;
-    if (menu) elLoad.textContent = 'Drone : ' + DRONES[cfg.drone].name + '  ·  Difficulté : ' + DIFFS[cfg.diff].name + '  ·  Record : ' + readBest(cfg.diff);
-    if (state === 'menu') elSub.textContent = isTouch
-      ? 'Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.'
-      : 'Pilotez votre drone et abattez les drones ennemis, vague après vague.';
+    if (menu) elLoad.textContent = tr('loadout', { drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: readBest(cfg.diff) });
     if (isTouch) {
-      elKeys.innerHTML = '<b>Pouce gauche</b><span>Glisser pour voler</span>' +
-        '<b>Pouce droit</b><span>Glisser pour viser et tirer</span>' +
-        '<b>Bouton ESQUIVE</b><span>Esquive rapide (invulnérable un instant)</span>' +
-        '<b>Bouton II</b><span>Pause</span>';
+      elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
+        '<b>' + esc(tr('h_rightThumb')) + '</b><span>' + esc(tr('h_dragAim')) + '</span>' +
+        '<b>' + esc(tr('h_button', { b: tr('dodgeBtn') })) + '</b><span>' + esc(tr('h_dodgeDesc')) + '</span>' +
+        '<b>' + esc(tr('h_button', { b: 'II' })) + '</b><span>' + esc(tr('pause')) + '</span>';
       return;
     }
-    var aim = cfg.aim === 'mouse' ? 'Souris' : L('aimUp') + ' ' + L('aimLeft') + ' ' + L('aimDown') + ' ' + L('aimRight');
+    var aim = cfg.aim === 'mouse' ? esc(tr('mouse')) : L('aimUp') + ' ' + L('aimLeft') + ' ' + L('aimDown') + ' ' + L('aimRight');
     elKeys.innerHTML =
-      '<b>' + L('up') + ' ' + L('left') + ' ' + L('down') + ' ' + L('right') + '</b><span>Voler</span>' +
-      '<b>' + aim + '</b><span>Viser</span>' +
-      '<b>' + L('fire') + ' (maintenu)</b><span>Tirer</span>' +
-      '<b>' + L('dash') + '</b><span>Esquive rapide (invulnérable un instant)</span>' +
-      '<b>' + L('pause') + '</b><span>Pause</span>';
+      '<b>' + L('up') + ' ' + L('left') + ' ' + L('down') + ' ' + L('right') + '</b><span>' + esc(tr('h_fly')) + '</span>' +
+      '<b>' + aim + '</b><span>' + esc(tr('h_aim')) + '</span>' +
+      '<b>' + esc(tr('h_held', { k: labelFor(cfg.bind.fire) })) + '</b><span>' + esc(tr('h_shoot')) + '</span>' +
+      '<b>' + L('dash') + '</b><span>' + esc(tr('h_dodgeDesc')) + '</span>' +
+      '<b>' + L('pause') + '</b><span>' + esc(tr('pause')) + '</span>';
   }
   function renderBinds() {
     var h = '';
     for (var i = 0; i < ACTIONS.length; i++) {
       var a = ACTIONS[i][0];
       if (cfg.aim === 'mouse' && a.indexOf('aim') === 0) continue;
-      h += '<span>' + ACTIONS[i][1] + '</span><button class="ghost' + (listening === a ? ' listen' : '') + '" data-act="' + a + '">' +
-           (listening === a ? 'Appuyez…' : L(a)) + '</button>';
+      h += '<span>' + esc(tr('a_' + a)) + '</span><button class="ghost' + (listening === a ? ' listen' : '') + '" data-act="' + a + '">' +
+           (listening === a ? esc(tr('pressKey')) : L(a)) + '</button>';
     }
     bindList.innerHTML = h;
     var ab = setView.querySelectorAll('[data-aim]');
@@ -357,7 +498,7 @@
     }
     ctrlSec.hidden = isTouch;
     vibRow.hidden = !navigator.vibrate;
-    droneDesc.textContent = DRONES[cfg.drone].desc;
+    droneDesc.textContent = tr('desc_' + cfg.drone);
     nextNote.hidden = state === 'menu';
   }
   function renderAll() { renderHelp(); renderBinds(); }
@@ -414,7 +555,7 @@
   // ---------- State ----------
   var state = 'menu';
   var player, enemies, bullets, particles, pickups;
-  var score, wave, waveTimer, banner, bannerT, shake, time, kills;
+  var score, wave, waveTimer, banner, bannerT, shake, time, kills, lastRecord = false;
   var best = 0;
 
   var TYPES = {
@@ -443,11 +584,9 @@
   function togglePause() {
     if (state === 'play') {
       state = 'pause';
-      elTitle.textContent = 'PAUSE'; releaseSticks(); resumeBtn.hidden = false; quitBtn.hidden = false;
-      elSub.textContent = isTouch ? 'Partie en pause.' : 'Appuyez sur ' + labelFor(cfg.bind.pause) + ' pour reprendre.';
-      showSettings(false);
+      releaseSticks(); resumeBtn.hidden = false; quitBtn.hidden = false;
       elStats.hidden = true; elKeys.hidden = false;
-      startBtn.textContent = 'RECOMMENCER';
+      showSettings(false);
       overlay.classList.remove('hidden');
     } else if (state === 'pause') {
       state = 'play';
@@ -459,25 +598,19 @@
   function gameOver() {
     state = 'over'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = false;
     var record = score > best;
+    lastRecord = record;
     if (record) { best = score; try { localStorage.setItem(bestKey(gameDiff), String(best)); } catch (err) { /* ignore */ } }
-    elTitle.textContent = 'DRONE ABATTU';
-    elSub.textContent = record ? 'Nouveau record !' : 'Votre drone a été détruit.';
     elStats.hidden = false;
-    elStats.innerHTML = 'Score : <strong>' + score + '</strong><br>Vague atteinte : <strong>' + wave +
-      '</strong><br>Drones abattus : <strong>' + kills + '</strong><br>Meilleur score (' + D.name + ') : <strong>' + best + '</strong>';
     elKeys.hidden = true;
     showSettings(false);
-    startBtn.textContent = 'REJOUER';
     overlay.classList.remove('hidden');
     startBtn.focus();
   }
 
   function goMenu() {
     state = 'menu'; player = null; releaseSticks(); keys = {};
-    elTitle.textContent = 'DRONE STRIKE';
     elStats.hidden = true; elKeys.hidden = false;
     resumeBtn.hidden = true; quitBtn.hidden = true;
-    startBtn.textContent = 'JOUER';
     showSettings(false);
     overlay.classList.remove('hidden');
   }
@@ -506,7 +639,7 @@
       spawnEnemy(type);
     }
     if (wave % 5 === 0) { spawnEnemy('heavy'); spawnEnemy('heavy'); }
-    banner = 'VAGUE ' + wave; bannerT = 2.2;
+    banner = tr('b_wave', { n: wave }); bannerT = 2.2;
     beep(440, 0.25, 'triangle', 0.06, 880);
   }
 
@@ -703,10 +836,10 @@
       var k = pickups[i];
       k.life -= dt;
       if (Math.hypot(k.x - p.x, k.y - p.y) < k.r + p.r + 6) {
-        if (k.kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + 30); banner = '+30 RÉPARATION'; }
-        else if (k.kind === 'rapid') { p.rapid = 8; banner = 'TIR RAPIDE'; }
-        else if (k.kind === 'shield') { p.shield = 8; banner = 'BOUCLIER'; }
-        else { p.gun = 10; banner = 'FUSIL TRIPLE'; }
+        if (k.kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + 30); banner = tr('b_heal'); }
+        else if (k.kind === 'rapid') { p.rapid = 8; banner = tr('b_rapid'); }
+        else if (k.kind === 'shield') { p.shield = 8; banner = tr('b_shield'); }
+        else { p.gun = 10; banner = tr('b_gun'); }
         vib(20);
         bannerT = 1.2;
         beep(660, 0.2, 'triangle', 0.06, 1320);
@@ -851,7 +984,7 @@
     // health
     ctx.fillStyle = 'rgba(9, 15, 28, 0.75)'; ctx.fillRect(18, 18, hw + 20, 58);
     ctx.fillStyle = '#8fa6c4'; ctx.font = '600 12px "Segoe UI", system-ui, sans-serif'; ctx.textAlign = 'left';
-    ctx.fillText('INTÉGRITÉ', 28, 25);
+    ctx.fillText(tr('hud_hp'), 28, 25);
     ctx.fillStyle = '#1b2538'; ctx.fillRect(28, 42, hw, 12);
     var ratio = p.hp / p.maxHp;
     ctx.fillStyle = ratio > 0.5 ? '#5dff9b' : ratio > 0.25 ? '#ffd166' : '#ff4d6d';
@@ -861,7 +994,7 @@
     var dr = clamp(1 - p.dashCd / p.spec.dash, 0, 1);
     ctx.fillStyle = '#1b2538'; ctx.fillRect(28, 60, hw, 5);
     ctx.fillStyle = dr >= 1 ? '#4fd8ff' : '#2a6f9c'; ctx.fillRect(28, 60, hw * dr, 5);
-    var chips = [['RAPIDE', p.rapid, PCOL.rapid], ['BOUCLIER', p.shield, PCOL.shield], ['FUSIL', p.gun, PCOL.gun]], cx = 28;
+    var chips = [[tr('c_rapid'), p.rapid, PCOL.rapid], [tr('b_shield'), p.shield, PCOL.shield], [tr('c_gun'), p.gun, PCOL.gun]], cx = 28;
     ctx.textAlign = 'left'; ctx.font = '700 13px "Segoe UI", system-ui, sans-serif';
     for (i = 0; i < chips.length; i++) {
       if (chips[i][1] <= 0) continue;
@@ -875,8 +1008,8 @@
     ctx.fillStyle = '#e6f1ff'; ctx.font = '700 28px "Segoe UI", system-ui, sans-serif';
     ctx.fillText(String(score), W - 22, 16);
     ctx.fillStyle = '#8fa6c4'; ctx.font = '600 13px "Segoe UI", system-ui, sans-serif';
-    ctx.fillText('VAGUE ' + wave + '   ·   ENNEMIS ' + enemies.length, W - 22, 50);
-    ctx.fillText('RECORD ' + Math.max(best, score), W - 22, 68);
+    ctx.fillText(tr('hud_wave', { w: wave, e: enemies.length }), W - 22, 50);
+    ctx.fillText(tr('hud_best', { n: Math.max(best, score) }), W - 22, 68);
 
     // radar
     var rw = isTouch ? 110 : 180, rh = rw * WORLD_H / WORLD_W, rx = isTouch ? 18 : W - rw - 20, ry = isTouch ? 106 : H - rh - 20;
@@ -928,6 +1061,10 @@
       ctx.globalAlpha = clamp(bannerT, 0, 1);
       ctx.textAlign = 'center'; ctx.fillStyle = '#4fd8ff';
       ctx.font = '800 ' + Math.round(Math.min(46, W / 11)) + 'px "Segoe UI", system-ui, sans-serif';
+      var bf = Math.round(Math.min(46, W / 11)), bw2;
+      ctx.font = '800 ' + bf + 'px "Segoe UI", system-ui, sans-serif';
+      bw2 = ctx.measureText(banner).width;
+      if (bw2 > W * 0.9) ctx.font = '800 ' + Math.floor(bf * W * 0.9 / bw2) + 'px "Segoe UI", system-ui, sans-serif';
       ctx.fillText(banner, W / 2, H * 0.2);
       ctx.globalAlpha = 1;
     }
