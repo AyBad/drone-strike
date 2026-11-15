@@ -63,7 +63,8 @@
   .binds { max-height: none; }
   h3 { margin: 18px 0 10px; font-size: 14px; letter-spacing: 3px; color: #8fa6c4; text-transform: uppercase; }
   #droneDesc, #nextNote, #loadout { font-size: 13px; margin: -4px 0 14px; }
-  #loadout { margin: 0 0 16px; color: #c6d4e8; }
+  #loadout { margin: 0 0 6px; color: #c6d4e8; }
+  #livesInfo { margin: 0 0 16px; font-size: 13px; color: #ff6b9d; font-variant-numeric: tabular-nums; }
   /* ---------- Paramètres ---------- */
   .panel { transition: width .2s; }
   .panel.wide { width: min(880px, 95vw); padding: 0 0 24px; text-align: left; }
@@ -190,10 +191,11 @@
       <p class="stats" id="stats" hidden></p>
       <div class="keys" id="keys"></div>
       <p class="sub" id="loadout"></p>
+      <p class="sub" id="livesInfo"></p>
       <div class="btns">
         <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
         <button id="reviveBtn" hidden></button>
-        <button id="endBtn" class="ghost" hidden data-i18n="endGame"></button>
+        <button id="endBtn" class="ghost" hidden></button>
         <button id="startBtn">JOUER</button>
         <button id="gameBtn" class="ghost" data-i18n="gameOptions">OPTIONS DE JEU</button>
         <button id="scoresBtn" class="ghost" data-i18n="scores">SCORES</button>
@@ -313,7 +315,7 @@
   var elKeys = document.getElementById('keys');
   var startBtn = document.getElementById('startBtn');
   var reviveBtn = document.getElementById('reviveBtn'), endBtn = document.getElementById('endBtn');
-  var MAX_LIVES = 5, lives = 3;
+  var MAX_LIVES = 5, lives = 3, bonusLives = 0, lastBonus = 0;
 
   var W = 0, H = 0, DPR = 1, zoom = 1, VW = 0, VH = 0;
   function resize() {
@@ -613,6 +615,10 @@
     downSub: ['Vies restantes : {n}. Utiliser une vie pour continuer ?', 'Lives left: {n}. Use a life to continue?', 'Vidas restantes: {n}. ¿Usar una vida para continuar?', 'Vite rimaste: {n}. Usare una vita per continuare?', '剩余生命：{n}。使用一条生命继续吗？', 'Осталось жизней: {n}. Потратить жизнь и продолжить?'],
     useLife: ['UTILISER UNE VIE', 'USE A LIFE', 'USAR UNA VIDA', 'USA UNA VITA', '使用生命', 'ПОТРАТИТЬ ЖИЗНЬ'],
     endGame: ['TERMINER', 'END GAME', 'TERMINAR', 'TERMINA', '结束游戏', 'ЗАКОНЧИТЬ'],
+    livesFull: ['Vies : {h}', 'Lives: {h}', 'Vidas: {h}', 'Vite: {h}', '生命：{h}', 'Жизни: {h}'],
+    livesWait: ['Vies : {h}  ·  recharge dans {t}', 'Lives: {h}  ·  refill in {t}', 'Vidas: {h}  ·  recarga en {t}', 'Vite: {h}  ·  ricarica tra {t}', '生命：{h}  ·  {t} 后恢复', 'Жизни: {h}  ·  восстановление через {t}'],
+    livesNone: ['Aucune vie : une seule chance par partie  ·  recharge dans {t}', 'No lives: one chance per game  ·  refill in {t}', 'Sin vidas: una sola oportunidad por partida  ·  recarga en {t}', 'Nessuna vita: una sola possibilità a partita  ·  ricarica tra {t}', '没有生命：每局只有一次机会  ·  {t} 后恢复', 'Жизней нет: одна попытка за игру  ·  восстановление через {t}'],
+    st_bonus: ['Bonus vies gardées', 'Unused lives bonus', 'Bonus por vidas guardadas', 'Bonus vite conservate', '保留生命奖励', 'Бонус за сохранённые жизни'],
     b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ'],
     c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ'],
     c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ'],
@@ -686,6 +692,36 @@
     if (isRec) { e.b = sc; e.w = w; e.k = k; e.d = Date.now(); }
     scores[key] = e; saveScores();
     return isRec;
+  }
+  var POOL_MAX = 3, POOL_MS = 3600000, LIFE_BONUS = 300;
+  var pool = { n: POOL_MAX, t: 0 };
+  try {
+    var sp0 = JSON.parse(localStorage.getItem('droneStrikeLives') || 'null');
+    if (sp0 && sp0.n >= 0 && sp0.n <= POOL_MAX && sp0.t >= 0) pool = { n: Math.floor(sp0.n), t: +sp0.t || 0 };
+  } catch (err) { /* réserve pleine */ }
+  function savePool() { try { localStorage.setItem('droneStrikeLives', JSON.stringify(pool)); } catch (err) { /* ignore */ } }
+  function poolLives() {
+    if (pool.n >= POOL_MAX) pool.t = 0;
+    else if (!pool.t || Date.now() - pool.t >= POOL_MS || Date.now() < pool.t) { pool = { n: POOL_MAX, t: 0 }; savePool(); }
+    return pool.n;
+  }
+  function usePool() {
+    if (poolLives() <= 0) return;
+    pool.n--; if (!pool.t) pool.t = Date.now();
+    savePool();
+  }
+  function poolWait() {
+    var ms = Math.max(0, pool.t + POOL_MS - Date.now()), m = Math.floor(ms / 60000), sec = Math.floor(ms % 60000 / 1000);
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+  function updateLivesInfo() {
+    var el = document.getElementById('livesInfo');
+    el.hidden = state !== 'menu';
+    if (state !== 'menu') return;
+    var n = poolLives(), h = '';
+    for (var i = 0; i < POOL_MAX; i++) h += i < n ? '\u2665' : '\u2661';
+    var txt = n >= POOL_MAX ? tr('livesFull', { h: h }) : n > 0 ? tr('livesWait', { h: h, t: poolWait() }) : tr('livesNone', { t: poolWait() });
+    if (el.textContent !== txt) el.textContent = txt;
   }
   function readBest(d) { try { return parseInt(localStorage.getItem(bestKey(d)) || '0', 10) || 0; } catch (err) { return 0; } }
   function vib(pattern) { try { if (cfg.vib && navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* ignore */ } }
@@ -846,18 +882,20 @@
     reviveBtn.hidden = !dn; endBtn.hidden = !dn; startBtn.hidden = dn;
     document.getElementById('gameBtn').hidden = dn; document.getElementById('optBtn').hidden = dn;
     reviveBtn.textContent = tr('useLife') + '  \u2665 ' + lives;
+    endBtn.textContent = tr('endGame') + '  +' + lives * LIFE_BONUS;
     if (state === 'over') {
       var c = tr('colon');
       elTitle.textContent = tr('downed');
       elSub.textContent = tr(lastRecord ? 'newRecord' : 'destroyed');
       elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + score + '</strong><br>' + esc(tr('st_wave')) + c + '<strong>' + wave +
-        '</strong><br>' + esc(tr('st_kills')) + c + '<strong>' + kills + '</strong><br>' + esc(tr('st_best', { d: tr(gameDiff) + ' · ' + tr('d_' + gameDrone) })) + c + '<strong>' + best + '</strong>';
+        '</strong><br>' + esc(tr('st_kills')) + c + '<strong>' + kills + '</strong><br>' +
+        (lastBonus ? esc(tr('st_bonus')) + c + '<strong>+' + lastBonus + '</strong><br>' : '') + esc(tr('st_best', { d: tr(gameDiff) + ' · ' + tr('d_' + gameDrone) })) + c + '<strong>' + best + '</strong>';
     }
   }
   function renderHelp() {
     renderStatic(); renderText();
     var menu = state === 'menu';
-    elLoad.hidden = !menu;
+    elLoad.hidden = !menu; updateLivesInfo();
     if (menu) elLoad.textContent = tr('loadout', { map: tr('m_' + cfg.map), drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: comboBest(cfg.diff, cfg.drone) });
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
@@ -1043,7 +1081,7 @@
     gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff]; best = comboBest(gameDiff, gameDrone);
     player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
                fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
-    gameMap = cfg.map; obstacles = getObs(gameMap); lives = 3;
+    gameMap = cfg.map; obstacles = getObs(gameMap); lives = poolLives(); bonusLives = 0; lastBonus = 0;
     enemies = []; bullets = []; particles = []; pickups = [];
     score = 0; wave = 0; waveTimer = 1.2; banner = ''; bannerT = 0; shake = 0; time = 0; kills = 0;
     state = 'play'; keys = {}; releaseSticks(); resumeBtn.hidden = true;
@@ -1068,6 +1106,7 @@
 
   function gameOver() {
     state = 'over'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = false;
+    lastBonus = lives * LIFE_BONUS; score += lastBonus;
     var record = recordGame(gameDiff, gameDrone, score, wave, kills) && score > 0;
     lastRecord = record;
     if (score > best) best = score;
@@ -1088,6 +1127,7 @@
   function revive() {
     if (state !== 'down' || lives <= 0) return;
     lives--;
+    if (bonusLives > 0) bonusLives--; else usePool();
     var p = player, i;
     p.hp = p.maxHp; p.inv = 3; p.vx = p.vy = 0; p.hitFlash = 0;
     for (i = bullets.length - 1; i >= 0; i--) if (!bullets[i].friendly) bullets.splice(i, 1);
@@ -1380,7 +1420,7 @@
         if (k.kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + 30); banner = tr('b_heal'); }
         else if (k.kind === 'rapid') { p.rapid = 8; banner = tr('b_rapid'); }
         else if (k.kind === 'shield') { p.shield = 8; banner = tr('b_shield'); }
-        else if (k.kind === 'life') { lives = Math.min(MAX_LIVES, lives + 1); banner = tr('b_life'); }
+        else if (k.kind === 'life') { if (lives < MAX_LIVES) { lives++; bonusLives++; } banner = tr('b_life'); }
         else { p.gun = 10; banner = tr('b_gun'); }
         vib(20);
         bannerT = 1.2;
@@ -1652,6 +1692,7 @@
     }
     ctx = mainCtx; time = mainTime;
   }
+  var frameN = 0;
   function frame(ts) {
     var dt = Math.min(0.033, (ts - last) / 1000 || 0);
     last = ts;
@@ -1661,6 +1702,7 @@
     if (state === 'play' || state === 'over' || state === 'down') updateParticles(dt);
     draw();
     if (setOpen) drawPreviews(ts / 1000);
+    if (state === 'menu' && view === 'main' && (frameN = (frameN || 0) + 1) % 20 === 0) updateLivesInfo();
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
