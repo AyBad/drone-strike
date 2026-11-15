@@ -192,6 +192,8 @@
       <p class="sub" id="loadout"></p>
       <div class="btns">
         <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
+        <button id="reviveBtn" hidden></button>
+        <button id="endBtn" class="ghost" hidden data-i18n="endGame"></button>
         <button id="startBtn">JOUER</button>
         <button id="gameBtn" class="ghost" data-i18n="gameOptions">OPTIONS DE JEU</button>
         <button id="scoresBtn" class="ghost" data-i18n="scores">SCORES</button>
@@ -310,6 +312,8 @@
   var elStats = document.getElementById('stats');
   var elKeys = document.getElementById('keys');
   var startBtn = document.getElementById('startBtn');
+  var reviveBtn = document.getElementById('reviveBtn'), endBtn = document.getElementById('endBtn');
+  var MAX_LIVES = 5, lives = 3;
 
   var W = 0, H = 0, DPR = 1, zoom = 1, VW = 0, VH = 0;
   function resize() {
@@ -469,6 +473,12 @@
       }
     }
   }
+  function heart(x, y, sz) {
+    ctx.beginPath(); ctx.moveTo(x, y + sz * 0.9);
+    ctx.bezierCurveTo(x - sz * 1.3, y - sz * 0.1, x - sz * 0.6, y - sz * 1.1, x, y - sz * 0.35);
+    ctx.bezierCurveTo(x + sz * 0.6, y - sz * 1.1, x + sz * 1.3, y - sz * 0.1, x, y + sz * 0.9);
+    ctx.fill();
+  }
   function drawGround(th, x0, y0, x1, y1, g) {
     ctx.fillStyle = th.ground; ctx.fillRect(0, 0, WORLD_W, WORLD_H);
     ctx.strokeStyle = th.grid; ctx.lineWidth = 1; ctx.beginPath();
@@ -595,6 +605,14 @@
     b_heal: ['+30 RÉPARATION', '+30 REPAIR', '+30 REPARACIÓN', '+30 RIPARAZIONE', '+30 修复', '+30 РЕМОНТ'],
     b_rapid: ['TIR RAPIDE', 'RAPID FIRE', 'FUEGO RÁPIDO', 'FUOCO RAPIDO', '快速射击', 'СКОРОСТРЕЛЬНОСТЬ'],
     b_shield: ['BOUCLIER', 'SHIELD', 'ESCUDO', 'SCUDO', '护盾', 'ЩИТ'],
+    b_boss: ['BOSS !', 'BOSS!', '¡JEFE!', 'BOSS!', 'BOSS 来袭！', 'БОСС!'],
+    b_bossDown: ['BOSS DÉTRUIT', 'BOSS DESTROYED', 'JEFE DESTRUIDO', 'BOSS DISTRUTTO', 'BOSS 已击毁', 'БОСС УНИЧТОЖЕН'],
+    b_life: ['+1 VIE', '+1 LIFE', '+1 VIDA', '+1 VITA', '+1 生命', '+1 ЖИЗНЬ'],
+    b_revive: ['DE RETOUR !', 'BACK IN ACTION!', '¡DE VUELTA!', 'DI NUOVO IN VOLO!', '重新出击！', 'СНОВА В БОЮ!'],
+    hud_boss: ['BOSS', 'BOSS', 'JEFE', 'BOSS', 'BOSS', 'БОСС'],
+    downSub: ['Vies restantes : {n}. Utiliser une vie pour continuer ?', 'Lives left: {n}. Use a life to continue?', 'Vidas restantes: {n}. ¿Usar una vida para continuar?', 'Vite rimaste: {n}. Usare una vita per continuare?', '剩余生命：{n}。使用一条生命继续吗？', 'Осталось жизней: {n}. Потратить жизнь и продолжить?'],
+    useLife: ['UTILISER UNE VIE', 'USE A LIFE', 'USAR UNA VIDA', 'USA UNA VITA', '使用生命', 'ПОТРАТИТЬ ЖИЗНЬ'],
+    endGame: ['TERMINER', 'END GAME', 'TERMINAR', 'TERMINA', '结束游戏', 'ЗАКОНЧИТЬ'],
     b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ'],
     c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ'],
     c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ'],
@@ -652,7 +670,7 @@
     normal: { name: 'Moyen',     count: 1.0, speed: 1.0,  dmg: 1.0, drop: 1.0, cd: 1.0 },
     hard:   { name: 'Difficile', count: 1.3, speed: 1.15, dmg: 1.4, drop: 0.7, cd: 0.8 }
   };
-  var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff' };
+  var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff', life: '#ff6b9d' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
   var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
   function bestKey(d) { return 'droneStrikeBest' + (d === 'normal' ? '' : '_' + d); }
@@ -741,7 +759,7 @@
     }
     if (e.repeat) return;
     press(e.code);
-    if (e.code === 'Enter' && state !== 'play' && !setOpen && !(e.target && e.target.tagName === 'BUTTON')) startGame();
+    if (e.code === 'Enter' && state !== 'play' && state !== 'down' && !setOpen && !(e.target && e.target.tagName === 'BUTTON')) startGame();
   });
   window.addEventListener('keyup', function (e) { keys[e.code] = false; });
   window.addEventListener('blur', function () { keys = {}; });
@@ -823,7 +841,12 @@
     if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = startBtn.textContent;
     if (state === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
     else if (state === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
-    else if (state === 'over') {
+    else if (state === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = tr('downSub', { n: lives }); }
+    var dn = state === 'down';
+    reviveBtn.hidden = !dn; endBtn.hidden = !dn; startBtn.hidden = dn;
+    document.getElementById('gameBtn').hidden = dn; document.getElementById('optBtn').hidden = dn;
+    reviveBtn.textContent = tr('useLife') + '  \u2665 ' + lives;
+    if (state === 'over') {
       var c = tr('colon');
       elTitle.textContent = tr('downed');
       elSub.textContent = tr(lastRecord ? 'newRecord' : 'destroyed');
@@ -902,7 +925,7 @@
     catch (err) { return new Date(ms).toISOString().slice(0, 10); }
   }
   function renderScores() {
-    scoresBtn.hidden = state === 'pause';
+    scoresBtn.hidden = state === 'pause' || state === 'down';
     var tb = scoreView.querySelectorAll('[data-sdiff]'), i;
     for (i = 0; i < tb.length; i++) {
       var onT = tb[i].getAttribute('data-sdiff') === scoreDiff;
@@ -1007,7 +1030,8 @@
   var TYPES = {
     scout:  { r: 14, hp: 2,  speed: 300, color: '#ff8a3d', pts: 10, label: 'Kamikaze' },
     gunner: { r: 18, hp: 3,  speed: 190, color: '#ff4d6d', pts: 25, label: 'Tireur' },
-    heavy:  { r: 30, hp: 12, speed: 95,  color: '#c77dff', pts: 80, label: 'Lourd' }
+    heavy:  { r: 30, hp: 12, speed: 95,  color: '#c77dff', pts: 80, label: 'Lourd' },
+    boss:   { r: 50, hp: 110, speed: 85, color: '#ff3b6b', pts: 500, label: 'Boss' }
   };
 
   function rand(a, b) { return a + Math.random() * (b - a); }
@@ -1019,7 +1043,7 @@
     gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff]; best = comboBest(gameDiff, gameDrone);
     player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
                fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
-    gameMap = cfg.map; obstacles = getObs(gameMap);
+    gameMap = cfg.map; obstacles = getObs(gameMap); lives = 3;
     enemies = []; bullets = []; particles = []; pickups = [];
     score = 0; wave = 0; waveTimer = 1.2; banner = ''; bannerT = 0; shake = 0; time = 0; kills = 0;
     state = 'play'; keys = {}; releaseSticks(); resumeBtn.hidden = true;
@@ -1054,6 +1078,31 @@
     startBtn.focus();
   }
 
+  function downed() {
+    state = 'down'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = true;
+    elStats.hidden = true; elKeys.hidden = true;
+    showSettings(false);
+    overlay.classList.remove('hidden');
+    reviveBtn.focus();
+  }
+  function revive() {
+    if (state !== 'down' || lives <= 0) return;
+    lives--;
+    var p = player, i;
+    p.hp = p.maxHp; p.inv = 3; p.vx = p.vy = 0; p.hitFlash = 0;
+    for (i = bullets.length - 1; i >= 0; i--) if (!bullets[i].friendly) bullets.splice(i, 1);
+    for (i = 0; i < enemies.length; i++) {
+      var e = enemies[i], dx = e.x - p.x, dy = e.y - p.y, d = Math.hypot(dx, dy) || 1;
+      if (d < 320) { e.vx = dx / d * 700; e.vy = dy / d * 700; e.cd = Math.max(e.cd, 1.2); }
+    }
+    state = 'play'; keys = {};
+    overlay.classList.add('hidden'); canvas.focus();
+    banner = tr('b_revive'); bannerT = 1.6;
+    burst(p.x, p.y, PCOL.life, 30, 380); beep(440, 0.3, 'triangle', 0.07, 1320); vib(60);
+  }
+  reviveBtn.addEventListener('click', revive);
+  endBtn.addEventListener('click', function () { if (state === 'down') gameOver(); });
+
   function goMenu() {
     state = 'menu'; player = null; releaseSticks(); keys = {};
     elStats.hidden = true; elKeys.hidden = false;
@@ -1078,15 +1127,21 @@
 
   function nextWave() {
     wave++;
-    var n = Math.max(2, Math.round((3 + wave * 2) * D.count)), i;
+    var n = Math.max(2, Math.round((3 + wave * 2) * D.count * (wave % 5 === 0 ? 0.4 : 1))), i;
     for (i = 0; i < n; i++) {
       var roll = Math.random(), type = 'scout';
       if (wave >= 2 && roll < 0.4) type = 'gunner';
       if (wave >= 4 && roll < 0.12) type = 'heavy';
       spawnEnemy(type);
     }
-    if (wave % 5 === 0) { spawnEnemy('heavy'); spawnEnemy('heavy'); }
     banner = tr('b_wave', { n: wave }); bannerT = 2.2;
+    if (wave % 5 === 0) {
+      spawnEnemy('boss');
+      var bs = enemies[enemies.length - 1];
+      bs.hp = bs.maxHp = Math.round((110 + (wave / 5 - 1) * 70) * D.count);
+      bs.spawn = 1.6; bs.pat = 0; bs.cd = 2.5;
+      banner = tr('b_boss'); bannerT = 2.6; vib([80, 60, 80]);
+    }
     beep(440, 0.25, 'triangle', 0.06, 880);
   }
 
@@ -1133,7 +1188,7 @@
       player.hp = 0;
       burst(player.x, player.y, '#4fd8ff', 50, 420); burst(player.x, player.y, '#ffffff', 20, 250);
       beep(200, 0.8, 'sawtooth', 0.09, 40); vib([120, 60, 220]);
-      gameOver();
+      if (lives > 0) downed(); else gameOver();
     }
   }
 
@@ -1141,12 +1196,21 @@
     var t = TYPES[e.type];
     score += t.pts; kills++;
     burst(e.x, e.y, t.color, 14 + e.r, 320); burst(e.x, e.y, '#ffe9a8', 8, 180);
-    shake = Math.max(shake, e.type === 'heavy' ? 14 : 5);
+    shake = Math.max(shake, e.type === 'boss' ? 24 : e.type === 'heavy' ? 14 : 5);
+    if (e.type === 'boss') {
+      burst(e.x, e.y, '#ffffff', 40, 480); burst(e.x, e.y, t.color, 50, 380);
+      beep(90, 0.9, 'sawtooth', 0.09, 30); vib([100, 50, 200]);
+      banner = tr('b_bossDown'); bannerT = 2;
+      pickups.push({ x: e.x - 26, y: e.y, kind: lives < MAX_LIVES ? 'life' : 'shield', life: 20, r: 13 });
+      pickups.push({ x: e.x + 26, y: e.y, kind: 'heal', life: 20, r: 13 });
+      return;
+    }
     beep(e.type === 'heavy' ? 110 : 220, 0.3, 'square', 0.06, 50);
     if (e.type === 'heavy') vib(30);
     var chance = (e.type === 'heavy' ? 0.7 : 0.16) * D.drop;
     if (Math.random() < chance) {
       var roll = Math.random(), kind = roll < 0.35 ? 'heal' : roll < 0.58 ? 'rapid' : roll < 0.79 ? 'shield' : 'gun';
+      if (lives < MAX_LIVES && Math.random() < 0.07) kind = 'life';
       pickups.push({ x: e.x, y: e.y, kind: kind, life: 12, r: 13 });
     }
   }
@@ -1214,8 +1278,8 @@
       var sp = t.speed * (1 + Math.min(wave, 15) * 0.02) * D.speed;
       var tx = 0, ty = 0;
       if (e.type === 'scout') { tx = nx; ty = ny; }
-      else if (e.type === 'gunner') {
-        var want = 330;
+      else if (e.type === 'gunner' || e.type === 'boss') {
+        var want = e.type === 'boss' ? 380 : 330;
         var radial = d > want + 40 ? 1 : d < want - 40 ? -1 : 0;
         tx = nx * radial - ny * e.strafe * 0.8; ty = ny * radial + nx * e.strafe * 0.8;
         if (Math.random() < dt * 0.3) e.strafe *= -1;
@@ -1251,7 +1315,18 @@
       // shooting
       e.cd -= dt;
       if (e.cd <= 0 && d < 700 && !e.blocked) {
-        if (e.type === 'gunner') {
+        if (e.type === 'boss') {
+          var rage = e.hp < e.maxHp / 2, m = e.pat % 3, nb;
+          e.pat++;
+          if (m === 0) { nb = rage ? 18 : 12; for (j = 0; j < nb; j++) fire(e.x, e.y, e.angle + j / nb * TAU, 250, false, 10); }
+          else if (m === 1) { for (j = -2; j <= 2; j++) fire(e.x + nx * 50, e.y + ny * 50, e.angle + j * 0.16, rage ? 430 : 360, false, 12); }
+          else if (enemies.length < 14) {
+            for (j = -1; j <= 1; j += 2)
+              enemies.push({ type: 'scout', x: e.x - ny * 75 * j, y: e.y + nx * 75 * j, vx: 0, vy: 0, r: 14, hp: 2, maxHp: 2, cd: 99, angle: 0, strafe: j, flash: 0, spawn: 0.5 });
+          }
+          beep(160, 0.25, 'sawtooth', 0.05, 80);
+          e.cd = (rage ? 1.15 : 1.7) * D.cd;
+        } else if (e.type === 'gunner') {
           fire(e.x + nx * 20, e.y + ny * 20, e.angle + rand(-0.06, 0.06), 380, false, 8);
           e.cd = Math.max(0.7, 1.6 - wave * 0.04) * D.cd;
         } else if (e.type === 'heavy') {
@@ -1267,7 +1342,7 @@
           enemies.splice(i, 1); kills++;
           continue;
         } else if (p.inv <= 0) {
-          hurtPlayer(e.type === 'heavy' ? 20 : 10);
+          hurtPlayer(e.type === 'boss' ? 25 : e.type === 'heavy' ? 20 : 10);
           p.vx -= nx * 500; p.vy -= ny * 500;
         }
       }
@@ -1305,6 +1380,7 @@
         if (k.kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + 30); banner = tr('b_heal'); }
         else if (k.kind === 'rapid') { p.rapid = 8; banner = tr('b_rapid'); }
         else if (k.kind === 'shield') { p.shield = 8; banner = tr('b_shield'); }
+        else if (k.kind === 'life') { lives = Math.min(MAX_LIVES, lives + 1); banner = tr('b_life'); }
         else { p.gun = 10; banner = tr('b_gun'); }
         vib(20);
         bannerT = 1.2;
@@ -1389,6 +1465,7 @@
       ctx.beginPath(); ctx.arc(k.x, k.y, pr, 0, TAU); ctx.stroke(); ctx.shadowBlur = 0;
       ctx.fillStyle = col;
       if (k.kind === 'heal') { ctx.fillRect(k.x - 2, k.y - 7, 4, 14); ctx.fillRect(k.x - 7, k.y - 2, 14, 4); }
+      else if (k.kind === 'life') heart(k.x, k.y + 1, 8);
       else if (k.kind === 'shield') { ctx.beginPath(); ctx.moveTo(k.x, k.y - 8); ctx.lineTo(k.x + 7, k.y - 5); ctx.lineTo(k.x + 7, k.y + 1); ctx.lineTo(k.x, k.y + 8); ctx.lineTo(k.x - 7, k.y + 1); ctx.lineTo(k.x - 7, k.y - 5); ctx.closePath(); ctx.fill(); }
       else if (k.kind === 'gun') { ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(k.x - 6, k.y); ctx.lineTo(k.x + 7, k.y - 6); ctx.moveTo(k.x - 6, k.y); ctx.lineTo(k.x + 8, k.y); ctx.moveTo(k.x - 6, k.y); ctx.lineTo(k.x + 7, k.y + 6); ctx.stroke(); }
       else { ctx.beginPath(); ctx.moveTo(k.x + 2, k.y - 8); ctx.lineTo(k.x - 5, k.y + 1); ctx.lineTo(k.x, k.y + 1); ctx.lineTo(k.x - 2, k.y + 8); ctx.lineTo(k.x + 5, k.y - 1); ctx.lineTo(k.x, k.y - 1); ctx.closePath(); ctx.fill(); }
@@ -1410,7 +1487,12 @@
         ctx.beginPath(); ctx.arc(e.x, e.y, e.r * (1 + e.spawn * 3), 0, TAU); ctx.stroke(); ctx.globalAlpha = 1;
       }
       drawDrone(e.x, e.y, e.angle, e.r, t.color, e.flash > 0, e.spawn > 0 ? 0.35 : 1);
-      if (e.hp < e.maxHp && e.maxHp > 2) {
+      if (e.type === 'boss' && e.spawn <= 0) {
+        var rg = e.hp < e.maxHp / 2;
+        ctx.strokeStyle = rg ? '#ffd166' : t.color; ctx.lineWidth = 3; ctx.globalAlpha = 0.55 + Math.sin(time * (rg ? 12 : 5)) * 0.25;
+        ctx.beginPath(); ctx.arc(e.x, e.y, e.r * 1.75, 0, TAU); ctx.stroke(); ctx.globalAlpha = 1;
+      }
+      if (e.hp < e.maxHp && e.maxHp > 2 && e.type !== 'boss') {
         var bw = e.r * 2;
         ctx.fillStyle = '#1b2538'; ctx.fillRect(e.x - bw / 2, e.y - e.r * 1.9 - 8, bw, 4);
         ctx.fillStyle = t.color; ctx.fillRect(e.x - bw / 2, e.y - e.r * 1.9 - 8, bw * e.hp / e.maxHp, 4);
@@ -1418,7 +1500,7 @@
     }
 
     // player
-    if (state !== 'over') {
+    if (state !== 'over' && state !== 'down') {
       var blink = player.inv > 0 && Math.floor(time * 30) % 2;
       drawDrone(player.x, player.y, player.angle, player.r, player.spec.color, player.hitFlash > 0, blink ? 0.45 : 1);
       if (player.shield > 0 && !(player.shield < 2 && Math.floor(time * 8) % 2)) {
@@ -1457,6 +1539,9 @@
     ctx.fillStyle = '#1b2538'; ctx.fillRect(28, 60, hw, 5);
     ctx.fillStyle = dr >= 1 ? '#4fd8ff' : '#2a6f9c'; ctx.fillRect(28, 60, hw * dr, 5);
     var chips = [[tr('c_rapid'), p.rapid, PCOL.rapid], [tr('b_shield'), p.shield, PCOL.shield], [tr('c_gun'), p.gun, PCOL.gun]], cx = 28;
+    ctx.fillStyle = PCOL.life;
+    for (i = 0; i < lives; i++) { heart(cx + 7, 91, 7); cx += 18; }
+    if (lives) cx += 6;
     ctx.textAlign = 'left'; ctx.font = '700 13px "Segoe UI", system-ui, sans-serif';
     for (i = 0; i < chips.length; i++) {
       if (chips[i][1] <= 0) continue;
@@ -1487,7 +1572,7 @@
     ctx.strokeRect(rx + cam.x / WORLD_W * rw, ry + cam.y / WORLD_H * rh, VW / WORLD_W * rw, VH / WORLD_H * rh);
     for (i = 0; i < enemies.length; i++) {
       ctx.fillStyle = TYPES[enemies[i].type].color;
-      var s = enemies[i].type === 'heavy' ? 5 : 3;
+      var s = enemies[i].type === 'boss' ? 8 : enemies[i].type === 'heavy' ? 5 : 3;
       ctx.fillRect(rx + enemies[i].x / WORLD_W * rw - s / 2, ry + enemies[i].y / WORLD_H * rh - s / 2, s, s);
     }
     for (i = 0; i < pickups.length; i++) {
@@ -1507,6 +1592,18 @@
       ctx.fillStyle = TYPES[e.type].color; ctx.globalAlpha = 0.85;
       ctx.beginPath(); ctx.moveTo(10, 0); ctx.lineTo(-6, -7); ctx.lineTo(-6, 7); ctx.closePath(); ctx.fill();
       ctx.restore();
+    }
+
+    // boss bar
+    for (i = 0; i < enemies.length; i++) {
+      if (enemies[i].type !== 'boss') continue;
+      var bo = enemies[i], bbw = W < 700 ? W * 0.5 : Math.min(420, W * 0.26), bbx = (W - bbw) / 2, bby = W < 700 ? 192 : 18;
+      ctx.fillStyle = 'rgba(9, 15, 28, 0.8)'; ctx.fillRect(bbx - 4, bby - 4, bbw + 8, 18);
+      ctx.fillStyle = bo.hp < bo.maxHp / 2 ? '#ffd166' : '#ff3b6b'; ctx.fillRect(bbx, bby, bbw * Math.max(0, bo.hp / bo.maxHp), 10);
+      ctx.strokeStyle = '#ff3b6b'; ctx.lineWidth = 1; ctx.strokeRect(bbx - 3.5, bby - 3.5, bbw + 7, 17);
+      ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.font = '800 11px "Segoe UI", system-ui, sans-serif';
+      ctx.fillText(tr('hud_boss'), W / 2, bby + 18);
+      break;
     }
 
     // virtual sticks
@@ -1561,7 +1658,7 @@
     var showTouch = isTouch && state === 'play';
     if (touchUI.hidden === showTouch) touchUI.hidden = !showTouch;
     if (state === 'play') update(dt);
-    if (state === 'play' || state === 'over') updateParticles(dt);
+    if (state === 'play' || state === 'over' || state === 'down') updateParticles(dt);
     draw();
     if (setOpen) drawPreviews(ts / 1000);
     requestAnimationFrame(frame);
@@ -1569,7 +1666,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets }; }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, end: function () { if (state === 'down') gameOver(); }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>
