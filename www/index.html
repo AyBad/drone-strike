@@ -166,6 +166,13 @@
   .ctrlFoot .danger:hover { background: rgba(255, 77, 109, 0.22); }
   #scoreHint { margin: 0; font-size: 12px; color: #8fa6c4; text-align: left; flex: 1; min-width: 200px; }
   @media (max-width: 520px) { .tile strong { font-size: 20px; } .tile span { font-size: 9.5px; letter-spacing: 0.5px; } .scoreCard .big { font-size: 24px; } }
+  /* ---------- Options de jeu ---------- */
+  .mapGrid { grid-template-columns: repeat(4, 1fr); }
+  .optCard canvas.mapPrev { width: 100%; height: auto; aspect-ratio: 13 / 9; border-radius: 8px; display: block; }
+  #mapDesc { text-align: center; margin: 14px 0 0; font-size: 13.5px; color: #c6d4e8; }
+  .playBar { display: flex; justify-content: center; padding: 18px 22px 0; }
+  #optPlay { min-width: 240px; }
+  @media (max-width: 700px) { .mapGrid { grid-template-columns: repeat(2, 1fr); } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -186,6 +193,7 @@
       <div class="btns">
         <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
         <button id="startBtn">JOUER</button>
+        <button id="gameBtn" class="ghost" data-i18n="gameOptions">OPTIONS DE JEU</button>
         <button id="scoresBtn" class="ghost" data-i18n="scores">SCORES</button>
         <button id="optBtn" class="ghost" data-i18n="settings">PARAMÈTRES</button>
         <button id="quitBtn" class="ghost" hidden data-i18n="quit">QUITTER</button>
@@ -214,6 +222,36 @@
           <div class="toggleRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="sound">Son</span></span><button class="switch" role="switch" data-opt="sound" data-toggle data-i18n-aria="sound" aria-label="Son"></button></div>
           <div class="toggleRow" id="vibRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8"/></svg><span data-i18n="vibration">Vibration</span></span><button class="switch" role="switch" data-opt="vib" data-toggle data-i18n-aria="vibration" aria-label="Vibration"></button></div>
         </section>
+        <section class="card full" id="ctrlSec">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3M15.5 12h.01M18 13.5h.01"/></svg><span data-i18n="controls">Commandes</span></div>
+          <div class="rowLine"><span data-i18n="aim">Visée</span>
+            <div class="seg"><button data-aim="mouse" data-i18n="mouse">Souris</button><button data-aim="keys" data-i18n="keyboard">Clavier</button></div>
+          </div>
+          <div class="binds" id="bindList"></div>
+          <div class="ctrlFoot">
+            <p class="sub" id="bindHint" data-i18n="bindHint"></p>
+            <button id="resetBtn" class="ghost smallBtn" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div id="gameView" hidden>
+      <div class="setHead">
+        <button id="gameBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="gameOptions">OPTIONS DE JEU</h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="setGrid">
+        <section class="card full">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span data-i18n="map">Carte</span></div>
+          <div class="optGrid mapGrid">
+            <button class="optCard" data-opt="map" data-val="plain" style="--c:#4fd8ff"><canvas class="mapPrev" data-map="plain" width="260" height="180"></canvas><span data-i18n="m_plain"></span></button>
+            <button class="optCard" data-opt="map" data-val="city" style="--c:#c77dff"><canvas class="mapPrev" data-map="city" width="260" height="180"></canvas><span data-i18n="m_city"></span></button>
+            <button class="optCard" data-opt="map" data-val="canyon" style="--c:#ff8a3d"><canvas class="mapPrev" data-map="canyon" width="260" height="180"></canvas><span data-i18n="m_canyon"></span></button>
+            <button class="optCard" data-opt="map" data-val="base" style="--c:#5dff9b"><canvas class="mapPrev" data-map="base" width="260" height="180"></canvas><span data-i18n="m_base"></span></button>
+          </div>
+          <p id="mapDesc"></p>
+        </section>
         <section class="card full">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="m12 18 4-6"/></svg><span data-i18n="difficulty">Difficulté</span></div>
           <div class="optGrid diffGrid">
@@ -233,18 +271,8 @@
           <p id="droneDesc"></p>
           <p id="nextNote" hidden data-i18n="nextNote"></p>
         </section>
-        <section class="card full" id="ctrlSec">
-          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3M15.5 12h.01M18 13.5h.01"/></svg><span data-i18n="controls">Commandes</span></div>
-          <div class="rowLine"><span data-i18n="aim">Visée</span>
-            <div class="seg"><button data-aim="mouse" data-i18n="mouse">Souris</button><button data-aim="keys" data-i18n="keyboard">Clavier</button></div>
-          </div>
-          <div class="binds" id="bindList"></div>
-          <div class="ctrlFoot">
-            <p class="sub" id="bindHint" data-i18n="bindHint"></p>
-            <button id="resetBtn" class="ghost smallBtn" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button>
-          </div>
-        </section>
       </div>
+      <div class="playBar"><button id="optPlay">JOUER</button></div>
     </div>
     <div id="scoreView" hidden>
       <div class="setHead">
@@ -297,6 +325,168 @@
   var WORLD_W = 2600, WORLD_H = 1800;
   var TAU = Math.PI * 2;
 
+  // ---------- Cartes ----------
+  var MAPS = {
+    plain:  { c: '#4fd8ff', ground: '#0b1322', grid: '#132038', border: '#2a6f9c' },
+    city:   { c: '#c77dff', ground: '#0c1019', grid: '#161c2a', border: '#6b4fa0' },
+    canyon: { c: '#ff8a3d', ground: '#15100c', grid: '#221a12', border: '#8a5a30' },
+    base:   { c: '#5dff9b', ground: '#08130f', grid: '#10221a', border: '#2f7a55' }
+  };
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function rectNear(x, y, w, h, cx, cy, m) {
+    var qx = Math.max(x, Math.min(cx, x + w)), qy = Math.max(y, Math.min(cy, y + h));
+    return Math.hypot(cx - qx, cy - qy) < m;
+  }
+  function buildMap(id) {
+    var out = [], CXm = 1300, CYm = 900, r, i, j;
+    if (id === 'city') {
+      r = rng(7);
+      for (i = 0; i < 5; i++) for (j = 0; j < 3; j++) {
+        var w = 260 + r() * 80, h = 200 + r() * 80, x = 150 + i * 500 + r() * 40, y = 160 + j * 560 + r() * 40;
+        if (rectNear(x, y, w, h, CXm, CYm, 260)) continue;
+        out.push({ t: 'r', k: 'bld', x: x, y: y, w: w, h: h, s: r() });
+      }
+    } else if (id === 'canyon') {
+      r = rng(11);
+      for (var tries = 0; tries < 900 && out.length < 24; tries++) {
+        var rad = 45 + r() * 65, cx = rad + 60 + r() * (2600 - 2 * (rad + 60)), cy = rad + 60 + r() * (1800 - 2 * (rad + 60)), ok = true;
+        if (Math.hypot(cx - CXm, cy - CYm) < rad + 300) continue;
+        for (j = 0; j < out.length; j++) if (Math.hypot(cx - out[j].x, cy - out[j].y) < rad + out[j].r + 110) { ok = false; break; }
+        if (!ok) continue;
+        var v = [];
+        for (j = 0; j < 9; j++) v.push(0.84 + r() * 0.16);
+        out.push({ t: 'c', x: cx, y: cy, r: rad, v: v, a: r() * 6.28 });
+      }
+    } else if (id === 'base') {
+      r = rng(5);
+      var T = 32;
+      for (i = 0; i < 5; i++) for (j = 0; j < 4; j++) {
+        var bx = 260 + i * 520, by = 225 + j * 450;
+        if (Math.hypot(bx - CXm, by - CYm) < 330) continue;
+        var kind = Math.floor(r() * 3);
+        if (kind === 0) out.push({ t: 'r', k: 'wall', x: bx - 150, y: by - T / 2, w: 300, h: T });
+        else if (kind === 1) out.push({ t: 'r', k: 'wall', x: bx - T / 2, y: by - 130, w: T, h: 260 });
+        else {
+          var sx = r() < 0.5 ? -1 : 1, sy = r() < 0.5 ? -1 : 1;
+          out.push({ t: 'r', k: 'wall', x: sx < 0 ? bx - 220 : bx, y: by - T / 2, w: 220, h: T });
+          out.push({ t: 'r', k: 'wall', x: bx - T / 2, y: sy < 0 ? by - 200 : by, w: T, h: 200 });
+        }
+      }
+    }
+    return out;
+  }
+  var mapCache = {}, obstacles = [], gameMap = 'plain';
+  function getObs(id) { return mapCache[id] || (mapCache[id] = buildMap(id)); }
+  function collide(o, rad) {
+    for (var i = 0; i < obstacles.length; i++) {
+      var ob = obstacles[i], nx, ny, push;
+      if (ob.t === 'r') {
+        var qx = Math.max(ob.x, Math.min(o.x, ob.x + ob.w)), qy = Math.max(ob.y, Math.min(o.y, ob.y + ob.h));
+        var dx = o.x - qx, dy = o.y - qy, d2 = dx * dx + dy * dy;
+        if (d2 >= rad * rad) continue;
+        if (d2 > 0) { var d = Math.sqrt(d2); nx = dx / d; ny = dy / d; push = rad - d; }
+        else {
+          var l = o.x - ob.x, rr = ob.x + ob.w - o.x, tp = o.y - ob.y, bt = ob.y + ob.h - o.y, m = Math.min(l, rr, tp, bt);
+          if (m === l) { nx = -1; ny = 0; } else if (m === rr) { nx = 1; ny = 0; } else if (m === tp) { nx = 0; ny = -1; } else { nx = 0; ny = 1; }
+          push = m + rad;
+        }
+      } else {
+        var cx = o.x - ob.x, cy = o.y - ob.y, cd = Math.hypot(cx, cy), mn = rad + ob.r;
+        if (cd >= mn) continue;
+        if (cd === 0) { cx = 1; cy = 0; cd = 1; }
+        nx = cx / cd; ny = cy / cd; push = mn - cd;
+      }
+      o.x += nx * push; o.y += ny * push;
+      var vn = o.vx * nx + o.vy * ny;
+      if (vn < 0) { o.vx -= vn * nx; o.vy -= vn * ny; }
+    }
+  }
+  function pointBlocked(x, y) {
+    for (var i = 0; i < obstacles.length; i++) {
+      var ob = obstacles[i];
+      if (ob.t === 'r' ? (x > ob.x && x < ob.x + ob.w && y > ob.y && y < ob.y + ob.h) : Math.hypot(x - ob.x, y - ob.y) < ob.r * 0.95) return true;
+    }
+    return false;
+  }
+  function losBlocked(x1, y1, x2, y2) {
+    if (!obstacles.length) return false;
+    var n = Math.ceil(Math.hypot(x2 - x1, y2 - y1) / 24);
+    for (var k = 1; k < n; k++) if (pointBlocked(x1 + (x2 - x1) * k / n, y1 + (y2 - y1) * k / n)) return true;
+    return false;
+  }
+  function freeSpot(x, y, rad) {
+    for (var i = 0; i < obstacles.length; i++) {
+      var ob = obstacles[i];
+      if (ob.t === 'r') { if (rectNear(ob.x, ob.y, ob.w, ob.h, x, y, rad)) return false; }
+      else if (Math.hypot(x - ob.x, y - ob.y) < rad + ob.r) return false;
+    }
+    return true;
+  }
+  function drawObstacles(list, cam, view) {
+    for (var i = 0; i < list.length; i++) {
+      var ob = list[i];
+      if (cam) {
+        var bx0 = ob.t === 'r' ? ob.x : ob.x - ob.r, by0 = ob.t === 'r' ? ob.y : ob.y - ob.r;
+        var bw = ob.t === 'r' ? ob.w : ob.r * 2, bh = ob.t === 'r' ? ob.h : ob.r * 2;
+        if (bx0 > cam.x + view.w + 20 || by0 > cam.y + view.h + 20 || bx0 + bw < cam.x - 20 || by0 + bh < cam.y - 20) continue;
+      }
+      if (ob.t === 'r' && ob.k === 'bld') {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; ctx.fillRect(ob.x + 12, ob.y + 14, ob.w, ob.h);
+        ctx.fillStyle = '#1a2236'; ctx.fillRect(ob.x, ob.y, ob.w, ob.h);
+        ctx.fillStyle = '#222c45'; ctx.fillRect(ob.x + 10, ob.y + 10, ob.w - 20, ob.h - 20);
+        ctx.strokeStyle = '#3a4a70'; ctx.lineWidth = 2; ctx.strokeRect(ob.x + 1, ob.y + 1, ob.w - 2, ob.h - 2);
+        var cols = Math.floor((ob.w - 34) / 26), rows = Math.floor((ob.h - 34) / 26);
+        for (var a = 0; a < cols; a++) for (var b2 = 0; b2 < rows; b2++) {
+          var hsh = Math.sin((a * 31 + b2 * 17 + ob.s * 1000) * 12.9898) * 43758.5453;
+          hsh -= Math.floor(hsh);
+          ctx.fillStyle = hsh > 0.72 ? 'rgba(255, 209, 102, 0.55)' : hsh > 0.55 ? 'rgba(79, 216, 255, 0.28)' : 'rgba(10, 16, 28, 0.6)';
+          ctx.fillRect(ob.x + 20 + a * 26, ob.y + 20 + b2 * 26, 12, 12);
+        }
+      } else if (ob.t === 'r') {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; ctx.fillRect(ob.x + 8, ob.y + 10, ob.w, ob.h);
+        ctx.fillStyle = '#173328'; ctx.fillRect(ob.x, ob.y, ob.w, ob.h);
+        ctx.strokeStyle = '#3f9a6c'; ctx.lineWidth = 2; ctx.strokeRect(ob.x + 1, ob.y + 1, ob.w - 2, ob.h - 2);
+        ctx.fillStyle = 'rgba(93, 255, 155, 0.18)';
+        if (ob.w > ob.h) ctx.fillRect(ob.x + 6, ob.y + ob.h / 2 - 2, ob.w - 12, 4); else ctx.fillRect(ob.x + ob.w / 2 - 2, ob.y + 6, 4, ob.h - 12);
+      } else {
+        var n = ob.v.length, k;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; ctx.beginPath();
+        for (k = 0; k < n; k++) { var an = ob.a + k / n * TAU; ctx[k ? 'lineTo' : 'moveTo'](ob.x + 10 + Math.cos(an) * ob.r * ob.v[k], ob.y + 12 + Math.sin(an) * ob.r * ob.v[k]); }
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#3b2c20'; ctx.strokeStyle = '#6a4f36'; ctx.lineWidth = 2; ctx.beginPath();
+        for (k = 0; k < n; k++) { var an2 = ob.a + k / n * TAU; ctx[k ? 'lineTo' : 'moveTo'](ob.x + Math.cos(an2) * ob.r * ob.v[k], ob.y + Math.sin(an2) * ob.r * ob.v[k]); }
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#4c3a2a'; ctx.beginPath();
+        for (k = 0; k < n; k++) { var an3 = ob.a + k / n * TAU; ctx[k ? 'lineTo' : 'moveTo'](ob.x - ob.r * 0.18 + Math.cos(an3) * ob.r * ob.v[k] * 0.55, ob.y - ob.r * 0.2 + Math.sin(an3) * ob.r * ob.v[k] * 0.55); }
+        ctx.closePath(); ctx.fill();
+      }
+    }
+  }
+  function drawGround(th, x0, y0, x1, y1, g) {
+    ctx.fillStyle = th.ground; ctx.fillRect(0, 0, WORLD_W, WORLD_H);
+    ctx.strokeStyle = th.grid; ctx.lineWidth = 1; ctx.beginPath();
+    for (var gx = Math.max(0, Math.floor(x0 / g) * g); gx <= Math.min(WORLD_W, x1); gx += g) { ctx.moveTo(gx, Math.max(0, y0)); ctx.lineTo(gx, Math.min(WORLD_H, y1)); }
+    for (var gy = Math.max(0, Math.floor(y0 / g) * g); gy <= Math.min(WORLD_H, y1); gy += g) { ctx.moveTo(Math.max(0, x0), gy); ctx.lineTo(Math.min(WORLD_W, x1), gy); }
+    ctx.stroke();
+  }
+  function drawMapPreview(c, id) {
+    var mainCtx = ctx, s2 = c.width / WORLD_W;
+    ctx = c.getContext('2d');
+    ctx.setTransform(s2, 0, 0, s2, 0, 0);
+    drawGround(MAPS[id], 0, 0, WORLD_W, WORLD_H, 200);
+    drawObstacles(getObs(id), null, null);
+    ctx.fillStyle = MAPS[id].c; ctx.beginPath(); ctx.arc(WORLD_W / 2, WORLD_H / 2, 46, 0, TAU); ctx.fill();
+    ctx.strokeStyle = MAPS[id].border; ctx.lineWidth = 16; ctx.strokeRect(0, 0, WORLD_W, WORLD_H);
+    ctx = mainCtx;
+  }
+
   // ---------- Langues ----------
   var LANGS = ['fr', 'en', 'es', 'it', 'zh', 'ru'];
   var T = {
@@ -327,7 +517,7 @@
     desc_eclair: ['Très rapide, esquive plus fréquente, mais fragile (75 points de vie).', 'Very fast, dodges more often, but fragile (75 health).', 'Muy rápido, esquiva más a menudo, pero frágil (75 puntos de vida).', 'Molto veloce, schiva più spesso, ma fragile (75 punti vita).', '速度极快，闪避更频繁，但较脆弱（75 生命值）。', 'Очень быстрый, чаще уклоняется, но хрупкий (75 очков здоровья).'],
     desc_blinde: ['Résistant (160 points de vie), tirs lourds à double dégâts, mais lent.', 'Tough (160 health), heavy shots with double damage, but slow.', 'Resistente (160 puntos de vida), disparos pesados con daño doble, pero lento.', 'Resistente (160 punti vita), colpi pesanti a danno doppio, ma lento.', '坚固（160 生命值），重型射击造成双倍伤害，但速度慢。', 'Прочный (160 очков здоровья), тяжёлые выстрелы с двойным уроном, но медленный.'],
     desc_assaut: ['Cadence de tir élevée, blindage léger (90 points de vie).', 'High fire rate, light armor (90 health).', 'Cadencia de disparo alta, blindaje ligero (90 puntos de vida).', 'Cadenza di fuoco elevata, corazza leggera (90 punti vita).', '射速高，装甲轻（90 生命值）。', 'Высокая скорострельность, лёгкая броня (90 очков здоровья).'],
-    nextNote: ['La difficulté et le drone s\'appliquent à la prochaine partie.', 'Difficulty and drone apply from the next game.', 'La dificultad y el dron se aplican en la próxima partida.', 'Difficoltà e drone si applicano dalla prossima partita.', '难度和无人机将在下一局生效。', 'Сложность и дрон применяются со следующей игры.'],
+    nextNote: ['La carte, la difficulté et le drone s\'appliquent à la prochaine partie.', 'Map, difficulty and drone apply from the next game.', 'El mapa, la dificultad y el dron se aplican en la próxima partida.', 'Mappa, difficoltà e drone si applicano dalla prossima partita.', '地图、难度和无人机将在下一局生效。', 'Карта, сложность и дрон применяются со следующей игры.'],
     audio: ['Son et vibration', 'Sound & vibration', 'Sonido y vibración', 'Audio e vibrazione', '声音与振动', 'Звук и вибрация'],
     diffDesc_easy: ['Moins d\'ennemis, plus de bonus', 'Fewer enemies, more power-ups', 'Menos enemigos, más bonus', 'Meno nemici, più bonus', '敌人更少，道具更多', 'Меньше врагов, больше бонусов'],
     diffDesc_normal: ['L\'expérience équilibrée', 'The balanced experience', 'La experiencia equilibrada', 'L\'esperienza equilibrata', '均衡的标准体验', 'Сбалансированная игра'],
@@ -347,6 +537,16 @@
     sc_hint: ['Le record de chaque drone est enregistré séparément pour chaque difficulté.', 'Each drone keeps its own record for every difficulty.', 'Cada dron guarda su propio récord en cada dificultad.', 'Ogni drone ha il proprio record per ciascuna difficoltà.', '每架无人机在每个难度下都有独立的最高分。', 'Для каждого дрона рекорд хранится отдельно на каждой сложности.'],
     sc_reset: ['EFFACER LES SCORES', 'RESET SCORES', 'BORRAR PUNTUACIONES', 'CANCELLA PUNTEGGI', '清除记录', 'СБРОСИТЬ РЕКОРДЫ'],
     sc_confirm: ['CONFIRMER L\'EFFACEMENT ?', 'CONFIRM RESET?', '¿CONFIRMAR BORRADO?', 'CONFERMI LA CANCELLAZIONE?', '确认清除？', 'ПОДТВЕРДИТЬ СБРОС?'],
+    gameOptions: ['OPTIONS DE JEU', 'GAME OPTIONS', 'OPCIONES DE JUEGO', 'OPZIONI DI GIOCO', '游戏选项', 'ИГРОВЫЕ ПАРАМЕТРЫ'],
+    map: ['Carte', 'Map', 'Mapa', 'Mappa', '地图', 'Карта'],
+    m_plain: ['Plaine', 'Open field', 'Llanura', 'Pianura', '平原', 'Равнина'],
+    m_city: ['Ville', 'City', 'Ciudad', 'Città', '城市', 'Город'],
+    m_canyon: ['Canyon', 'Canyon', 'Cañón', 'Canyon', '峡谷', 'Каньон'],
+    m_base: ['Base', 'Base', 'Base', 'Base', '基地', 'База'],
+    mdesc_plain: ['Terrain dégagé, aucun abri.', 'Wide open ground, nowhere to hide.', 'Terreno despejado, sin refugio.', 'Terreno aperto, nessun riparo.', '开阔地带，无处可躲。', 'Открытая местность, укрыться негде.'],
+    mdesc_city: ['Immeubles et rues : cachez-vous derrière les bâtiments.', 'Buildings and streets: take cover behind the blocks.', 'Edificios y calles: cúbrete tras los bloques.', 'Palazzi e strade: riparati dietro gli edifici.', '楼房与街道：躲在建筑后面。', 'Дома и улицы: укрывайтесь за зданиями.'],
+    mdesc_canyon: ['Rochers dispersés qui bloquent le passage et les tirs.', 'Scattered rocks that block movement and shots.', 'Rocas dispersas que bloquean el paso y los disparos.', 'Rocce sparse che bloccano passaggio e colpi.', '散布的岩石会阻挡移动和子弹。', 'Разбросанные скалы мешают движению и выстрелам.'],
+    mdesc_base: ['Murs et couloirs étroits : attention aux embuscades.', 'Walls and narrow corridors: beware of ambushes.', 'Muros y pasillos estrechos: cuidado con las emboscadas.', 'Muri e corridoi stretti: attenzione alle imboscate.', '墙壁与狭窄走廊：小心埋伏。', 'Стены и узкие коридоры: берегитесь засад.'],
     controls: ['Commandes', 'Controls', 'Controles', 'Comandi', '操作', 'Управление'],
     aim: ['Visée', 'Aiming', 'Apuntado', 'Mira', '瞄准', 'Прицел'],
     mouse: ['Souris', 'Mouse', 'Ratón', 'Mouse', '鼠标', 'Мышь'],
@@ -368,7 +568,7 @@
     a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево'],
     a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо'],
     pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…'],
-    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Record : {best}', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Best: {best}', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Récord: {best}', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Record: {best}', '无人机：{drone}  ·  难度：{diff}  ·  最高分：{best}', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Рекорд: {best}'],
+    loadout: ['Carte : {map}  ·  Drone : {drone}  ·  Difficulté : {diff}  ·  Record : {best}', 'Map: {map}  ·  Drone: {drone}  ·  Difficulty: {diff}  ·  Best: {best}', 'Mapa: {map}  ·  Dron: {drone}  ·  Dificultad: {diff}  ·  Récord: {best}', 'Mappa: {map}  ·  Drone: {drone}  ·  Difficoltà: {diff}  ·  Record: {best}', '地图：{map}  ·  无人机：{drone}  ·  难度：{diff}  ·  最高分：{best}', 'Карта: {map}  ·  Дрон: {drone}  ·  Сложность: {diff}  ·  Рекорд: {best}'],
     intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.'],
     introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.'],
     h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец'],
@@ -454,7 +654,7 @@
   };
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
-  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', lang: detectLang() };
+  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
   function bestKey(d) { return 'droneStrikeBest' + (d === 'normal' ? '' : '_' + d); }
   var scores = {};
   try { scores = JSON.parse(localStorage.getItem('droneStrikeScores') || '{}') || {}; } catch (err) { scores = {}; }
@@ -486,6 +686,7 @@
       if (DIFFS[saved.diff]) cfg.diff = saved.diff;
       if (DRONES[saved.drone]) cfg.drone = saved.drone;
       if (LANGS.indexOf(saved.lang) >= 0) cfg.lang = saved.lang;
+      if (saved.map && MAPS[saved.map]) cfg.map = saved.map;
     }
   } catch (err) { /* réglages par défaut */ }
   function saveCfg() { try { localStorage.setItem('droneStrikeKeys', JSON.stringify(cfg)); } catch (err) { /* ignore */ } }
@@ -619,6 +820,7 @@
   }
   function renderText() {
     startBtn.textContent = tr(state === 'pause' ? 'restart' : state === 'over' ? 'replay' : 'play');
+    if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = startBtn.textContent;
     if (state === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
     else if (state === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
     else if (state === 'over') {
@@ -633,7 +835,7 @@
     renderStatic(); renderText();
     var menu = state === 'menu';
     elLoad.hidden = !menu;
-    if (menu) elLoad.textContent = tr('loadout', { drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: comboBest(cfg.diff, cfg.drone) });
+    if (menu) elLoad.textContent = tr('loadout', { map: tr('m_' + cfg.map), drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: comboBest(cfg.diff, cfg.drone) });
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
         '<b>' + esc(tr('h_rightThumb')) + '</b><span>' + esc(tr('h_dragAim')) + '</span>' +
@@ -658,16 +860,19 @@
            (listening === a ? esc(tr('pressKey')) : L(a)) + '</button></div>';
     }
     bindList.innerHTML = h;
-    var ab = setView.querySelectorAll('[data-aim]');
+    var ab = overlay.querySelectorAll('[data-aim]');
     for (var j = 0; j < ab.length; j++) ab[j].classList.toggle('on', ab[j].getAttribute('data-aim') === cfg.aim);
-    var ob = setView.querySelectorAll('[data-opt]');
+    var ob = overlay.querySelectorAll('[data-opt]');
     for (j = 0; j < ob.length; j++) {
       var key = ob[j].getAttribute('data-opt');
       var isOn = ob[j].hasAttribute('data-toggle') ? !!cfg[key] : ob[j].getAttribute('data-val') === cfg[key];
       ob[j].classList.toggle('on', isOn);
       ob[j].setAttribute(ob[j].hasAttribute('data-toggle') ? 'aria-checked' : 'aria-pressed', isOn ? 'true' : 'false');
     }
-    var ds = setView.querySelectorAll('[data-stats]');
+    var mp = overlay.querySelectorAll('canvas[data-map]');
+    for (j = 0; j < mp.length; j++) drawMapPreview(mp[j], mp[j].getAttribute('data-map'));
+    var md = document.getElementById('mapDesc'); if (md) md.textContent = tr('mdesc_' + cfg.map);
+    var ds = overlay.querySelectorAll('[data-stats]');
     for (j = 0; j < ds.length; j++) {
       var sp = DRONES[ds[j].getAttribute('data-stats')];
       var vals = [['stat_hp', sp.hp / 160], ['stat_speed', sp.accel / 2150], ['stat_power', (sp.dmg / sp.fire) / 10]], hs = '';
@@ -682,10 +887,11 @@
   }
   function renderAll() { renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) renderScores(); }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0;
+  var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
-    mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score';
+    mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game';
     panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
     renderAll();
@@ -746,7 +952,7 @@
     if (!btn) return;
     listening = btn.getAttribute('data-act'); btn.blur(); renderBinds();
   });
-  setView.addEventListener('click', function (e) {
+  function optClick(e) {
     var el = e.target && e.target.closest ? e.target.closest('[data-opt],[data-aim]') : null;
     if (!el) return;
     var o = el.getAttribute('data-opt');
@@ -760,7 +966,12 @@
     var m = el.getAttribute('data-aim');
     if (!m) return;
     cfg.aim = m; listening = null; saveCfg(); renderAll();
-  });
+  }
+  setView.addEventListener('click', optClick);
+  gameView.addEventListener('click', optClick);
+  document.getElementById('gameBtn').addEventListener('click', function () { showView('game'); });
+  document.getElementById('gameBack').addEventListener('click', function () { showView('main'); });
+  optPlay.addEventListener('click', function () { startGame(); });
   document.getElementById('optBtn').addEventListener('click', function () { showSettings(true); });
   document.getElementById('backBtn').addEventListener('click', function () { showSettings(false); });
   document.getElementById('resetBtn').addEventListener('click', function () { resetCfg(); listening = null; saveCfg(); renderAll(); });
@@ -808,6 +1019,7 @@
     gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff]; best = comboBest(gameDiff, gameDrone);
     player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
                fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
+    gameMap = cfg.map; obstacles = getObs(gameMap);
     enemies = []; bullets = []; particles = []; pickups = [];
     score = 0; wave = 0; waveTimer = 1.2; banner = ''; bannerT = 0; shake = 0; time = 0; kills = 0;
     state = 'play'; keys = {}; releaseSticks(); resumeBtn.hidden = true;
@@ -858,7 +1070,7 @@
     var t = TYPES[type], x, y, tries = 0;
     do {
       x = rand(60, WORLD_W - 60); y = rand(60, WORLD_H - 60); tries++;
-    } while (Math.hypot(x - player.x, y - player.y) < 520 && tries < 40);
+    } while ((Math.hypot(x - player.x, y - player.y) < 520 || !freeSpot(x, y, t.r + 14)) && tries < 120);
     var hpBonus = type === 'heavy' ? Math.floor(wave / 3) * 2 : Math.floor(wave / 6);
     enemies.push({ type: type, x: x, y: y, vx: 0, vy: 0, r: t.r, hp: t.hp + hpBonus, maxHp: t.hp + hpBonus,
                    cd: rand(0.8, 2.2), angle: 0, strafe: Math.random() < 0.5 ? 1 : -1, flash: 0, spawn: 0.6 });
@@ -959,6 +1171,7 @@
     p.x += p.vx * dt; p.y += p.vy * dt;
     if (p.x < p.r) { p.x = p.r; p.vx = 0; } if (p.x > WORLD_W - p.r) { p.x = WORLD_W - p.r; p.vx = 0; }
     if (p.y < p.r) { p.y = p.r; p.vy = 0; } if (p.y > WORLD_H - p.r) { p.y = WORLD_H - p.r; p.vy = 0; }
+    collide(p, p.r);
 
     var cam = camera();
     var touchFire = isTouch && sticks.aim.id !== null && Math.hypot(sticks.aim.x, sticks.aim.y) > 0.2;
@@ -1007,6 +1220,22 @@
         tx = nx * radial - ny * e.strafe * 0.8; ty = ny * radial + nx * e.strafe * 0.8;
         if (Math.random() < dt * 0.3) e.strafe *= -1;
       } else { tx = nx; ty = ny; }
+      e.losT = (e.losT || 0) - dt;
+      if (e.losT <= 0) { e.losT = 0.22 + Math.random() * 0.12; e.blocked = losBlocked(e.x, e.y, p.x, p.y); }
+      e.detour = (e.detour || 0) - dt;
+      if (e.blocked) {
+        e.bt = (e.bt || 0) + dt;
+        if (e.detour <= 0 && Math.hypot(e.vx, e.vy) < sp * 0.3) { e.strafe *= -1; e.detour = 1.3; }
+        var ang = e.strafe * (e.detour > 0 ? 1.5 : 1.05), ca = Math.cos(ang), sa = Math.sin(ang), rx2 = tx * ca - ty * sa, ry2 = tx * sa + ty * ca;
+        tx = rx2; ty = ry2;
+        if (e.bt > 8) {
+          for (var rt = 0; rt < 60; rt++) {
+            var ra = rand(0, TAU), rd = rand(450, 700), nx2 = clamp(p.x + Math.cos(ra) * rd, 60, WORLD_W - 60), ny2 = clamp(p.y + Math.sin(ra) * rd, 60, WORLD_H - 60);
+            if (freeSpot(nx2, ny2, e.r + 14) && !losBlocked(nx2, ny2, p.x, p.y)) { e.x = nx2; e.y = ny2; e.vx = e.vy = 0; e.spawn = 0.6; e.blocked = false; break; }
+          }
+          e.bt = 0;
+        }
+      } else e.bt = 0;
       e.vx += (tx * sp - e.vx) * Math.min(1, 3 * dt);
       e.vy += (ty * sp - e.vy) * Math.min(1, 3 * dt);
       // separation
@@ -1017,10 +1246,11 @@
       }
       e.x = clamp(e.x + e.vx * dt, e.r, WORLD_W - e.r);
       e.y = clamp(e.y + e.vy * dt, e.r, WORLD_H - e.r);
+      collide(e, e.r);
 
       // shooting
       e.cd -= dt;
-      if (e.cd <= 0 && d < 700) {
+      if (e.cd <= 0 && d < 700 && !e.blocked) {
         if (e.type === 'gunner') {
           fire(e.x + nx * 20, e.y + ny * 20, e.angle + rand(-0.06, 0.06), 380, false, 8);
           e.cd = Math.max(0.7, 1.6 - wave * 0.04) * D.cd;
@@ -1048,6 +1278,7 @@
       b = bullets[i];
       b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
       var dead = b.life <= 0 || b.x < 0 || b.y < 0 || b.x > WORLD_W || b.y > WORLD_H;
+      if (!dead && obstacles.length && pointBlocked(b.x, b.y)) { dead = true; burst(b.x, b.y, b.friendly ? '#9cf0ff' : '#ff5d7a', 3, 90); }
       if (!dead && b.friendly) {
         for (j = enemies.length - 1; j >= 0; j--) {
           e = enemies[j];
@@ -1144,14 +1375,10 @@
     ctx.translate(-cam.x + sx, -cam.y + sy);
 
     // ground
-    ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, WORLD_W, WORLD_H);
-    ctx.strokeStyle = '#132038'; ctx.lineWidth = 1;
-    ctx.beginPath();
-    var g = 80, x0 = Math.max(0, Math.floor(cam.x / g) * g), y0 = Math.max(0, Math.floor(cam.y / g) * g);
-    for (var gx = x0; gx <= Math.min(WORLD_W, cam.x + VW + g); gx += g) { ctx.moveTo(gx, Math.max(0, cam.y - g)); ctx.lineTo(gx, Math.min(WORLD_H, cam.y + VH + g)); }
-    for (var gy = y0; gy <= Math.min(WORLD_H, cam.y + VH + g); gy += g) { ctx.moveTo(Math.max(0, cam.x - g), gy); ctx.lineTo(Math.min(WORLD_W, cam.x + VW + g), gy); }
-    ctx.stroke();
-    ctx.strokeStyle = '#2a6f9c'; ctx.lineWidth = 3; ctx.strokeRect(0, 0, WORLD_W, WORLD_H);
+    var th = MAPS[gameMap];
+    drawGround(th, cam.x - 80, cam.y - 80, cam.x + VW + 80, cam.y + VH + 80, 80);
+    ctx.strokeStyle = th.border; ctx.lineWidth = 3; ctx.strokeRect(0, 0, WORLD_W, WORLD_H);
+    drawObstacles(obstacles, cam, { w: VW, h: VH });
 
     // pickups
     for (i = 0; i < pickups.length; i++) {
@@ -1250,6 +1477,12 @@
     var rw = isTouch ? 110 : 180, rh = rw * WORLD_H / WORLD_W, rx = isTouch ? 18 : W - rw - 20, ry = isTouch ? 106 : H - rh - 20;
     ctx.fillStyle = 'rgba(9, 15, 28, 0.75)'; ctx.fillRect(rx, ry, rw, rh);
     ctx.strokeStyle = '#2a6f9c'; ctx.lineWidth = 1; ctx.strokeRect(rx + 0.5, ry + 0.5, rw, rh);
+    ctx.fillStyle = 'rgba(143, 166, 196, 0.3)';
+    for (i = 0; i < obstacles.length; i++) {
+      var ro = obstacles[i];
+      if (ro.t === 'r') ctx.fillRect(rx + ro.x / WORLD_W * rw, ry + ro.y / WORLD_H * rh, Math.max(1, ro.w / WORLD_W * rw), Math.max(1, ro.h / WORLD_H * rh));
+      else { ctx.beginPath(); ctx.arc(rx + ro.x / WORLD_W * rw, ry + ro.y / WORLD_H * rh, Math.max(1, ro.r / WORLD_W * rw), 0, TAU); ctx.fill(); }
+    }
     ctx.strokeStyle = 'rgba(79, 216, 255, 0.35)';
     ctx.strokeRect(rx + cam.x / WORLD_W * rw, ry + cam.y / WORLD_H * rh, VW / WORLD_W * rw, VH / WORLD_H * rh);
     for (i = 0; i < enemies.length; i++) {
@@ -1308,7 +1541,7 @@
   // ---------- Loop ----------
   var last = 0;
   function drawPreviews(t) {
-    var cs = (view === 'score' ? scoreView : setView).querySelectorAll('canvas[data-prev]');
+    var cs = (view === 'score' ? scoreView : gameView).querySelectorAll('canvas[data-prev]');
     var mainCtx = ctx, mainTime = time;
     time = t;
     for (var i = 0; i < cs.length; i++) {
@@ -1336,7 +1569,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets }; }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets }; }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>
