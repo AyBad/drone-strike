@@ -174,6 +174,51 @@
   .playBar { display: flex; justify-content: center; padding: 18px 22px 0; }
   #optPlay { min-width: 240px; }
   @media (max-width: 700px) { .mapGrid { grid-template-columns: repeat(2, 1fr); } }
+  /* ---------- Chemin, boutique, bonus ---------- */
+  .comboRow { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
+  .comboRow .chip { font-size: 13px; padding: 7px 10px; }
+  .comboRow .chip b { font-variant-numeric: tabular-nums; }
+  .path { padding: 10px 0 0; }
+  .prow { display: flex; justify-content: space-between; position: relative; height: 96px; }
+  .prow.rev { flex-direction: row-reverse; }
+  .prow::before { content: ''; position: absolute; left: 10%; right: 10%; top: 25px; height: 4px; background: #1f3554; border-radius: 2px; }
+  .prow + .prow::after { content: ''; position: absolute; top: -71px; height: 100px; width: 4px; background: #1f3554; border-radius: 2px; left: calc(10% - 2px); }
+  .prow + .prow.rev::after { left: auto; right: calc(10% - 2px); }
+  .node { width: 20%; display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; z-index: 1; }
+  .node small { font-size: 11.5px; font-weight: 700; color: #8fa6c4; font-variant-numeric: tabular-nums; letter-spacing: 0.5px; }
+  .bub { width: 54px; height: 54px; padding: 0; border-radius: 50%; font-size: 17px; font-weight: 800; letter-spacing: 0;
+    display: grid; place-items: center; background: #0a1220; color: #3a4a63; border: 2px solid #1f3554; }
+  .bub svg { width: 20px; height: 20px; }
+  .bub.boss { border-radius: 16px; }
+  .bub.done { background: var(--c); color: #04121c; border-color: var(--c); }
+  .bub.done:hover { filter: brightness(1.15); background: var(--c); }
+  .bub.cur { background: #0f1b30; color: #ffffff; border-color: var(--c); box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 22px -2px var(--c); animation: bubPulse 1.4s ease-in-out infinite; }
+  .bub.cur:hover { background: #16263f; }
+  .bub.lock { cursor: default; }
+  .bub.lock:hover { background: #0a1220; }
+  .bub.boss.lock, .bub.boss.cur { border-color: #ff3b6b; }
+  @keyframes bubPulse { 50% { transform: scale(1.08); } }
+  .shopGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .shopCard { padding: 16px 10px 12px; border-radius: 14px; background: #0a1220; border: 1px solid #1f3554; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; text-align: center; color: #c6d4e8; }
+  .shopCard svg { width: 34px; height: 34px; color: var(--c); }
+  .shopCard .nm { font-size: 15px; font-weight: 700; color: #e6f1ff; }
+  .shopCard small { font-size: 11.5px; color: #8fa6c4; line-height: 1.35; min-height: 2.7em; }
+  .shopCard .own { font-size: 12px; font-weight: 700; color: var(--c); }
+  .shopCard button { margin-top: 4px; padding: 8px 12px; font-size: 13px; letter-spacing: 0.5px; width: 100%; }
+  .shopCard button:disabled { background: #1b2538; color: #56667f; cursor: default; }
+  .coin { color: #ffd166; }
+  #itemBar { position: fixed; z-index: 3; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 8px; }
+  #itemBar button { position: relative; width: 50px; height: 50px; padding: 0; border-radius: 12px; letter-spacing: 0; display: grid; place-items: center;
+    background: rgba(9, 15, 28, 0.8); border: 2px solid var(--c); color: var(--c); }
+  #itemBar button svg { width: 24px; height: 24px; }
+  #itemBar button b { position: absolute; right: -6px; top: -7px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; font-size: 11px; line-height: 18px;
+    background: var(--c); color: #04121c; }
+  #itemBar button i { position: absolute; left: 4px; bottom: 1px; font-size: 9.5px; font-style: normal; font-weight: 700; color: #8fa6c4; }
+  #itemBar button.empty { opacity: 0.3; border-color: #3a4a63; color: #3a4a63; }
+  #itemBar button.empty b { display: none; }
+  @media (max-width: 700px) { .shopGrid { grid-template-columns: repeat(2, 1fr); } .bub { width: 46px; height: 46px; font-size: 15px; } .prow::before { top: 21px; } }
+  @media (max-width: 560px) { #itemBar { bottom: 170px; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -183,6 +228,7 @@
   <button id="pauseBtn" aria-label="Pause" data-i18n-aria="pause">II</button>
   <button id="dashBtn" data-i18n="dodgeBtn">ESQUIVE</button>
 </div>
+<div id="itemBar" hidden></div>
 <div id="overlay">
   <div class="panel" id="panel">
     <div id="mainView">
@@ -195,9 +241,11 @@
       <div class="btns">
         <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
         <button id="reviveBtn" hidden></button>
-        <button id="endBtn" class="ghost" hidden></button>
+        <button id="nextBtn" hidden data-i18n="nextWave"></button>
         <button id="startBtn">JOUER</button>
+        <button id="pathBtn" class="ghost" data-i18n="path"></button>
         <button id="gameBtn" class="ghost" data-i18n="gameOptions">OPTIONS DE JEU</button>
+        <button id="shopBtn" class="ghost" data-i18n="shop"></button>
         <button id="scoresBtn" class="ghost" data-i18n="scores">SCORES</button>
         <button id="optBtn" class="ghost" data-i18n="settings">PARAMÈTRES</button>
         <button id="quitBtn" class="ghost" hidden data-i18n="quit">QUITTER</button>
@@ -247,16 +295,6 @@
       </div>
       <div class="setGrid">
         <section class="card full">
-          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span data-i18n="map">Carte</span></div>
-          <div class="optGrid mapGrid">
-            <button class="optCard" data-opt="map" data-val="plain" style="--c:#4fd8ff"><canvas class="mapPrev" data-map="plain" width="260" height="180"></canvas><span data-i18n="m_plain"></span></button>
-            <button class="optCard" data-opt="map" data-val="city" style="--c:#c77dff"><canvas class="mapPrev" data-map="city" width="260" height="180"></canvas><span data-i18n="m_city"></span></button>
-            <button class="optCard" data-opt="map" data-val="canyon" style="--c:#ff8a3d"><canvas class="mapPrev" data-map="canyon" width="260" height="180"></canvas><span data-i18n="m_canyon"></span></button>
-            <button class="optCard" data-opt="map" data-val="base" style="--c:#5dff9b"><canvas class="mapPrev" data-map="base" width="260" height="180"></canvas><span data-i18n="m_base"></span></button>
-          </div>
-          <p id="mapDesc"></p>
-        </section>
-        <section class="card full">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="m12 18 4-6"/></svg><span data-i18n="difficulty">Difficulté</span></div>
           <div class="optGrid diffGrid">
             <button class="optCard" data-opt="diff" data-val="easy" style="--c:#5dff9b"><span class="pips"><i class="f"></i><i></i><i></i></span><span data-i18n="easy"></span><small data-i18n="diffDesc_easy"></small></button>
@@ -277,6 +315,34 @@
         </section>
       </div>
       <div class="playBar"><button id="optPlay">JOUER</button></div>
+    </div>
+    <div id="pathView" hidden>
+      <div class="setHead">
+        <button id="pathBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="path"></h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="setGrid">
+        <section class="card full">
+          <div class="comboRow" id="comboRow"></div>
+          <div class="sumGrid" id="pathSum"></div>
+          <div class="path" id="pathGrid"></div>
+        </section>
+      </div>
+    </div>
+    <div id="shopView" hidden>
+      <div class="setHead">
+        <button id="shopBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="shop"></h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="setGrid">
+        <section class="card full">
+          <div class="sumGrid" id="shopSum" style="grid-template-columns:1fr"></div>
+          <div class="shopGrid" id="shopGrid"></div>
+          <div class="ctrlFoot"><p class="sub" data-i18n="shopHint" style="margin:0;font-size:12px;flex:1"></p></div>
+        </section>
+      </div>
     </div>
     <div id="scoreView" hidden>
       <div class="setHead">
@@ -314,7 +380,7 @@
   var elStats = document.getElementById('stats');
   var elKeys = document.getElementById('keys');
   var startBtn = document.getElementById('startBtn');
-  var reviveBtn = document.getElementById('reviveBtn'), endBtn = document.getElementById('endBtn');
+  var reviveBtn = document.getElementById('reviveBtn'), nextBtn = document.getElementById('nextBtn'), pathBtn = document.getElementById('pathBtn');
   var MAX_LIVES = 5, lives = 3, bonusLives = 0, lastBonus = 0;
 
   var W = 0, H = 0, DPR = 1, zoom = 1, VW = 0, VH = 0;
@@ -350,17 +416,18 @@
     var qx = Math.max(x, Math.min(cx, x + w)), qy = Math.max(y, Math.min(cy, y + h));
     return Math.hypot(cx - qx, cy - qy) < m;
   }
-  function buildMap(id) {
+  function buildMap(id, seed) {
     var out = [], CXm = 1300, CYm = 900, r, i, j;
     if (id === 'city') {
-      r = rng(7);
+      r = rng(seed * 13 + 7);
       for (i = 0; i < 5; i++) for (j = 0; j < 3; j++) {
         var w = 260 + r() * 80, h = 200 + r() * 80, x = 150 + i * 500 + r() * 40, y = 160 + j * 560 + r() * 40;
-        if (rectNear(x, y, w, h, CXm, CYm, 260)) continue;
+        var skip = r() < 0.2;
+        if (skip || rectNear(x, y, w, h, CXm, CYm, 260)) continue;
         out.push({ t: 'r', k: 'bld', x: x, y: y, w: w, h: h, s: r() });
       }
     } else if (id === 'canyon') {
-      r = rng(11);
+      r = rng(seed * 17 + 11);
       for (var tries = 0; tries < 900 && out.length < 24; tries++) {
         var rad = 45 + r() * 65, cx = rad + 60 + r() * (2600 - 2 * (rad + 60)), cy = rad + 60 + r() * (1800 - 2 * (rad + 60)), ok = true;
         if (Math.hypot(cx - CXm, cy - CYm) < rad + 300) continue;
@@ -371,7 +438,7 @@
         out.push({ t: 'c', x: cx, y: cy, r: rad, v: v, a: r() * 6.28 });
       }
     } else if (id === 'base') {
-      r = rng(5);
+      r = rng(seed * 19 + 5);
       var T = 32;
       for (i = 0; i < 5; i++) for (j = 0; j < 4; j++) {
         var bx = 260 + i * 520, by = 225 + j * 450;
@@ -389,7 +456,8 @@
     return out;
   }
   var mapCache = {}, obstacles = [], gameMap = 'plain';
-  function getObs(id) { return mapCache[id] || (mapCache[id] = buildMap(id)); }
+  function getObs(id, seed) { seed = seed || 1; var k = id + seed; return mapCache[k] || (mapCache[k] = buildMap(id, seed)); }
+  function mapTheme(n) { return n <= 1 ? 'plain' : ['city', 'canyon', 'base'][(n - 2) % 3]; }
   function collide(o, rad) {
     for (var i = 0; i < obstacles.length; i++) {
       var ob = obstacles[i], nx, ny, push;
@@ -539,15 +607,15 @@
     stat_power: ['Feu', 'Firepower', 'Potencia', 'Potenza', '火力', 'Огонь'],
     scores: ['SCORES', 'SCORES', 'PUNTUACIONES', 'PUNTEGGI', '排行榜', 'РЕКОРДЫ'],
     scoresTitle: ['MEILLEURS SCORES', 'HIGH SCORES', 'MEJORES PUNTUACIONES', 'MIGLIORI PUNTEGGI', '最高分', 'ЛУЧШИЕ РЕЗУЛЬТАТЫ'],
-    sc_best: ['Record', 'Best', 'Récord', 'Record', '最高分', 'Рекорд'],
-    sc_games: ['Parties', 'Games', 'Partidas', 'Partite', '局数', 'Игры'],
+    sc_best: ['Score total', 'Total score', 'Puntuación total', 'Punteggio totale', '总分', 'Общий счёт'],
+    sc_games: ['Vagues jouées', 'Waves played', 'Oleadas jugadas', 'Ondate giocate', '已玩波数', 'Сыграно волн'],
     sc_kills: ['Abattus', 'Kills', 'Derribos', 'Abbattuti', '击落', 'Сбито'],
     sc_none: ['Pas encore joué', 'Not played yet', 'Aún sin jugar', 'Non ancora giocato', '尚未游玩', 'Ещё не играли'],
-    sc_line: ['Vague {w} · {k} abattus', 'Wave {w} · {k} kills', 'Oleada {w} · {k} derribos', 'Ondata {w} · {k} abbattuti', '第 {w} 波 · 击落 {k}', 'Волна {w} · сбито {k}'],
-    sc_played: ['{n} partie(s) · {date}', '{n} game(s) · {date}', '{n} partida(s) · {date}', '{n} partita/e · {date}', '{n} 局 · {date}', 'Игр: {n} · {date}'],
+    sc_line: ['Vague {w}/50 · {k} abattus', 'Wave {w}/50 · {k} kills', 'Oleada {w}/50 · {k} derribos', 'Ondata {w}/50 · {k} abbattuti', '第 {w}/50 波 · 击落 {k}', 'Волна {w}/50 · сбито {k}'],
+    sc_played: ['{n} vague(s) jouée(s) · {date}', '{n} wave(s) played · {date}', '{n} oleada(s) jugada(s) · {date}', '{n} ondata/e giocata/e · {date}', '已玩 {n} 波 · {date}', 'Сыграно волн: {n} · {date}'],
     sc_top: ['MEILLEUR', 'TOP', 'MEJOR', 'MIGLIORE', '最佳', 'ЛУЧШИЙ'],
-    sc_hint: ['Le record de chaque drone est enregistré séparément pour chaque difficulté.', 'Each drone keeps its own record for every difficulty.', 'Cada dron guarda su propio récord en cada dificultad.', 'Ogni drone ha il proprio record per ciascuna difficoltà.', '每架无人机在每个难度下都有独立的最高分。', 'Для каждого дрона рекорд хранится отдельно на каждой сложности.'],
-    sc_reset: ['EFFACER LES SCORES', 'RESET SCORES', 'BORRAR PUNTUACIONES', 'CANCELLA PUNTEGGI', '清除记录', 'СБРОСИТЬ РЕКОРДЫ'],
+    sc_hint: ['Le score total d\'un chemin est la somme des meilleurs scores de ses vagues.', 'A path\'s total score is the sum of the best scores of its waves.', 'La puntuación total de un camino es la suma de las mejores puntuaciones de sus oleadas.', 'Il punteggio totale di un percorso è la somma dei migliori punteggi delle sue ondate.', '路线总分为各波最高分之和。', 'Общий счёт маршрута — сумма лучших результатов его волн.'],
+    sc_reset: ['RÉINITIALISER LES CHEMINS', 'RESET ALL PATHS', 'REINICIAR LOS CAMINOS', 'AZZERA I PERCORSI', '重置所有路线', 'СБРОСИТЬ МАРШРУТЫ'],
     sc_confirm: ['CONFIRMER L\'EFFACEMENT ?', 'CONFIRM RESET?', '¿CONFIRMAR BORRADO?', 'CONFERMI LA CANCELLAZIONE?', '确认清除？', 'ПОДТВЕРДИТЬ СБРОС?'],
     gameOptions: ['OPTIONS DE JEU', 'GAME OPTIONS', 'OPCIONES DE JUEGO', 'OPZIONI DI GIOCO', '游戏选项', 'ИГРОВЫЕ ПАРАМЕТРЫ'],
     map: ['Carte', 'Map', 'Mapa', 'Mappa', '地图', 'Карта'],
@@ -580,7 +648,7 @@
     a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево'],
     a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо'],
     pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…'],
-    loadout: ['Carte : {map}  ·  Drone : {drone}  ·  Difficulté : {diff}  ·  Record : {best}', 'Map: {map}  ·  Drone: {drone}  ·  Difficulty: {diff}  ·  Best: {best}', 'Mapa: {map}  ·  Dron: {drone}  ·  Dificultad: {diff}  ·  Récord: {best}', 'Mappa: {map}  ·  Drone: {drone}  ·  Difficoltà: {diff}  ·  Record: {best}', '地图：{map}  ·  无人机：{drone}  ·  难度：{diff}  ·  最高分：{best}', 'Карта: {map}  ·  Дрон: {drone}  ·  Сложность: {diff}  ·  Рекорд: {best}'],
+    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}/50  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}/50  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}/50  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}/50  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w}/50 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}/50  ·  кредиты: {c}'],
     intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.'],
     introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.'],
     h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец'],
@@ -619,6 +687,33 @@
     livesWait: ['Vies : {h}  ·  recharge dans {t}', 'Lives: {h}  ·  refill in {t}', 'Vidas: {h}  ·  recarga en {t}', 'Vite: {h}  ·  ricarica tra {t}', '生命：{h}  ·  {t} 后恢复', 'Жизни: {h}  ·  восстановление через {t}'],
     livesNone: ['Aucune vie : une seule chance par partie  ·  recharge dans {t}', 'No lives: one chance per game  ·  refill in {t}', 'Sin vidas: una sola oportunidad por partida  ·  recarga en {t}', 'Nessuna vita: una sola possibilità a partita  ·  ricarica tra {t}', '没有生命：每局只有一次机会  ·  {t} 后恢复', 'Жизней нет: одна попытка за игру  ·  восстановление через {t}'],
     st_bonus: ['Bonus vies gardées', 'Unused lives bonus', 'Bonus por vidas guardadas', 'Bonus vite conservate', '保留生命奖励', 'Бонус за сохранённые жизни'],
+    playWave: ['JOUER · VAGUE {n}', 'PLAY · WAVE {n}', 'JUGAR · OLEADA {n}', 'GIOCA · ONDATA {n}', '开始 · 第 {n} 波', 'ИГРАТЬ · ВОЛНА {n}'],
+    retryWave: ['RECOMMENCER LA VAGUE', 'RETRY WAVE', 'REPETIR OLEADA', 'RIPROVA ONDATA', '重试本波', 'ПОВТОРИТЬ ВОЛНУ'],
+    nextWave: ['VAGUE SUIVANTE', 'NEXT WAVE', 'SIGUIENTE OLEADA', 'ONDATA SUCCESSIVA', '下一波', 'СЛЕДУЮЩАЯ ВОЛНА'],
+    toPath: ['RETOUR AU CHEMIN', 'BACK TO PATH', 'VOLVER AL CAMINO', 'TORNA AL PERCORSO', '返回路线', 'К МАРШРУТУ'],
+    path: ['CHEMIN', 'PATH', 'CAMINO', 'PERCORSO', '路线', 'МАРШРУТ'],
+    waveClear: ['VAGUE {n} RÉUSSIE', 'WAVE {n} CLEARED', 'OLEADA {n} SUPERADA', 'ONDATA {n} SUPERATA', '第 {n} 波完成', 'ВОЛНА {n} ПРОЙДЕНА'],
+    bossClear: ['BOSS VAINCU', 'BOSS DEFEATED', 'JEFE DERROTADO', 'BOSS SCONFITTO', 'BOSS 已击败', 'БОСС ПОВЕРЖЕН'],
+    pathDone: ['CHEMIN TERMINÉ !', 'PATH COMPLETE!', '¡CAMINO COMPLETADO!', 'PERCORSO COMPLETATO!', '路线完成！', 'МАРШРУТ ПРОЙДЕН!'],
+    clearSub: ['Vague {n} sur 50', 'Wave {n} of 50', 'Oleada {n} de 50', 'Ondata {n} di 50', '第 {n} 波，共 50 波', 'Волна {n} из 50'],
+    st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней'],
+    st_total: ['Total', 'Total', 'Total', 'Totale', '合计', 'Итого'],
+    st_bestWave: ['Meilleur score de la vague', 'Best score for this wave', 'Mejor puntuación de la oleada', 'Miglior punteggio dell\'ondata', '本波最高分', 'Лучший счёт волны'],
+    st_credits: ['Crédits gagnés', 'Credits earned', 'Créditos ganados', 'Crediti guadagnati', '获得金币', 'Получено кредитов'],
+    credits: ['Crédits', 'Credits', 'Créditos', 'Crediti', '金币', 'Кредиты'],
+    shop: ['BOUTIQUE', 'SHOP', 'TIENDA', 'NEGOZIO', '商店', 'МАГАЗИН'],
+    buy: ['ACHETER', 'BUY', 'COMPRAR', 'COMPRA', '购买', 'КУПИТЬ'],
+    owned: ['En stock : {n}', 'In stock: {n}', 'En stock: {n}', 'In scorta: {n}', '库存：{n}', 'В запасе: {n}'],
+    it_heal: ['Réparation', 'Repair kit', 'Reparación', 'Riparazione', '修复包', 'Ремкомплект'],
+    itd_heal: ['Rend 40 points de vie.', 'Restores 40 health.', 'Restaura 40 puntos de vida.', 'Ripristina 40 punti vita.', '恢复 40 生命值。', 'Восстанавливает 40 здоровья.'],
+    it_rapid: ['Tir rapide', 'Rapid fire', 'Fuego rápido', 'Fuoco rapido', '快速射击', 'Скорострельность'],
+    itd_rapid: ['Double la cadence pendant 8 s.', 'Doubles fire rate for 8 s.', 'Duplica la cadencia durante 8 s.', 'Raddoppia la cadenza per 8 s.', '8 秒内射速翻倍。', 'Удваивает скорострельность на 8 с.'],
+    it_shield: ['Bouclier', 'Shield', 'Escudo', 'Scudo', '护盾', 'Щит'],
+    itd_shield: ['Bloque tous les dégâts pendant 8 s.', 'Blocks all damage for 8 s.', 'Bloquea todo el daño durante 8 s.', 'Blocca tutti i danni per 8 s.', '8 秒内免疫所有伤害。', 'Блокирует весь урон на 8 с.'],
+    it_gun: ['Fusil triple', 'Triple gun', 'Arma triple', 'Fucile triplo', '三连发', 'Тройной выстрел'],
+    itd_gun: ['Trois balles en éventail pendant 10 s.', 'Three-way spread for 10 s.', 'Tres balas en abanico durante 10 s.', 'Tre colpi a ventaglio per 10 s.', '10 秒内三向散射。', 'Тройной веер на 10 с.'],
+    shopHint: ['Les bonus achetés s\'utilisent en jeu avec les boutons en bas de l\'écran (touches 1 à 4 sur PC).', 'Use purchased power-ups in game with the buttons at the bottom of the screen (keys 1–4 on PC).', 'Usa los bonus comprados durante el juego con los botones de abajo (teclas 1 a 4 en PC).', 'Usa i bonus acquistati in gioco con i pulsanti in basso (tasti 1–4 su PC).', '在游戏中点击屏幕下方按钮使用已购道具（电脑上按 1–4 键）。', 'Используйте купленные бонусы в игре кнопками внизу экрана (клавиши 1–4 на ПК).'],
+    p_wave: ['Vague', 'Wave', 'Oleada', 'Ondata', '波次', 'Волна'],
     b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ'],
     c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ'],
     c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ'],
@@ -679,20 +774,22 @@
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff', life: '#ff6b9d' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
   var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
-  function bestKey(d) { return 'droneStrikeBest' + (d === 'normal' ? '' : '_' + d); }
-  var scores = {};
-  try { scores = JSON.parse(localStorage.getItem('droneStrikeScores') || '{}') || {}; } catch (err) { scores = {}; }
-  function saveScores() { try { localStorage.setItem('droneStrikeScores', JSON.stringify(scores)); } catch (err) { /* ignore */ } }
-  function entry(d, dr) { return scores[d + '|' + dr] || null; }
-  function comboBest(d, dr) { var e = entry(d, dr); return e ? e.b : 0; }
-  function recordGame(d, dr, sc, w, k) {
-    var key = d + '|' + dr, e = scores[key] || { b: 0, w: 0, k: 0, d: 0, n: 0, tk: 0 };
-    var isRec = sc > e.b;
-    e.n++; e.tk += k;
-    if (isRec) { e.b = sc; e.w = w; e.k = k; e.d = Date.now(); }
-    scores[key] = e; saveScores();
-    return isRec;
-  }
+  var WAVES = 50;
+  var camp = {};
+  try { camp = JSON.parse(localStorage.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
+  function saveCamp() { try { localStorage.setItem('droneStrikeCamp', JSON.stringify(camp)); } catch (err) { /* ignore */ } }
+  function cGet(d, dr) { var c = camp[d + '|' + dr]; return c && typeof c === 'object' && c.s ? c : null; }
+  function cEnsure(d, dr) { var k = d + '|' + dr; if (!cGet(d, dr)) camp[k] = { p: 0, s: {}, k: 0, n: 0, d: 0 }; return camp[k]; }
+  function cTotal(c) { var t = 0; if (c) for (var w in c.s) t += +c.s[w] || 0; return t; }
+  function cWave(d, dr) { var c = cGet(d, dr); return Math.min(WAVES, (c ? c.p : 0) + 1); }
+  function entry(d, dr) { var c = cGet(d, dr); return c && c.n ? { b: cTotal(c), w: c.p, k: c.k, tk: c.k, n: c.n, d: c.d } : null; }
+  var ITEMS = [['heal', 120], ['rapid', 180], ['shield', 250], ['gun', 300]], ITEM_MAX = 9;
+  var bank = { c: 0, inv: { heal: 0, rapid: 0, shield: 0, gun: 0 } };
+  try {
+    var sb0 = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null');
+    if (sb0 && sb0.c >= 0) { bank.c = Math.floor(sb0.c); for (var bi = 0; bi < ITEMS.length; bi++) bank.inv[ITEMS[bi][0]] = Math.max(0, Math.min(ITEM_MAX, Math.floor((sb0.inv || {})[ITEMS[bi][0]] || 0))); }
+  } catch (err) { /* banque vide */ }
+  function saveBank() { try { localStorage.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ } }
   var POOL_MAX = 3, POOL_MS = 3600000, LIFE_BONUS = 300;
   var pool = { n: POOL_MAX, t: 0 };
   try {
@@ -723,7 +820,6 @@
     var txt = n >= POOL_MAX ? tr('livesFull', { h: h }) : n > 0 ? tr('livesWait', { h: h, t: poolWait() }) : tr('livesNone', { t: poolWait() });
     if (el.textContent !== txt) el.textContent = txt;
   }
-  function readBest(d) { try { return parseInt(localStorage.getItem(bestKey(d)) || '0', 10) || 0; } catch (err) { return 0; } }
   function vib(pattern) { try { if (cfg.vib && navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* ignore */ } }
   function resetCfg() { cfg.bind = {}; for (var k in DEFAULTS) cfg.bind[k] = DEFAULTS[k]; cfg.labels = {}; cfg.aim = 'mouse'; }
   resetCfg();
@@ -774,6 +870,11 @@
     if (setOpen) return;
     if (code === cfg.bind.pause && (state === 'play' || state === 'pause')) togglePause();
     else if (code === cfg.bind.dash && state === 'play') dash();
+    else if (state === 'play' && !isBound(code)) {
+      var di = ['Digit1', 'Digit2', 'Digit3', 'Digit4'].indexOf(code);
+      if (di < 0) di = ['Numpad1', 'Numpad2', 'Numpad3', 'Numpad4'].indexOf(code);
+      if (di >= 0) useItem(ITEMS[di][0]);
+    }
   }
 
   function assign(action, code, key) {
@@ -873,30 +974,35 @@
     for (i = 0; i < ar.length; i++) ar[i].setAttribute('aria-label', tr(ar[i].getAttribute('data-i18n-aria')));
   }
   function renderText() {
-    startBtn.textContent = tr(state === 'pause' ? 'restart' : state === 'over' ? 'replay' : 'play');
-    if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = startBtn.textContent;
-    if (state === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
-    else if (state === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
-    else if (state === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = tr('downSub', { n: lives }); }
-    var dn = state === 'down';
-    reviveBtn.hidden = !dn; endBtn.hidden = !dn; startBtn.hidden = dn;
-    document.getElementById('gameBtn').hidden = dn; document.getElementById('optBtn').hidden = dn;
-    reviveBtn.textContent = tr('useLife') + '  \u2665 ' + lives;
-    endBtn.textContent = tr('endGame') + '  +' + lives * LIFE_BONUS;
-    if (state === 'over') {
-      var c = tr('colon');
-      elTitle.textContent = tr('downed');
-      elSub.textContent = tr(lastRecord ? 'newRecord' : 'destroyed');
-      elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + score + '</strong><br>' + esc(tr('st_wave')) + c + '<strong>' + wave +
-        '</strong><br>' + esc(tr('st_kills')) + c + '<strong>' + kills + '</strong><br>' +
-        (lastBonus ? esc(tr('st_bonus')) + c + '<strong>+' + lastBonus + '</strong><br>' : '') + esc(tr('st_best', { d: tr(gameDiff) + ' · ' + tr('d_' + gameDrone) })) + c + '<strong>' + best + '</strong>';
+    var st = state, c = tr('colon');
+    startBtn.textContent = st === 'menu' ? tr('playWave', { n: cWave(cfg.diff, cfg.drone) }) : tr('retryWave');
+    if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = tr('playWave', { n: cWave(cfg.diff, cfg.drone) });
+    if (st === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
+    else if (st === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
+    else if (st === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = lives > 0 ? tr('downSub', { n: lives }) : tr('destroyed'); }
+    else if (st === 'clear' && lastRes) {
+      elTitle.textContent = wave >= WAVES ? tr('pathDone') : wave % 5 === 0 ? tr('bossClear') : tr('waveClear', { n: wave });
+      elSub.textContent = lastRes.rec ? tr('newRecord') : tr('clearSub', { n: wave });
+      elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + lastRes.score + '</strong><br>' +
+        (lastRes.bonus ? esc(tr('st_noLife')) + c + '<strong>+' + lastRes.bonus + '</strong><br>' + esc(tr('st_total')) + c + '<strong>' + lastRes.total + '</strong><br>' : '') +
+        esc(tr('st_bestWave')) + c + '<strong>' + lastRes.best + '</strong><br>' +
+        esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.total + '</strong>';
     }
+    resumeBtn.hidden = st !== 'pause'; quitBtn.hidden = st !== 'pause';
+    reviveBtn.hidden = !(st === 'down' && lives > 0);
+    nextBtn.hidden = !(st === 'clear' && wave < WAVES);
+    startBtn.hidden = st === 'clear';
+    pathBtn.hidden = st === 'pause';
+    pathBtn.textContent = tr(st === 'menu' ? 'path' : 'toPath');
+    document.getElementById('gameBtn').hidden = st !== 'menu'; document.getElementById('shopBtn').hidden = st !== 'menu';
+    document.getElementById('optBtn').hidden = !(st === 'menu' || st === 'pause');
+    reviveBtn.textContent = tr('useLife') + '  ♥ ' + lives;
   }
   function renderHelp() {
     renderStatic(); renderText();
     var menu = state === 'menu';
     elLoad.hidden = !menu; updateLivesInfo();
-    if (menu) elLoad.textContent = tr('loadout', { map: tr('m_' + cfg.map), drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: comboBest(cfg.diff, cfg.drone) });
+    if (menu) elLoad.textContent = tr('loadout', { drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), w: (cGet(cfg.diff, cfg.drone) || { p: 0 }).p, c: bank.c });
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
         '<b>' + esc(tr('h_rightThumb')) + '</b><span>' + esc(tr('h_dragAim')) + '</span>' +
@@ -932,7 +1038,6 @@
     }
     var mp = overlay.querySelectorAll('canvas[data-map]');
     for (j = 0; j < mp.length; j++) drawMapPreview(mp[j], mp[j].getAttribute('data-map'));
-    var md = document.getElementById('mapDesc'); if (md) md.textContent = tr('mdesc_' + cfg.map);
     var ds = overlay.querySelectorAll('[data-stats]');
     for (j = 0; j < ds.length; j++) {
       var sp = DRONES[ds[j].getAttribute('data-stats')];
@@ -946,13 +1051,14 @@
     droneDesc.textContent = tr('desc_' + cfg.drone);
     nextNote.hidden = state === 'menu';
   }
-  function renderAll() { renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) renderScores(); }
+  function renderAll() { renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0;
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
+  var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
-    mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game';
+    mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game'; pathView.hidden = v !== 'path'; shopView.hidden = v !== 'shop';
     panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
     renderAll();
@@ -963,7 +1069,7 @@
     catch (err) { return new Date(ms).toISOString().slice(0, 10); }
   }
   function renderScores() {
-    scoresBtn.hidden = state === 'pause' || state === 'down';
+    scoresBtn.hidden = state !== 'menu';
     var tb = scoreView.querySelectorAll('[data-sdiff]'), i;
     for (i = 0; i < tb.length; i++) {
       var onT = tb[i].getAttribute('data-sdiff') === scoreDiff;
@@ -978,7 +1084,7 @@
     }
     var dc = { easy: '#5dff9b', normal: '#ffd166', hard: '#ff4d6d' }[scoreDiff];
     document.getElementById('scoreSum').innerHTML =
-      '<div class="tile hl" style="--c:' + dc + '"><span>' + esc(tr('sc_best')) + '</span><strong>' + Math.max(topB, readBest(scoreDiff)) + '</strong></div>' +
+      '<div class="tile hl" style="--c:' + dc + '"><span>' + esc(tr('sc_best')) + '</span><strong>' + topB + '</strong></div>' +
       '<div class="tile"><span>' + esc(tr('sc_games')) + '</span><strong>' + games + '</strong></div>' +
       '<div class="tile"><span>' + esc(tr('sc_kills')) + '</span><strong>' + tk + '</strong></div>';
     var cards = scoreView.querySelectorAll('[data-sc]');
@@ -993,7 +1099,7 @@
     scoreReset.textContent = tr(resetArmed ? 'sc_confirm' : 'sc_reset');
     scoreReset.classList.toggle('danger', !!resetArmed);
   }
-  scoresBtn.addEventListener('click', function () { scoreDiff = state === 'over' ? gameDiff : cfg.diff; showView('score'); });
+  scoresBtn.addEventListener('click', function () { scoreDiff = cfg.diff; showView('score'); });
   document.getElementById('scoreBack').addEventListener('click', function () { showView('main'); });
   document.getElementById('scoreTabs').addEventListener('click', function (e) {
     var b = e.target && e.target.closest ? e.target.closest('[data-sdiff]') : null;
@@ -1003,11 +1109,121 @@
   scoreReset.addEventListener('click', function () {
     if (!resetArmed) { resetArmed = setTimeout(function () { resetArmed = 0; renderScores(); }, 4000); renderScores(); return; }
     clearTimeout(resetArmed); resetArmed = 0;
-    scores = {}; saveScores();
-    try { ['easy', 'normal', 'hard'].forEach(function (d) { localStorage.removeItem(bestKey(d)); }); } catch (err) { /* ignore */ }
-    if (state === 'over') best = 0;
+    camp = {}; saveCamp();
     renderAll();
   });
+  // ---------- Chemin ----------
+  var LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  var CROWN = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18l1.5-10-5.5 4L12 5 7 12 1.5 8z"/></svg>';
+  function renderPath() {
+    var c = cGet(cfg.diff, cfg.drone), prog = c ? c.p : 0, cur = Math.min(WAVES, prog + 1), h = '', keys2 = [], k, i, r;
+    var mine = cfg.diff + '|' + cfg.drone;
+    for (k in camp) if (camp[k] && camp[k].n && DIFFS[k.split('|')[0]] && DRONES[k.split('|')[1]]) keys2.push(k);
+    if (keys2.indexOf(mine) < 0) keys2.unshift(mine);
+    for (i = 0; i < keys2.length; i++) {
+      var pr = keys2[i].split('|'), cc = camp[keys2[i]];
+      h += '<button class="chip' + (keys2[i] === mine ? ' on' : '') + '" data-combo="' + keys2[i] + '">' + esc(tr('d_' + pr[1])) + ' · ' + esc(tr(pr[0])) + ' <b>' + (cc ? cc.p : 0) + '/' + WAVES + '</b></button>';
+    }
+    document.getElementById('comboRow').innerHTML = h;
+    document.getElementById('pathSum').innerHTML =
+      '<div class="tile hl" style="--c:#4fd8ff"><span>' + esc(tr('p_wave')) + '</span><strong>' + prog + '/' + WAVES + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('sc_best')) + '</span><strong>' + cTotal(c) + '</strong></div>' +
+      '<div class="tile hl" style="--c:#ffd166"><span>' + esc(tr('credits')) + '</span><strong>' + bank.c + '</strong></div>';
+    h = '';
+    for (r = 0; r < WAVES / 5; r++) {
+      h += '<div class="prow' + (r % 2 ? ' rev' : '') + '">';
+      for (i = 1; i <= 5; i++) {
+        var n = r * 5 + i, boss = n % 5 === 0, done = n <= prog, isCur = n === cur && !done, lock = n > cur;
+        var sc = c && c.s[n] ? c.s[n] : 0;
+        h += '<div class="node"><button class="bub' + (boss ? ' boss' : '') + (done ? ' done' : isCur ? ' cur' : ' lock') + '" style="--c:' + (boss ? '#ff3b6b' : MAPS[mapTheme(n)].c) + '"' +
+          (lock ? ' disabled' : ' data-wave="' + n + '"') + ' aria-label="' + esc(tr('p_wave')) + ' ' + n + '">' + (lock ? LOCK : boss ? CROWN : n) + '</button>' +
+          '<small>' + (done ? sc : boss ? esc(tr('hud_boss')) + ' ' + n : lock ? '' : n === cur ? '▶' : '') + '</small></div>';
+      }
+      h += '</div>';
+    }
+    document.getElementById('pathGrid').innerHTML = h;
+  }
+  function openPath() {
+    state = 'menu'; player = null; releaseSticks(); keys = {};
+    elStats.hidden = true; elKeys.hidden = false;
+    overlay.classList.remove('hidden');
+    showView('path');
+    try { var cb = pathView.querySelector('.bub.cur') || pathView.querySelector('.bub.done'); if (cb && cb.scrollIntoView) cb.scrollIntoView({ block: 'center' }); } catch (err) { /* ignore */ }
+  }
+  pathBtn.addEventListener('click', openPath);
+  document.getElementById('pathBack').addEventListener('click', function () { showView('main'); });
+  pathView.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-wave],[data-combo]') : null;
+    if (!el) return;
+    if (el.hasAttribute('data-combo')) { var pr = el.getAttribute('data-combo').split('|'); cfg.diff = pr[0]; cfg.drone = pr[1]; saveCfg(); renderAll(); return; }
+    startWave(+el.getAttribute('data-wave'), true);
+  });
+
+  // ---------- Boutique et bonus ----------
+  var ICON = {
+    heal: '<path d="M12 5v14M5 12h14"/>', rapid: '<path d="M13 3 5 13h6l-1 8 8-10h-6z"/>',
+    shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>', gun: '<path d="M5 12 19 6M5 12h15M5 12l14 6"/>'
+  };
+  function icon(id) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[id] + '</svg>'; }
+  function renderShop() {
+    document.getElementById('shopSum').innerHTML = '<div class="tile hl" style="--c:#ffd166"><span>' + esc(tr('credits')) + '</span><strong>' + bank.c + '</strong></div>';
+    var h = '';
+    for (var i = 0; i < ITEMS.length; i++) {
+      var id = ITEMS[i][0], price = ITEMS[i][1], can = bank.c >= price && bank.inv[id] < ITEM_MAX;
+      h += '<div class="shopCard" style="--c:' + PCOL[id] + '">' + icon(id) + '<span class="nm">' + esc(tr('it_' + id)) + '</span><small>' + esc(tr('itd_' + id)) + '</small>' +
+        '<span class="own">' + esc(tr('owned', { n: bank.inv[id] })) + '</span><button data-buy="' + id + '"' + (can ? '' : ' disabled') + '>' + esc(tr('buy')) + ' · ' + price + '</button></div>';
+    }
+    document.getElementById('shopGrid').innerHTML = h;
+  }
+  document.getElementById('shopBtn').addEventListener('click', function () { showView('shop'); });
+  document.getElementById('shopBack').addEventListener('click', function () { showView('main'); });
+  shopView.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-buy]') : null;
+    if (!el || el.disabled) return;
+    var id = el.getAttribute('data-buy'), price = 0;
+    for (var i = 0; i < ITEMS.length; i++) if (ITEMS[i][0] === id) price = ITEMS[i][1];
+    if (!price || bank.c < price || bank.inv[id] >= ITEM_MAX) return;
+    bank.c -= price; bank.inv[id]++; saveBank();
+    initAudio(); beep(880, 0.12, 'triangle', 0.06, 1320);
+    renderAll();
+  });
+  function itemCount() { var t = 0; for (var i = 0; i < ITEMS.length; i++) t += bank.inv[ITEMS[i][0]]; return t; }
+  function updateItemBar() {
+    var h = '';
+    for (var i = 0; i < ITEMS.length; i++) {
+      var id = ITEMS[i][0], n = bank.inv[id];
+      h += '<button data-item="' + id + '" class="' + (n ? '' : 'empty') + '" style="--c:' + PCOL[id] + '" aria-label="' + esc(tr('it_' + id)) + '">' + icon(id) + '<b>' + n + '</b>' + (isTouch ? '' : '<i>' + (i + 1) + '</i>') + '</button>';
+    }
+    if (itemBar.innerHTML !== h) itemBar.innerHTML = h;
+  }
+  function applyBonus(kind, amount) {
+    var p = player;
+    if (kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + amount); banner = '+' + amount + tr('b_heal').replace(/^\+\d+/, ''); }
+    else if (kind === 'rapid') { p.rapid = 8; banner = tr('b_rapid'); }
+    else if (kind === 'shield') { p.shield = 8; banner = tr('b_shield'); }
+    else if (kind === 'life') { if (lives < MAX_LIVES) { lives++; bonusLives++; } banner = tr('b_life'); }
+    else { p.gun = 10; banner = tr('b_gun'); }
+    vib(20); bannerT = 1.2;
+    beep(660, 0.2, 'triangle', 0.06, 1320);
+    burst(p.x, p.y, PCOL[kind], 12, 160);
+  }
+  function useItem(id) {
+    if (state !== 'play' || !player || !(bank.inv[id] > 0)) return;
+    if (id === 'heal' && player.hp >= player.maxHp) return;
+    bank.inv[id]--; saveBank();
+    applyBonus(id, 40);
+    updateItemBar();
+  }
+  function itemTap(e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-item]') : null;
+    if (!el) return;
+    e.preventDefault();
+    useItem(el.getAttribute('data-item'));
+    if (el.blur) el.blur();
+  }
+  itemBar.addEventListener('touchstart', function (e) { setTouch(true); itemTap(e); }, { passive: false });
+  itemBar.addEventListener('mousedown', itemTap);
+
   bindList.addEventListener('click', function (e) {
     var btn = e.target && e.target.closest ? e.target.closest('[data-act]') : null;
     if (!btn) return;
@@ -1063,7 +1279,7 @@
   var state = 'menu';
   var player, enemies, bullets, particles, pickups;
   var score, wave, waveTimer, banner, bannerT, shake, time, kills, lastRecord = false;
-  var best = 0;
+  var best = 0, waveQueue = [], bossPending = false, clearT = 0, usedLife = false, lastRes = null;
 
   var TYPES = {
     scout:  { r: 14, hp: 2,  speed: 300, color: '#ff8a3d', pts: 10, label: 'Kamikaze' },
@@ -1075,27 +1291,45 @@
   function rand(a, b) { return a + Math.random() * (b - a); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
-  function startGame() {
+  function startWave(n, fresh) {
     initAudio();
-    var spec = DRONES[cfg.drone];
-    gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff]; best = comboBest(gameDiff, gameDrone);
-    player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
-               fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
-    gameMap = cfg.map; obstacles = getObs(gameMap); lives = poolLives(); bonusLives = 0; lastBonus = 0;
+    n = clamp(n | 0, 1, WAVES);
+    if (fresh || !player) {
+      var spec = DRONES[cfg.drone];
+      gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff];
+      player = { x: 0, y: 0, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
+                 fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
+      lives = poolLives(); bonusLives = 0; time = 0;
+    }
+    var p = player;
+    p.x = WORLD_W / 2; p.y = WORLD_H / 2; p.vx = p.vy = 0; p.inv = Math.max(p.inv, 1.2);
+    wave = n; gameMap = mapTheme(n); obstacles = getObs(gameMap, n);
     enemies = []; bullets = []; particles = []; pickups = [];
-    score = 0; wave = 0; waveTimer = 1.2; banner = ''; bannerT = 0; shake = 0; time = 0; kills = 0;
-    state = 'play'; keys = {}; releaseSticks(); resumeBtn.hidden = true;
-    showSettings(false);
+    score = 0; kills = 0; usedLife = false; shake = 0; clearT = 0; lastRes = null;
+    best = ((cGet(gameDiff, gameDrone) || { s: {} }).s[n]) || 0;
+    buildQueue(); waveTimer = 1.1;
+    banner = tr(bossPending ? 'b_boss' : 'b_wave', { n: wave }); bannerT = 2.2;
+    if (bossPending) vib([80, 60, 80]);
+    beep(440, 0.25, 'triangle', 0.06, 880);
+    state = 'play'; keys = {}; releaseSticks();
+    elStats.hidden = true;
+    showView('main');
     overlay.classList.add('hidden');
     canvas.focus();
+  }
+  function startGame() {
+    if (state === 'play') return;
+    if (state === 'clear') { if (wave < WAVES) startWave(wave + 1, false); else openPath(); }
+    else if (state === 'pause' || state === 'down') startWave(wave, true);
+    else startWave(cWave(cfg.diff, cfg.drone), true);
   }
 
   function togglePause() {
     if (state === 'play') {
       state = 'pause';
-      releaseSticks(); resumeBtn.hidden = false; quitBtn.hidden = false;
+      releaseSticks();
       elStats.hidden = true; elKeys.hidden = false;
-      showSettings(false);
+      showView('main');
       overlay.classList.remove('hidden');
     } else if (state === 'pause') {
       state = 'play';
@@ -1104,29 +1338,32 @@
     }
   }
 
-  function gameOver() {
-    state = 'over'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = false;
-    lastBonus = lives * LIFE_BONUS; score += lastBonus;
-    var record = recordGame(gameDiff, gameDrone, score, wave, kills) && score > 0;
-    lastRecord = record;
-    if (score > best) best = score;
-    elStats.hidden = false;
-    elKeys.hidden = true;
-    showSettings(false);
+  function waveCleared() {
+    state = 'clear'; releaseSticks();
+    var c = cEnsure(gameDiff, gameDrone);
+    var bonus = usedLife ? 0 : Math.round(score * 0.25), total = score + bonus, prev = c.s[wave] || 0;
+    if (total > prev) c.s[wave] = total;
+    if (wave > c.p) c.p = wave;
+    c.k += kills; c.n++; c.d = Date.now(); saveCamp();
+    bank.c += total; saveBank();
+    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev };
+    elStats.hidden = false; elKeys.hidden = true;
+    showView('main');
     overlay.classList.remove('hidden');
-    startBtn.focus();
+    beep(523, 0.18, 'triangle', 0.07, 1046); vib([40, 40, 80]);
+    (wave < WAVES ? nextBtn : pathBtn).focus();
   }
 
   function downed() {
-    state = 'down'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = true;
+    state = 'down'; releaseSticks();
     elStats.hidden = true; elKeys.hidden = true;
-    showSettings(false);
+    showView('main');
     overlay.classList.remove('hidden');
-    reviveBtn.focus();
+    (lives > 0 ? reviveBtn : startBtn).focus();
   }
   function revive() {
     if (state !== 'down' || lives <= 0) return;
-    lives--;
+    lives--; usedLife = true;
     if (bonusLives > 0) bonusLives--; else usePool();
     var p = player, i;
     p.hp = p.maxHp; p.inv = 3; p.vx = p.vy = 0; p.hitFlash = 0;
@@ -1141,13 +1378,12 @@
     burst(p.x, p.y, PCOL.life, 30, 380); beep(440, 0.3, 'triangle', 0.07, 1320); vib(60);
   }
   reviveBtn.addEventListener('click', revive);
-  endBtn.addEventListener('click', function () { if (state === 'down') gameOver(); });
+  nextBtn.addEventListener('click', function () { if (state === 'clear' && wave < WAVES) startWave(wave + 1, false); });
 
   function goMenu() {
     state = 'menu'; player = null; releaseSticks(); keys = {};
     elStats.hidden = true; elKeys.hidden = false;
-    resumeBtn.hidden = true; quitBtn.hidden = true;
-    showSettings(false);
+    showView('main');
     overlay.classList.remove('hidden');
   }
   quitBtn.addEventListener('click', goMenu);
@@ -1165,24 +1401,22 @@
                    cd: rand(0.8, 2.2), angle: 0, strafe: Math.random() < 0.5 ? 1 : -1, flash: 0, spawn: 0.6 });
   }
 
-  function nextWave() {
-    wave++;
-    var n = Math.max(2, Math.round((3 + wave * 2) * D.count * (wave % 5 === 0 ? 0.4 : 1))), i;
-    for (i = 0; i < n; i++) {
+  function buildQueue() {
+    bossPending = wave % 5 === 0;
+    var n = Math.max(3, Math.round((4 + wave * 0.9) * D.count * (bossPending ? 0.45 : 1)));
+    waveQueue = [];
+    for (var i = 0; i < n; i++) {
       var roll = Math.random(), type = 'scout';
       if (wave >= 2 && roll < 0.4) type = 'gunner';
-      if (wave >= 4 && roll < 0.12) type = 'heavy';
-      spawnEnemy(type);
+      if (wave >= 4 && roll < Math.min(0.28, 0.1 + wave * 0.004)) type = 'heavy';
+      waveQueue.push(type);
     }
-    banner = tr('b_wave', { n: wave }); bannerT = 2.2;
-    if (wave % 5 === 0) {
-      spawnEnemy('boss');
-      var bs = enemies[enemies.length - 1];
-      bs.hp = bs.maxHp = Math.round((110 + (wave / 5 - 1) * 70) * D.count);
-      bs.spawn = 1.6; bs.pat = 0; bs.cd = 2.5;
-      banner = tr('b_boss'); bannerT = 2.6; vib([80, 60, 80]);
-    }
-    beep(440, 0.25, 'triangle', 0.06, 880);
+  }
+  function spawnBoss() {
+    spawnEnemy('boss');
+    var bs = enemies[enemies.length - 1];
+    bs.hp = bs.maxHp = Math.round((110 + (wave / 5 - 1) * 70) * D.count);
+    bs.spawn = 1.6; bs.pat = 0; bs.cd = 2.5;
   }
 
   // ---------- Actions ----------
@@ -1228,7 +1462,7 @@
       player.hp = 0;
       burst(player.x, player.y, '#4fd8ff', 50, 420); burst(player.x, player.y, '#ffffff', 20, 250);
       beep(200, 0.8, 'sawtooth', 0.09, 40); vib([120, 60, 220]);
-      if (lives > 0) downed(); else gameOver();
+      downed();
     }
   }
 
@@ -1300,9 +1534,16 @@
     }
 
     // Waves
-    if (enemies.length === 0) {
-      waveTimer -= dt;
-      if (waveTimer <= 0) { nextWave(); waveTimer = 2; }
+    waveTimer -= dt;
+    if (waveTimer <= 0) {
+      if (bossPending) { spawnBoss(); bossPending = false; }
+      if (waveQueue.length && enemies.length < 8 + Math.min(8, Math.floor(wave / 4))) {
+        spawnEnemy(waveQueue.pop());
+        waveTimer = waveQueue.length % 4 === 0 ? 1.0 : 0.12;
+      } else if (!waveQueue.length && !enemies.length) {
+        clearT += dt;
+        if (clearT > 1.0) { waveCleared(); return; }
+      }
     }
     bannerT -= dt;
 
@@ -1417,15 +1658,7 @@
       var k = pickups[i];
       k.life -= dt;
       if (Math.hypot(k.x - p.x, k.y - p.y) < k.r + p.r + 6) {
-        if (k.kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + 30); banner = tr('b_heal'); }
-        else if (k.kind === 'rapid') { p.rapid = 8; banner = tr('b_rapid'); }
-        else if (k.kind === 'shield') { p.shield = 8; banner = tr('b_shield'); }
-        else if (k.kind === 'life') { if (lives < MAX_LIVES) { lives++; bonusLives++; } banner = tr('b_life'); }
-        else { p.gun = 10; banner = tr('b_gun'); }
-        vib(20);
-        bannerT = 1.2;
-        beep(660, 0.2, 'triangle', 0.06, 1320);
-        burst(k.x, k.y, PCOL[k.kind], 12, 160);
+        applyBonus(k.kind, 30);
         pickups.splice(i, 1);
       } else if (k.life <= 0) pickups.splice(i, 1);
     }
@@ -1540,7 +1773,7 @@
     }
 
     // player
-    if (state !== 'over' && state !== 'down') {
+    if (state !== 'down') {
       var blink = player.inv > 0 && Math.floor(time * 30) % 2;
       drawDrone(player.x, player.y, player.angle, player.r, player.spec.color, player.hitFlash > 0, blink ? 0.45 : 1);
       if (player.shield > 0 && !(player.shield < 2 && Math.floor(time * 8) % 2)) {
@@ -1595,7 +1828,7 @@
     ctx.fillStyle = '#e6f1ff'; ctx.font = '700 28px "Segoe UI", system-ui, sans-serif';
     ctx.fillText(String(score), W - 22, 16);
     ctx.fillStyle = '#8fa6c4'; ctx.font = '600 13px "Segoe UI", system-ui, sans-serif';
-    ctx.fillText(tr('hud_wave', { w: wave, e: enemies.length }), W - 22, 50);
+    ctx.fillText(tr('hud_wave', { w: wave, e: enemies.length + waveQueue.length + (bossPending ? 1 : 0) }), W - 22, 50);
     ctx.fillText(tr('hud_best', { n: Math.max(best, score) }), W - 22, 68);
 
     // radar
@@ -1699,7 +1932,9 @@
     var showTouch = isTouch && state === 'play';
     if (touchUI.hidden === showTouch) touchUI.hidden = !showTouch;
     if (state === 'play') update(dt);
-    if (state === 'play' || state === 'over' || state === 'down') updateParticles(dt);
+    if (state === 'play' || state === 'clear' || state === 'down') updateParticles(dt);
+    var showItems = state === 'play' && itemCount() > 0;
+    if (itemBar.hidden === showItems) itemBar.hidden = !showItems;
     draw();
     if (setOpen) drawPreviews(ts / 1000);
     if (state === 'menu' && view === 'main' && (frameN = (frameN || 0) + 1) % 20 === 0) updateLivesInfo();
@@ -1708,7 +1943,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, end: function () { if (state === 'down') gameOver(); }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>
