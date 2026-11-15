@@ -56,6 +56,14 @@
   .binds button { min-width: 150px; }
   .binds button.listen { background: #ffd166; color: #04121c; border-color: #ffd166; }
   #setView .sub { font-size: 13px; margin-bottom: 16px; }
+  #overlay { align-items: flex-start; }
+  .panel { margin: auto; }
+  .aim { flex-wrap: wrap; }
+  .aim .lbl { min-width: 84px; text-align: right; color: #8fa6c4; }
+  .binds { max-height: none; }
+  h3 { margin: 18px 0 10px; font-size: 14px; letter-spacing: 3px; color: #8fa6c4; text-transform: uppercase; }
+  #droneDesc, #nextNote, #loadout { font-size: 13px; margin: -4px 0 14px; }
+  #loadout { margin: 0 0 16px; color: #c6d4e8; }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -72,22 +80,48 @@
       <p class="sub" id="subtitle">Pilotez votre drone et abattez les drones ennemis, vague après vague.</p>
       <p class="stats" id="stats" hidden></p>
       <div class="keys" id="keys"></div>
+      <p class="sub" id="loadout"></p>
       <div class="btns">
         <button id="resumeBtn" hidden>REPRENDRE</button>
         <button id="startBtn">JOUER</button>
-        <button id="optBtn" class="ghost">COMMANDES</button>
+        <button id="optBtn" class="ghost">PARAMÈTRES</button>
+        <button id="quitBtn" class="ghost" hidden>QUITTER</button>
       </div>
     </div>
     <div id="setView" hidden>
-      <h2>COMMANDES</h2>
-      <div class="aim">Visée :
-        <button class="ghost" data-aim="mouse">Souris</button>
-        <button class="ghost" data-aim="keys">Clavier</button>
+      <h2>PARAMÈTRES</h2>
+      <div class="aim"><span class="lbl">Son</span>
+        <button data-opt="sound" data-val="1">Activé</button>
+        <button data-opt="sound" data-val="0">Désactivé</button>
       </div>
-      <div class="binds" id="bindList"></div>
-      <p class="sub" id="bindHint">Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.</p>
+      <div class="aim" id="vibRow"><span class="lbl">Vibration</span>
+        <button data-opt="vib" data-val="1">Activée</button>
+        <button data-opt="vib" data-val="0">Désactivée</button>
+      </div>
+      <div class="aim"><span class="lbl">Difficulté</span>
+        <button data-opt="diff" data-val="easy">Facile</button>
+        <button data-opt="diff" data-val="normal">Moyen</button>
+        <button data-opt="diff" data-val="hard">Difficile</button>
+      </div>
+      <div class="aim"><span class="lbl">Drone</span>
+        <button data-opt="drone" data-val="poly">Polyvalent</button>
+        <button data-opt="drone" data-val="eclair">Éclaireur</button>
+        <button data-opt="drone" data-val="blinde">Blindé</button>
+        <button data-opt="drone" data-val="assaut">Assaut</button>
+      </div>
+      <p class="sub" id="droneDesc"></p>
+      <p class="sub" id="nextNote" hidden>La difficulté et le drone s'appliquent à la prochaine partie.</p>
+      <div id="ctrlSec">
+        <h3>Commandes</h3>
+        <div class="aim"><span class="lbl">Visée</span>
+          <button class="ghost" data-aim="mouse">Souris</button>
+          <button class="ghost" data-aim="keys">Clavier</button>
+        </div>
+        <div class="binds" id="bindList"></div>
+        <p class="sub" id="bindHint">Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.</p>
+        <div class="btns" style="margin-bottom:16px"><button id="resetBtn" class="ghost">COMMANDES PAR DÉFAUT</button></div>
+      </div>
       <div class="btns">
-        <button id="resetBtn" class="ghost">PAR DÉFAUT</button>
         <button id="backBtn">RETOUR</button>
       </div>
     </div>
@@ -127,7 +161,23 @@
   ];
   var DEFAULTS = { up: 'KeyW', down: 'KeyS', left: 'KeyA', right: 'KeyD', fire: 'Mouse0', dash: 'Space', pause: 'KeyP',
                    aimUp: 'ArrowUp', aimDown: 'ArrowDown', aimLeft: 'ArrowLeft', aimRight: 'ArrowRight' };
-  var cfg = { bind: {}, labels: {}, aim: 'mouse' };
+  var DRONES = {
+    poly:   { name: 'Polyvalent', hp: 100, accel: 1700, fire: 0.14, dmg: 1, dash: 1.5, color: '#4fd8ff', desc: 'Équilibré : 100 points de vie, vitesse et cadence moyennes.' },
+    eclair: { name: 'Éclaireur',  hp: 75,  accel: 2150, fire: 0.14, dmg: 1, dash: 0.9, color: '#5dff9b', desc: 'Très rapide, esquive plus fréquente, mais fragile (75 points de vie).' },
+    blinde: { name: 'Blindé',     hp: 160, accel: 1350, fire: 0.24, dmg: 2, dash: 2.0, color: '#e8ecf5', desc: 'Résistant (160 points de vie), tirs lourds à double dégâts, mais lent.' },
+    assaut: { name: 'Assaut',     hp: 90,  accel: 1700, fire: 0.10, dmg: 1, dash: 1.5, color: '#ffd166', desc: 'Cadence de tir élevée, blindage léger (90 points de vie).' }
+  };
+  var DIFFS = {
+    easy:   { name: 'Facile',    count: 0.7, speed: 0.85, dmg: 0.6, drop: 1.6, cd: 1.3 },
+    normal: { name: 'Moyen',     count: 1.0, speed: 1.0,  dmg: 1.0, drop: 1.0, cd: 1.0 },
+    hard:   { name: 'Difficile', count: 1.3, speed: 1.15, dmg: 1.4, drop: 0.7, cd: 0.8 }
+  };
+  var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff' };
+  var D = DIFFS.normal, gameDiff = 'normal';
+  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly' };
+  function bestKey(d) { return 'droneStrikeBest' + (d === 'normal' ? '' : '_' + d); }
+  function readBest(d) { try { return parseInt(localStorage.getItem(bestKey(d)) || '0', 10) || 0; } catch (err) { return 0; } }
+  function vib(pattern) { try { if (cfg.vib && navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* ignore */ } }
   function resetCfg() { cfg.bind = {}; for (var k in DEFAULTS) cfg.bind[k] = DEFAULTS[k]; cfg.labels = {}; cfg.aim = 'mouse'; }
   resetCfg();
   try {
@@ -136,6 +186,12 @@
       for (var sk in DEFAULTS) if (typeof saved.bind[sk] === 'string') cfg.bind[sk] = saved.bind[sk];
       if (saved.labels && typeof saved.labels === 'object') cfg.labels = saved.labels;
       if (saved.aim === 'keys') cfg.aim = 'keys';
+    }
+    if (saved) {
+      if (saved.sound === false) cfg.sound = false;
+      if (saved.vib === false) cfg.vib = false;
+      if (DIFFS[saved.diff]) cfg.diff = saved.diff;
+      if (DRONES[saved.drone]) cfg.drone = saved.drone;
     }
   } catch (err) { /* réglages par défaut */ }
   function saveCfg() { try { localStorage.setItem('droneStrikeKeys', JSON.stringify(cfg)); } catch (err) { /* ignore */ } }
@@ -259,9 +315,12 @@
 
   // ---------- Settings screen ----------
   var mainView = document.getElementById('mainView'), setView = document.getElementById('setView');
-  var bindList = document.getElementById('bindList');
+  var bindList = document.getElementById('bindList'), elLoad = document.getElementById('loadout'), quitBtn = document.getElementById('quitBtn');
+  var ctrlSec = document.getElementById('ctrlSec'), vibRow = document.getElementById('vibRow'), droneDesc = document.getElementById('droneDesc'), nextNote = document.getElementById('nextNote');
   function renderHelp() {
-    optBtn.hidden = isTouch;
+    var menu = state === 'menu';
+    elLoad.hidden = !menu;
+    if (menu) elLoad.textContent = 'Drone : ' + DRONES[cfg.drone].name + '  ·  Difficulté : ' + DIFFS[cfg.diff].name + '  ·  Record : ' + readBest(cfg.diff);
     if (state === 'menu') elSub.textContent = isTouch
       ? 'Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.'
       : 'Pilotez votre drone et abattez les drones ennemis, vague après vague.';
@@ -291,6 +350,15 @@
     bindList.innerHTML = h;
     var ab = setView.querySelectorAll('[data-aim]');
     for (var j = 0; j < ab.length; j++) ab[j].className = ab[j].getAttribute('data-aim') === cfg.aim ? 'on' : 'ghost';
+    var ob = setView.querySelectorAll('[data-opt]');
+    for (j = 0; j < ob.length; j++) {
+      var key = ob[j].getAttribute('data-opt'), cur = (key === 'sound' || key === 'vib') ? (cfg[key] ? '1' : '0') : cfg[key];
+      ob[j].className = ob[j].getAttribute('data-val') === cur ? 'on' : 'ghost';
+    }
+    ctrlSec.hidden = isTouch;
+    vibRow.hidden = !navigator.vibrate;
+    droneDesc.textContent = DRONES[cfg.drone].desc;
+    nextNote.hidden = state === 'menu';
   }
   function renderAll() { renderHelp(); renderBinds(); }
   function showSettings(on) {
@@ -304,6 +372,15 @@
     listening = act; e.target.blur(); renderBinds();
   });
   setView.addEventListener('click', function (e) {
+    var o = e.target && e.target.getAttribute && e.target.getAttribute('data-opt');
+    if (o) {
+      var v = e.target.getAttribute('data-val');
+      cfg[o] = (o === 'sound' || o === 'vib') ? v === '1' : v;
+      saveCfg(); renderAll();
+      if (o === 'sound' && cfg.sound) { initAudio(); beep(660, 0.15, 'triangle', 0.06, 990); }
+      if (o === 'vib') vib(40);
+      return;
+    }
     var m = e.target && e.target.getAttribute && e.target.getAttribute('data-aim');
     if (!m) return;
     cfg.aim = m; listening = null; saveCfg(); renderAll();
@@ -321,7 +398,7 @@
     } catch (err) { audio = null; }
   }
   function beep(freq, dur, type, vol, slide) {
-    if (!audio) return;
+    if (!audio || !cfg.sound) return;
     try {
       var t = audio.currentTime, o = audio.createOscillator(), g = audio.createGain();
       o.type = type || 'square';
@@ -339,7 +416,6 @@
   var player, enemies, bullets, particles, pickups;
   var score, wave, waveTimer, banner, bannerT, shake, time, kills;
   var best = 0;
-  try { best = parseInt(localStorage.getItem('droneStrikeBest') || '0', 10) || 0; } catch (err) { best = 0; }
 
   var TYPES = {
     scout:  { r: 14, hp: 2,  speed: 300, color: '#ff8a3d', pts: 10, label: 'Kamikaze' },
@@ -352,8 +428,10 @@
 
   function startGame() {
     initAudio();
-    player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: 100, maxHp: 100,
-               fireCd: 0, dashCd: 0, inv: 0, rapid: 0, hitFlash: 0 };
+    var spec = DRONES[cfg.drone];
+    gameDiff = cfg.diff; D = DIFFS[gameDiff]; best = readBest(gameDiff);
+    player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
+               fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
     enemies = []; bullets = []; particles = []; pickups = [];
     score = 0; wave = 0; waveTimer = 1.2; banner = ''; bannerT = 0; shake = 0; time = 0; kills = 0;
     state = 'play'; keys = {}; releaseSticks(); resumeBtn.hidden = true;
@@ -365,7 +443,7 @@
   function togglePause() {
     if (state === 'play') {
       state = 'pause';
-      elTitle.textContent = 'PAUSE'; releaseSticks(); resumeBtn.hidden = false;
+      elTitle.textContent = 'PAUSE'; releaseSticks(); resumeBtn.hidden = false; quitBtn.hidden = false;
       elSub.textContent = isTouch ? 'Partie en pause.' : 'Appuyez sur ' + labelFor(cfg.bind.pause) + ' pour reprendre.';
       showSettings(false);
       elStats.hidden = true; elKeys.hidden = false;
@@ -379,14 +457,14 @@
   }
 
   function gameOver() {
-    state = 'over'; releaseSticks(); resumeBtn.hidden = true;
+    state = 'over'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = false;
     var record = score > best;
-    if (record) { best = score; try { localStorage.setItem('droneStrikeBest', String(best)); } catch (err) { /* ignore */ } }
+    if (record) { best = score; try { localStorage.setItem(bestKey(gameDiff), String(best)); } catch (err) { /* ignore */ } }
     elTitle.textContent = 'DRONE ABATTU';
     elSub.textContent = record ? 'Nouveau record !' : 'Votre drone a été détruit.';
     elStats.hidden = false;
     elStats.innerHTML = 'Score : <strong>' + score + '</strong><br>Vague atteinte : <strong>' + wave +
-      '</strong><br>Drones abattus : <strong>' + kills + '</strong><br>Meilleur score : <strong>' + best + '</strong>';
+      '</strong><br>Drones abattus : <strong>' + kills + '</strong><br>Meilleur score (' + D.name + ') : <strong>' + best + '</strong>';
     elKeys.hidden = true;
     showSettings(false);
     startBtn.textContent = 'REJOUER';
@@ -394,6 +472,16 @@
     startBtn.focus();
   }
 
+  function goMenu() {
+    state = 'menu'; player = null; releaseSticks(); keys = {};
+    elTitle.textContent = 'DRONE STRIKE';
+    elStats.hidden = true; elKeys.hidden = false;
+    resumeBtn.hidden = true; quitBtn.hidden = true;
+    startBtn.textContent = 'JOUER';
+    showSettings(false);
+    overlay.classList.remove('hidden');
+  }
+  quitBtn.addEventListener('click', goMenu);
   startBtn.addEventListener('click', startGame);
   renderAll();
 
@@ -410,7 +498,7 @@
 
   function nextWave() {
     wave++;
-    var n = 3 + wave * 2, i;
+    var n = Math.max(2, Math.round((3 + wave * 2) * D.count)), i;
     for (i = 0; i < n; i++) {
       var roll = Math.random(), type = 'scout';
       if (wave >= 2 && roll < 0.4) type = 'gunner';
@@ -439,7 +527,7 @@
     if (!dx && !dy) { dx = Math.cos(player.angle); dy = Math.sin(player.angle); }
     var l = Math.hypot(dx, dy);
     player.vx = dx / l * 900; player.vy = dy / l * 900;
-    player.dashCd = 1.5; player.inv = 0.3;
+    player.dashCd = player.spec.dash; player.inv = 0.3;
     burst(player.x, player.y, '#4fd8ff', 10, 160);
     beep(300, 0.18, 'sawtooth', 0.04, 900);
   }
@@ -453,12 +541,18 @@
 
   function hurtPlayer(dmg) {
     if (player.inv > 0 || state !== 'play') return;
+    if (player.shield > 0) {
+      player.inv = 0.15; burst(player.x, player.y, PCOL.shield, 6, 200);
+      beep(520, 0.08, 'triangle', 0.04, 760); vib(15);
+      return;
+    }
+    dmg = Math.max(1, Math.round(dmg * D.dmg)); vib(40);
     player.hp -= dmg; player.hitFlash = 0.25; player.inv = 0.15; shake = Math.max(shake, 10);
     beep(140, 0.2, 'sawtooth', 0.07, 60);
     if (player.hp <= 0) {
       player.hp = 0;
       burst(player.x, player.y, '#4fd8ff', 50, 420); burst(player.x, player.y, '#ffffff', 20, 250);
-      beep(200, 0.8, 'sawtooth', 0.09, 40);
+      beep(200, 0.8, 'sawtooth', 0.09, 40); vib([120, 60, 220]);
       gameOver();
     }
   }
@@ -469,9 +563,11 @@
     burst(e.x, e.y, t.color, 14 + e.r, 320); burst(e.x, e.y, '#ffe9a8', 8, 180);
     shake = Math.max(shake, e.type === 'heavy' ? 14 : 5);
     beep(e.type === 'heavy' ? 110 : 220, 0.3, 'square', 0.06, 50);
-    var chance = e.type === 'heavy' ? 0.7 : 0.14;
+    if (e.type === 'heavy') vib(30);
+    var chance = (e.type === 'heavy' ? 0.7 : 0.16) * D.drop;
     if (Math.random() < chance) {
-      pickups.push({ x: e.x, y: e.y, kind: Math.random() < 0.6 ? 'heal' : 'rapid', life: 12, r: 13 });
+      var roll = Math.random(), kind = roll < 0.35 ? 'heal' : roll < 0.58 ? 'rapid' : roll < 0.79 ? 'shield' : 'gun';
+      pickups.push({ x: e.x, y: e.y, kind: kind, life: 12, r: 13 });
     }
   }
 
@@ -489,7 +585,7 @@
     var al = Math.hypot(ax, ay);
     if (al > 0) { ax /= al; ay /= al; }
     if (sticks.move.id !== null) { ax = sticks.move.x; ay = sticks.move.y; }
-    p.vx += ax * 1700 * dt; p.vy += ay * 1700 * dt;
+    p.vx += ax * p.spec.accel * dt; p.vy += ay * p.spec.accel * dt;
     var drag = Math.exp(-3.4 * dt);
     p.vx *= drag; p.vy *= drag;
     p.x += p.vx * dt; p.y += p.vy * dt;
@@ -509,11 +605,12 @@
       }
     }
 
-    p.fireCd -= dt; p.dashCd -= dt; p.inv -= dt; p.rapid -= dt; p.hitFlash -= dt;
+    p.fireCd -= dt; p.dashCd -= dt; p.inv -= dt; p.rapid -= dt; p.shield -= dt; p.gun -= dt; p.hitFlash -= dt;
     if ((isDown('fire') || touchFire) && p.fireCd <= 0) {
-      p.fireCd = p.rapid > 0 ? 0.065 : 0.14;
-      var spread = rand(-0.03, 0.03);
-      fire(p.x + Math.cos(p.angle) * 22, p.y + Math.sin(p.angle) * 22, p.angle + spread, 950, true, 1);
+      p.fireCd = p.spec.fire * (p.rapid > 0 ? 0.47 : 1);
+      var spread = rand(-0.03, 0.03), shots = p.gun > 0 ? [-0.15, 0, 0.15] : [0];
+      for (var si = 0; si < shots.length; si++)
+        fire(p.x + Math.cos(p.angle) * 22, p.y + Math.sin(p.angle) * 22, p.angle + spread + shots[si], 950, true, p.spec.dmg);
       beep(p.rapid > 0 ? 760 : 620, 0.06, 'square', 0.025, 300);
     }
 
@@ -533,7 +630,7 @@
       e.angle = Math.atan2(dy, dx);
       e.flash -= dt;
       if (e.spawn > 0) { e.spawn -= dt; continue; }
-      var sp = t.speed * (1 + Math.min(wave, 15) * 0.02);
+      var sp = t.speed * (1 + Math.min(wave, 15) * 0.02) * D.speed;
       var tx = 0, ty = 0;
       if (e.type === 'scout') { tx = nx; ty = ny; }
       else if (e.type === 'gunner') {
@@ -558,10 +655,10 @@
       if (e.cd <= 0 && d < 700) {
         if (e.type === 'gunner') {
           fire(e.x + nx * 20, e.y + ny * 20, e.angle + rand(-0.06, 0.06), 380, false, 8);
-          e.cd = Math.max(0.7, 1.6 - wave * 0.04);
+          e.cd = Math.max(0.7, 1.6 - wave * 0.04) * D.cd;
         } else if (e.type === 'heavy') {
           for (j = -1; j <= 1; j++) fire(e.x + nx * 30, e.y + ny * 30, e.angle + j * 0.22, 320, false, 10);
-          e.cd = 2.1;
+          e.cd = 2.1 * D.cd;
         } else e.cd = 99;
       }
 
@@ -607,10 +704,13 @@
       k.life -= dt;
       if (Math.hypot(k.x - p.x, k.y - p.y) < k.r + p.r + 6) {
         if (k.kind === 'heal') { p.hp = Math.min(p.maxHp, p.hp + 30); banner = '+30 RÉPARATION'; }
-        else { p.rapid = 8; banner = 'TIR RAPIDE'; }
+        else if (k.kind === 'rapid') { p.rapid = 8; banner = 'TIR RAPIDE'; }
+        else if (k.kind === 'shield') { p.shield = 8; banner = 'BOUCLIER'; }
+        else { p.gun = 10; banner = 'FUSIL TRIPLE'; }
+        vib(20);
         bannerT = 1.2;
         beep(660, 0.2, 'triangle', 0.06, 1320);
-        burst(k.x, k.y, k.kind === 'heal' ? '#5dff9b' : '#ffd166', 12, 160);
+        burst(k.x, k.y, PCOL[k.kind], 12, 160);
         pickups.splice(i, 1);
       } else if (k.life <= 0) pickups.splice(i, 1);
     }
@@ -687,13 +787,15 @@
 
     // pickups
     for (i = 0; i < pickups.length; i++) {
-      var k = pickups[i], col = k.kind === 'heal' ? '#5dff9b' : '#ffd166';
+      var k = pickups[i], col = PCOL[k.kind];
       if (k.life < 3 && Math.floor(k.life * 6) % 2) continue;
       var pr = k.r + Math.sin(time * 5) * 2;
       ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.shadowColor = col; ctx.shadowBlur = 12;
       ctx.beginPath(); ctx.arc(k.x, k.y, pr, 0, TAU); ctx.stroke(); ctx.shadowBlur = 0;
       ctx.fillStyle = col;
       if (k.kind === 'heal') { ctx.fillRect(k.x - 2, k.y - 7, 4, 14); ctx.fillRect(k.x - 7, k.y - 2, 14, 4); }
+      else if (k.kind === 'shield') { ctx.beginPath(); ctx.moveTo(k.x, k.y - 8); ctx.lineTo(k.x + 7, k.y - 5); ctx.lineTo(k.x + 7, k.y + 1); ctx.lineTo(k.x, k.y + 8); ctx.lineTo(k.x - 7, k.y + 1); ctx.lineTo(k.x - 7, k.y - 5); ctx.closePath(); ctx.fill(); }
+      else if (k.kind === 'gun') { ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(k.x - 6, k.y); ctx.lineTo(k.x + 7, k.y - 6); ctx.moveTo(k.x - 6, k.y); ctx.lineTo(k.x + 8, k.y); ctx.moveTo(k.x - 6, k.y); ctx.lineTo(k.x + 7, k.y + 6); ctx.stroke(); }
       else { ctx.beginPath(); ctx.moveTo(k.x + 2, k.y - 8); ctx.lineTo(k.x - 5, k.y + 1); ctx.lineTo(k.x, k.y + 1); ctx.lineTo(k.x - 2, k.y + 8); ctx.lineTo(k.x + 5, k.y - 1); ctx.lineTo(k.x, k.y - 1); ctx.closePath(); ctx.fill(); }
     }
 
@@ -723,7 +825,12 @@
     // player
     if (state !== 'over') {
       var blink = player.inv > 0 && Math.floor(time * 30) % 2;
-      drawDrone(player.x, player.y, player.angle, player.r, player.rapid > 0 ? '#ffd166' : '#4fd8ff', player.hitFlash > 0, blink ? 0.45 : 1);
+      drawDrone(player.x, player.y, player.angle, player.r, player.spec.color, player.hitFlash > 0, blink ? 0.45 : 1);
+      if (player.shield > 0 && !(player.shield < 2 && Math.floor(time * 8) % 2)) {
+        ctx.strokeStyle = PCOL.shield; ctx.lineWidth = 3; ctx.shadowColor = PCOL.shield; ctx.shadowBlur = 16;
+        ctx.beginPath(); ctx.arc(player.x, player.y, player.r * 2.1 + Math.sin(time * 6) * 1.5, 0, TAU); ctx.stroke();
+        ctx.shadowBlur = 0; ctx.globalAlpha = 0.12; ctx.fillStyle = PCOL.shield; ctx.fill(); ctx.globalAlpha = 1;
+      }
     }
 
     // particles
@@ -751,12 +858,16 @@
     ctx.fillRect(28, 42, hw * ratio, 12);
     ctx.fillStyle = '#e6f1ff'; ctx.textAlign = 'right'; ctx.fillText(Math.ceil(p.hp) + ' / ' + p.maxHp, hw + 28, 25);
     // dash
-    var dr = clamp(1 - p.dashCd / 1.5, 0, 1);
+    var dr = clamp(1 - p.dashCd / p.spec.dash, 0, 1);
     ctx.fillStyle = '#1b2538'; ctx.fillRect(28, 60, hw, 5);
     ctx.fillStyle = dr >= 1 ? '#4fd8ff' : '#2a6f9c'; ctx.fillRect(28, 60, hw * dr, 5);
-    if (p.rapid > 0) {
-      ctx.fillStyle = '#ffd166'; ctx.textAlign = 'left'; ctx.font = '700 13px "Segoe UI", system-ui, sans-serif';
-      ctx.fillText('TIR RAPIDE  ' + p.rapid.toFixed(1) + ' s', 28, 84);
+    var chips = [['RAPIDE', p.rapid, PCOL.rapid], ['BOUCLIER', p.shield, PCOL.shield], ['FUSIL', p.gun, PCOL.gun]], cx = 28;
+    ctx.textAlign = 'left'; ctx.font = '700 13px "Segoe UI", system-ui, sans-serif';
+    for (i = 0; i < chips.length; i++) {
+      if (chips[i][1] <= 0) continue;
+      var txt = chips[i][0] + ' ' + Math.ceil(chips[i][1]) + 's';
+      ctx.fillStyle = chips[i][2]; ctx.fillText(txt, cx, 84);
+      cx += ctx.measureText(txt).width + 14;
     }
 
     // score
@@ -779,7 +890,7 @@
       ctx.fillRect(rx + enemies[i].x / WORLD_W * rw - s / 2, ry + enemies[i].y / WORLD_H * rh - s / 2, s, s);
     }
     for (i = 0; i < pickups.length; i++) {
-      ctx.fillStyle = pickups[i].kind === 'heal' ? '#5dff9b' : '#ffd166';
+      ctx.fillStyle = PCOL[pickups[i].kind];
       ctx.fillRect(rx + pickups[i].x / WORLD_W * rw - 1.5, ry + pickups[i].y / WORLD_H * rh - 1.5, 3, 3);
     }
     ctx.fillStyle = '#ffffff';
@@ -837,7 +948,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets }; }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets }; }, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>

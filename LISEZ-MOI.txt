@@ -1,17 +1,14 @@
-DRONE STRIKE - Obtenir l'APK Android (sans rien installer)
+DRONE STRIKE - Mettre à jour l'APK
 
-1. Créez un compte GitHub gratuit (github.com) si besoin.
-2. Créez un nouveau dépôt (bouton "New"), nom au choix, public ou privé.
-3. Dans le dépôt : "Add file" > "Upload files", puis glissez TOUT le contenu de ce
-   dossier (y compris le dossier caché .github) et validez avec "Commit changes".
-   Astuce : si le dossier .github n'apparaît pas, créez le fichier à la main :
-   "Add file" > "Create new file", nom : .github/workflows/build-apk.yml,
-   puis collez le contenu du fichier build-apk.yml.
-4. Onglet "Actions" : le workflow "Build APK" démarre tout seul (3 à 6 minutes).
-   S'il ne démarre pas : Build APK > "Run workflow".
-5. Quand il est vert, ouvrez l'exécution et téléchargez "drone-strike-apk" en bas
-   de page (un .zip contenant app-debug.apk).
-6. Copiez app-debug.apk sur le téléphone, ouvrez-le et autorisez l'installation
-   depuis cette source quand Android le demande.
+1. Sur GitHub, ouvrez votre dépôt drone-strike.
+2. "Add file" > "Upload files" : glissez le dossier www et le fichier
+   debug.keystore de ce dossier, puis "Commit changes".
+3. Ouvrez .github/workflows/build-apk.yml dans le dépôt, cliquez sur le crayon,
+   remplacez tout le contenu par celui du fichier build-apk.yml de ce dossier,
+   puis "Commit changes".
+4. Onglet "Actions" : attendez la coche verte de la DERNIÈRE exécution, ouvrez-la
+   et téléchargez "drone-strike-apk" en bas de page.
+5. Sur le téléphone : désinstallez l'ancienne version de Drone Strike (une seule
+   fois), puis installez le nouvel app-debug.apk.
 
-Le jeu se lance en paysage. Pour modifier le jeu, remplacez www/index.html.
+Pour les mises à jour suivantes, seul www/index.html sera à remplacer.
