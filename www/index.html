@@ -141,7 +141,31 @@
   .ctrlFoot .smallBtn { padding: 8px 14px; font-size: 12px; letter-spacing: 1px; }
   @media (max-width: 700px) { .droneGrid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 420px) { .diffGrid { gap: 6px; } .setGrid { padding: 4px 12px 0; } }
-  @media (max-height: 520px) { .setHead { padding: 10px 16px 8px; } .setHead h2 { font-size: 20px; } .optCard canvas { width: 64px; height: 64px; } }
+  @media (max-height: 520px) { .setHead { padding: 10px 16px 8px; } .setHead h2 { font-size: 20px; } .optCard canvas, .scoreCard canvas { width: 64px; height: 64px; } }
+  /* ---------- Scores ---------- */
+  .seg button[data-sdiff].on { background: var(--c, #4fd8ff); color: #04121c; }
+  .tabsLine { display: flex; justify-content: center; margin-bottom: 16px; }
+  .sumGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  .tile { background: #0a1220; border: 1px solid #1f3554; border-radius: 12px; padding: 12px 14px; text-align: center; }
+  .tile span { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #8fa6c4; margin-bottom: 4px; }
+  .tile strong { font-size: 26px; font-weight: 800; color: #e6f1ff; font-variant-numeric: tabular-nums; }
+  .tile.hl strong { color: var(--c, #ffd166); }
+  .scoreCard { position: relative; padding: 14px 10px 14px; border-radius: 14px; background: #0a1220; border: 1px solid #1f3554;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; color: #c6d4e8; }
+  .scoreCard.top { border-color: var(--c); background: #0f1b30; box-shadow: 0 0 0 1px var(--c), 0 8px 28px -10px var(--c); }
+  .scoreCard canvas { width: 76px; height: 76px; }
+  .scoreCard .nm { font-size: 15px; font-weight: 700; color: #e6f1ff; }
+  .scoreCard .big { font-size: 30px; font-weight: 800; color: var(--c); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .scoreCard.empty .big { color: #3a4a63; }
+  .scoreCard small { font-size: 11.5px; color: #8fa6c4; line-height: 1.35; }
+  .scoreCard .badge { position: absolute; top: 8px; right: 8px; display: none; align-items: center; gap: 4px; padding: 3px 7px;
+    border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; color: #04121c; background: var(--c); }
+  .scoreCard.top .badge { display: inline-flex; }
+  .scoreCard .badge svg { width: 12px; height: 12px; }
+  .ctrlFoot .danger { border-color: #ff4d6d; color: #ff4d6d; background: rgba(255, 77, 109, 0.12); }
+  .ctrlFoot .danger:hover { background: rgba(255, 77, 109, 0.22); }
+  #scoreHint { margin: 0; font-size: 12px; color: #8fa6c4; text-align: left; flex: 1; min-width: 200px; }
+  @media (max-width: 520px) { .tile strong { font-size: 20px; } .tile span { font-size: 9.5px; letter-spacing: 0.5px; } .scoreCard .big { font-size: 24px; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -162,6 +186,7 @@
       <div class="btns">
         <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
         <button id="startBtn">JOUER</button>
+        <button id="scoresBtn" class="ghost" data-i18n="scores">SCORES</button>
         <button id="optBtn" class="ghost" data-i18n="settings">PARAMÈTRES</button>
         <button id="quitBtn" class="ghost" hidden data-i18n="quit">QUITTER</button>
       </div>
@@ -217,6 +242,29 @@
           <div class="ctrlFoot">
             <p class="sub" id="bindHint" data-i18n="bindHint"></p>
             <button id="resetBtn" class="ghost smallBtn" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div id="scoreView" hidden>
+      <div class="setHead">
+        <button id="scoreBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="scoresTitle">MEILLEURS SCORES</h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="setGrid">
+        <section class="card full">
+          <div class="tabsLine"><div class="seg" id="scoreTabs"><button data-sdiff="easy" data-i18n="easy" style="--c:#5dff9b"></button><button data-sdiff="normal" data-i18n="normal" style="--c:#ffd166"></button><button data-sdiff="hard" data-i18n="hard" style="--c:#ff4d6d"></button></div></div>
+          <div class="sumGrid" id="scoreSum"></div>
+          <div class="optGrid droneGrid">
+            <div class="scoreCard" data-sc="poly" style="--c:#4fd8ff"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="sc_top"></span></span><canvas data-prev="poly" data-full width="86" height="86"></canvas><span class="nm" data-i18n="d_poly"></span><strong class="big"></strong><small class="ln"></small><small class="dt"></small></div>
+            <div class="scoreCard" data-sc="eclair" style="--c:#5dff9b"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="sc_top"></span></span><canvas data-prev="eclair" data-full width="86" height="86"></canvas><span class="nm" data-i18n="d_eclair"></span><strong class="big"></strong><small class="ln"></small><small class="dt"></small></div>
+            <div class="scoreCard" data-sc="blinde" style="--c:#e8ecf5"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="sc_top"></span></span><canvas data-prev="blinde" data-full width="86" height="86"></canvas><span class="nm" data-i18n="d_blinde"></span><strong class="big"></strong><small class="ln"></small><small class="dt"></small></div>
+            <div class="scoreCard" data-sc="assaut" style="--c:#ffd166"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="sc_top"></span></span><canvas data-prev="assaut" data-full width="86" height="86"></canvas><span class="nm" data-i18n="d_assaut"></span><strong class="big"></strong><small class="ln"></small><small class="dt"></small></div>
+          </div>
+          <div class="ctrlFoot">
+            <p id="scoreHint" data-i18n="sc_hint"></p>
+            <button id="scoreReset" class="ghost smallBtn" data-i18n="sc_reset"></button>
           </div>
         </section>
       </div>
@@ -287,6 +335,18 @@
     stat_hp: ['Vie', 'Health', 'Vida', 'Vita', '生命', 'Здоровье'],
     stat_speed: ['Vitesse', 'Speed', 'Velocidad', 'Velocità', '速度', 'Скорость'],
     stat_power: ['Feu', 'Firepower', 'Potencia', 'Potenza', '火力', 'Огонь'],
+    scores: ['SCORES', 'SCORES', 'PUNTUACIONES', 'PUNTEGGI', '排行榜', 'РЕКОРДЫ'],
+    scoresTitle: ['MEILLEURS SCORES', 'HIGH SCORES', 'MEJORES PUNTUACIONES', 'MIGLIORI PUNTEGGI', '最高分', 'ЛУЧШИЕ РЕЗУЛЬТАТЫ'],
+    sc_best: ['Record', 'Best', 'Récord', 'Record', '最高分', 'Рекорд'],
+    sc_games: ['Parties', 'Games', 'Partidas', 'Partite', '局数', 'Игры'],
+    sc_kills: ['Abattus', 'Kills', 'Derribos', 'Abbattuti', '击落', 'Сбито'],
+    sc_none: ['Pas encore joué', 'Not played yet', 'Aún sin jugar', 'Non ancora giocato', '尚未游玩', 'Ещё не играли'],
+    sc_line: ['Vague {w} · {k} abattus', 'Wave {w} · {k} kills', 'Oleada {w} · {k} derribos', 'Ondata {w} · {k} abbattuti', '第 {w} 波 · 击落 {k}', 'Волна {w} · сбито {k}'],
+    sc_played: ['{n} partie(s) · {date}', '{n} game(s) · {date}', '{n} partida(s) · {date}', '{n} partita/e · {date}', '{n} 局 · {date}', 'Игр: {n} · {date}'],
+    sc_top: ['MEILLEUR', 'TOP', 'MEJOR', 'MIGLIORE', '最佳', 'ЛУЧШИЙ'],
+    sc_hint: ['Le record de chaque drone est enregistré séparément pour chaque difficulté.', 'Each drone keeps its own record for every difficulty.', 'Cada dron guarda su propio récord en cada dificultad.', 'Ogni drone ha il proprio record per ciascuna difficoltà.', '每架无人机在每个难度下都有独立的最高分。', 'Для каждого дрона рекорд хранится отдельно на каждой сложности.'],
+    sc_reset: ['EFFACER LES SCORES', 'RESET SCORES', 'BORRAR PUNTUACIONES', 'CANCELLA PUNTEGGI', '清除记录', 'СБРОСИТЬ РЕКОРДЫ'],
+    sc_confirm: ['CONFIRMER L\'EFFACEMENT ?', 'CONFIRM RESET?', '¿CONFIRMAR BORRADO?', 'CONFERMI LA CANCELLAZIONE?', '确认清除？', 'ПОДТВЕРДИТЬ СБРОС?'],
     controls: ['Commandes', 'Controls', 'Controles', 'Comandi', '操作', 'Управление'],
     aim: ['Visée', 'Aiming', 'Apuntado', 'Mira', '瞄准', 'Прицел'],
     mouse: ['Souris', 'Mouse', 'Ratón', 'Mouse', '鼠标', 'Мышь'],
@@ -393,9 +453,22 @@
     hard:   { name: 'Difficile', count: 1.3, speed: 1.15, dmg: 1.4, drop: 0.7, cd: 0.8 }
   };
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff' };
-  var D = DIFFS.normal, gameDiff = 'normal';
+  var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
   var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', lang: detectLang() };
   function bestKey(d) { return 'droneStrikeBest' + (d === 'normal' ? '' : '_' + d); }
+  var scores = {};
+  try { scores = JSON.parse(localStorage.getItem('droneStrikeScores') || '{}') || {}; } catch (err) { scores = {}; }
+  function saveScores() { try { localStorage.setItem('droneStrikeScores', JSON.stringify(scores)); } catch (err) { /* ignore */ } }
+  function entry(d, dr) { return scores[d + '|' + dr] || null; }
+  function comboBest(d, dr) { var e = entry(d, dr); return e ? e.b : 0; }
+  function recordGame(d, dr, sc, w, k) {
+    var key = d + '|' + dr, e = scores[key] || { b: 0, w: 0, k: 0, d: 0, n: 0, tk: 0 };
+    var isRec = sc > e.b;
+    e.n++; e.tk += k;
+    if (isRec) { e.b = sc; e.w = w; e.k = k; e.d = Date.now(); }
+    scores[key] = e; saveScores();
+    return isRec;
+  }
   function readBest(d) { try { return parseInt(localStorage.getItem(bestKey(d)) || '0', 10) || 0; } catch (err) { return 0; } }
   function vib(pattern) { try { if (cfg.vib && navigator.vibrate) navigator.vibrate(pattern); } catch (err) { /* ignore */ } }
   function resetCfg() { cfg.bind = {}; for (var k in DEFAULTS) cfg.bind[k] = DEFAULTS[k]; cfg.labels = {}; cfg.aim = 'mouse'; }
@@ -553,14 +626,14 @@
       elTitle.textContent = tr('downed');
       elSub.textContent = tr(lastRecord ? 'newRecord' : 'destroyed');
       elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + score + '</strong><br>' + esc(tr('st_wave')) + c + '<strong>' + wave +
-        '</strong><br>' + esc(tr('st_kills')) + c + '<strong>' + kills + '</strong><br>' + esc(tr('st_best', { d: tr(gameDiff) })) + c + '<strong>' + best + '</strong>';
+        '</strong><br>' + esc(tr('st_kills')) + c + '<strong>' + kills + '</strong><br>' + esc(tr('st_best', { d: tr(gameDiff) + ' · ' + tr('d_' + gameDrone) })) + c + '<strong>' + best + '</strong>';
     }
   }
   function renderHelp() {
     renderStatic(); renderText();
     var menu = state === 'menu';
     elLoad.hidden = !menu;
-    if (menu) elLoad.textContent = tr('loadout', { drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: readBest(cfg.diff) });
+    if (menu) elLoad.textContent = tr('loadout', { drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), best: comboBest(cfg.diff, cfg.drone) });
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
         '<b>' + esc(tr('h_rightThumb')) + '</b><span>' + esc(tr('h_dragAim')) + '</span>' +
@@ -607,14 +680,67 @@
     droneDesc.textContent = tr('desc_' + cfg.drone);
     nextNote.hidden = state === 'menu';
   }
-  function renderAll() { renderHelp(); renderBinds(); }
-  function showSettings(on) {
-    setOpen = on; listening = null;
-    mainView.hidden = on; setView.hidden = !on;
-    panelEl.classList.toggle('wide', on);
+  function renderAll() { renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) renderScores(); }
+  var view = 'main', scoreDiff = 'normal', resetArmed = 0;
+  var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
+  function showView(v) {
+    view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
+    mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score';
+    panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
     renderAll();
   }
+  function showSettings(on) { showView(on ? 'set' : 'main'); }
+  function fmtDate(ms) {
+    try { return new Date(ms).toLocaleDateString(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang, { day: 'numeric', month: 'short', year: 'numeric' }); }
+    catch (err) { return new Date(ms).toISOString().slice(0, 10); }
+  }
+  function renderScores() {
+    scoresBtn.hidden = state === 'pause';
+    var tb = scoreView.querySelectorAll('[data-sdiff]'), i;
+    for (i = 0; i < tb.length; i++) {
+      var onT = tb[i].getAttribute('data-sdiff') === scoreDiff;
+      tb[i].classList.toggle('on', onT); tb[i].setAttribute('aria-pressed', onT ? 'true' : 'false');
+    }
+    var top = null, topB = 0, games = 0, tk = 0, ids = ['poly', 'eclair', 'blinde', 'assaut'];
+    for (i = 0; i < ids.length; i++) {
+      var e = entry(scoreDiff, ids[i]);
+      if (!e) continue;
+      games += e.n; tk += e.tk;
+      if (e.b > topB) { topB = e.b; top = ids[i]; }
+    }
+    var dc = { easy: '#5dff9b', normal: '#ffd166', hard: '#ff4d6d' }[scoreDiff];
+    document.getElementById('scoreSum').innerHTML =
+      '<div class="tile hl" style="--c:' + dc + '"><span>' + esc(tr('sc_best')) + '</span><strong>' + Math.max(topB, readBest(scoreDiff)) + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('sc_games')) + '</span><strong>' + games + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('sc_kills')) + '</span><strong>' + tk + '</strong></div>';
+    var cards = scoreView.querySelectorAll('[data-sc]');
+    for (i = 0; i < cards.length; i++) {
+      var id = cards[i].getAttribute('data-sc'), en = entry(scoreDiff, id);
+      cards[i].classList.toggle('top', id === top);
+      cards[i].classList.toggle('empty', !en);
+      cards[i].querySelector('.big').textContent = en ? en.b : '—';
+      cards[i].querySelector('.ln').textContent = en ? tr('sc_line', { w: en.w, k: en.k }) : tr('sc_none');
+      cards[i].querySelector('.dt').textContent = en && en.d ? tr('sc_played', { n: en.n, date: fmtDate(en.d) }) : '';
+    }
+    scoreReset.textContent = tr(resetArmed ? 'sc_confirm' : 'sc_reset');
+    scoreReset.classList.toggle('danger', !!resetArmed);
+  }
+  scoresBtn.addEventListener('click', function () { scoreDiff = state === 'over' ? gameDiff : cfg.diff; showView('score'); });
+  document.getElementById('scoreBack').addEventListener('click', function () { showView('main'); });
+  document.getElementById('scoreTabs').addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-sdiff]') : null;
+    if (!b) return;
+    scoreDiff = b.getAttribute('data-sdiff'); resetArmed = 0; renderScores();
+  });
+  scoreReset.addEventListener('click', function () {
+    if (!resetArmed) { resetArmed = setTimeout(function () { resetArmed = 0; renderScores(); }, 4000); renderScores(); return; }
+    clearTimeout(resetArmed); resetArmed = 0;
+    scores = {}; saveScores();
+    try { ['easy', 'normal', 'hard'].forEach(function (d) { localStorage.removeItem(bestKey(d)); }); } catch (err) { /* ignore */ }
+    if (state === 'over') best = 0;
+    renderAll();
+  });
   bindList.addEventListener('click', function (e) {
     var btn = e.target && e.target.closest ? e.target.closest('[data-act]') : null;
     if (!btn) return;
@@ -679,7 +805,7 @@
   function startGame() {
     initAudio();
     var spec = DRONES[cfg.drone];
-    gameDiff = cfg.diff; D = DIFFS[gameDiff]; best = readBest(gameDiff);
+    gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff]; best = comboBest(gameDiff, gameDrone);
     player = { x: WORLD_W / 2, y: WORLD_H / 2, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
                fireCd: 0, dashCd: 0, inv: 0, rapid: 0, shield: 0, gun: 0, hitFlash: 0 };
     enemies = []; bullets = []; particles = []; pickups = [];
@@ -706,9 +832,9 @@
 
   function gameOver() {
     state = 'over'; releaseSticks(); resumeBtn.hidden = true; quitBtn.hidden = false;
-    var record = score > best;
+    var record = recordGame(gameDiff, gameDrone, score, wave, kills) && score > 0;
     lastRecord = record;
-    if (record) { best = score; try { localStorage.setItem(bestKey(gameDiff), String(best)); } catch (err) { /* ignore */ } }
+    if (score > best) best = score;
     elStats.hidden = false;
     elKeys.hidden = true;
     showSettings(false);
@@ -1182,7 +1308,7 @@
   // ---------- Loop ----------
   var last = 0;
   function drawPreviews(t) {
-    var cs = setView.querySelectorAll('canvas[data-prev]');
+    var cs = (view === 'score' ? scoreView : setView).querySelectorAll('canvas[data-prev]');
     var mainCtx = ctx, mainTime = time;
     time = t;
     for (var i = 0; i < cs.length; i++) {
@@ -1191,8 +1317,8 @@
       ctx = c.getContext('2d');
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       ctx.clearRect(0, 0, sz, sz);
-      var sel = cfg.drone === id;
-      drawDrone(sz / 2, sz / 2, -Math.PI / 2 + (sel ? Math.sin(t * 1.6) * 0.35 : 0), 21, DRONES[id].color, false, sel ? 1 : 0.5);
+      var full = c.hasAttribute('data-full'), sel = full ? c.parentNode.classList.contains('top') : cfg.drone === id;
+      drawDrone(sz / 2, sz / 2, -Math.PI / 2 + (sel ? Math.sin(t * 1.6) * 0.35 : 0), 21, DRONES[id].color, false, sel || full ? 1 : 0.5);
     }
     ctx = mainCtx; time = mainTime;
   }
