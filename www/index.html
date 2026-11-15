@@ -64,6 +64,84 @@
   h3 { margin: 18px 0 10px; font-size: 14px; letter-spacing: 3px; color: #8fa6c4; text-transform: uppercase; }
   #droneDesc, #nextNote, #loadout { font-size: 13px; margin: -4px 0 14px; }
   #loadout { margin: 0 0 16px; color: #c6d4e8; }
+  /* ---------- Paramètres ---------- */
+  .panel { transition: width .2s; }
+  .panel.wide { width: min(880px, 95vw); padding: 0 0 24px; text-align: left; }
+  .setHead { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 12px; padding: 18px 22px 14px;
+    background: linear-gradient(#0d1626 75%, rgba(13, 22, 38, 0)); border-radius: 14px 14px 0 0; }
+  .setHead h2 { margin: 0; flex: 1; text-align: center; font-size: 24px; }
+  .setHead .spacer { width: 44px; }
+  .iconBtn { width: 44px; height: 44px; padding: 0; border-radius: 50%; display: grid; place-items: center; letter-spacing: 0;
+    background: #12233a; color: #4fd8ff; border: 1px solid #2a6f9c; }
+  .iconBtn:hover { background: #1a3150; }
+  .iconBtn svg { width: 22px; height: 22px; }
+  .setGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; padding: 4px 22px 0; }
+  .card { background: linear-gradient(160deg, #112038, #0a1324); border: 1px solid #1f3554; border-radius: 16px; padding: 16px 16px 18px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03); }
+  .card.full { grid-column: 1 / -1; }
+  .cardHead { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 12.5px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase; color: #8fa6c4; }
+  .cardHead svg { width: 20px; height: 20px; color: #4fd8ff; flex: none; }
+  .langGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 8px; }
+  .chip { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .chip { display: flex; align-items: center; gap: 8px; padding: 9px 10px; font-size: 14px; font-weight: 600; letter-spacing: 0;
+    background: #0a1220; color: #c6d4e8; border: 1px solid #1f3554; border-radius: 10px; text-align: left; white-space: nowrap; }
+  .chip b { font-size: 10.5px; padding: 2px 6px; border-radius: 5px; background: #1b2538; color: #8fa6c4; letter-spacing: 0.5px; }
+  .chip:hover { background: #12233a; }
+  .chip.on { border-color: #4fd8ff; background: rgba(79, 216, 255, 0.12); color: #ffffff; }
+  .chip.on b { background: #4fd8ff; color: #04121c; }
+  .toggleRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 2px; font-size: 15px; color: #e6f1ff; }
+  .toggleRow + .toggleRow { border-top: 1px solid #1a2a44; }
+  .toggleRow span { display: flex; align-items: center; gap: 10px; }
+  .toggleRow svg { width: 20px; height: 20px; color: #8fa6c4; }
+  .switch { width: 56px; height: 32px; padding: 0; border-radius: 16px; background: #1b2538; border: 1px solid #2a3a55;
+    position: relative; letter-spacing: 0; flex: none; transition: background .2s, border-color .2s; }
+  .switch::after { content: ''; position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%;
+    background: #8fa6c4; transition: transform .2s, background .2s; }
+  .switch:hover { background: #243250; }
+  .switch.on { background: #4fd8ff; border-color: #4fd8ff; }
+  .switch.on:hover { background: #8ae6ff; }
+  .switch.on::after { transform: translateX(24px); background: #04121c; }
+  .optGrid { display: grid; gap: 10px; }
+  .diffGrid { grid-template-columns: repeat(3, 1fr); }
+  .droneGrid { grid-template-columns: repeat(4, 1fr); }
+  .optCard { padding: 14px 10px 12px; border-radius: 14px; background: #0a1220; border: 1px solid #1f3554; color: #c6d4e8;
+    letter-spacing: 0; font-weight: 700; font-size: 15px; display: flex; flex-direction: column; align-items: center; gap: 7px;
+    text-align: center; transition: transform .15s, border-color .15s, box-shadow .15s, background .15s; }
+  .optCard > * { pointer-events: none; }
+  .optCard:hover { background: #0f1a2e; transform: translateY(-2px); }
+  .optCard.on { border-color: var(--c); background: #0f1b30; color: #ffffff;
+    box-shadow: 0 0 0 1px var(--c), 0 8px 28px -10px var(--c); }
+  .optCard small { font-size: 11.5px; font-weight: 500; color: #8fa6c4; line-height: 1.35; }
+  .pips { display: flex; gap: 4px; }
+  .pips i { width: 16px; height: 6px; border-radius: 3px; background: #1b2538; }
+  .pips i.f { background: var(--c); }
+  .optCard canvas { width: 86px; height: 86px; }
+  .dstats { width: 100%; display: grid; grid-template-columns: auto 1fr; gap: 5px 8px; align-items: center;
+    font-size: 10.5px; font-weight: 600; color: #8fa6c4; text-align: left; margin-top: 2px; }
+  .bar { height: 5px; border-radius: 3px; background: #1b2538; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 3px; background: var(--c); }
+  #droneDesc { text-align: center; margin: 14px 0 0; font-size: 13.5px; color: #c6d4e8; }
+  #nextNote { text-align: center; margin: 8px 0 0; font-size: 12.5px; color: #ffd166; }
+  .rowLine { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; color: #e6f1ff; font-size: 15px; flex-wrap: wrap; }
+  .seg { display: inline-flex; background: #0a1220; border: 1px solid #1f3554; border-radius: 10px; padding: 3px; }
+  .seg button { padding: 7px 18px; font-size: 13.5px; font-weight: 600; letter-spacing: 0; background: transparent; color: #8fa6c4; border: 0; border-radius: 7px; }
+  .seg button:hover { background: #12233a; color: #e6f1ff; }
+  .seg button.on { background: #4fd8ff; color: #04121c; }
+  #bindList.binds { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; margin: 0; padding: 0; }
+  .bindRow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 8px 7px 12px;
+    border-radius: 10px; background: #0a1220; border: 1px solid #16243b; font-size: 13.5px; color: #c6d4e8; }
+  .binds .keycap { min-width: 70px; padding: 6px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0; color: #e6f1ff;
+    background: linear-gradient(#22324d, #16233a); border: 1px solid #2e4466; border-bottom-width: 3px; border-radius: 8px; }
+  .binds .keycap:hover { background: linear-gradient(#2a3d5e, #1b2a45); }
+  .binds .keycap.listen { background: #ffd166; color: #04121c; border-color: #c9a043; animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.25); } }
+  .ctrlFoot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  #setView #bindHint { margin: 0; font-size: 12px; text-align: left; flex: 1; min-width: 220px; }
+  .ctrlFoot .smallBtn { padding: 8px 14px; font-size: 12px; letter-spacing: 1px; }
+  @media (max-width: 700px) { .droneGrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .diffGrid { gap: 6px; } .setGrid { padding: 4px 12px 0; } }
+  @media (max-height: 520px) { .setHead { padding: 10px 16px 8px; } .setHead h2 { font-size: 20px; } .optCard canvas { width: 64px; height: 64px; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -74,7 +152,7 @@
   <button id="dashBtn" data-i18n="dodgeBtn">ESQUIVE</button>
 </div>
 <div id="overlay">
-  <div class="panel">
+  <div class="panel" id="panel">
     <div id="mainView">
       <h1 id="title">DRONE STRIKE</h1>
       <p class="sub" id="subtitle"></p>
@@ -89,48 +167,58 @@
       </div>
     </div>
     <div id="setView" hidden>
-      <h2 data-i18n="settings">PARAMÈTRES</h2>
-      <div class="aim"><span class="lbl" data-i18n="language">Langue</span>
-        <button data-opt="lang" data-val="fr" lang="fr">Français</button>
-        <button data-opt="lang" data-val="en" lang="en">English</button>
-        <button data-opt="lang" data-val="es" lang="es">Español</button>
-        <button data-opt="lang" data-val="it" lang="it">Italiano</button>
-        <button data-opt="lang" data-val="zh" lang="zh">中文</button>
-        <button data-opt="lang" data-val="ru" lang="ru">Русский</button>
+      <div class="setHead">
+        <button id="backBtn" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="settings">PARAMÈTRES</h2>
+        <span class="spacer"></span>
       </div>
-      <div class="aim"><span class="lbl" data-i18n="sound">Son</span>
-        <button data-opt="sound" data-val="1" data-i18n="on">Activé</button>
-        <button data-opt="sound" data-val="0" data-i18n="off">Désactivé</button>
-      </div>
-      <div class="aim" id="vibRow"><span class="lbl" data-i18n="vibration">Vibration</span>
-        <button data-opt="vib" data-val="1" data-i18n="vibOn">Activée</button>
-        <button data-opt="vib" data-val="0" data-i18n="vibOff">Désactivée</button>
-      </div>
-      <div class="aim"><span class="lbl" data-i18n="difficulty">Difficulté</span>
-        <button data-opt="diff" data-val="easy" data-i18n="easy">Facile</button>
-        <button data-opt="diff" data-val="normal" data-i18n="normal">Moyen</button>
-        <button data-opt="diff" data-val="hard" data-i18n="hard">Difficile</button>
-      </div>
-      <div class="aim"><span class="lbl" data-i18n="drone">Drone</span>
-        <button data-opt="drone" data-val="poly" data-i18n="d_poly">Polyvalent</button>
-        <button data-opt="drone" data-val="eclair" data-i18n="d_eclair">Éclaireur</button>
-        <button data-opt="drone" data-val="blinde" data-i18n="d_blinde">Blindé</button>
-        <button data-opt="drone" data-val="assaut" data-i18n="d_assaut">Assaut</button>
-      </div>
-      <p class="sub" id="droneDesc"></p>
-      <p class="sub" id="nextNote" hidden data-i18n="nextNote">La difficulté et le drone s'appliquent à la prochaine partie.</p>
-      <div id="ctrlSec">
-        <h3 data-i18n="controls">Commandes</h3>
-        <div class="aim"><span class="lbl" data-i18n="aim">Visée</span>
-          <button class="ghost" data-aim="mouse" data-i18n="mouse">Souris</button>
-          <button class="ghost" data-aim="keys" data-i18n="keyboard">Clavier</button>
-        </div>
-        <div class="binds" id="bindList"></div>
-        <p class="sub" id="bindHint" data-i18n="bindHint">Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.</p>
-        <div class="btns" style="margin-bottom:16px"><button id="resetBtn" class="ghost" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button></div>
-      </div>
-      <div class="btns">
-        <button id="backBtn" data-i18n="back">RETOUR</button>
+      <div class="setGrid">
+        <section class="card">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-i18n="language">Langue</span></div>
+          <div class="langGrid">
+            <button class="chip" data-opt="lang" data-val="fr" lang="fr"><b>FR</b>Français</button>
+            <button class="chip" data-opt="lang" data-val="en" lang="en"><b>EN</b>English</button>
+            <button class="chip" data-opt="lang" data-val="es" lang="es"><b>ES</b>Español</button>
+            <button class="chip" data-opt="lang" data-val="it" lang="it"><b>IT</b>Italiano</button>
+            <button class="chip" data-opt="lang" data-val="zh" lang="zh"><b>ZH</b>中文</button>
+            <button class="chip" data-opt="lang" data-val="ru" lang="ru"><b>RU</b>Русский</button>
+          </div>
+        </section>
+        <section class="card">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="audio">Son et vibration</span></div>
+          <div class="toggleRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="sound">Son</span></span><button class="switch" role="switch" data-opt="sound" data-toggle data-i18n-aria="sound" aria-label="Son"></button></div>
+          <div class="toggleRow" id="vibRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8"/></svg><span data-i18n="vibration">Vibration</span></span><button class="switch" role="switch" data-opt="vib" data-toggle data-i18n-aria="vibration" aria-label="Vibration"></button></div>
+        </section>
+        <section class="card full">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="m12 18 4-6"/></svg><span data-i18n="difficulty">Difficulté</span></div>
+          <div class="optGrid diffGrid">
+            <button class="optCard" data-opt="diff" data-val="easy" style="--c:#5dff9b"><span class="pips"><i class="f"></i><i></i><i></i></span><span data-i18n="easy"></span><small data-i18n="diffDesc_easy"></small></button>
+            <button class="optCard" data-opt="diff" data-val="normal" style="--c:#ffd166"><span class="pips"><i class="f"></i><i class="f"></i><i></i></span><span data-i18n="normal"></span><small data-i18n="diffDesc_normal"></small></button>
+            <button class="optCard" data-opt="diff" data-val="hard" style="--c:#ff4d6d"><span class="pips"><i class="f"></i><i class="f"></i><i class="f"></i></span><span data-i18n="hard"></span><small data-i18n="diffDesc_hard"></small></button>
+          </div>
+        </section>
+        <section class="card full">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.5 9.5 6 6M14.5 9.5 18 6M9.5 14.5 6 18M14.5 14.5 18 18"/><circle cx="5" cy="5" r="2.2"/><circle cx="19" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/></svg><span data-i18n="drone">Drone</span></div>
+          <div class="optGrid droneGrid">
+            <button class="optCard" data-opt="drone" data-val="poly" style="--c:#4fd8ff"><canvas data-prev="poly" width="86" height="86"></canvas><span data-i18n="d_poly"></span><span class="dstats" data-stats="poly"></span></button>
+            <button class="optCard" data-opt="drone" data-val="eclair" style="--c:#5dff9b"><canvas data-prev="eclair" width="86" height="86"></canvas><span data-i18n="d_eclair"></span><span class="dstats" data-stats="eclair"></span></button>
+            <button class="optCard" data-opt="drone" data-val="blinde" style="--c:#e8ecf5"><canvas data-prev="blinde" width="86" height="86"></canvas><span data-i18n="d_blinde"></span><span class="dstats" data-stats="blinde"></span></button>
+            <button class="optCard" data-opt="drone" data-val="assaut" style="--c:#ffd166"><canvas data-prev="assaut" width="86" height="86"></canvas><span data-i18n="d_assaut"></span><span class="dstats" data-stats="assaut"></span></button>
+          </div>
+          <p id="droneDesc"></p>
+          <p id="nextNote" hidden data-i18n="nextNote"></p>
+        </section>
+        <section class="card full" id="ctrlSec">
+          <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3M15.5 12h.01M18 13.5h.01"/></svg><span data-i18n="controls">Commandes</span></div>
+          <div class="rowLine"><span data-i18n="aim">Visée</span>
+            <div class="seg"><button data-aim="mouse" data-i18n="mouse">Souris</button><button data-aim="keys" data-i18n="keyboard">Clavier</button></div>
+          </div>
+          <div class="binds" id="bindList"></div>
+          <div class="ctrlFoot">
+            <p class="sub" id="bindHint" data-i18n="bindHint"></p>
+            <button id="resetBtn" class="ghost smallBtn" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -192,6 +280,13 @@
     desc_blinde: ['Résistant (160 points de vie), tirs lourds à double dégâts, mais lent.', 'Tough (160 health), heavy shots with double damage, but slow.', 'Resistente (160 puntos de vida), disparos pesados con daño doble, pero lento.', 'Resistente (160 punti vita), colpi pesanti a danno doppio, ma lento.', '坚固（160 生命值），重型射击造成双倍伤害，但速度慢。', 'Прочный (160 очков здоровья), тяжёлые выстрелы с двойным уроном, но медленный.'],
     desc_assaut: ['Cadence de tir élevée, blindage léger (90 points de vie).', 'High fire rate, light armor (90 health).', 'Cadencia de disparo alta, blindaje ligero (90 puntos de vida).', 'Cadenza di fuoco elevata, corazza leggera (90 punti vita).', '射速高，装甲轻（90 生命值）。', 'Высокая скорострельность, лёгкая броня (90 очков здоровья).'],
     nextNote: ['La difficulté et le drone s\'appliquent à la prochaine partie.', 'Difficulty and drone apply from the next game.', 'La dificultad y el dron se aplican en la próxima partida.', 'Difficoltà e drone si applicano dalla prossima partita.', '难度和无人机将在下一局生效。', 'Сложность и дрон применяются со следующей игры.'],
+    audio: ['Son et vibration', 'Sound & vibration', 'Sonido y vibración', 'Audio e vibrazione', '声音与振动', 'Звук и вибрация'],
+    diffDesc_easy: ['Moins d\'ennemis, plus de bonus', 'Fewer enemies, more power-ups', 'Menos enemigos, más bonus', 'Meno nemici, più bonus', '敌人更少，道具更多', 'Меньше врагов, больше бонусов'],
+    diffDesc_normal: ['L\'expérience équilibrée', 'The balanced experience', 'La experiencia equilibrada', 'L\'esperienza equilibrata', '均衡的标准体验', 'Сбалансированная игра'],
+    diffDesc_hard: ['Ennemis rapides et redoutables', 'Fast, deadly enemies', 'Enemigos rápidos y letales', 'Nemici veloci e letali', '敌人更快更致命', 'Быстрые и опасные враги'],
+    stat_hp: ['Vie', 'Health', 'Vida', 'Vita', '生命', 'Здоровье'],
+    stat_speed: ['Vitesse', 'Speed', 'Velocidad', 'Velocità', '速度', 'Скорость'],
+    stat_power: ['Feu', 'Firepower', 'Potencia', 'Potenza', '火力', 'Огонь'],
     controls: ['Commandes', 'Controls', 'Controles', 'Comandi', '操作', 'Управление'],
     aim: ['Visée', 'Aiming', 'Apuntado', 'Mira', '瞄准', 'Прицел'],
     mouse: ['Souris', 'Mouse', 'Ratón', 'Mouse', '鼠标', 'Мышь'],
@@ -439,6 +534,7 @@
 
   // ---------- Settings screen ----------
   var mainView = document.getElementById('mainView'), setView = document.getElementById('setView');
+  var panelEl = document.getElementById('panel');
   var bindList = document.getElementById('bindList'), elLoad = document.getElementById('loadout'), quitBtn = document.getElementById('quitBtn');
   var ctrlSec = document.getElementById('ctrlSec'), vibRow = document.getElementById('vibRow'), droneDesc = document.getElementById('droneDesc'), nextNote = document.getElementById('nextNote');
   function renderStatic() {
@@ -485,16 +581,26 @@
     for (var i = 0; i < ACTIONS.length; i++) {
       var a = ACTIONS[i][0];
       if (cfg.aim === 'mouse' && a.indexOf('aim') === 0) continue;
-      h += '<span>' + esc(tr('a_' + a)) + '</span><button class="ghost' + (listening === a ? ' listen' : '') + '" data-act="' + a + '">' +
-           (listening === a ? esc(tr('pressKey')) : L(a)) + '</button>';
+      h += '<div class="bindRow"><span>' + esc(tr('a_' + a)) + '</span><button class="keycap' + (listening === a ? ' listen' : '') + '" data-act="' + a + '">' +
+           (listening === a ? esc(tr('pressKey')) : L(a)) + '</button></div>';
     }
     bindList.innerHTML = h;
     var ab = setView.querySelectorAll('[data-aim]');
-    for (var j = 0; j < ab.length; j++) ab[j].className = ab[j].getAttribute('data-aim') === cfg.aim ? 'on' : 'ghost';
+    for (var j = 0; j < ab.length; j++) ab[j].classList.toggle('on', ab[j].getAttribute('data-aim') === cfg.aim);
     var ob = setView.querySelectorAll('[data-opt]');
     for (j = 0; j < ob.length; j++) {
-      var key = ob[j].getAttribute('data-opt'), cur = (key === 'sound' || key === 'vib') ? (cfg[key] ? '1' : '0') : cfg[key];
-      ob[j].className = ob[j].getAttribute('data-val') === cur ? 'on' : 'ghost';
+      var key = ob[j].getAttribute('data-opt');
+      var isOn = ob[j].hasAttribute('data-toggle') ? !!cfg[key] : ob[j].getAttribute('data-val') === cfg[key];
+      ob[j].classList.toggle('on', isOn);
+      ob[j].setAttribute(ob[j].hasAttribute('data-toggle') ? 'aria-checked' : 'aria-pressed', isOn ? 'true' : 'false');
+    }
+    var ds = setView.querySelectorAll('[data-stats]');
+    for (j = 0; j < ds.length; j++) {
+      var sp = DRONES[ds[j].getAttribute('data-stats')];
+      var vals = [['stat_hp', sp.hp / 160], ['stat_speed', sp.accel / 2150], ['stat_power', (sp.dmg / sp.fire) / 10]], hs = '';
+      for (var q = 0; q < vals.length; q++)
+        hs += '<span>' + esc(tr(vals[q][0])) + '</span><span class="bar"><i style="width:' + Math.round(clamp(vals[q][1], 0.12, 1) * 100) + '%"></i></span>';
+      ds[j].innerHTML = hs;
     }
     ctrlSec.hidden = isTouch;
     vibRow.hidden = !navigator.vibrate;
@@ -505,24 +611,27 @@
   function showSettings(on) {
     setOpen = on; listening = null;
     mainView.hidden = on; setView.hidden = !on;
+    panelEl.classList.toggle('wide', on);
+    overlay.scrollTop = 0;
     renderAll();
   }
   bindList.addEventListener('click', function (e) {
-    var act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
-    if (!act) return;
-    listening = act; e.target.blur(); renderBinds();
+    var btn = e.target && e.target.closest ? e.target.closest('[data-act]') : null;
+    if (!btn) return;
+    listening = btn.getAttribute('data-act'); btn.blur(); renderBinds();
   });
   setView.addEventListener('click', function (e) {
-    var o = e.target && e.target.getAttribute && e.target.getAttribute('data-opt');
+    var el = e.target && e.target.closest ? e.target.closest('[data-opt],[data-aim]') : null;
+    if (!el) return;
+    var o = el.getAttribute('data-opt');
     if (o) {
-      var v = e.target.getAttribute('data-val');
-      cfg[o] = (o === 'sound' || o === 'vib') ? v === '1' : v;
+      if (el.hasAttribute('data-toggle')) cfg[o] = !cfg[o]; else cfg[o] = el.getAttribute('data-val');
       saveCfg(); renderAll();
       if (o === 'sound' && cfg.sound) { initAudio(); beep(660, 0.15, 'triangle', 0.06, 990); }
       if (o === 'vib') vib(40);
       return;
     }
-    var m = e.target && e.target.getAttribute && e.target.getAttribute('data-aim');
+    var m = el.getAttribute('data-aim');
     if (!m) return;
     cfg.aim = m; listening = null; saveCfg(); renderAll();
   });
@@ -1072,6 +1181,21 @@
 
   // ---------- Loop ----------
   var last = 0;
+  function drawPreviews(t) {
+    var cs = setView.querySelectorAll('canvas[data-prev]');
+    var mainCtx = ctx, mainTime = time;
+    time = t;
+    for (var i = 0; i < cs.length; i++) {
+      var c = cs[i], id = c.getAttribute('data-prev'), sz = 86, px = Math.round(sz * DPR);
+      if (c.width !== px) { c.width = px; c.height = px; }
+      ctx = c.getContext('2d');
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.clearRect(0, 0, sz, sz);
+      var sel = cfg.drone === id;
+      drawDrone(sz / 2, sz / 2, -Math.PI / 2 + (sel ? Math.sin(t * 1.6) * 0.35 : 0), 21, DRONES[id].color, false, sel ? 1 : 0.5);
+    }
+    ctx = mainCtx; time = mainTime;
+  }
   function frame(ts) {
     var dt = Math.min(0.033, (ts - last) / 1000 || 0);
     last = ts;
@@ -1080,6 +1204,7 @@
     if (state === 'play') update(dt);
     if (state === 'play' || state === 'over') updateParticles(dt);
     draw();
+    if (setOpen) drawPreviews(ts / 1000);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
