@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Drone Strike</title>
+<title>Dronefang</title>
 <style>
   html, body { margin: 0; height: 100%; background: #070b14; overflow: hidden; touch-action: none; overscroll-behavior: none; }
   [hidden] { display: none !important; }
@@ -339,6 +339,7 @@
   #mainView.isMenu h1 { font-size: 50px; letter-spacing: 8px; background: linear-gradient(90deg, #4fd8ff, #d6f6ff, #c77dff, #4fd8ff); background-size: 300% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent; animation: flow 7s linear infinite; filter: drop-shadow(0 0 16px rgba(79, 216, 255, 0.45)); }
   #mainView.isMenu .sub { margin-bottom: 14px; }
+  #mainView.isMenu #subtitle:empty { display: none; }
   #hero { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 0 0 18px; padding: 10px 16px; border-radius: 16px;
     background: linear-gradient(160deg, rgba(17, 32, 56, 0.9), rgba(10, 19, 36, 0.9)); border: 1px solid #1f3554; text-align: left; }
   #heroDrone { width: 104px; height: 104px; flex: none; cursor: default; }
@@ -453,6 +454,10 @@
   .hbtn.sec { background: rgba(10, 18, 32, 0.75); color: #e6f1ff; border: 1px solid #2a6f9c; }
   .hbtn.sec svg { color: #4fd8ff; }
   .hbtn.sec:hover { background: #12233a; }
+  .hbtn.online { position: relative; border-style: dashed; border-color: #6b4fa0; }
+  .hbtn.online svg { color: #c77dff; }
+  .soonTag { margin-left: auto; font-style: normal; font-size: 10.5px; letter-spacing: 1.2px; font-weight: 800; color: #170b2a; background: #c77dff; border-radius: 999px; padding: 4px 9px; flex: none; }
+  .hbtn:nth-child(4) { animation-delay: 210ms; }
   .hbtn.low { background: transparent; color: #8fa6c4; border: 1px solid #1f3554; padding: 12px 18px; font-size: 14px; }
   #mainView.isMenu #homeBtn { grid-column: 1 / -1; border-color: #1f3554; color: #8fa6c4; }
   #gameView h2, #gamesView h2 { text-transform: uppercase; }
@@ -517,13 +522,13 @@
   <div class="panel" id="panel">
     <div id="homeView" hidden>
       <div class="homeL">
-        <h1 class="homeTitle">DRONE<span>STRIKE</span></h1>
-        <p class="sub" data-i18n="tagline"></p>
+        <h1 class="homeTitle">DRONE<span>FANG</span></h1>
         <canvas id="homeDrone" width="230" height="160"></canvas>
       </div>
       <div class="homeR">
         <button id="newBtn" class="hbtn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span data-i18n="newGame"></span></button>
         <button id="contBtn" class="hbtn sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg><span><span data-i18n="resume"></span><small id="contName"></small></span></button>
+        <button id="onlineBtn" class="hbtn sec online"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span><span data-i18n="online"></span><small data-i18n="onlineSub"></small></span><i class="soonTag" data-i18n="soonTag"></i></button>
         <button id="homeSet" class="hbtn low"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><span data-i18n="settings"></span></button>
       </div>
     </div>
@@ -536,7 +541,7 @@
       <div class="setGrid"><section class="card full"><div class="gamesGrid" id="gamesGrid"></div></section></div>
     </div>
     <div id="mainView">
-      <h1 id="title">DRONE STRIKE</h1>
+      <h1 id="title">DRONEFANG</h1>
       <p class="sub" id="subtitle"></p>
       <p class="stats" id="stats" hidden></p>
       <div class="keys" id="keys"></div>
@@ -697,7 +702,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '0.6';
+  var APP_VERSION = '0.7';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -1003,7 +1008,12 @@
     language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык'],
     sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
     notifNote: ['Activez les notifications pour être prévenu quand vos 3 vies sont rechargées.', 'Turn on notifications to be told when your 3 lives are refilled.', 'Activa las notificaciones para saber cuándo se recargan tus 3 vidas.', 'Attiva le notifiche per sapere quando le tue 3 vite sono ricaricate.', '开启通知，3 条生命恢复满时提醒你。', 'Включите уведомления, чтобы узнать, когда все 3 жизни восстановятся.'],
-    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Drone Strike).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Drone Strike).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Drone Strike).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Drone Strike）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Drone Strike).'],
+    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Dronefang).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Dronefang).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Dronefang).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Dronefang).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Dronefang）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Dronefang).'],
+    online: ['JOUER EN LIGNE', 'PLAY ONLINE', 'JUGAR EN LÍNEA', 'GIOCA ONLINE', '在线对战', 'ИГРАТЬ ОНЛАЙН'],
+    onlineSub: ['Affrontez d\'autres pilotes', 'Face other pilots', 'Enfréntate a otros pilotos', 'Sfida altri piloti', '与其他玩家对战', 'Сразитесь с другими пилотами'],
+    soonTag: ['BIENTÔT', 'SOON', 'PRONTO', 'PRESTO', '即将推出', 'СКОРО'],
+    onlineSoon: ['Le jeu en ligne arrive dans une prochaine version.', 'Online play is coming in a future version.', 'El juego en línea llegará en una próxima versión.', 'Il gioco online arriverà in una prossima versione.', '在线模式将在后续版本推出。', 'Онлайн-режим появится в следующей версии.'],
+    sc_topWave: ['Meilleure vague', 'Best wave', 'Mejor oleada', 'Miglior ondata', '最佳波次', 'Лучшая волна'],
     newGame: ['NOUVEAU JEU', 'NEW GAME', 'NUEVA PARTIDA', 'NUOVA PARTITA', '新游戏', 'НОВАЯ ИГРА'],
     myGames: ['Mes jeux', 'My games', 'Mis partidas', 'Le mie partite', '我的存档', 'Мои игры'],
     mainMenu: ['Menu principal', 'Main menu', 'Menú principal', 'Menu principale', '主菜单', 'Главное меню'],
@@ -1076,7 +1086,7 @@
     sc_games: ['Vagues jouées', 'Waves played', 'Oleadas jugadas', 'Ondate giocate', '已玩波数', 'Сыграно волн'],
     sc_kills: ['Abattus', 'Kills', 'Derribos', 'Abbattuti', '击落', 'Сбито'],
     sc_none: ['Pas encore joué', 'Not played yet', 'Aún sin jugar', 'Non ancora giocato', '尚未游玩', 'Ещё не играли'],
-    sc_line: ['Vague {w}/150 · {k} abattus', 'Wave {w}/150 · {k} kills', 'Oleada {w}/150 · {k} derribos', 'Ondata {w}/150 · {k} abbattuti', '第 {w}/150 波 · 击落 {k}', 'Волна {w}/150 · сбито {k}'],
+    sc_line: ['Vague {w}/2500 · {k} abattus', 'Wave {w}/2500 · {k} kills', 'Oleada {w}/2500 · {k} derribos', 'Ondata {w}/2500 · {k} abbattuti', '第 {w}/2500 波 · 击落 {k}', 'Волна {w}/2500 · сбито {k}'],
     sc_played: ['{n} vague(s) jouée(s) · {date}', '{n} wave(s) played · {date}', '{n} oleada(s) jugada(s) · {date}', '{n} ondata/e giocata/e · {date}', '已玩 {n} 波 · {date}', 'Сыграно волн: {n} · {date}'],
     sc_top: ['MEILLEUR', 'TOP', 'MEJOR', 'MIGLIORE', '最佳', 'ЛУЧШИЙ'],
     sc_hint: ['Le score total d\'un chemin est la somme des meilleurs scores de ses vagues.', 'A path\'s total score is the sum of the best scores of its waves.', 'La puntuación total de un camino es la suma de las mejores puntuaciones de sus oleadas.', 'Il punteggio totale di un percorso è la somma dei migliori punteggi delle sue ondate.', '路线总分为各波最高分之和。', 'Общий счёт маршрута — сумма лучших результатов его волн.'],
@@ -1113,7 +1123,7 @@
     a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево'],
     a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо'],
     pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…'],
-    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}/150  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}/150  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}/150  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}/150  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w}/150 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}/150  ·  кредиты: {c}'],
+    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}/2500  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}/2500  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}/2500  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}/2500  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w}/2500 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}/2500  ·  кредиты: {c}'],
     intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.'],
     introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.'],
     h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец'],
@@ -1161,7 +1171,7 @@
     waveClear: ['VAGUE {n} RÉUSSIE', 'WAVE {n} CLEARED', 'OLEADA {n} SUPERADA', 'ONDATA {n} SUPERATA', '第 {n} 波完成', 'ВОЛНА {n} ПРОЙДЕНА'],
     bossClear: ['BOSS VAINCU', 'BOSS DEFEATED', 'JEFE DERROTADO', 'BOSS SCONFITTO', 'BOSS 已击败', 'БОСС ПОВЕРЖЕН'],
     pathDone: ['CHEMIN TERMINÉ !', 'PATH COMPLETE!', '¡CAMINO COMPLETADO!', 'PERCORSO COMPLETATO!', '路线完成！', 'МАРШРУТ ПРОЙДЕН!'],
-    clearSub: ['Vague {n} sur 150', 'Wave {n} of 150', 'Oleada {n} de 150', 'Ondata {n} di 150', '第 {n} 波，共 150 波', 'Волна {n} из 150'],
+    clearSub: ['Vague {n} sur 2500', 'Wave {n} of 2500', 'Oleada {n} de 2500', 'Ondata {n} di 2500', '第 {n} 波，共 2500 波', 'Волна {n} из 2500'],
     chapter: ['Chapitre {n}', 'Chapter {n}', 'Capítulo {n}', 'Capitolo {n}', '第 {n} 章', 'Глава {n}'],
     chapterDone: ['CHAPITRE {n} TERMINÉ', 'CHAPTER {n} COMPLETE', 'CAPÍTULO {n} COMPLETADO', 'CAPITOLO {n} COMPLETATO', '第 {n} 章完成', 'ГЛАВА {n} ПРОЙДЕНА'],
     chapterUnlock: ['Nouveau chemin débloqué : chapitre {n}', 'New path unlocked: chapter {n}', 'Nuevo camino desbloqueado: capítulo {n}', 'Nuovo percorso sbloccato: capitolo {n}', '新路线已解锁：第 {n} 章', 'Открыт новый маршрут: глава {n}'],
@@ -1169,9 +1179,9 @@
     chLocked: ['Terminez ce chapitre pour le débloquer', 'Finish this chapter to unlock it', 'Termina este capítulo para desbloquearlo', 'Completa questo capitolo per sbloccarlo', '完成本章即可解锁', 'Завершите эту главу, чтобы открыть'],
     chOpen: ['Débloqué — appuyez pour continuer', 'Unlocked — tap to continue', 'Desbloqueado: toca para continuar', 'Sbloccato: tocca per continuare', '已解锁 — 点击继续', 'Открыто — нажмите, чтобы продолжить'],
     soonLocked: ['De nouvelles vagues arrivent bientôt', 'New waves are coming soon', 'Pronto llegarán nuevas oleadas', 'Nuove ondate in arrivo', '新的波次即将到来', 'Новые волны скоро появятся'],
-    tagline: ['150 vagues. Des boss. Un seul drone.', '150 waves. Bosses. One drone.', '150 oleadas. Jefes. Un solo dron.', '150 ondate. Boss. Un solo drone.', '150 波敌人，多个 BOSS，一架无人机。', '150 волн. Боссы. Один дрон.'],
+    tagline: ['2500 vagues. Des boss. Un seul drone.', '2500 waves. Bosses. One drone.', '2500 oleadas. Jefes. Un solo dron.', '2500 ondate. Boss. Un solo drone.', '2500 波敌人，多个 BOSS，一架无人机。', '2500 волн. Боссы. Один дрон.'],
     soonTitle: ['BIENTÔT', 'COMING SOON', 'PRÓXIMAMENTE', 'PROSSIMAMENTE', '敬请期待', 'СКОРО'],
-    soonText: ['Vous avez terminé les 150 vagues. De nouvelles vagues arrivent bientôt !', 'You have completed all 150 waves. New waves are coming soon!', 'Has completado las 150 oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le 150 ondate. Nuove ondate in arrivo!', '你已完成全部 150 波。新的波次即将到来！', 'Вы прошли все 150 волн. Новые волны скоро появятся!'],
+    soonText: ['Vous avez terminé les 2500 vagues. De nouvelles vagues arrivent bientôt !', 'You have completed all 2500 waves. New waves are coming soon!', 'Has completado las 2500 oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le 2500 ondate. Nuove ondate in arrivo!', '你已完成全部 2500 波。新的波次即将到来！', 'Вы прошли все 2500 волн. Новые волны скоро появятся!'],
     st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней'],
     st_total: ['Total', 'Total', 'Total', 'Totale', '合计', 'Итого'],
     st_bestWave: ['Meilleur score de la vague', 'Best score for this wave', 'Mejor puntuación de la oleada', 'Miglior punteggio dell\'ondata', '本波最高分', 'Лучший счёт волны'],
@@ -1250,7 +1260,7 @@
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff', life: '#ff6b9d' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
   var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, notif: true, comfort: false, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
-  var WAVES = 50, CHAPTERS = 3, TOTAL = WAVES * CHAPTERS, CREDIT_RATE = 0.3;
+  var WAVES = 50, CHAPTERS = 50, TOTAL = WAVES * CHAPTERS, CREDIT_RATE = 0.3;
   var camp = {};
   try { camp = JSON.parse(localStorage.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
   function saveCamp() { try { localStorage.setItem('droneStrikeCamp', JSON.stringify(camp)); } catch (err) { /* ignore */ } }
@@ -1356,7 +1366,7 @@
       if (!cfg.notif || !pool.t || pool.n >= POOL_MAX || pool.t + POOL_MS <= Date.now() + 2000) { ln.cancel({ notifications: [{ id: 1 }] }).catch(none); return; }
       var at = new Date(pool.t + POOL_MS);
       var go = function () {
-        ln.schedule({ notifications: [{ id: 1, title: 'Drone Strike', body: tr('notifBody'), schedule: { at: at, allowWhileIdle: true } }] }).catch(none);
+        ln.schedule({ notifications: [{ id: 1, title: 'Dronefang', body: tr('notifBody'), schedule: { at: at, allowWhileIdle: true } }] }).catch(none);
       };
       ln.checkPermissions().then(function (r) { if (r && r.display === 'granted') go(); }).catch(none);
     } catch (err) { /* notifications indisponibles */ }
@@ -1576,7 +1586,7 @@
     var st = state, c = tr('colon');
     startBtn.textContent = st === 'menu' ? tr('playWave', { n: cWave(cfg.diff, cfg.drone) }) : tr('retryWave');
     if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = '\u25B6  ' + tr('startNew');
-    if (st === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
+    if (st === 'menu') { elTitle.textContent = 'DRONEFANG'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
     else if (st === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
     else if (st === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = lives > 0 ? tr('downSub', { n: lives }) : tr('destroyed'); }
     else if (st === 'clear' && lastRes) {
@@ -1593,7 +1603,7 @@
     startBtn.hidden = st === 'clear';
     pathBtn.hidden = st === 'pause';
     setLabel(pathBtn, tr(st === 'menu' ? 'path' : 'toPath'));
-    if (st === 'menu') { startBtn.textContent = '\u25B6  ' + startBtn.textContent; elSub.textContent = tr('tagline'); }
+    if (st === 'menu') { startBtn.textContent = '\u25B6  ' + startBtn.textContent; elSub.textContent = ''; }
     mainView.classList.toggle('isMenu', st === 'menu');
     overlay.classList.toggle('menuBg', st === 'menu');
     document.getElementById('gameBtn').hidden = st !== 'menu'; document.getElementById('shopBtn').hidden = st !== 'menu';
@@ -1695,13 +1705,16 @@
   }
   function renderScores() {
     scoresBtn.hidden = state !== 'menu';
-    var c = cGet() || { p: 0, s: {}, k: 0, n: 0, d: 0, df: cfg.diff, dr: cfg.drone }, ch = [0, 0, 0], w, top = 0;
-    for (w in c.s) { var v = +c.s[w] || 0, ci = Math.min(CHAPTERS - 1, Math.floor((+w - 1) / WAVES)); ch[ci] += v; if (v > top) top = v; }
+    var c = cGet() || { p: 0, s: {}, k: 0, n: 0, d: 0, df: cfg.diff, dr: cfg.drone }, ch = [], w, top = 0;
+    for (w in c.s) { var v = +c.s[w] || 0, ci = Math.min(CHAPTERS - 1, Math.floor((+w - 1) / WAVES)); ch[ci] = (ch[ci] || 0) + v; if (v > top) top = v; }
     document.getElementById('scoreName').innerHTML = esc(gName()) + ' <small>· ' + esc(tr('d_' + cfg.drone)) + ' · ' + esc(tr(cfg.diff)) + (c.d && c.n ? ' · ' + esc(fmtDate(c.d)) : '') + '</small>';
     var h = '<div class="tile hl" style="--c:' + DRONES[cfg.drone].color + '"><span>' + esc(tr('sc_best')) + '</span><strong>' + cTotal(c) + '</strong></div>' +
       '<div class="tile"><span>' + esc(tr('p_wave')) + '</span><strong>' + c.p + '/' + TOTAL + '</strong></div>' +
       '<div class="tile"><span>' + esc(tr('sc_kills')) + '</span><strong>' + c.k + '</strong></div>';
-    for (var i = 0; i < CHAPTERS; i++) h += '<div class="tile"><span>' + esc(tr('chapter', { n: i + 1 })) + '</span><strong>' + (c.p > i * WAVES || ch[i] ? ch[i] : '—') + '</strong></div>';
+    var curC = Math.min(CHAPTERS, Math.floor(c.p / WAVES) + 1);
+    h += '<div class="tile"><span>' + esc(tr('chapter', { n: '' }).trim()) + '</span><strong>' + curC + '/' + CHAPTERS + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('chapter', { n: curC })) + '</span><strong>' + (ch[curC - 1] || 0) + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('sc_topWave')) + '</span><strong>' + top + '</strong></div>';
     document.getElementById('scoreSum').innerHTML = h;
   }
   var TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
@@ -1731,6 +1744,7 @@
   document.getElementById('newBtn').addEventListener('click', function () { document.getElementById('newName').value = ''; showView('game'); });
   document.getElementById('contBtn').addEventListener('click', function () { if (cGet()) goMenu(); });
   document.getElementById('homeSet').addEventListener('click', function () { showSettings(true); });
+  document.getElementById('onlineBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); showToast(tr('onlineSoon')); });
   document.getElementById('homeBtn').addEventListener('click', goHome);
   document.getElementById('gamesBack').addEventListener('click', function () { if (cGet()) showView('main'); else showView('home'); });
   gamesView.addEventListener('click', function (e) {
@@ -2150,7 +2164,7 @@
 
   function buildQueue() {
     bossPending = wave % 5 === 0;
-    var n = Math.max(3, Math.round((4 + Math.min(wave, 60) * 0.9 + Math.max(0, wave - 60) * 0.25) * D.count * (bossPending ? 0.45 : 1)));
+    var n = Math.max(3, Math.round(Math.min(70, 4 + Math.min(wave, 60) * 0.9 + Math.max(0, wave - 60) * 0.25) * D.count * (bossPending ? 0.45 : 1)));
     waveQueue = [];
     for (var i = 0; i < n; i++) {
       var roll = Math.random(), type = 'scout';
@@ -2169,16 +2183,17 @@
     { id: 'titan',   name: 'TITAN',   speed: 85, turn: 0.95, orbit: 470, scale: 1.3, acc: '#ff4d6d' }
   ];
   var MK = ['', ' MK II', ' MK III', ' MK IV', ' MK V', ' MK VI'];
+  function roman(n) { var v = [100, 90, 50, 40, 10, 9, 5, 4, 1], l = ['C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'], o = ''; for (var i = 0; i < v.length; i++) while (n >= v[i]) { o += l[i]; n -= v[i]; } return o; }
   function bossInfo(n) {
     var k = Math.max(0, Math.floor(n / 5) - 1), b = BOSSES[k % BOSSES.length], tier = Math.floor(k / BOSSES.length);
-    return { b: b, tier: tier, name: b.name + MK[Math.min(tier, MK.length - 1)] };
+    return { b: b, tier: tier, name: b.name + (tier > 0 ? ' MK ' + roman(tier + 1) : '') };
   }
   function spawnBoss() {
     spawnEnemy('boss');
     var bs = enemies[enemies.length - 1], bi = bossInfo(wave);
     bs.bd = bi.b; bs.tier = bi.tier; bs.bname = bi.name;
     bs.r = Math.round(46 * bi.b.scale);
-    bs.hp = bs.maxHp = Math.round((110 + (wave / 5 - 1) * 36) * D.count * (bi.b.id === 'titan' ? 1.25 : bi.b.id === 'delta' ? 0.85 : 1));
+    bs.hp = bs.maxHp = Math.round((110 + ((Math.min(wave, 150) + Math.max(0, wave - 150) * 0.3) / 5 - 1) * 36) * D.count * (bi.b.id === 'titan' ? 1.25 : bi.b.id === 'delta' ? 0.85 : 1));
     bs.spawn = 1.6; bs.pat = 0; bs.cd = 2.5; bs.hd = Math.atan2(player.y - bs.y, player.x - bs.x); bs.spd = bi.b.speed;
     bs.dive = 0; bs.warn = 0; bs.cloak = 0;
   }
@@ -2622,9 +2637,10 @@
     for (i = 0; i < v.length; i++) { fx += v[i][0]; fy += v[i][1]; fz += v[i][2]; }
     fx /= v.length; fy /= v.length; fz /= v.length;
     if (nx * (fx - pc[0]) + ny * (fy - pc[1]) + nz * (fz - pc[2]) < 0) { nx = -nx; ny = -ny; nz = -nz; }
-    m.f.push({ v: v, n: [nx, ny, nz], c: hexRgb(col), e: em ? 1 : 0 });
+    m.f.push({ v: v, n: [nx, ny, nz], c: hexRgb(col), e: em ? 1 : 0, p: m.pid | 0, fc: [fx, fy, fz] });
   }
   function addPoly(m, pts, z0, z1, top, col, em) {
+    m.pid = (m.pid | 0) + 1;
     var n = pts.length, cx = 0, cy = 0, i, lo = [], hi = [];
     for (i = 0; i < n; i++) { cx += pts[i][0]; cy += pts[i][1]; }
     cx /= n; cy /= n;
@@ -2668,7 +2684,7 @@
       for (i = 0; i < 4; i++) {
         a = ha[i];
         var hl = i < 2 ? 0.780 : 0.920;
-        rbox(m, Math.cos(a) * hl / 2, Math.sin(a) * hl / 2, 0.07, hl, 0.08, 0.05, a, '#1b1e28');
+        rbox(m, Math.cos(a) * (hl + 0.240) / 2, Math.sin(a) * (hl + 0.240) / 2, 0.07, hl - 0.240, 0.08, 0.05, a, '#1b1e28');
         addPoly(m, ngon(Math.cos(a) * hl, Math.sin(a) * hl, 0.130, 8), 0.02, 0.2, 1, '#ffc93c');
         addPoly(m, ngon(Math.cos(a) * hl, Math.sin(a) * hl, 0.06, 6), 0.2, 0.240, 1, acc, 1);
         m.rot.push({ x: Math.cos(a) * hl, y: Math.sin(a) * hl, z: 0.270, r: i < 2 ? 0.3 : 0.360 });
@@ -2683,7 +2699,7 @@
       for (i = 0; i < 6; i++) {
         a = i * Math.PI / 3 + Math.PI / 6;
         var a2 = a + Math.PI / 3, x1 = Math.cos(a) * 0.920, y1 = Math.sin(a) * 0.920, x2 = Math.cos(a2) * 0.920, y2 = Math.sin(a2) * 0.920;
-        rbox(m, Math.cos(a) * 0.620, Math.sin(a) * 0.620, 0.07, 0.6, 0.07, 0.05, a, '#8d96a8');
+        rbox(m, Math.cos(a) * 0.690, Math.sin(a) * 0.690, 0.07, 0.460, 0.07, 0.05, a, '#8d96a8');
         rbox(m, (x1 + x2) / 2, (y1 + y2) / 2, 0.05, Math.hypot(x2 - x1, y2 - y1), 0.05, 0.045, Math.atan2(y2 - y1, x2 - x1), '#d9b44a');
         addPoly(m, ngon(x1, y1, 0.125, 8), 0.02, 0.2, 1, '#d9b44a');
         addPoly(m, ngon(x1, y1, 0.06, 6), 0.2, 0.240, 1, acc, 1);
@@ -2696,7 +2712,7 @@
       var hexB = [[0.5, 0], [0.3, 0.270], [-0.320, 0.270], [-0.5, 0.1], [-0.5, -0.1], [-0.320, -0.270], [0.3, -0.270]];
       for (i = 0; i < 4; i++) {
         a = Math.PI / 4 + i * Math.PI / 2;
-        rbox(m, Math.cos(a) * 0.5, Math.sin(a) * 0.5, 0.06, 0.8, 0.09, 0.06, a, '#8793ab');
+        rbox(m, Math.cos(a) * 0.630, Math.sin(a) * 0.630, 0.06, 0.540, 0.09, 0.06, a, '#8793ab');
         addPoly(m, ngon(Math.cos(a) * 0.880, Math.sin(a) * 0.880, 0.130, 8), 0.02, 0.2, 1, '#b4bfd3');
         addPoly(m, ngon(Math.cos(a) * 0.880, Math.sin(a) * 0.880, 0.06, 6), 0.2, 0.240, 1, acc, 1);
         m.rot.push({ x: Math.cos(a) * 0.880, y: Math.sin(a) * 0.880, z: 0.270, r: 0.360 });
@@ -2705,28 +2721,33 @@
       addPoly(m, ngon(0.05, 0, 0.130, 6), 0.260, 0.310, 0.6, acc, 1);
       guns3(m, cannons, 0.450, 0.1, acc);
     }
+    m.pc = {};
+    var cnt = {};
+    for (i = 0; i < m.f.length; i++) { var pf = m.f[i], pp = m.pc[pf.p] || (m.pc[pf.p] = [0, 0, 0]); pp[0] += pf.fc[0]; pp[1] += pf.fc[1]; pp[2] += pf.fc[2]; cnt[pf.p] = (cnt[pf.p] | 0) + 1; }
+    for (var pk in m.pc) { m.pc[pk][0] /= cnt[pk]; m.pc[pk][1] /= cnt[pk]; m.pc[pk][2] /= cnt[pk]; }
     modelCache[key] = m;
     return m;
   }
   var L3 = (function () { var v = [-0.450, -0.550, 0.7], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
   function draw3D(m, cx, cy, sc, yaw, tilt, lx, ly, alpha, t, flash, shadow) {
     var cyw = Math.cos(yaw), syw = Math.sin(yaw), ct = Math.cos(tilt), st = Math.sin(tilt), ca = Math.cos(lx), sa = Math.sin(lx), cb = Math.cos(ly), sb = Math.sin(ly);
-    var items = [], i, j, f, n, q;
+    var items = [], i, j, f, n, q, pdep = {};
     function tf(pt) {
       var x = pt[0] * cyw - pt[1] * syw, y = pt[0] * syw + pt[1] * cyw, z = pt[2];
       var x2 = x * ca + z * sa, z2 = -x * sa + z * ca;
       return [x2, y * cb + z2 * sb, -y * sb + z2 * cb];
     }
+    for (var pk in m.pc) { q = tf(m.pc[pk]); pdep[pk] = q[1] * st + q[2] * ct; }
     for (i = 0; i < m.f.length; i++) {
       f = m.f[i]; n = tf(f.n);
       if (n[1] * st + n[2] * ct <= 0.01) continue;
       var pts = [], dep = 0;
       for (j = 0; j < f.v.length; j++) { q = tf(f.v[j]); pts.push(cx + q[0] * sc, cy + (q[1] * ct - q[2] * st) * sc); dep += q[1] * st + q[2] * ct; }
       var lam = Math.max(0, n[0] * L3[0] + n[1] * L3[1] + n[2] * L3[2]), b = f.e ? 1 : 0.3 + 0.850 * lam;
-      items.push({ d: dep / f.v.length, p: pts, col: flash ? '#ffffff' : 'rgb(' + Math.min(255, f.c[0] * b | 0) + ',' + Math.min(255, f.c[1] * b | 0) + ',' + Math.min(255, f.c[2] * b | 0) + ')', e: f.e });
+      items.push({ pd: pdep[f.p], d: dep / f.v.length, p: pts, col: flash ? '#ffffff' : 'rgb(' + Math.min(255, f.c[0] * b | 0) + ',' + Math.min(255, f.c[1] * b | 0) + ',' + Math.min(255, f.c[2] * b | 0) + ')', e: f.e });
     }
-    for (i = 0; i < m.rot.length; i++) { q = tf([m.rot[i].x, m.rot[i].y, m.rot[i].z]); items.push({ d: q[1] * st + q[2] * ct + 0.02, rx: cx + q[0] * sc, ry: cy + (q[1] * ct - q[2] * st) * sc, r: m.rot[i].r * sc, k: i }); }
-    items.sort(function (u, v) { return u.d - v.d; });
+    for (i = 0; i < m.rot.length; i++) { q = tf([m.rot[i].x, m.rot[i].y, m.rot[i].z]); items.push({ pd: q[1] * st + q[2] * ct + 0.02, d: 0, rx: cx + q[0] * sc, ry: cy + (q[1] * ct - q[2] * st) * sc, r: m.rot[i].r * sc, k: i }); }
+    items.sort(function (u, v) { return (u.pd - v.pd) || (u.d - v.d); });
     ctx.save();
     ctx.globalAlpha = alpha;
     if (shadow) { ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; ctx.beginPath(); ctx.ellipse(cx + sc * 0.3, cy + sc * 0.550, sc * 1.050, sc * 0.9 * ct, 0, 0, TAU); ctx.fill(); }
@@ -3098,7 +3119,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, d3: function (cv, skin, yaw, tilt, x, y, sc) { var mc = ctx; ctx = cv.getContext('2d'); draw3D(getModel(skin, '#4fd8ff', 3), x, y, sc, yaw, tilt, 0, 0, 1, 0.3, false, true); ctx = mc; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>

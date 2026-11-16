@@ -1,6 +1,6 @@
-DRONE STRIKE - Télécharger l'application Android
+DRONEFANG - Télécharger l'application Android
 
-Page de la dernière version (fichier drone-strike-vX.Y.apk, à ouvrir dans Chrome) :
+Page de la dernière version (fichier dronefang-vX.Y.apk, à ouvrir dans Chrome) :
 https://github.com/AyBad/drone-strike/releases/latest
 
 Lien direct (toujours la dernière version, nom de fichier sans numéro) :
