@@ -677,10 +677,81 @@
     .evCard { grid-template-columns: 180px 1fr; } .evCard canvas { width: 180px; height: 100px; }
   }
   @media (max-width: 700px) and (orientation: portrait) { .evCard { grid-template-columns: 1fr; } .evCard canvas { grid-row: auto; } }
+  /* ---------- V1.1 : accueil, store, profil, chargement ---------- */
+  #homeView { position: relative; }
+  .homeSet { position: absolute; top: 10px; left: 10px; width: 40px; height: 40px; padding: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(10, 18, 32, 0.7); border: 1px solid #1f3554; color: #8fa6c4; }
+  .homeSet svg { width: 20px; height: 20px; }
+  .homeR { gap: 10px; }
+  .hGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .htile { position: relative; display: flex; align-items: center; gap: 9px; padding: 12px 12px; border-radius: 14px; background: rgba(10, 18, 32, 0.75); border: 1px solid #2a6f9c; color: #e6f1ff; font-size: 12.5px; letter-spacing: 1px; text-align: left; min-width: 0; animation: nodeIn .5s cubic-bezier(.2, .9, .3, 1.2) both; }
+  .htile > span { min-width: 0; line-height: 1.2; }
+  .htile svg { width: 22px; height: 22px; flex: none; }
+  .htile.on1 { border-color: #3fb8d8; } .htile.on1 svg { color: #5ef0ff; }
+  .htile.on2 { border-style: dashed; border-color: #6b4fa0; } .htile.on2 svg { color: #c77dff; }
+  .htile.on2 .soonTag { position: absolute; top: -7px; right: 8px; font-size: 9px; padding: 2px 7px; }
+  .htile.st { border-color: #2b8a7a; } .htile.st svg { color: #5dff9b; }
+  .htile .gemTag { font-size: 12.5px; } .htile .gemTag .gem { width: 15px; height: 15px; }
+  .htile.pf { border-color: #8a6a2a; }
+  .pfAv { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: #12233a; border: 1px solid #ffd166; flex: none; font-size: 16px; }
+  .pfAv img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #homeNick { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; }
+  .hgCur button { display: inline-flex; align-items: center; gap: 5px; background: #0a1220; border: 1px solid #1f3554; border-radius: 10px; padding: 5px 8px 5px 10px; font-size: 16px; font-weight: 800; color: #e6f1ff; letter-spacing: 0; }
+  .hgCur button .gem, .hgCur button .gear { width: 18px; height: 18px; }
+  .hgCur .plus { font-style: normal; width: 18px; height: 18px; border-radius: 50%; background: #5dff9b; color: #04121c; display: grid; place-items: center; font-size: 14px; font-weight: 900; line-height: 1; }
+  .stWrap { padding: 0 22px; display: flex; flex-direction: column; gap: 10px; }
+  .stWrap .seg { align-self: center; }
+  .stGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .stCard { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 14px 8px; border-radius: 16px; background: radial-gradient(circle at 50% 30%, #173a5a, #0a1220 75%); border: 1px solid #2a6f9c; color: #e6f1ff; letter-spacing: 0; min-width: 0; }
+  .stCard.gearC { background: radial-gradient(circle at 50% 30%, #4a3a12, #0f0d08 78%); border-color: #8a6a2a; }
+  .stCard.free { background: linear-gradient(160deg, #1f6a3a, #0a1f14); border-color: #5dff9b; }
+  .stCard b { font-size: 22px; font-weight: 900; } .stCard.free b { font-size: 14px; color: #ffffff; }
+  .stCard small { font-size: 11px; color: #c6e8d0; text-align: center; line-height: 1.3; }
+  .stCard em { font-style: normal; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+  .stCard em.price { margin-top: 2px; padding: 6px 12px; border-radius: 10px; background: linear-gradient(90deg, #5dff9b, #22c46a); color: #04121c; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; }
+  .stCard.gearC em.price { background: linear-gradient(90deg, #5ef0ff, #4fd8ff); } .stCard em.price .gem { width: 14px; height: 14px; }
+  .stCard.gearC em.price .gem path:first-child { fill: #04121c !important; } .stCard.gearC em.price .gem path:last-child { stroke: #5ef0ff !important; }
+  .stCard.free em { color: #5dff9b; }
+  .stCard:disabled { opacity: 0.5; cursor: default; }
+  .stIco { display: flex; align-items: center; justify-content: center; } .stIco .gem, .stIco .gear { width: 26px; height: 26px; } .stIco.big .gem, .stIco.big .gear { width: 34px; height: 34px; margin: 0 -5px; }
+  .stBonus { position: absolute; top: 8px; right: 8px; font-style: normal; font-size: 10.5px; font-weight: 900; padding: 2px 7px; border-radius: 999px; background: #ff4d6d; color: #ffffff; }
+  .stNote { margin: 0; font-size: 11.5px; color: #8fa6c4; text-align: center; }
+  .pfWrap { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 0 22px; align-items: start; }
+  .pfLeft { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pfBig { width: 150px; height: 150px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: radial-gradient(circle at 50% 35%, #1f3a5a, #0a1220); border: 3px solid #ffd166; box-shadow: 0 0 26px -6px #ffd166; font-size: 80px; }
+  .pfBig img { width: 100%; height: 100%; object-fit: cover; }
+  .pfPhoto { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 10px; background: #12233a; border: 1px solid #2a6f9c; color: #e6f1ff; font-weight: 700; cursor: pointer; font-size: 13px; }
+  .pfPhoto svg { width: 18px; height: 18px; }
+  .pfRight { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .pfAvs { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+  .pfAvc { aspect-ratio: 1; padding: 0; border-radius: 12px; background: #0a1220; border: 1px solid #1f3554; font-size: 34px; }
+  .pfAvc.eq { border-color: #ffd166; box-shadow: 0 0 0 1px #ffd166; }
+  .pfFields { display: grid; grid-template-columns: 1fr 110px; gap: 10px; }
+  .pfFields label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8fa6c4; font-weight: 700; }
+  .pfFields input { font: inherit; font-size: 15px; letter-spacing: 0; text-transform: none; padding: 10px 12px; border-radius: 10px; border: 1px solid #2a6f9c; background: #0a1220; color: #ffffff; user-select: text; width: 100%; box-sizing: border-box; }
+  .pfAct { display: flex; align-items: center; gap: 12px; } .pfAct .stNote { flex: 1; text-align: left; } .pfAct button { flex: none; }
+  #boot { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 45%, #10284a 0%, #070b14 70%); transition: opacity .45s; }
+  #boot.out { opacity: 0; pointer-events: none; }
+  .bootIn h1 { text-align: center; }
+  .bootIn { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  #bootCv { width: 260px; height: 150px; }
+  .bootBar { width: min(340px, 70vw); height: 10px; border-radius: 6px; background: #0f1a2c; border: 1px solid #1f3554; overflow: hidden; }
+  .bootBar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #4fd8ff, #5dff9b); box-shadow: 0 0 12px #4fd8ff; }
+  #bootTxt { margin: 2px 0 0; font-size: 12px; letter-spacing: 2px; color: #8fa6c4; text-transform: uppercase; }
+  @media (max-height: 520px) and (orientation: landscape) {
+    .homeR { gap: 7px; } .hGrid { gap: 6px; } .htile { padding: 8px 9px; font-size: 11px; gap: 7px; } .htile svg { width: 18px; height: 18px; }
+    .homeSet { width: 34px; height: 34px; top: 6px; left: 6px; }
+    .hgCur button { padding: 3px 6px 3px 8px; font-size: 14px; }
+    .stWrap { padding: 0 14px; gap: 7px; } .stCard { padding: 9px 6px; gap: 2px; } .stCard b { font-size: 18px; } .stCard.free b { font-size: 12.5px; } .stIco.big .gem, .stIco.big .gear { width: 28px; height: 28px; }
+    .pfWrap { grid-template-columns: 170px 1fr; gap: 12px; padding: 0 14px; } .pfBig { width: 112px; height: 112px; font-size: 60px; }
+    .pfRight { gap: 7px; } .pfAvc { font-size: 28px; border-radius: 9px; } .pfFields input { padding: 7px 10px; font-size: 14px; }
+    .bootIn h1 { font-size: 26px; }
+  }
+  @media (max-width: 700px) and (orientation: portrait) { .stGrid { grid-template-columns: 1fr 1fr; } .pfWrap { grid-template-columns: 1fr; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
 <body>
+<div id="boot"><div class="bootIn"><h1 class="homeTitle">DRONE STRIKE<span>FIELD</span></h1><canvas id="bootCv" width="260" height="150"></canvas><div class="bootBar"><i id="bootFill"></i></div><p id="bootTxt">0 %</p></div></div>
 <canvas id="game" tabindex="0"></canvas>
 <div id="touchUI" hidden>
   <button id="pauseBtn" aria-label="Pause" data-i18n-aria="pause">II</button>
@@ -699,8 +770,47 @@
       <div class="homeR">
         <button id="newBtn" class="hbtn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span data-i18n="newGame"></span></button>
         <button id="contBtn" class="hbtn sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg><span><span data-i18n="resume"></span><small id="contName"></small></span></button>
-        <button id="onlineBtn" class="hbtn sec online"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span><span data-i18n="online"></span><small data-i18n="onlineSub"></small></span><span class="gemTag" id="homeGems"></span></button>
-        <button id="homeSet" class="hbtn low"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><span data-i18n="settings"></span></button>
+        <div class="hGrid">
+          <button id="onlineBtn" class="htile on1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-6 4 12 3-6h4"/></svg><span data-i18n="onlineDrone"></span></button>
+          <button id="fightBtn" class="htile on2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span><i class="soonTag" data-i18n="soonTag"></i></button>
+          <button id="storeBtn" class="htile st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.500 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span data-i18n="store"></span><b class="gemTag" id="homeGems"></b></button>
+          <button id="profileBtn" class="htile pf"><span class="pfAv" id="homeAv"></span><span id="homeNick" data-i18n="profile"></span></button>
+        </div>
+      </div>
+      <button id="homeSet" class="homeSet" data-i18n-aria="settings" aria-label="Paramètres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></button>
+    </div>
+    <div id="storeView" hidden>
+      <div class="setHead">
+        <button id="storeBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="store"></h2>
+        <span class="hgCur" id="stCur"></span>
+      </div>
+      <div class="stWrap">
+        <div class="seg" id="stTabs"></div>
+        <div id="stBody"></div>
+        <p class="stNote" id="stNote"></p>
+      </div>
+    </div>
+    <div id="profileView" hidden>
+      <div class="setHead">
+        <button id="profileBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="profile"></h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="pfWrap">
+        <div class="pfLeft">
+          <div class="pfBig" id="pfBig"></div>
+          <label class="pfPhoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.500"/></svg><span data-i18n="photoBtn"></span><input type="file" id="pfFile" accept="image/*" hidden></label>
+        </div>
+        <div class="pfRight">
+          <p class="onLbl" data-i18n="avatar"></p>
+          <div class="pfAvs" id="pfAvs"></div>
+          <div class="pfFields">
+            <label><span data-i18n="pseudo"></span><input id="pfNick" maxlength="16" autocomplete="off"></label>
+            <label class="age"><span data-i18n="age"></span><input id="pfAge" type="number" min="5" max="99" inputmode="numeric"></label>
+          </div>
+          <div class="pfAct"><p class="stNote" data-i18n="profileNote"></p><button id="pfSave" data-i18n="saveProfile"></button></div>
+        </div>
       </div>
     </div>
     <div id="hangarView" hidden>
@@ -903,7 +1013,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.0';
+  var APP_VERSION = '1.1';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -1233,6 +1343,27 @@
     f_arctic: ['Arctique', 'Arctic', 'Ártico', 'Artico', '极地', 'Арктика'],
     f_crimson: ['Cramoisi', 'Crimson', 'Carmesí', 'Cremisi', '赤红', 'Багрянец'],
     f_jungle: ['Jungle', 'Jungle', 'Selva', 'Giungla', '丛林', 'Джунгли'],
+    onlineDrone: ['DRONE DE COMBAT EN LIGNE', 'ONLINE COMBAT DRONE', 'DRON DE COMBATE EN LÍNEA', 'DRONE DA COMBATTIMENTO ONLINE', '在线战斗无人机', 'БОЕВОЙ ДРОН ОНЛАЙН'],
+    store: ['STORE', 'STORE', 'TIENDA', 'STORE', '商店', 'МАГАЗИН'],
+    profile: ['PROFIL', 'PROFILE', 'PERFIL', 'PROFILO', '个人资料', 'ПРОФИЛЬ'],
+    stGems: ['Diamants', 'Diamonds', 'Diamantes', 'Diamanti', '钻石', 'Алмазы'],
+    stGears: ['Roues dentées', 'Gears', 'Engranajes', 'Ingranaggi', '齿轮', 'Шестерёнки'],
+    freeGems: ['Diamants gratuits', 'Free diamonds', 'Diamantes gratis', 'Diamanti gratis', '免费钻石', 'Бесплатные алмазы'],
+    freeGemsTxt: ['Battez des colosses en mode hors ligne', 'Beat colossi in offline mode', 'Vence colosos en modo sin conexión', 'Sconfiggi colossi in modalità offline', '在离线模式击败巨像', 'Побеждайте колоссов офлайн'],
+    playOffline: ['JOUER HORS LIGNE', 'PLAY OFFLINE', 'JUGAR SIN CONEXIÓN', 'GIOCA OFFLINE', '离线游戏', 'ИГРАТЬ ОФЛАЙН'],
+    payNote: ['Paiement par carte bancaire via Google Play, activé à la publication sur le Play Store. Moins de 18 ans : demandez l\'accord d\'un parent.', 'Card payment through Google Play, enabled once the game is on the Play Store. Under 18: ask a parent first.', 'Pago con tarjeta a través de Google Play, activo al publicarse en Play Store. Menores de 18: pide permiso a un adulto.', 'Pagamento con carta tramite Google Play, attivo con la pubblicazione sul Play Store. Minori di 18 anni: chiedete a un genitore.', '通过 Google Play 使用银行卡付款，上架 Play 商店后开放。未满 18 岁请先征得家长同意。', 'Оплата картой через Google Play станет доступна после публикации в Play Store. До 18 лет — спросите родителей.'],
+    payUnavailable: ['Le paiement sera disponible après la publication du jeu sur le Play Store.', 'Payment will be available once the game is published on the Play Store.', 'El pago estará disponible cuando el juego se publique en Play Store.', 'Il pagamento sarà disponibile dopo la pubblicazione sul Play Store.', '游戏上架 Play 商店后即可付款。', 'Оплата станет доступна после публикации игры в Play Store.'],
+    gearNote: ['Les roues dentées servent à améliorer le drone de combat en ligne.', 'Gears upgrade your online combat drone.', 'Los engranajes mejoran tu dron de combate en línea.', 'Gli ingranaggi potenziano il drone da combattimento online.', '齿轮用于升级在线战斗无人机。', 'Шестерёнки улучшают боевой дрон онлайн.'],
+    gearsBought: ['+{n} roues dentées !', '+{n} gears!', '¡+{n} engranajes!', '+{n} ingranaggi!', '+{n} 齿轮！', '+{n} шестерёнок!'],
+    avatar: ['Avatar', 'Avatar', 'Avatar', 'Avatar', '头像', 'Аватар'],
+    photoBtn: ['Photo', 'Photo', 'Foto', 'Foto', '照片', 'Фото'],
+    pseudo: ['Pseudo', 'Nickname', 'Apodo', 'Nickname', '昵称', 'Ник'],
+    pseudoPh: ['Votre pseudo', 'Your nickname', 'Tu apodo', 'Il tuo nickname', '你的昵称', 'Ваш ник'],
+    age: ['Âge', 'Age', 'Edad', 'Età', '年龄', 'Возраст'],
+    saveProfile: ['ENREGISTRER', 'SAVE', 'GUARDAR', 'SALVA', '保存', 'СОХРАНИТЬ'],
+    profileSaved: ['Profil enregistré.', 'Profile saved.', 'Perfil guardado.', 'Profilo salvato.', '资料已保存。', 'Профиль сохранён.'],
+    profileNote: ['Votre profil sera visible par les autres pilotes en mode en ligne.', 'Your profile will be visible to other pilots online.', 'Tu perfil será visible para otros pilotos en línea.', 'Il tuo profilo sarà visibile agli altri piloti online.', '在线模式中其他玩家可以看到你的资料。', 'Профиль будет виден другим пилотам онлайн.'],
+    loading: ['Chargement', 'Loading', 'Cargando', 'Caricamento', '加载中', 'Загрузка'],
     tabUp: ['Amélioration', 'Upgrade', 'Mejora', 'Potenziamento', '升级', 'Улучшение'],
     tabSkins: ['Skins', 'Skins', 'Skins', 'Skin', '皮肤', 'Скины'],
     tabThemes2: ['Revêtements', 'Wraps', 'Revestimientos', 'Rivestimenti', '涂装', 'Покрытия'],
@@ -1918,7 +2049,6 @@
         (lastRes.bonus ? esc(tr('st_noLife')) + c + '<strong>+' + lastRes.bonus + '</strong><br>' + esc(tr('st_total')) + c + '<strong>' + lastRes.total + '</strong><br>' : '') +
         esc(tr('st_bestWave')) + c + '<strong>' + lastRes.best + '</strong><br>' +
         esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.credits + '</strong>' +
-        '<br>' + esc(tr('st_gears')) + c + '<strong class="gearTxt">+' + lastRes.gears + '</strong> ' + GEAR +
         (lastRes.gems ? '<br>' + esc(tr('st_diamonds')) + c + '<strong class="gemTxt">+' + lastRes.gems + '</strong> ' + GEM : '');
     }
     resumeBtn.hidden = st !== 'pause'; quitBtn.hidden = st !== 'pause';
@@ -1943,8 +2073,7 @@
       document.getElementById('heroName').innerHTML = cg && cg.nm ? esc(cg.nm) + ' <small>· ' + esc(tr('d_' + cfg.drone)) + ' · ' + esc(tr(cfg.diff)) + '</small>' : esc(tr('d_' + cfg.drone)) + ' <small>· ' + esc(tr(cfg.diff)) + '</small>';
       document.getElementById('heroChips').innerHTML = '<span class="hchip">' + esc(tr('p_wave')) + ' <b>' + (cGet(cfg.diff, cfg.drone) || { p: 0 }).p + '/' + TOTAL + '</b></span>' +
         '<span class="hchip gold">' + esc(tr('credits')) + ' <b>' + bank.c + '</b></span>' +
-        '<span class="hchip gemc">' + GEM + ' <b>' + bank.d + '</b></span>' +
-        '<span class="hchip gearc">' + GEAR + ' <b>' + bank.g + '</b></span>';
+        '<span class="hchip gemc">' + GEM + ' <b>' + bank.d + '</b></span>';
     }
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
@@ -2010,15 +2139,15 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0, setFrom = 'home', delArm = '', delTimer = 0;
-  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView');
+  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView'), storeView = document.getElementById('storeView'), profileView = document.getElementById('profileView');
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
-    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; evoView.hidden = v !== 'evo'; delArm = ''; if (v !== 'hangar' && v !== 'evo') hg.try = null;
+    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; evoView.hidden = v !== 'evo'; storeView.hidden = v !== 'store'; profileView.hidden = v !== 'profile'; delArm = ''; if (v !== 'hangar' && v !== 'evo') hg.try = null;
     mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game'; pathView.hidden = v !== 'path'; shopView.hidden = v !== 'shop';
     panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
@@ -2058,7 +2187,7 @@
     var mname = curModel() === 'x' ? tr('sk_x') : EVO[evoIndex(online.lv)].name;
     document.getElementById('hgName').textContent = mname;
     document.getElementById('hgLv').textContent = tr('lvShort', { n: online.lv });
-    document.getElementById('hgCur').innerHTML = '<span>' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b></span><span>' + GEM + '<b class="gemTxt">' + bank.d + '</b></span>';
+    document.getElementById('hgCur').innerHTML = '<button data-hgact="store">' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b><i class="plus">+</i></button><button data-hgact="storeg">' + GEM + '<b class="gemTxt">' + bank.d + '</b><i class="plus">+</i></button>';
     [['up', 'tabUp'], ['skins', 'tabSkins'], ['flags', 'tabFlags'], ['themes', 'tabThemes2']].forEach(function (t) { h += '<button data-hgtab="' + t[0] + '" class="' + (hgTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
     document.getElementById('hgTabs').innerHTML = h;
     h = '';
@@ -2161,6 +2290,7 @@
   }
   function renderHome() {
     var hgm = document.getElementById('homeGems'); if (hgm) hgm.innerHTML = GEM + ' ' + bank.d;
+    if (typeof renderProfile === 'function' && profile) renderProfile();
     var ks = gameKeys(), c = cGet(), i, h = '';
     document.getElementById('contBtn').hidden = !c;
     document.getElementById('contName').textContent = c ? gLabel(c) + ' · ' + tr('p_wave') + ' ' + c.p + '/' + TOTAL : '';
@@ -2188,6 +2318,96 @@
   document.getElementById('homeSet').addEventListener('click', function () { showSettings(true); });
   document.getElementById('onlineBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); showView('hangar'); });
   document.getElementById('hangarBack').addEventListener('click', function () { showView('home'); });
+  document.getElementById('fightBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); showToast(tr('onlineSoon')); });
+  var storeFrom = 'home', stTab = 'gems';
+  function openStore(tab) { storeFrom = view === 'hangar' ? 'hangar' : 'home'; if (tab) stTab = tab; showView('store'); }
+  document.getElementById('storeBtn').addEventListener('click', function () { openStore('gems'); });
+  document.getElementById('storeBack').addEventListener('click', function () { showView(storeFrom); });
+  document.getElementById('profileBtn').addEventListener('click', function () { pfDraft = JSON.parse(JSON.stringify(profile)); showView('profile'); });
+  document.getElementById('profileBack').addEventListener('click', function () { showView('home'); });
+  var DPACKS = [[80, 0.99, 0], [450, 4.99, 10], [1000, 9.99, 20], [2200, 19.99, 30]], GPACKS = [[200, 10], [1200, 50], [3000, 110]];
+  function eur(v) { try { return new Intl.NumberFormat(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang, { style: 'currency', currency: 'EUR' }).format(v); } catch (err) { return v.toFixed(2) + ' €'; } }
+  function renderStore() {
+    if (!storeView || storeView.hidden) return;
+    var h = '', i;
+    document.getElementById('stCur').innerHTML = '<span>' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b></span><span>' + GEM + '<b class="gemTxt">' + bank.d + '</b></span>';
+    [['gems', 'stGems'], ['gears', 'stGears']].forEach(function (t) { h += '<button data-sttab="' + t[0] + '" class="' + (stTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
+    document.getElementById('stTabs').innerHTML = h;
+    h = '<div class="stGrid">';
+    if (stTab === 'gems') {
+      h += '<button class="stCard free" data-stfree="1"><span class="stIco">' + GEM + '</span><b>' + esc(tr('freeGems')) + '</b><small>' + esc(tr('freeGemsTxt')) + '</small><em>' + esc(tr('playOffline')) + '</em></button>';
+      for (i = 0; i < DPACKS.length; i++) h += '<button class="stCard" data-dpack="' + i + '">' + (DPACKS[i][2] ? '<i class="stBonus">+' + DPACKS[i][2] + ' %</i>' : '') + '<span class="stIco big">' + GEM + (i > 1 ? GEM : '') + (i > 2 ? GEM : '') + '</span><b class="gemTxt">' + fmtN(DPACKS[i][0]) + '</b><em class="price">' + esc(eur(DPACKS[i][1])) + '</em></button>';
+    } else {
+      for (i = 0; i < GPACKS.length; i++) h += '<button class="stCard gearC" data-gpack="' + i + '"' + (bank.d < GPACKS[i][1] ? ' disabled' : '') + '><span class="stIco big">' + GEAR + (i > 0 ? GEAR : '') + (i > 1 ? GEAR : '') + '</span><b class="gearTxt">' + fmtN(GPACKS[i][0]) + '</b><em class="price">' + GPACKS[i][1] + ' ' + GEM + '</em></button>';
+    }
+    h += '</div>';
+    var b = document.getElementById('stBody');
+    if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); }
+    document.getElementById('stNote').textContent = stTab === 'gems' ? tr('payNote') : tr('gearNote');
+    fitDirty = true;
+  }
+  storeView.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-sttab],[data-dpack],[data-gpack],[data-stfree]') : null;
+    if (!el || el.disabled) return;
+    if (el.hasAttribute('data-sttab')) { stTab = el.getAttribute('data-sttab'); renderStore(); return; }
+    if (el.hasAttribute('data-stfree')) { if (cGet()) goMenu(); else { document.getElementById('newName').value = ''; showView('game'); } return; }
+    if (el.hasAttribute('data-dpack')) { showToast(tr('payUnavailable')); return; }
+    var g = GPACKS[+el.getAttribute('data-gpack')];
+    if (!g || bank.d < g[1]) return;
+    bank.d -= g[1]; bank.g += g[0]; saveBank();
+    initAudio(); beep(880, 0.12, 'triangle', 0.06, 1320); vib([20, 20, 40]);
+    showToast(tr('gearsBought', { n: fmtN(g[0]) }));
+    renderAll();
+  });
+  // ---------- Profil ----------
+  var AVATARS = ['🦅', '🐺', '🦊', '🐯', '🤖', '👽', '🐉', '💀'];
+  var profile = { nick: '', age: 0, av: '🦅', photo: '' }, pfDraft = null;
+  try { var spf = JSON.parse(localStorage.getItem('droneStrikeProfile') || 'null'); if (spf && typeof spf === 'object') { profile.nick = String(spf.nick || '').slice(0, 16); profile.age = Math.max(0, Math.min(99, spf.age | 0)); if (AVATARS.indexOf(spf.av) >= 0) profile.av = spf.av; if (typeof spf.photo === 'string' && spf.photo.indexOf('data:image/') === 0) profile.photo = spf.photo; } } catch (err) { /* ignore */ }
+  function avHtml(p) { return p.photo ? '<img alt="" src="' + p.photo + '">' : '<span>' + p.av + '</span>'; }
+  function renderProfile() {
+    var ha = document.getElementById('homeAv'), hn = document.getElementById('homeNick');
+    if (ha) ha.innerHTML = avHtml(profile);
+    if (hn) hn.textContent = profile.nick || tr('profile');
+    if (!profileView || profileView.hidden || !pfDraft) return;
+    document.getElementById('pfBig').innerHTML = avHtml(pfDraft);
+    var h = '';
+    AVATARS.forEach(function (a) { h += '<button class="pfAvc' + (!pfDraft.photo && pfDraft.av === a ? ' eq' : '') + '" data-av="' + a + '">' + a + '</button>'; });
+    var g = document.getElementById('pfAvs'); if (g.getAttribute('data-sig') !== h) { g.innerHTML = h; g.setAttribute('data-sig', h); }
+    var n = document.getElementById('pfNick'), a2 = document.getElementById('pfAge');
+    if (document.activeElement !== n) n.value = pfDraft.nick; if (document.activeElement !== a2) a2.value = pfDraft.age || '';
+    n.placeholder = tr('pseudoPh');
+  }
+  profileView.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-av]') : null;
+    if (el && pfDraft) { pfDraft.av = el.getAttribute('data-av'); pfDraft.photo = ''; renderProfile(); }
+  });
+  document.getElementById('pfNick').addEventListener('input', function (e) { if (pfDraft) pfDraft.nick = e.target.value.replace(/[<>]/g, '').slice(0, 16); });
+  document.getElementById('pfAge').addEventListener('input', function (e) { if (pfDraft) pfDraft.age = Math.max(0, Math.min(99, parseInt(e.target.value, 10) || 0)); });
+  document.getElementById('pfFile').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f || !pfDraft) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      var im = new Image();
+      im.onload = function () {
+        var c = document.createElement('canvas'), S = 160, sz = Math.min(im.width, im.height);
+        c.width = S; c.height = S;
+        c.getContext('2d').drawImage(im, (im.width - sz) / 2, (im.height - sz) / 2, sz, sz, 0, 0, S, S);
+        try { pfDraft.photo = c.toDataURL('image/jpeg', 0.82); } catch (err) { /* ignore */ }
+        renderProfile();
+      };
+      im.src = rd.result;
+    };
+    rd.readAsDataURL(f);
+    e.target.value = '';
+  });
+  document.getElementById('pfSave').addEventListener('click', function () {
+    if (!pfDraft) return;
+    profile = { nick: pfDraft.nick.trim().slice(0, 16), age: pfDraft.age | 0, av: pfDraft.av, photo: pfDraft.photo };
+    try { localStorage.setItem('droneStrikeProfile', JSON.stringify(profile)); } catch (err) { /* ignore */ }
+    initAudio(); beep(880, 0.12, 'triangle', 0.06, 1320); showToast(tr('profileSaved'));
+    showView('home');
+  });
   document.getElementById('evoBack').addEventListener('click', function () { showView('hangar'); });
   document.getElementById('hgFight').addEventListener('click', function () { showToast(tr('onlineSoon')); });
   hangarView.addEventListener('click', function (e) {
@@ -2196,6 +2416,8 @@
     if (el.hasAttribute('data-hgtab')) { hgTab = el.getAttribute('data-hgtab'); hg.try = null; renderHangar(); fitDirty = true; return; }
     var act = el.getAttribute('data-hgact');
     if (act === 'up') { doUpgrade(); return; }
+    if (act === 'store') { openStore('gears'); return; }
+    if (act === 'storeg') { openStore('gems'); return; }
     if (act === 'evo') { showView('evo'); return; }
     if (act === 'cancel') { hg.try = null; renderHangar(); return; }
     if (act === 'buy' && hg.try) {
@@ -2245,7 +2467,7 @@
   function doUpgrade() {
     if (online.lv >= MAXLV) return;
     var cost = pressCost(online.lv);
-    if (bank.g < cost) { showToast(tr('noGears')); vib(30); return; }
+    if (bank.g < cost) { showToast(tr('noGears')); vib(30); openStore('gears'); return; }
     var before = oStats(online.lv, online.step);
     bank.g -= cost; online.step++;
     var lvUp = false, evo = null, missile = false;
@@ -2273,6 +2495,37 @@
     }
     renderAll();
   }
+  document.getElementById('homeBtn').addEventListener('click', goHome);
+  document.getElementById('gamesBack').addEventListener('click', function () { if (cGet()) showView('main'); else showView('home'); });
+  gamesView.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-game],[data-del]') : null;
+    if (!el) return;
+    if (el.hasAttribute('data-game')) { selectGame(el.getAttribute('data-game')); goMenu(); return; }
+    var k = el.getAttribute('data-del');
+    clearTimeout(delTimer);
+    if (delArm !== k) { delArm = k; delTimer = setTimeout(function () { delArm = ''; renderHome(); }, 4000); renderHome(); return; }
+    delArm = ''; deleteGame(k);
+    if (!gameKeys().length) showView('home'); else renderAll();
+  });
+  function createGame() {
+    if (gameKeys().length >= MAX_GAMES) return;
+    makeGame(cfg.diff, cfg.drone, document.getElementById('newName').value);
+    startWave(1, true);
+  }
+  document.getElementById('newName').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); createGame(); } });
+  scoresBtn.addEventListener('click', function () { scoreDiff = cfg.diff; showView('score'); });
+  document.getElementById('scoreBack').addEventListener('click', function () { showView('main'); });
+  document.getElementById('scoreTabs').addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-sdiff]') : null;
+    if (!b) return;
+    scoreDiff = b.getAttribute('data-sdiff'); resetArmed = 0; renderScores();
+  });
+  scoreReset.addEventListener('click', function () {
+    if (!resetArmed) { resetArmed = setTimeout(function () { resetArmed = 0; renderScores(); }, 4000); renderScores(); return; }
+    clearTimeout(resetArmed); resetArmed = 0;
+    camp = {}; saveCamp();
+    renderAll();
+  });
   // ---------- Chemin ----------
   var LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
   var CROWN = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18l1.5-10-5.5 4L12 5 7 12 1.5 8z"/></svg>';
@@ -2599,13 +2852,11 @@
     if (total > prev) c.s[wave] = total;
     var firstWin = wave > c.p, gems = 0;
     if (firstWin && wave % 5 === 0) { gems = ({ easy: 1, normal: 2, hard: 3 }[gameDiff] || 1) * (wave % WAVES === 0 ? 3 : 1); bank.d += gems; }
-    var gears = firstWin ? 10 + 2 * Math.floor(wave / 10) + (wave % 5 === 0 ? 40 : 0) : 4;
-    bank.g += gears;
     if (wave > c.p) c.p = wave;
     c.k += kills; c.n++; c.d = Date.now(); saveCamp();
     var earned = Math.max(1, Math.round(total * CREDIT_RATE));
     bank.c += earned; saveBank();
-    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned, gems: gems, gears: gears };
+    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned, gems: gems };
     elStats.hidden = false; elKeys.hidden = true;
     showView('main');
     overlay.classList.remove('hidden');
@@ -2651,7 +2902,23 @@
   migrateBank();
   showView('home');
   scheduleLivesNotif();
-  firstLaunchNotif();
+  (function boot() {
+    var el = document.getElementById('boot'), fill = document.getElementById('bootFill'), txt = document.getElementById('bootTxt'), cv = document.getElementById('bootCv');
+    if (!el) { firstLaunchNotif(); return; }
+    var jobs = [], t0 = Date.now(), done = 0, MIN = 1900, k;
+    ['b', 'a', 'd', 'c', 'e', 'f', 'g', 'x'].forEach(function (m) { jobs.push(function () { for (var c = 1; c <= 3; c++) getModel(m, '#5ef0ff', c); getModel(m, '#121a26', 1); }); });
+    WRAPS.forEach(function (w) { jobs.push(function () { wrapUrl(w.id); }); });
+    var total = jobs.length;
+    function frame() {
+      var p = Math.min(done / total, (Date.now() - t0) / MIN), t = (Date.now() - t0) / 1000;
+      fill.style.width = (p * 100).toFixed(1) + '%'; txt.textContent = tr('loading') + '  ' + Math.round(p * 100) + ' %';
+      drawOn(cv, 260, 150, function () { draw3D(getModel('b', '#5ef0ff', 1), 130, 80 + Math.sin(t * 2) * 3, 58, t * 1.1, 0.85, 0, 0, 1, t, false, true); });
+      if (p >= 1) { el.classList.add('out'); setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); firstLaunchNotif(); }, 450); return; }
+      requestAnimationFrame(frame);
+    }
+    function work() { var end = Date.now() + 12; while (done < total && Date.now() < end) { try { jobs[done](); } catch (err) { /* ignore */ } done++; } if (done < total) setTimeout(work, 0); }
+    requestAnimationFrame(frame); setTimeout(work, 30);
+  })();
 
   // ---------- Waves ----------
   function spawnEnemy(type) {

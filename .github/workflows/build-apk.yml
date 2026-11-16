@@ -100,6 +100,9 @@ jobs:
       - name: Forcer le mode paysage
         run: sed -i 's/<activity/<activity android:screenOrientation="sensorLandscape"/' android/app/src/main/AndroidManifest.xml
 
+      - name: Déclarer l'application comme un jeu
+        run: sed -i 's/<application/<application android:appCategory="game"/' android/app/src/main/AndroidManifest.xml
+
       - name: Autoriser la vibration et les notifications
         run: |
           sed -i 's|</manifest>|    <uses-permission android:name="android.permission.VIBRATE" />\n    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n</manifest>|' android/app/src/main/AndroidManifest.xml
