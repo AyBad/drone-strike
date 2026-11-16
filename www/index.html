@@ -553,7 +553,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '0.3';
+  var APP_VERSION = '0.4';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -859,7 +859,7 @@
     language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык'],
     sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
     notifNote: ['Activez les notifications pour être prévenu quand vos 3 vies sont rechargées.', 'Turn on notifications to be told when your 3 lives are refilled.', 'Activa las notificaciones para saber cuándo se recargan tus 3 vidas.', 'Attiva le notifiche per sapere quando le tue 3 vite sono ricaricate.', '开启通知，3 条生命恢复满时提醒你。', 'Включите уведомления, чтобы узнать, когда все 3 жизни восстановятся.'],
-    notifBlocked: ['Les notifications sont bloquées par Android : autorisez-les dans les réglages du téléphone (Applications › Drone Strike).', 'Notifications are blocked by Android: allow them in your phone settings (Apps › Drone Strike).', 'Android bloquea las notificaciones: permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike).', 'Android blocca le notifiche: consentile nelle impostazioni del telefono (App › Drone Strike).', '通知已被 Android 阻止：请在手机设置（应用 › Drone Strike）中允许。', 'Android блокирует уведомления: разрешите их в настройках телефона (Приложения › Drone Strike).'],
+    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Drone Strike).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Drone Strike).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Drone Strike).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Drone Strike）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Drone Strike).'],
     notifs: ['Notifications', 'Notifications', 'Notificaciones', 'Notifiche', '通知', 'Уведомления'],
     notifBody: ['Vos 3 vies sont restituées. Reprenez le combat !', 'Your 3 lives are back. Return to the fight!', 'Tus 3 vidas están de vuelta. ¡Vuelve al combate!', 'Le tue 3 vite sono tornate. Riprendi a combattere!', '你的 3 条生命已恢复，继续战斗吧！', 'Ваши 3 жизни восстановлены. Возвращайтесь в бой!'],
     livesBack: ['\u2665 Vies restituées !', '\u2665 Lives restored!', '\u2665 ¡Vidas restauradas!', '\u2665 Vite ripristinate!', '\u2665 生命已恢复！', '\u2665 Жизни восстановлены!'],
@@ -1127,7 +1127,7 @@
   function refreshNotifState() {
     var ln = nativeNotif();
     if (!ln) return;
-    try { ln.checkPermissions().then(function (r) { notifGranted = permState(r); renderAll(); }).catch(function () {}); } catch (err) { /* ignore */ }
+    try { ln.checkPermissions().then(function (r) { notifGranted = permState(r); if (notifGranted !== true && cfg.notif) { cfg.notif = false; saveCfg(); } renderAll(); }).catch(function () {}); } catch (err) { /* ignore */ }
   }
   function askNotifPermission(cb) {
     var ln = nativeNotif();
@@ -1135,6 +1135,7 @@
     try {
       ln.requestPermissions().then(function (r) {
         notifGranted = permState(r);
+        cfg.notif = notifGranted === true; saveCfg();
         try { localStorage.setItem('droneStrikeNotifAsked', '1'); } catch (err) { /* ignore */ }
         renderAll(); scheduleLivesNotif(); if (cb) cb();
       }).catch(function () {});
@@ -1414,8 +1415,8 @@
     document.getElementById('notifRow').hidden = !nativeNotif();
     var nn = document.getElementById('notifNote');
     nn.hidden = !nativeNotif();
-    nn.textContent = tr(cfg.notif && notifGranted === false ? 'notifBlocked' : 'notifNote');
-    nn.style.color = cfg.notif && notifGranted === false ? '#ffd166' : '';
+    nn.textContent = tr(!cfg.notif && notifGranted === false ? 'notifBlocked' : 'notifNote');
+    nn.style.color = !cfg.notif && notifGranted === false ? '#ffd166' : '';
     droneDesc.textContent = tr('desc_' + cfg.drone);
     nextNote.hidden = state === 'menu';
   }
@@ -1630,11 +1631,11 @@
     if (!el) return;
     var o = el.getAttribute('data-opt');
     if (o) {
+      if (o === 'notif' && !cfg.notif && notifGranted !== true && nativeNotif()) { askNotifPermission(); return; }
       if (el.hasAttribute('data-toggle')) cfg[o] = !cfg[o]; else cfg[o] = el.getAttribute('data-val');
       saveCfg(); renderAll();
       if (o === 'sound' && cfg.sound) { initAudio(); beep(660, 0.15, 'triangle', 0.06, 990); }
       if (o === 'vib') vib(40);
-      if (o === 'notif' && cfg.notif && notifGranted !== true) askNotifPermission();
       if (o === 'notif' || o === 'lang') scheduleLivesNotif();
       return;
     }
