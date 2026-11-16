@@ -29,6 +29,11 @@ jobs:
       - name: Créer le projet Android
         run: npx cap add android
 
+      - name: Icône et écran de lancement
+        run: |
+          cp -r resources/res/. android/app/src/main/res/
+          find android/app/src/main/res -name 'splash.png' -exec cp resources/splash.png {} \;
+
       - name: Plein écran (masquer les barres système)
         run: |
           f=$(find android/app/src/main/java -name MainActivity.java)

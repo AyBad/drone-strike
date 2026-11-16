@@ -434,6 +434,73 @@
     .skinCard .nm { font-size: 13px; }
     .skinCard button { padding: 6px 8px; font-size: 11.5px; }
   }
+  /* ---------- Accueil, nouveau jeu, mes jeux ---------- */
+  #homeView { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px 30px; align-items: center; padding: 26px 30px 4px; }
+  .homeL { text-align: center; min-width: 0; }
+  .homeTitle { margin: 0; font-size: 46px; line-height: 1.02; letter-spacing: 9px; font-weight: 900; background: linear-gradient(90deg, #4fd8ff, #d6f6ff, #c77dff, #4fd8ff); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: homeShine 7s linear infinite; }
+  .homeTitle span { display: block; letter-spacing: 12px; }
+  @keyframes homeShine { to { background-position: 300% 0; } }
+  .homeL .sub { margin: 8px 0 0; }
+  #homeDrone { width: 230px; height: 160px; display: block; margin: 2px auto 0; }
+  .homeR { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .hbtn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 18px; border-radius: 16px; font-size: 16px; letter-spacing: 2px; text-align: left; animation: nodeIn .5s cubic-bezier(.2, .9, .3, 1.2) both; }
+  .hbtn:nth-child(2) { animation-delay: 70ms; } .hbtn:nth-child(3) { animation-delay: 140ms; }
+  .hbtn svg { width: 26px; height: 26px; flex: none; }
+  .hbtn > span { min-width: 0; }
+  .hbtn small { display: block; margin-top: 3px; font-size: 12px; font-weight: 600; letter-spacing: 0.4px; opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbtn.pri { background: linear-gradient(90deg, #4fd8ff, #8ae6ff, #4fd8ff); background-size: 200% 100%; box-shadow: 0 10px 30px -12px #4fd8ff; padding: 20px 18px; font-size: 18px; }
+  .hbtn.sec { background: rgba(10, 18, 32, 0.75); color: #e6f1ff; border: 1px solid #2a6f9c; }
+  .hbtn.sec svg { color: #4fd8ff; }
+  .hbtn.sec:hover { background: #12233a; }
+  .hbtn.low { background: transparent; color: #8fa6c4; border: 1px solid #1f3554; padding: 12px 18px; font-size: 14px; }
+  #mainView.isMenu #homeBtn { grid-column: 1 / -1; border-color: #1f3554; color: #8fa6c4; }
+  #gameView h2, #gamesView h2 { text-transform: uppercase; }
+  #gameBtn span, #homeBtn span { text-transform: uppercase; }
+  .playBar { gap: 10px; align-items: center; flex-wrap: wrap; }
+  #newName { font: inherit; font-size: 15px; padding: 12px 14px; border-radius: 12px; border: 1px solid #2a6f9c; background: #0a1220; color: #ffffff; width: 240px; max-width: 46vw; user-select: text; }
+  #newName:focus { outline: 2px solid #4fd8ff; outline-offset: 1px; }
+  #fullNote { text-align: center; color: #ffd166; font-size: 13px; margin: 8px 0 0; }
+  #scoreView .tabsLine, #scoreView .droneGrid, #scoreView .ctrlFoot { display: none; }
+  #scoreView .sumGrid { margin-bottom: 0; }
+  #scoreName { text-align: center; font-size: 16px; font-weight: 800; color: #ffffff; margin: 0 0 12px; }
+  #scoreName small { color: #8fa6c4; font-weight: 600; }
+  .gamesGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .gCard { position: relative; border-radius: 14px; background: radial-gradient(circle at 30% 30%, #16263f, #0a1220 75%); border: 1px solid #1f3554; min-width: 0; }
+  .gCard.on { border-color: var(--c); box-shadow: 0 0 0 1px var(--c), 0 8px 26px -12px var(--c); }
+  .gMain { display: flex; align-items: center; gap: 8px; width: 100%; padding: 10px 40px 10px 8px; background: transparent; color: #e6f1ff; text-align: left; border-radius: 14px; letter-spacing: 0; }
+  .gMain:hover { background: rgba(79, 216, 255, 0.06); transform: none; }
+  .gMain canvas { width: 84px; height: 70px; flex: none; }
+  .gMain .gi { min-width: 0; display: block; }
+  .gMain b { display: block; font-size: 14.5px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gMain small { display: block; font-size: 11.5px; font-weight: 600; color: #8fa6c4; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gMain small.pg { color: var(--c); }
+  .gDel { position: absolute; top: 6px; right: 6px; min-width: 30px; height: 30px; padding: 0 7px; border-radius: 15px; display: grid; place-items: center; background: #12233a; color: #8fa6c4; border: 1px solid #1f3554; font-size: 11px; letter-spacing: 0.5px; }
+  .gDel svg { width: 14px; height: 14px; }
+  .gDel.danger { border-color: #ff4d6d; color: #ff4d6d; background: rgba(255, 77, 109, 0.14); }
+  .gamesEmpty { text-align: center; color: #8fa6c4; padding: 20px 0; }
+  .skinGrid { grid-template-columns: repeat(4, 1fr) !important; }
+  .skinCard canvas { width: 132px !important; height: 108px !important; }
+  .skinCard .nm { letter-spacing: 2px; }
+  @media (max-width: 700px) and (orientation: portrait) {
+    #homeView { grid-template-columns: 1fr; padding: 20px 16px 4px; } .homeTitle { font-size: 36px; }
+    .gamesGrid { grid-template-columns: 1fr; } .skinGrid { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-height: 520px) and (orientation: landscape) {
+    #homeView { padding: 12px 22px 0; gap: 6px 22px; }
+    .homeTitle { font-size: 34px; letter-spacing: 7px; } .homeTitle span { letter-spacing: 9px; }
+    .homeL .sub { margin-top: 4px; font-size: 12.5px; }
+    #homeDrone { width: 200px; height: 128px; }
+    .homeR { gap: 9px; }
+    .hbtn { padding: 12px 14px; font-size: 14.5px; border-radius: 13px; } .hbtn.pri { padding: 15px 14px; font-size: 16px; } .hbtn.low { padding: 9px 14px; font-size: 13px; }
+    #newName { padding: 8px 12px; font-size: 14px; width: 210px; }
+    #fullNote { font-size: 12px; margin-top: 4px; }
+    #scoreName { font-size: 14.5px; margin-bottom: 8px; }
+    .gamesGrid { gap: 7px; } .gMain { padding: 7px 36px 7px 6px; } .gMain canvas { width: 72px; height: 60px; }
+    .skinCard canvas { width: 116px !important; height: 92px !important; }
+    .skinCard .nm { font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .homeTitle, .hbtn { animation: none; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -448,6 +515,26 @@
 <div id="toast" role="status" hidden></div>
 <div id="overlay">
   <div class="panel" id="panel">
+    <div id="homeView" hidden>
+      <div class="homeL">
+        <h1 class="homeTitle">DRONE<span>STRIKE</span></h1>
+        <p class="sub" data-i18n="tagline"></p>
+        <canvas id="homeDrone" width="230" height="160"></canvas>
+      </div>
+      <div class="homeR">
+        <button id="newBtn" class="hbtn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span data-i18n="newGame"></span></button>
+        <button id="contBtn" class="hbtn sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg><span><span data-i18n="resume"></span><small id="contName"></small></span></button>
+        <button id="homeSet" class="hbtn low"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><span data-i18n="settings"></span></button>
+      </div>
+    </div>
+    <div id="gamesView" hidden>
+      <div class="setHead">
+        <button id="gamesBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="myGames"></h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="setGrid"><section class="card full"><div class="gamesGrid" id="gamesGrid"></div></section></div>
+    </div>
     <div id="mainView">
       <h1 id="title">DRONE STRIKE</h1>
       <p class="sub" id="subtitle"></p>
@@ -468,10 +555,11 @@
         <button id="nextBtn" hidden data-i18n="nextWave"></button>
         <button id="startBtn">JOUER</button>
         <button id="pathBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.5"/></svg><span></span></button>
-        <button id="gameBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.5 9.5 6 6M14.5 9.5 18 6M9.5 14.5 6 18M14.5 14.5 18 18"/><circle cx="5" cy="5" r="2.2"/><circle cx="19" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/></svg><span data-i18n="gameOptions"></span></button>
+        <button id="gameBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.5 9.5 6 6M14.5 9.5 18 6M9.5 14.5 6 18M14.5 14.5 18 18"/><circle cx="5" cy="5" r="2.2"/><circle cx="19" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/></svg><span data-i18n="myGames"></span></button>
         <button id="shopBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span data-i18n="shop"></span></button>
         <button id="scoresBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="scores"></span></button>
         <button id="optBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><span data-i18n="settings"></span></button>
+        <button id="homeBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7M6 10v9h12v-9"/></svg><span data-i18n="mainMenu"></span></button>
         <button id="quitBtn" class="ghost" hidden data-i18n="quit">QUITTER</button>
       </div>
     </div>
@@ -517,7 +605,7 @@
     <div id="gameView" hidden>
       <div class="setHead">
         <button id="gameBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <h2 data-i18n="gameOptions">OPTIONS DE JEU</h2>
+        <h2 data-i18n="newGame"></h2>
         <span class="spacer"></span>
       </div>
       <div class="setGrid">
@@ -541,7 +629,8 @@
           <p id="nextNote" hidden data-i18n="nextNote"></p>
         </section>
       </div>
-      <div class="playBar"><button id="optPlay">JOUER</button></div>
+      <div class="playBar"><input id="newName" maxlength="18" autocomplete="off" data-i18n-aria="gameNamePh" aria-label="Nom du jeu"><button id="optPlay"></button></div>
+      <p id="fullNote" hidden data-i18n="maxGames"></p>
     </div>
     <div id="pathView" hidden>
       <div class="setHead">
@@ -588,6 +677,7 @@
       <div class="setGrid">
         <section class="card full">
           <div class="tabsLine"><div class="seg" id="scoreTabs"><button data-sdiff="easy" data-i18n="easy" style="--c:#5dff9b"></button><button data-sdiff="normal" data-i18n="normal" style="--c:#ffd166"></button><button data-sdiff="hard" data-i18n="hard" style="--c:#ff4d6d"></button></div></div>
+          <p id="scoreName"></p>
           <div class="sumGrid" id="scoreSum"></div>
           <div class="optGrid droneGrid">
             <div class="scoreCard" data-sc="poly" style="--c:#4fd8ff"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="sc_top"></span></span><canvas data-prev="poly" data-full width="86" height="86"></canvas><span class="nm" data-i18n="d_poly"></span><strong class="big"></strong><small class="ln"></small><small class="dt"></small></div>
@@ -607,7 +697,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '0.5';
+  var APP_VERSION = '0.6';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -914,6 +1004,15 @@
     sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
     notifNote: ['Activez les notifications pour être prévenu quand vos 3 vies sont rechargées.', 'Turn on notifications to be told when your 3 lives are refilled.', 'Activa las notificaciones para saber cuándo se recargan tus 3 vidas.', 'Attiva le notifiche per sapere quando le tue 3 vite sono ricaricate.', '开启通知，3 条生命恢复满时提醒你。', 'Включите уведомления, чтобы узнать, когда все 3 жизни восстановятся.'],
     notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Drone Strike).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Drone Strike).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Drone Strike).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Drone Strike）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Drone Strike).'],
+    newGame: ['NOUVEAU JEU', 'NEW GAME', 'NUEVA PARTIDA', 'NUOVA PARTITA', '新游戏', 'НОВАЯ ИГРА'],
+    myGames: ['Mes jeux', 'My games', 'Mis partidas', 'Le mie partite', '我的存档', 'Мои игры'],
+    mainMenu: ['Menu principal', 'Main menu', 'Menú principal', 'Menu principale', '主菜单', 'Главное меню'],
+    gameNamePh: ['Nom du jeu', 'Game name', 'Nombre de la partida', 'Nome della partita', '存档名称', 'Название игры'],
+    startNew: ['COMMENCER', 'START', 'EMPEZAR', 'INIZIA', '开始', 'НАЧАТЬ'],
+    maxGames: ['6 jeux maximum : supprimez un jeu dans « Mes jeux » pour en créer un autre.', 'Maximum 6 games: delete one in “My games” to create another.', 'Máximo 6 partidas: elimina una en «Mis partidas» para crear otra.', 'Massimo 6 partite: eliminane una in «Le mie partite» per crearne un’altra.', '最多 6 个存档：请先在“我的存档”中删除一个。', 'Максимум 6 игр: удалите одну в «Мои игры».'],
+    delGame: ['Supprimer ce jeu', 'Delete this game', 'Eliminar esta partida', 'Elimina questa partita', '删除存档', 'Удалить игру'],
+    delConfirm: ['Supprimer ?', 'Delete?', '¿Eliminar?', 'Eliminare?', '确认删除？', 'Удалить?'],
+    noGames: ['Aucun jeu commencé.', 'No game started.', 'Ninguna partida empezada.', 'Nessuna partita iniziata.', '还没有存档。', 'Нет начатых игр.'],
     comfort: ['Confort visuel', 'Visual comfort', 'Confort visual', 'Comfort visivo', '护眼模式', 'Комфорт для глаз'],
     tabBonus: ['Bonus', 'Power-ups', 'Bonus', 'Bonus', '道具', 'Бонусы'],
     tabWork: ['Atelier', 'Workshop', 'Taller', 'Officina', '改装', 'Мастерская'],
@@ -1155,8 +1254,35 @@
   var camp = {};
   try { camp = JSON.parse(localStorage.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
   function saveCamp() { try { localStorage.setItem('droneStrikeCamp', JSON.stringify(camp)); } catch (err) { /* ignore */ } }
-  function cGet(d, dr) { var c = camp[d + '|' + dr]; return c && typeof c === 'object' && c.s ? c : null; }
-  function cEnsure(d, dr) { var k = d + '|' + dr; if (!cGet(d, dr)) camp[k] = { p: 0, s: {}, k: 0, n: 0, d: 0 }; return camp[k]; }
+  // Un « jeu » = une sauvegarde nommée (difficulté + drone choisis à la création). Le jeu en cours est cfg.game.
+  var MAX_GAMES = 6, NOGAME = null;
+  function cGet() { var c = camp[cfg.game]; return c && typeof c === 'object' && c.s ? c : null; }
+  function cEnsure() { return cGet() || (NOGAME = NOGAME || { p: 0, s: {}, k: 0, n: 0, d: 0 }); }
+  function gameKeys() { var o = [], k; for (k in camp) if (camp[k] && camp[k].s && DIFFS[camp[k].df] && DRONES[camp[k].dr]) o.push(k); o.sort(function (a, b) { return (camp[b].d || 0) - (camp[a].d || 0); }); return o; }
+  function syncCfg() { var c = cGet(); if (c) { cfg.diff = c.df; cfg.drone = c.dr; } }
+  function selectGame(k) { if (!camp[k]) return; cfg.game = k; syncCfg(); saveCfg(); }
+  function makeGame(d, dr, name) {
+    var k = 'g' + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36);
+    camp[k] = { p: 0, s: {}, k: 0, n: 0, d: Date.now(), df: d, dr: dr, up: {}, inv: {}, skins: { a: 1 }, skin: 'a' };
+    name = String(name || '').replace(/\s+/g, ' ').trim().slice(0, 18);
+    if (name) camp[k].nm = name;
+    cfg.game = k; syncCfg(); saveCamp(); saveCfg();
+    return k;
+  }
+  function deleteGame(k) { delete camp[k]; if (cfg.game === k) { cfg.game = gameKeys()[0] || ''; syncCfg(); saveCfg(); } saveCamp(); }
+  function migrateGames() {
+    var k, ch = false, any = function (o) { for (var q in o) if (o[q] > 0) return true; return false; };
+    for (k in camp) {
+      var c = camp[k], pr = k.split('|');
+      if (!c || typeof c !== 'object' || !c.s) { delete camp[k]; ch = true; continue; }
+      if (DIFFS[c.df] && DRONES[c.dr]) continue;
+      if (pr.length === 2 && DIFFS[pr[0]] && DRONES[pr[1]] && (c.n > 0 || c.p > 0 || c.nm || any(c.up) || any(c.inv))) { c.df = pr[0]; c.dr = pr[1]; }
+      else delete camp[k];
+      ch = true;
+    }
+    if (!cGet()) { var old = cfg.diff + '|' + cfg.drone; cfg.game = camp[old] ? old : (gameKeys()[0] || ''); }
+    syncCfg(); if (ch) saveCamp();
+  }
   function cTotal(c) { var t = 0; if (c) for (var w in c.s) t += +c.s[w] || 0; return t; }
   function cWave(d, dr) { var c = cGet(d, dr); return Math.min(TOTAL, (c ? c.p : 0) + 1); }
   function entry(d, dr) { var c = cGet(d, dr); return c && c.n ? { b: cTotal(c), w: c.p, k: c.k, tk: c.k, n: c.n, d: c.d } : null; }
@@ -1170,7 +1296,7 @@
   var UPG = [['cannon', [800, 2500], '#f5f7ff'], ['armor', [150, 300, 500, 800, 1200], '#5dff9b'], ['rate', [200, 400, 650, 950, 1300], '#ffd166'],
              ['power', [600, 1400, 2600], '#ff4d6d'], ['engine', [150, 300, 500, 750], '#4fd8ff'], ['dash', [200, 450, 800], '#7df0e0'],
              ['magnet', [150, 350, 600], '#c77dff'], ['dur', [200, 450, 800], '#6fa8ff'], ['regen', [400, 900, 1600], '#ff6b9d']];
-  var SKINS = [{ id: 'a', name: 'VANGUARD', req: 0, price: 0 }, { id: 'b', name: 'RAPTOR', req: 50, price: 1500 }, { id: 'c', name: 'SERAPH', req: 100, price: 3000 }];
+  var SKINS = [{ id: 'a', name: 'VANGUARD', req: 0, price: 0 }, { id: 'd', name: 'HORNET', req: 0, price: 600 }, { id: 'b', name: 'RAPTOR', req: 50, price: 1500 }, { id: 'c', name: 'SERAPH', req: 100, price: 3000 }];
   function G(d, dr) {
     var c = cEnsure(d || cfg.diff, dr || cfg.drone);
     if (!c.up || typeof c.up !== 'object') c.up = {};
@@ -1182,7 +1308,8 @@
   function INV() { return G().inv; }
   function upMax(id) { for (var i = 0; i < UPG.length; i++) if (UPG[i][0] === id) return UPG[i][1].length; return 0; }
   function upLv(c, id) { return Math.max(0, Math.min((c.up && c.up[id]) | 0, upMax(id))); }
-  function gName(d, dr) { var c = cGet(d, dr); return c && c.nm ? String(c.nm) : tr('d_' + dr) + ' · ' + tr(d); }
+  function gLabel(c) { return c && c.nm ? String(c.nm) : tr('d_' + c.dr) + ' · ' + tr(c.df); }
+  function gName() { var c = cGet(); return c ? gLabel(c) : tr('d_' + cfg.drone) + ' · ' + tr(cfg.diff); }
   function buildSpec(d, dr) {
     var b = DRONES[dr], c = G(d, dr), u = function (id) { return upLv(c, id); };
     return { hp: b.hp + 20 * u('armor'), accel: b.accel * (1 + 0.08 * u('engine')), fire: b.fire / (1 + 0.1 * u('rate')), dmg: b.dmg * (1 + 0.25 * u('power')),
@@ -1304,6 +1431,7 @@
       if (saved.comfort === true) cfg.comfort = true;
       if (DIFFS[saved.diff]) cfg.diff = saved.diff;
       if (DRONES[saved.drone]) cfg.drone = saved.drone;
+      if (typeof saved.game === 'string') cfg.game = saved.game;
       if (LANGS.indexOf(saved.lang) >= 0) cfg.lang = saved.lang;
       if (saved.map && MAPS[saved.map]) cfg.map = saved.map;
     }
@@ -1447,7 +1575,7 @@
   function renderText() {
     var st = state, c = tr('colon');
     startBtn.textContent = st === 'menu' ? tr('playWave', { n: cWave(cfg.diff, cfg.drone) }) : tr('retryWave');
-    if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = tr('playWave', { n: cWave(cfg.diff, cfg.drone) });
+    if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = '\u25B6  ' + tr('startNew');
     if (st === 'menu') { elTitle.textContent = 'DRONE STRIKE'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
     else if (st === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
     else if (st === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = lives > 0 ? tr('downSub', { n: lives }) : tr('destroyed'); }
@@ -1469,7 +1597,7 @@
     mainView.classList.toggle('isMenu', st === 'menu');
     overlay.classList.toggle('menuBg', st === 'menu');
     document.getElementById('gameBtn').hidden = st !== 'menu'; document.getElementById('shopBtn').hidden = st !== 'menu';
-    document.getElementById('optBtn').hidden = !(st === 'menu' || st === 'pause');
+    document.getElementById('optBtn').hidden = st !== 'pause'; document.getElementById('homeBtn').hidden = st !== 'menu';
     reviveBtn.textContent = tr('useLife') + '  ♥ ' + lives;
   }
   function renderHelp() {
@@ -1546,54 +1674,81 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
-  var view = 'main', scoreDiff = 'normal', resetArmed = 0;
+  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  var view = 'main', scoreDiff = 'normal', resetArmed = 0, setFrom = 'home', delArm = '', delTimer = 0;
+  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView');
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
+    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; delArm = '';
     mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game'; pathView.hidden = v !== 'path'; shopView.hidden = v !== 'shop';
     panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
     renderAll();
   }
-  function showSettings(on) { showView(on ? 'set' : 'main'); }
+  function showSettings(on) { if (on) setFrom = view === 'home' ? 'home' : 'main'; showView(on ? 'set' : setFrom); }
   function fmtDate(ms) {
     try { return new Date(ms).toLocaleDateString(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang, { day: 'numeric', month: 'short', year: 'numeric' }); }
     catch (err) { return new Date(ms).toISOString().slice(0, 10); }
   }
   function renderScores() {
     scoresBtn.hidden = state !== 'menu';
-    var tb = scoreView.querySelectorAll('[data-sdiff]'), i;
-    for (i = 0; i < tb.length; i++) {
-      var onT = tb[i].getAttribute('data-sdiff') === scoreDiff;
-      tb[i].classList.toggle('on', onT); tb[i].setAttribute('aria-pressed', onT ? 'true' : 'false');
-    }
-    var top = null, topB = 0, games = 0, tk = 0, ids = ['poly', 'eclair', 'blinde', 'assaut'];
-    for (i = 0; i < ids.length; i++) {
-      var e = entry(scoreDiff, ids[i]);
-      if (!e) continue;
-      games += e.n; tk += e.tk;
-      if (e.b > topB) { topB = e.b; top = ids[i]; }
-    }
-    var dc = { easy: '#5dff9b', normal: '#ffd166', hard: '#ff4d6d' }[scoreDiff];
-    document.getElementById('scoreSum').innerHTML =
-      '<div class="tile hl" style="--c:' + dc + '"><span>' + esc(tr('sc_best')) + '</span><strong>' + topB + '</strong></div>' +
-      '<div class="tile"><span>' + esc(tr('sc_games')) + '</span><strong>' + games + '</strong></div>' +
-      '<div class="tile"><span>' + esc(tr('sc_kills')) + '</span><strong>' + tk + '</strong></div>';
-    var cards = scoreView.querySelectorAll('[data-sc]');
-    for (i = 0; i < cards.length; i++) {
-      var id = cards[i].getAttribute('data-sc'), en = entry(scoreDiff, id);
-      cards[i].classList.toggle('top', id === top);
-      cards[i].classList.toggle('empty', !en);
-      cards[i].querySelector('.big').textContent = en ? en.b : '—';
-      cards[i].querySelector('.ln').textContent = en ? tr('sc_line', { w: en.w, k: en.k }) : tr('sc_none');
-      cards[i].querySelector('.dt').textContent = en && en.d ? tr('sc_played', { n: en.n, date: fmtDate(en.d) }) : '';
-    }
-    scoreReset.textContent = tr(resetArmed ? 'sc_confirm' : 'sc_reset');
-    scoreReset.classList.toggle('danger', !!resetArmed);
+    var c = cGet() || { p: 0, s: {}, k: 0, n: 0, d: 0, df: cfg.diff, dr: cfg.drone }, ch = [0, 0, 0], w, top = 0;
+    for (w in c.s) { var v = +c.s[w] || 0, ci = Math.min(CHAPTERS - 1, Math.floor((+w - 1) / WAVES)); ch[ci] += v; if (v > top) top = v; }
+    document.getElementById('scoreName').innerHTML = esc(gName()) + ' <small>· ' + esc(tr('d_' + cfg.drone)) + ' · ' + esc(tr(cfg.diff)) + (c.d && c.n ? ' · ' + esc(fmtDate(c.d)) : '') + '</small>';
+    var h = '<div class="tile hl" style="--c:' + DRONES[cfg.drone].color + '"><span>' + esc(tr('sc_best')) + '</span><strong>' + cTotal(c) + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('p_wave')) + '</span><strong>' + c.p + '/' + TOTAL + '</strong></div>' +
+      '<div class="tile"><span>' + esc(tr('sc_kills')) + '</span><strong>' + c.k + '</strong></div>';
+    for (var i = 0; i < CHAPTERS; i++) h += '<div class="tile"><span>' + esc(tr('chapter', { n: i + 1 })) + '</span><strong>' + (c.p > i * WAVES || ch[i] ? ch[i] : '—') + '</strong></div>';
+    document.getElementById('scoreSum').innerHTML = h;
   }
+  var TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
+  function renderHome() {
+    var ks = gameKeys(), c = cGet(), i, h = '';
+    document.getElementById('contBtn').hidden = !c;
+    document.getElementById('contName').textContent = c ? gLabel(c) + ' · ' + tr('p_wave') + ' ' + c.p + '/' + TOTAL : '';
+    var full = ks.length >= MAX_GAMES, nn = document.getElementById('newName');
+    document.getElementById('fullNote').hidden = !full; optPlay.disabled = full;
+    nn.placeholder = tr('gameNamePh') + ' (' + tr('d_' + cfg.drone) + ' · ' + tr(cfg.diff) + ')';
+    for (i = 0; i < ks.length; i++) {
+      var g = camp[ks[i]], arm = delArm === ks[i];
+      h += '<div class="gCard' + (ks[i] === cfg.game ? ' on' : '') + '" style="--c:' + DRONES[g.dr].color + '"><button class="gMain" data-game="' + esc(ks[i]) + '"><canvas data-gprev="' + esc(ks[i]) + '" width="84" height="70"></canvas>' +
+        '<span class="gi"><b>' + esc(gLabel(g)) + '</b><small>' + esc(tr('d_' + g.dr)) + ' · ' + esc(tr(g.df)) + '</small><small class="pg">' + esc(tr('p_wave')) + ' ' + g.p + '/' + TOTAL + '</small></span></button>' +
+        '<button class="gDel' + (arm ? ' danger' : '') + '" data-del="' + esc(ks[i]) + '" aria-label="' + esc(tr('delGame')) + '">' + (arm ? esc(tr('delConfirm')) : TRASH) + '</button></div>';
+    }
+    if (!ks.length) h = '<p class="gamesEmpty">' + esc(tr('noGames')) + '</p>';
+    var gg = document.getElementById('gamesGrid');
+    if (gg.getAttribute('data-sig') !== h) { gg.innerHTML = h; gg.setAttribute('data-sig', h); }
+  }
+  function goHome() {
+    state = 'menu'; player = null; releaseSticks(); keys = {};
+    elStats.hidden = true; elKeys.hidden = false;
+    showView('home');
+    overlay.classList.remove('hidden');
+  }
+  document.getElementById('newBtn').addEventListener('click', function () { document.getElementById('newName').value = ''; showView('game'); });
+  document.getElementById('contBtn').addEventListener('click', function () { if (cGet()) goMenu(); });
+  document.getElementById('homeSet').addEventListener('click', function () { showSettings(true); });
+  document.getElementById('homeBtn').addEventListener('click', goHome);
+  document.getElementById('gamesBack').addEventListener('click', function () { if (cGet()) showView('main'); else showView('home'); });
+  gamesView.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-game],[data-del]') : null;
+    if (!el) return;
+    if (el.hasAttribute('data-game')) { selectGame(el.getAttribute('data-game')); goMenu(); return; }
+    var k = el.getAttribute('data-del');
+    clearTimeout(delTimer);
+    if (delArm !== k) { delArm = k; delTimer = setTimeout(function () { delArm = ''; renderHome(); }, 4000); renderHome(); return; }
+    delArm = ''; deleteGame(k);
+    if (!gameKeys().length) showView('home'); else renderAll();
+  });
+  function createGame() {
+    if (gameKeys().length >= MAX_GAMES) return;
+    makeGame(cfg.diff, cfg.drone, document.getElementById('newName').value);
+    startWave(1, true);
+  }
+  document.getElementById('newName').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); createGame(); } });
   scoresBtn.addEventListener('click', function () { scoreDiff = cfg.diff; showView('score'); });
   document.getElementById('scoreBack').addEventListener('click', function () { showView('main'); });
   document.getElementById('scoreTabs').addEventListener('click', function (e) {
@@ -1620,7 +1775,7 @@
       var pr = keys2[i].split('|'), cc = camp[keys2[i]];
       h += '<button class="chip' + (keys2[i] === mine ? ' on' : '') + '" data-combo="' + keys2[i] + '">' + esc(gName(pr[0], pr[1])) + ' <b>' + (cc ? cc.p : 0) + '/' + TOTAL + '</b></button>';
     }
-    document.getElementById('comboRow').innerHTML = h;
+    document.getElementById('comboRow').innerHTML = '';
     document.getElementById('pathSum').innerHTML =
       '<div class="tile hl" style="--c:#4fd8ff"><span>' + esc(tr('p_wave')) + '</span><strong>' + prog + '/' + TOTAL + '</strong></div>' +
       '<div class="tile"><span>' + esc(tr('sc_best')) + '</span><strong>' + cTotal(c) + '</strong></div>' +
@@ -1722,7 +1877,7 @@
         else if (owned) btn = '<button data-skin-eq="' + sk.id + '">' + esc(tr('equip')) + '</button>';
         else if (locked) btn = '<button disabled>' + LOCK + esc(tr('needChapter', { n: sk.req / WAVES })) + '</button>';
         else btn = '<button data-skin-buy="' + sk.id + '"' + (bank.c < sk.price ? ' disabled' : '') + '>' + esc(tr('buy')) + ' · ' + sk.price + '</button>';
-        h += '<div class="skinCard' + (eq ? ' eq' : '') + (locked ? ' locked' : '') + '"><canvas data-skin="' + sk.id + '" width="150" height="120"></canvas><span class="nm">' + sk.name + '</span>' + btn + '</div>';
+        h += '<div class="skinCard' + (eq ? ' eq' : '') + (locked ? ' locked' : '') + '"><canvas data-skin="' + sk.id + '" width="132" height="108"></canvas><span class="nm">' + sk.name + '</span>' + btn + '</div>';
       }
       h += '</div>';
     }
@@ -1832,9 +1987,9 @@
   }
   setView.addEventListener('click', optClick);
   gameView.addEventListener('click', optClick);
-  document.getElementById('gameBtn').addEventListener('click', function () { showView('game'); });
-  document.getElementById('gameBack').addEventListener('click', function () { showView('main'); });
-  optPlay.addEventListener('click', function () { startGame(); });
+  document.getElementById('gameBtn').addEventListener('click', function () { showView('games'); });
+  document.getElementById('gameBack').addEventListener('click', function () { syncCfg(); saveCfg(); showView('home'); });
+  optPlay.addEventListener('click', function () { createGame(); });
   document.getElementById('optBtn').addEventListener('click', function () { showSettings(true); });
   document.getElementById('backBtn').addEventListener('click', function () { showSettings(false); });
   document.getElementById('resetBtn').addEventListener('click', function () { resetCfg(); listening = null; saveCfg(); renderAll(); });
@@ -1881,6 +2036,7 @@
     initAudio();
     n = clamp(n | 0, 1, TOTAL);
     if (fresh || !player) {
+      if (!cGet()) makeGame(cfg.diff, cfg.drone, '');
       var spec = buildSpec(cfg.diff, cfg.drone);
       gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff];
       player = { x: 0, y: 0, vx: 0, vy: 0, angle: 0, r: 18, hp: spec.hp, maxHp: spec.hp, spec: spec,
@@ -1973,10 +2129,11 @@
     showView('main');
     overlay.classList.remove('hidden');
   }
-  quitBtn.addEventListener('click', goMenu);
+  quitBtn.addEventListener('click', goHome);
   startBtn.addEventListener('click', startGame);
+  migrateGames();
   migrateBank();
-  renderAll();
+  showView('home');
   scheduleLivesNotif();
   firstLaunchNotif();
 
@@ -2494,18 +2651,34 @@
     if (skin === 'b') {
       var fus = [[1.0, 0], [0.4, 0.190], [-0.450, 0.240], [-0.620, 0.120], [-0.620, -0.120], [-0.450, -0.240], [0.4, -0.190]];
       for (s2 = -1; s2 <= 1; s2 += 2) {
-        addPoly(m, [[0.250, 0.180 * s2], [-0.420, 0.980 * s2], [-0.620, 0.980 * s2], [-0.5, 0.220 * s2]], 0.05, 0.1, 1, '#343b4e');
+        addPoly(m, [[0.250, 0.180 * s2], [-0.420, 0.980 * s2], [-0.620, 0.980 * s2], [-0.5, 0.220 * s2]], 0.05, 0.1, 1, '#59647f');
         addPoly(m, [[0.250, 0.180 * s2], [-0.420, 0.980 * s2], [-0.480, 0.980 * s2], [0.170, 0.2 * s2]], 0.1, 0.118, 1, acc, 1);
-        addPoly(m, ngon(-0.3, 0.580 * s2, 0.250, 10), 0.0, 0.165, 1, '#20242f');
+        addPoly(m, ngon(-0.3, 0.580 * s2, 0.250, 10), 0.0, 0.165, 1, '#363d50');
         addPoly(m, ngon(-0.3, 0.580 * s2, 0.07, 6), 0.165, 0.2, 1, acc, 1);
         m.rot.push({ x: -0.3, y: 0.580 * s2, z: 0.180, r: 0.220 });
-        rbox(m, -0.5, 0.170 * s2, 0.150, 0.320, 0.035, 0.260, 0, '#3c4459');
+        rbox(m, -0.5, 0.170 * s2, 0.150, 0.320, 0.035, 0.260, 0, '#667290');
         rbox(m, -0.5, 0.170 * s2, 0.410, 0.320, 0.045, 0.03, 0, acc, 1);
       }
-      addPoly(m, fus, 0.03, 0.150, 1, '#2a2f3e'); addPoly(m, fus, 0.150, 0.3, 0.5, '#434c63');
+      addPoly(m, fus, 0.03, 0.150, 1, '#4c5672'); addPoly(m, fus, 0.150, 0.3, 0.5, '#7482a2');
       addPoly(m, [[0.520, 0], [0.250, 0.075], [0.02, 0.06], [0.02, -0.06], [0.250, -0.075]], 0.3, 0.335, 0.8, acc, 1);
       rbox(m, -0.640, 0, 0.06, 0.05, 0.2, 0.1, 0, '#ff8a3d', 1);
       guns3(m, cannons, 0.5, 0.06, acc);
+    } else if (skin === 'd') {
+      var hb = [[0.780, 0], [0.460, 0.170], [-0.460, 0.210], [-0.7, 0.08], [-0.7, -0.08], [-0.460, -0.210], [0.460, -0.170]], ha = [0.660, -0.660, 2.450, -2.450];
+      for (i = 0; i < 4; i++) {
+        a = ha[i];
+        var hl = i < 2 ? 0.780 : 0.920;
+        rbox(m, Math.cos(a) * hl / 2, Math.sin(a) * hl / 2, 0.07, hl, 0.08, 0.05, a, '#1b1e28');
+        addPoly(m, ngon(Math.cos(a) * hl, Math.sin(a) * hl, 0.130, 8), 0.02, 0.2, 1, '#ffc93c');
+        addPoly(m, ngon(Math.cos(a) * hl, Math.sin(a) * hl, 0.06, 6), 0.2, 0.240, 1, acc, 1);
+        m.rot.push({ x: Math.cos(a) * hl, y: Math.sin(a) * hl, z: 0.270, r: i < 2 ? 0.3 : 0.360 });
+      }
+      addPoly(m, hb, 0.03, 0.180, 1, '#ffc93c'); addPoly(m, hb, 0.180, 0.3, 0.550, '#ffb21f');
+      rbox(m, -0.08, 0, 0.025, 0.1, 0.460, 0.165, 0, '#1b1e28'); rbox(m, -0.340, 0, 0.025, 0.1, 0.5, 0.165, 0, '#1b1e28');
+      addPoly(m, [[0.560, 0], [0.360, 0.08], [0.160, 0.06], [0.160, -0.06], [0.360, -0.08]], 0.240, 0.290, 0.7, acc, 1);
+      rbox(m, -0.640, 0, 0.180, 0.320, 0.04, 0.240, 0, '#1b1e28'); rbox(m, -0.640, 0, 0.420, 0.320, 0.05, 0.03, 0, acc, 1);
+      rbox(m, -0.880, 0, 0.08, 0.360, 0.05, 0.05, 0, '#ff8a3d', 1);
+      guns3(m, cannons, 0.5, 0.08, acc);
     } else if (skin === 'c') {
       for (i = 0; i < 6; i++) {
         a = i * Math.PI / 3 + Math.PI / 6;
@@ -2523,12 +2696,12 @@
       var hexB = [[0.5, 0], [0.3, 0.270], [-0.320, 0.270], [-0.5, 0.1], [-0.5, -0.1], [-0.320, -0.270], [0.3, -0.270]];
       for (i = 0; i < 4; i++) {
         a = Math.PI / 4 + i * Math.PI / 2;
-        rbox(m, Math.cos(a) * 0.5, Math.sin(a) * 0.5, 0.06, 0.8, 0.09, 0.06, a, '#262d3b');
-        addPoly(m, ngon(Math.cos(a) * 0.880, Math.sin(a) * 0.880, 0.130, 8), 0.02, 0.2, 1, '#394359');
+        rbox(m, Math.cos(a) * 0.5, Math.sin(a) * 0.5, 0.06, 0.8, 0.09, 0.06, a, '#8793ab');
+        addPoly(m, ngon(Math.cos(a) * 0.880, Math.sin(a) * 0.880, 0.130, 8), 0.02, 0.2, 1, '#b4bfd3');
         addPoly(m, ngon(Math.cos(a) * 0.880, Math.sin(a) * 0.880, 0.06, 6), 0.2, 0.240, 1, acc, 1);
         m.rot.push({ x: Math.cos(a) * 0.880, y: Math.sin(a) * 0.880, z: 0.270, r: 0.360 });
       }
-      addPoly(m, hexB, 0.02, 0.160, 1, '#46536b'); addPoly(m, hexB, 0.160, 0.260, 0.680, '#62728f');
+      addPoly(m, hexB, 0.02, 0.160, 1, '#d5dde9'); addPoly(m, hexB, 0.160, 0.260, 0.680, '#f2f5fa');
       addPoly(m, ngon(0.05, 0, 0.130, 6), 0.260, 0.310, 0.6, acc, 1);
       guns3(m, cannons, 0.450, 0.1, acc);
     }
@@ -2578,14 +2751,36 @@
   function drawSkinPreviews(t) {
     var cs = shopView.querySelectorAll('canvas[data-skin]'), mainCtx = ctx, c = G();
     for (var i = 0; i < cs.length; i++) {
-      var cv = cs[i], w = 150, h = 120, pw = Math.round(w * DPR);
+      var cv = cs[i], w = 132, h = 108, pw = Math.round(w * DPR);
       if (cv.width !== pw) { cv.width = pw; cv.height = Math.round(h * DPR); }
       ctx = cv.getContext('2d');
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       ctx.clearRect(0, 0, w, h);
-      draw3D(getModel(cv.getAttribute('data-skin'), DRONES[cfg.drone].color, 1 + upLv(c, 'cannon')), w / 2, h / 2 + 12 + Math.sin(t * 2 + i) * 3, 44, t * 0.7 + i * 2, 0.950, 0, 0, 1, t, false, true);
+      draw3D(getModel(cv.getAttribute('data-skin'), DRONES[cfg.drone].color, 1 + upLv(c, 'cannon')), w / 2, h / 2 + 10 + Math.sin(t * 2 + i) * 3, 47, t * 0.7 + i * 2, 0.950, 0, 0, 1, t, false, true);
     }
     ctx = mainCtx;
+  }
+  function drawOn(cv, w, h, fn) {
+    if (!cv || !cv.getContext) return;
+    var mainCtx = ctx, pw = Math.round(w * DPR);
+    if (cv.width !== pw) { cv.width = pw; cv.height = Math.round(h * DPR); }
+    ctx = cv.getContext('2d'); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, w, h);
+    fn(); ctx = mainCtx;
+  }
+  function drawHome(t) {
+    var c = cGet(), col = DRONES[c ? c.dr : 'poly'].color, w = 230, h = 160;
+    drawOn(document.getElementById('homeDrone'), w, h, function () {
+      var gr = ctx.createRadialGradient(w / 2, h / 2, 6, w / 2, h / 2, w / 2);
+      if (gr && gr.addColorStop) { gr.addColorStop(0, col + '40'); gr.addColorStop(1, col + '00'); ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h); }
+      draw3D(getModel(c && c.skin ? c.skin : 'a', col, c ? 1 + upLv(c, 'cannon') : 1), w / 2, h / 2 + 12 + Math.sin(t * 2) * 4, 70, t * 0.6, 0.950, Math.sin(t * 1.300) * 0.1, 0, 1, t, false, true);
+    });
+  }
+  function drawGamePreviews(t) {
+    var cs = gamesView.querySelectorAll('canvas[data-gprev]');
+    for (var i = 0; i < cs.length; i++) (function (cv, i) {
+      var g = camp[cv.getAttribute('data-gprev')];
+      if (g) drawOn(cv, 84, 70, function () { draw3D(getModel(g.skin || 'a', DRONES[g.dr].color, 1 + upLv(g, 'cannon')), 42, 40, 29, t * 0.7 + i, 0.950, 0, 0, 1, t, false, false); });
+    })(cs[i], i);
   }
   var menuT = 0, hpGhost = 1;
   function drawMenuScene() {
@@ -2874,8 +3069,7 @@
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       ctx.clearRect(0, 0, sz, sz);
       var full = c.hasAttribute('data-full'), sel = full ? c.parentNode.classList.contains('top') : cfg.drone === id;
-      var gm = G(view === 'score' ? scoreDiff : cfg.diff, id);
-      draw3D(getModel(gm.skin, DRONES[id].color, 1 + upLv(gm, 'cannon')), sz / 2, sz / 2 + 5, sz * 0.290, sel ? t * 0.8 : -Math.PI / 2, 0.9, 0, 0, sel || full ? 1 : 0.5, t, false, false);
+      draw3D(getModel('a', DRONES[id].color, 1), sz / 2, sz / 2 + 6, sz * 0.4, sel ? t * 0.8 : -Math.PI / 2 + 0.5, 0.9, 0, 0, sel || full ? 1 : 0.8, t, false, false);
     }
     ctx = mainCtx; time = mainTime;
   }
@@ -2892,7 +3086,9 @@
     draw();
     if (state === 'menu') { menuT += dt; if (view === 'main') drawHero(); }
     if (fitDirty && !overlay.classList.contains('hidden')) { fitDirty = false; fitPanel(); }
-    if (setOpen && (view === 'game' || view === 'score')) drawPreviews(ts / 1000);
+    if (view === 'game') drawPreviews(ts / 1000);
+    if (view === 'home') drawHome(ts / 1000);
+    if (view === 'games') drawGamePreviews(ts / 1000);
     if (view === 'shop' && shopTab === 'skin') drawSkinPreviews(ts / 1000);
     frameN = (frameN || 0) + 1;
     if (frameN % 60 === 1) checkLivesBack();
@@ -2902,7 +3098,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>
