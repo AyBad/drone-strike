@@ -219,6 +219,38 @@
   #itemBar button.empty b { display: none; }
   @media (max-width: 700px) { .shopGrid { grid-template-columns: repeat(2, 1fr); } .bub { width: 46px; height: 46px; font-size: 15px; } .prow::before { top: 21px; } }
   @media (max-width: 560px) { #itemBar { bottom: 170px; } }
+  /* ---------- Chemin dynamique ---------- */
+  .chTabs { display: flex; justify-content: center; margin: 2px 0 14px; }
+  .chTabs .seg button { display: inline-flex; align-items: center; gap: 6px; }
+  .chTabs .seg button svg { width: 14px; height: 14px; }
+  .chTabs .seg button:disabled { opacity: 0.45; cursor: default; background: transparent; color: #8fa6c4; }
+  .chBar { height: 8px; border-radius: 4px; background: #16243b; overflow: hidden; margin: 0 0 18px; }
+  .chBar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, #4fd8ff, #5dff9b, #4fd8ff); background-size: 200% 100%;
+    animation: flow 2.4s linear infinite; transition: width .6s ease; }
+  @keyframes flow { to { background-position: -200% 0; } }
+  .prow .fill { position: absolute; top: 25px; height: 4px; border-radius: 2px; left: 10%; z-index: 0;
+    background: linear-gradient(90deg, #4fd8ff, #a8f0ff, #4fd8ff); background-size: 200% 100%; animation: flow 1.8s linear infinite; box-shadow: 0 0 10px rgba(79, 216, 255, 0.6); }
+  .prow.rev .fill { left: auto; right: 10%; animation-direction: reverse; }
+  .prow.vdone::after { background: #4fd8ff !important; box-shadow: 0 0 10px rgba(79, 216, 255, 0.6); }
+  .node { animation: nodeIn .45s cubic-bezier(.2, .9, .3, 1.3) both; animation-delay: calc(var(--i) * 14ms); }
+  @keyframes nodeIn { from { opacity: 0; transform: translateY(14px) scale(0.6); } }
+  .bub { position: relative; transition: transform .15s; }
+  .bub.done:hover, .bub.cur:hover { transform: scale(1.12); }
+  .bub.cur::before, .bub.cur::after { content: ''; position: absolute; inset: -4px; border-radius: inherit; border: 2px solid var(--c); opacity: 0; animation: ring 1.8s ease-out infinite; pointer-events: none; }
+  .bub.cur::after { animation-delay: .9s; }
+  @keyframes ring { from { opacity: 0.8; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }
+  .node small { background: #0e1a2f; padding: 0 5px; border-radius: 5px; }
+  .node .go { color: var(--c, #4fd8ff); animation: bob 0.9s ease-in-out infinite; display: inline-block; }
+  @keyframes bob { 50% { transform: translateY(3px); } }
+  .bub.boss.lock { animation: bossGlow 2.2s ease-in-out infinite; }
+  @keyframes bossGlow { 50% { box-shadow: 0 0 14px -2px #ff3b6b; } }
+  .chNext { display: flex; justify-content: center; margin-top: 6px; }
+  .soon { position: relative; overflow: hidden; text-align: center; padding: 22px 16px; border-radius: 16px; margin: 0 0 16px;
+    background: linear-gradient(120deg, #1a1440, #0f2a44, #1a1440); background-size: 200% 100%; animation: flow 6s linear infinite; border: 1px solid #6b4fa0; }
+  .soon strong { display: block; font-size: 26px; letter-spacing: 6px; color: #ffd166; margin-bottom: 6px; }
+  .soon span { font-size: 14px; color: #e6f1ff; }
+  @media (max-width: 700px) { .prow .fill { top: 21px; } }
+  @media (prefers-reduced-motion: reduce) { .node, .bub.cur::before, .bub.cur::after, .chBar i, .prow .fill, .soon, .bub.boss.lock { animation: none; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -326,7 +358,11 @@
         <section class="card full">
           <div class="comboRow" id="comboRow"></div>
           <div class="sumGrid" id="pathSum"></div>
+          <div class="chTabs"><div class="seg" id="chTabs"></div></div>
+          <div class="chBar"><i id="chFill"></i></div>
+          <div id="soonBox"></div>
           <div class="path" id="pathGrid"></div>
+          <div class="chNext" id="chNext"></div>
         </section>
       </div>
     </div>
@@ -455,6 +491,103 @@
     }
     return out;
   }
+  var PALS = [
+    { c: '#4fd8ff', ground: '#0b1322', grid: '#132038', border: '#2a6f9c' },
+    { c: '#c77dff', ground: '#0e0c19', grid: '#1b1730', border: '#6b4fa0' },
+    { c: '#ff8a3d', ground: '#15100c', grid: '#221a12', border: '#8a5a30' },
+    { c: '#5dff9b', ground: '#08130f', grid: '#10221a', border: '#2f7a55' },
+    { c: '#ffd166', ground: '#141208', grid: '#221f10', border: '#8a7430' },
+    { c: '#ff6b9d', ground: '#160b12', grid: '#26131f', border: '#8a3058' },
+    { c: '#6fa8ff', ground: '#090f1c', grid: '#121c33', border: '#3559a0' },
+    { c: '#7df0e0', ground: '#07131a', grid: '#0f2330', border: '#2a7a8a' },
+    { c: '#e8ecf5', ground: '#101216', grid: '#1b1e25', border: '#5a6272' }
+  ];
+  var MTYPES = ['city', 'canyon', 'base', 'mixed', 'pillars'];
+  function mapInfo(n) {
+    if (n <= 1) return { type: 'plain', pal: PALS[0] };
+    var r = rng(n * 7919 + 13);
+    return { type: MTYPES[(n - 2 + Math.floor((n - 2) / 5)) % 5], pal: PALS[(n * 4 + Math.floor(r() * 3)) % PALS.length] };
+  }
+  function genMap(n) {
+    var type = mapInfo(n).type, out = [], CXm = 1300, CYm = 900, r = rng(n * 104729 + 71), i, j, k;
+    function rock(cx, cy, rad, pil) {
+      var v = [];
+      for (var q = 0; q < 9; q++) v.push(pil ? 0.97 + r() * 0.03 : 0.82 + r() * 0.18);
+      out.push({ t: 'c', k: pil ? 'pil' : 'rock', x: cx, y: cy, r: rad, v: v, a: r() * 6.28 });
+    }
+    function clearOf(cx, cy, rad, gap) {
+      if (Math.hypot(cx - CXm, cy - CYm) < rad + 300) return false;
+      for (var q = 0; q < out.length; q++) {
+        var o = out[q];
+        if (o.t === 'r' ? rectNear(o.x, o.y, o.w, o.h, cx, cy, rad + gap) : Math.hypot(cx - o.x, cy - o.y) < rad + o.r + gap) return false;
+      }
+      return true;
+    }
+    function rocks(count, rmin, rspan) {
+      for (var tries = 0, made = 0; tries < 1200 && made < count; tries++) {
+        var rad = rmin + r() * rspan, cx = rad + 60 + r() * (2600 - 2 * (rad + 60)), cy = rad + 60 + r() * (1800 - 2 * (rad + 60));
+        if (!clearOf(cx, cy, rad, 115)) continue;
+        rock(cx, cy, rad, false); made++;
+      }
+    }
+    function walls(cols, rows, pSkip, T) {
+      var cw = 2600 / cols, ch = 1800 / rows;
+      for (i = 0; i < cols; i++) for (j = 0; j < rows; j++) {
+        var bx = cw * (i + 0.5) + (r() - 0.5) * cw * 0.2, by = ch * (j + 0.5) + (r() - 0.5) * ch * 0.2, kind = Math.floor(r() * 4), skip = r() < pSkip;
+        var L = Math.min(cw - 190, 200 + r() * 150), Lv = Math.min(ch - 190, 180 + r() * 130);
+        if (skip || Math.hypot(bx - CXm, by - CYm) < 350) continue;
+        if (kind === 0) out.push({ t: 'r', k: 'wall', x: bx - L / 2, y: by - T / 2, w: L, h: T });
+        else if (kind === 1) out.push({ t: 'r', k: 'wall', x: bx - T / 2, y: by - Lv / 2, w: T, h: Lv });
+        else if (kind === 2) {
+          var sx = r() < 0.5 ? -1 : 1, sy = r() < 0.5 ? -1 : 1;
+          out.push({ t: 'r', k: 'wall', x: sx < 0 ? bx - L * 0.7 : bx, y: by - T / 2, w: L * 0.7, h: T });
+          out.push({ t: 'r', k: 'wall', x: bx - T / 2, y: sy < 0 ? by - Lv * 0.75 : by, w: T, h: Lv * 0.75 });
+        } else {
+          out.push({ t: 'r', k: 'wall', x: bx - L / 2, y: by - T / 2, w: L, h: T });
+          out.push({ t: 'r', k: 'wall', x: bx - T / 2, y: by - Lv / 2, w: T, h: Lv });
+        }
+      }
+    }
+    if (type === 'city') {
+      var cols = 4 + Math.floor(r() * 2), rows = 2 + Math.floor(r() * 2), pS = 0.08 + r() * 0.17, cw = 2600 / cols, ch = 1800 / rows;
+      for (i = 0; i < cols; i++) for (j = 0; j < rows; j++) {
+        var w = cw * (0.38 + r() * 0.26), h = ch * (0.36 + r() * 0.24);
+        var x = cw * i + (cw - w) * (0.3 + r() * 0.4), y = ch * j + (ch - h) * (0.3 + r() * 0.4), sk = r() < pS, sd = r();
+        if (sk || rectNear(x, y, w, h, CXm, CYm, 270)) continue;
+        out.push({ t: 'r', k: 'bld', x: x, y: y, w: w, h: h, s: sd });
+      }
+    } else if (type === 'canyon') {
+      rocks(12 + Math.floor(r() * 16), 35 + r() * 20, 30 + r() * 55);
+    } else if (type === 'base') {
+      walls(4 + Math.floor(r() * 2), 3 + Math.floor(r() * 2), 0.1 + r() * 0.25, 28 + Math.floor(r() * 12));
+    } else if (type === 'mixed') {
+      walls(3 + Math.floor(r() * 2), 2 + Math.floor(r() * 2), 0.35 + r() * 0.2, 30);
+      rocks(7 + Math.floor(r() * 8), 38, 45);
+    } else if (type === 'pillars') {
+      var rad = 30 + r() * 16;
+      if (r() < 0.5) {
+        var rings = 2 + Math.floor(r() * 2), ph = r() * 6.28;
+        for (k = 0; k < rings; k++) {
+          var R = 430 + k * (250 + r() * 60), cnt = 6 + k * 4 + Math.floor(r() * 3);
+          for (i = 0; i < cnt; i++) {
+            var an = ph + k * 0.4 + i / cnt * 6.2832, px = CXm + Math.cos(an) * R * 1.25, py = CYm + Math.sin(an) * R * 0.8;
+            if (px < rad + 70 || py < rad + 70 || px > 2600 - rad - 70 || py > 1800 - rad - 70) continue;
+            if (clearOf(px, py, rad, 110)) rock(px, py, rad, true);
+          }
+        }
+      } else {
+        var sp = 330 + r() * 130, off = r() < 0.5;
+        for (j = 0; j * sp + 160 < 1800 - 100; j++) for (i = 0; i * sp + 160 < 2600 - 100; i++) {
+          var lx = 160 + i * sp + (off && j % 2 ? sp / 2 : 0), ly = 160 + j * sp;
+          if (lx > 2600 - rad - 70) continue;
+          if (clearOf(lx, ly, rad, 110)) rock(lx, ly, rad, true);
+        }
+      }
+    }
+    return out;
+  }
+  var waveMaps = {}, curPal = PALS[0];
+  function getWaveMap(n) { return waveMaps[n] || (waveMaps[n] = genMap(n)); }
   var mapCache = {}, obstacles = [], gameMap = 'plain';
   function getObs(id, seed) { seed = seed || 1; var k = id + seed; return mapCache[k] || (mapCache[k] = buildMap(id, seed)); }
   function mapTheme(n) { return n <= 1 ? 'plain' : ['city', 'canyon', 'base'][(n - 2) % 3]; }
@@ -534,10 +667,10 @@
         ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; ctx.beginPath();
         for (k = 0; k < n; k++) { var an = ob.a + k / n * TAU; ctx[k ? 'lineTo' : 'moveTo'](ob.x + 10 + Math.cos(an) * ob.r * ob.v[k], ob.y + 12 + Math.sin(an) * ob.r * ob.v[k]); }
         ctx.closePath(); ctx.fill();
-        ctx.fillStyle = '#3b2c20'; ctx.strokeStyle = '#6a4f36'; ctx.lineWidth = 2; ctx.beginPath();
+        ctx.fillStyle = ob.k === 'pil' ? '#26344f' : '#3b2c20'; ctx.strokeStyle = ob.k === 'pil' ? '#5a78ad' : '#6a4f36'; ctx.lineWidth = 2; ctx.beginPath();
         for (k = 0; k < n; k++) { var an2 = ob.a + k / n * TAU; ctx[k ? 'lineTo' : 'moveTo'](ob.x + Math.cos(an2) * ob.r * ob.v[k], ob.y + Math.sin(an2) * ob.r * ob.v[k]); }
         ctx.closePath(); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = '#4c3a2a'; ctx.beginPath();
+        ctx.fillStyle = ob.k === 'pil' ? '#3a4d75' : '#4c3a2a'; ctx.beginPath();
         for (k = 0; k < n; k++) { var an3 = ob.a + k / n * TAU; ctx[k ? 'lineTo' : 'moveTo'](ob.x - ob.r * 0.18 + Math.cos(an3) * ob.r * ob.v[k] * 0.55, ob.y - ob.r * 0.2 + Math.sin(an3) * ob.r * ob.v[k] * 0.55); }
         ctx.closePath(); ctx.fill();
       }
@@ -611,7 +744,7 @@
     sc_games: ['Vagues jouées', 'Waves played', 'Oleadas jugadas', 'Ondate giocate', '已玩波数', 'Сыграно волн'],
     sc_kills: ['Abattus', 'Kills', 'Derribos', 'Abbattuti', '击落', 'Сбито'],
     sc_none: ['Pas encore joué', 'Not played yet', 'Aún sin jugar', 'Non ancora giocato', '尚未游玩', 'Ещё не играли'],
-    sc_line: ['Vague {w}/50 · {k} abattus', 'Wave {w}/50 · {k} kills', 'Oleada {w}/50 · {k} derribos', 'Ondata {w}/50 · {k} abbattuti', '第 {w}/50 波 · 击落 {k}', 'Волна {w}/50 · сбито {k}'],
+    sc_line: ['Vague {w}/150 · {k} abattus', 'Wave {w}/150 · {k} kills', 'Oleada {w}/150 · {k} derribos', 'Ondata {w}/150 · {k} abbattuti', '第 {w}/150 波 · 击落 {k}', 'Волна {w}/150 · сбито {k}'],
     sc_played: ['{n} vague(s) jouée(s) · {date}', '{n} wave(s) played · {date}', '{n} oleada(s) jugada(s) · {date}', '{n} ondata/e giocata/e · {date}', '已玩 {n} 波 · {date}', 'Сыграно волн: {n} · {date}'],
     sc_top: ['MEILLEUR', 'TOP', 'MEJOR', 'MIGLIORE', '最佳', 'ЛУЧШИЙ'],
     sc_hint: ['Le score total d\'un chemin est la somme des meilleurs scores de ses vagues.', 'A path\'s total score is the sum of the best scores of its waves.', 'La puntuación total de un camino es la suma de las mejores puntuaciones de sus oleadas.', 'Il punteggio totale di un percorso è la somma dei migliori punteggi delle sue ondate.', '路线总分为各波最高分之和。', 'Общий счёт маршрута — сумма лучших результатов его волн.'],
@@ -648,7 +781,7 @@
     a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево'],
     a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо'],
     pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…'],
-    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}/50  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}/50  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}/50  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}/50  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w}/50 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}/50  ·  кредиты: {c}'],
+    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}/150  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}/150  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}/150  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}/150  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w}/150 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}/150  ·  кредиты: {c}'],
     intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.'],
     introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.'],
     h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец'],
@@ -695,7 +828,12 @@
     waveClear: ['VAGUE {n} RÉUSSIE', 'WAVE {n} CLEARED', 'OLEADA {n} SUPERADA', 'ONDATA {n} SUPERATA', '第 {n} 波完成', 'ВОЛНА {n} ПРОЙДЕНА'],
     bossClear: ['BOSS VAINCU', 'BOSS DEFEATED', 'JEFE DERROTADO', 'BOSS SCONFITTO', 'BOSS 已击败', 'БОСС ПОВЕРЖЕН'],
     pathDone: ['CHEMIN TERMINÉ !', 'PATH COMPLETE!', '¡CAMINO COMPLETADO!', 'PERCORSO COMPLETATO!', '路线完成！', 'МАРШРУТ ПРОЙДЕН!'],
-    clearSub: ['Vague {n} sur 50', 'Wave {n} of 50', 'Oleada {n} de 50', 'Ondata {n} di 50', '第 {n} 波，共 50 波', 'Волна {n} из 50'],
+    clearSub: ['Vague {n} sur 150', 'Wave {n} of 150', 'Oleada {n} de 150', 'Ondata {n} di 150', '第 {n} 波，共 150 波', 'Волна {n} из 150'],
+    chapter: ['Chapitre {n}', 'Chapter {n}', 'Capítulo {n}', 'Capitolo {n}', '第 {n} 章', 'Глава {n}'],
+    chapterDone: ['CHAPITRE {n} TERMINÉ', 'CHAPTER {n} COMPLETE', 'CAPÍTULO {n} COMPLETADO', 'CAPITOLO {n} COMPLETATO', '第 {n} 章完成', 'ГЛАВА {n} ПРОЙДЕНА'],
+    chapterUnlock: ['Nouveau chemin débloqué : chapitre {n}', 'New path unlocked: chapter {n}', 'Nuevo camino desbloqueado: capítulo {n}', 'Nuovo percorso sbloccato: capitolo {n}', '新路线已解锁：第 {n} 章', 'Открыт новый маршрут: глава {n}'],
+    soonTitle: ['BIENTÔT', 'COMING SOON', 'PRÓXIMAMENTE', 'PROSSIMAMENTE', '敬请期待', 'СКОРО'],
+    soonText: ['Vous avez terminé les 150 vagues. De nouvelles vagues arrivent bientôt !', 'You have completed all 150 waves. New waves are coming soon!', 'Has completado las 150 oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le 150 ondate. Nuove ondate in arrivo!', '你已完成全部 150 波。新的波次即将到来！', 'Вы прошли все 150 волн. Новые волны скоро появятся!'],
     st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней'],
     st_total: ['Total', 'Total', 'Total', 'Totale', '合计', 'Итого'],
     st_bestWave: ['Meilleur score de la vague', 'Best score for this wave', 'Mejor puntuación de la oleada', 'Miglior punteggio dell\'ondata', '本波最高分', 'Лучший счёт волны'],
@@ -774,14 +912,14 @@
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff', life: '#ff6b9d' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
   var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
-  var WAVES = 50;
+  var WAVES = 50, CHAPTERS = 3, TOTAL = WAVES * CHAPTERS, CREDIT_RATE = 0.1;
   var camp = {};
   try { camp = JSON.parse(localStorage.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
   function saveCamp() { try { localStorage.setItem('droneStrikeCamp', JSON.stringify(camp)); } catch (err) { /* ignore */ } }
   function cGet(d, dr) { var c = camp[d + '|' + dr]; return c && typeof c === 'object' && c.s ? c : null; }
   function cEnsure(d, dr) { var k = d + '|' + dr; if (!cGet(d, dr)) camp[k] = { p: 0, s: {}, k: 0, n: 0, d: 0 }; return camp[k]; }
   function cTotal(c) { var t = 0; if (c) for (var w in c.s) t += +c.s[w] || 0; return t; }
-  function cWave(d, dr) { var c = cGet(d, dr); return Math.min(WAVES, (c ? c.p : 0) + 1); }
+  function cWave(d, dr) { var c = cGet(d, dr); return Math.min(TOTAL, (c ? c.p : 0) + 1); }
   function entry(d, dr) { var c = cGet(d, dr); return c && c.n ? { b: cTotal(c), w: c.p, k: c.k, tk: c.k, n: c.n, d: c.d } : null; }
   var ITEMS = [['heal', 120], ['rapid', 180], ['shield', 250], ['gun', 300]], ITEM_MAX = 9;
   var bank = { c: 0, inv: { heal: 0, rapid: 0, shield: 0, gun: 0 } };
@@ -981,16 +1119,16 @@
     else if (st === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
     else if (st === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = lives > 0 ? tr('downSub', { n: lives }) : tr('destroyed'); }
     else if (st === 'clear' && lastRes) {
-      elTitle.textContent = wave >= WAVES ? tr('pathDone') : wave % 5 === 0 ? tr('bossClear') : tr('waveClear', { n: wave });
-      elSub.textContent = lastRes.rec ? tr('newRecord') : tr('clearSub', { n: wave });
+      elTitle.textContent = wave >= TOTAL ? tr('pathDone') : wave % WAVES === 0 ? tr('chapterDone', { n: wave / WAVES }) : wave % 5 === 0 ? tr('bossClear') : tr('waveClear', { n: wave });
+      elSub.textContent = wave >= TOTAL ? tr('soonText') : wave % WAVES === 0 ? tr('chapterUnlock', { n: wave / WAVES + 1 }) : lastRes.rec ? tr('newRecord') : tr('clearSub', { n: wave });
       elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + lastRes.score + '</strong><br>' +
         (lastRes.bonus ? esc(tr('st_noLife')) + c + '<strong>+' + lastRes.bonus + '</strong><br>' + esc(tr('st_total')) + c + '<strong>' + lastRes.total + '</strong><br>' : '') +
         esc(tr('st_bestWave')) + c + '<strong>' + lastRes.best + '</strong><br>' +
-        esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.total + '</strong>';
+        esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.credits + '</strong>';
     }
     resumeBtn.hidden = st !== 'pause'; quitBtn.hidden = st !== 'pause';
     reviveBtn.hidden = !(st === 'down' && lives > 0);
-    nextBtn.hidden = !(st === 'clear' && wave < WAVES);
+    nextBtn.hidden = !(st === 'clear' && wave < TOTAL);
     startBtn.hidden = st === 'clear';
     pathBtn.hidden = st === 'pause';
     pathBtn.textContent = tr(st === 'menu' ? 'path' : 'toPath');
@@ -1115,47 +1253,64 @@
   // ---------- Chemin ----------
   var LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
   var CROWN = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18l1.5-10-5.5 4L12 5 7 12 1.5 8z"/></svg>';
+  var pathCh = 0;
   function renderPath() {
-    var c = cGet(cfg.diff, cfg.drone), prog = c ? c.p : 0, cur = Math.min(WAVES, prog + 1), h = '', keys2 = [], k, i, r;
+    var c = cGet(cfg.diff, cfg.drone), prog = c ? c.p : 0, cur = Math.min(TOTAL, prog + 1), h = '', keys2 = [], k, i, r;
     var mine = cfg.diff + '|' + cfg.drone;
     for (k in camp) if (camp[k] && camp[k].n && DIFFS[k.split('|')[0]] && DRONES[k.split('|')[1]]) keys2.push(k);
     if (keys2.indexOf(mine) < 0) keys2.unshift(mine);
     for (i = 0; i < keys2.length; i++) {
       var pr = keys2[i].split('|'), cc = camp[keys2[i]];
-      h += '<button class="chip' + (keys2[i] === mine ? ' on' : '') + '" data-combo="' + keys2[i] + '">' + esc(tr('d_' + pr[1])) + ' · ' + esc(tr(pr[0])) + ' <b>' + (cc ? cc.p : 0) + '/' + WAVES + '</b></button>';
+      h += '<button class="chip' + (keys2[i] === mine ? ' on' : '') + '" data-combo="' + keys2[i] + '">' + esc(tr('d_' + pr[1])) + ' · ' + esc(tr(pr[0])) + ' <b>' + (cc ? cc.p : 0) + '/' + TOTAL + '</b></button>';
     }
     document.getElementById('comboRow').innerHTML = h;
     document.getElementById('pathSum').innerHTML =
-      '<div class="tile hl" style="--c:#4fd8ff"><span>' + esc(tr('p_wave')) + '</span><strong>' + prog + '/' + WAVES + '</strong></div>' +
+      '<div class="tile hl" style="--c:#4fd8ff"><span>' + esc(tr('p_wave')) + '</span><strong>' + prog + '/' + TOTAL + '</strong></div>' +
       '<div class="tile"><span>' + esc(tr('sc_best')) + '</span><strong>' + cTotal(c) + '</strong></div>' +
       '<div class="tile hl" style="--c:#ffd166"><span>' + esc(tr('credits')) + '</span><strong>' + bank.c + '</strong></div>';
+    var maxCh = Math.min(CHAPTERS - 1, Math.floor(prog / WAVES));
+    if (pathCh > maxCh) pathCh = maxCh;
+    h = '';
+    for (i = 0; i < CHAPTERS; i++) {
+      var open = i <= maxCh;
+      h += '<button data-ch="' + i + '"' + (open ? '' : ' disabled') + ' class="' + (i === pathCh ? 'on' : '') + '">' + (open ? '' : LOCK) + esc(tr('chapter', { n: i + 1 })) + '</button>';
+    }
+    document.getElementById('chTabs').innerHTML = h;
+    var base = pathCh * WAVES, inCh = clamp(prog - base, 0, WAVES);
+    document.getElementById('chFill').style.width = (inCh / WAVES * 100) + '%';
+    document.getElementById('soonBox').innerHTML = prog >= TOTAL ? '<div class="soon"><strong>' + esc(tr('soonTitle')) + '</strong><span>' + esc(tr('soonText')) + '</span></div>' : '';
     h = '';
     for (r = 0; r < WAVES / 5; r++) {
-      h += '<div class="prow' + (r % 2 ? ' rev' : '') + '">';
-      for (i = 1; i <= 5; i++) {
-        var n = r * 5 + i, boss = n % 5 === 0, done = n <= prog, isCur = n === cur && !done, lock = n > cur;
-        var sc = c && c.s[n] ? c.s[n] : 0;
-        h += '<div class="node"><button class="bub' + (boss ? ' boss' : '') + (done ? ' done' : isCur ? ' cur' : ' lock') + '" style="--c:' + (boss ? '#ff3b6b' : MAPS[mapTheme(n)].c) + '"' +
+      var first = base + r * 5 + 1, links = clamp(prog - first, 0, 4);
+      h += '<div class="prow' + (r % 2 ? ' rev' : '') + (r > 0 && prog >= first ? ' vdone' : '') + '">' + (links ? '<div class="fill" style="width:' + (links * 20) + '%"></div>' : '');
+      for (i = 0; i < 5; i++) {
+        var n = first + i, boss = n % 5 === 0, done = n <= prog, isCur = n === cur && !done, lock = n > cur;
+        var sc = c && c.s[n] ? c.s[n] : 0, col = boss ? '#ff3b6b' : mapInfo(n).pal.c;
+        h += '<div class="node" style="--i:' + (r * 5 + i) + ';--c:' + col + '"><button class="bub' + (boss ? ' boss' : '') + (done ? ' done' : isCur ? ' cur' : ' lock') + '" style="--c:' + col + '"' +
           (lock ? ' disabled' : ' data-wave="' + n + '"') + ' aria-label="' + esc(tr('p_wave')) + ' ' + n + '">' + (lock ? LOCK : boss ? CROWN : n) + '</button>' +
-          '<small>' + (done ? sc : boss ? esc(tr('hud_boss')) + ' ' + n : lock ? '' : n === cur ? '▶' : '') + '</small></div>';
+          '<small>' + (done ? sc : isCur ? '<span class="go">▶</span>' : boss ? esc(tr('hud_boss')) + ' ' + n : '') + '</small></div>';
       }
       h += '</div>';
     }
-    document.getElementById('pathGrid').innerHTML = h;
+    var grid = document.getElementById('pathGrid');
+    if (grid.getAttribute('data-sig') !== h) { grid.innerHTML = h; grid.setAttribute('data-sig', h); }
+    document.getElementById('chNext').innerHTML = inCh >= WAVES && pathCh < CHAPTERS - 1 ? '<button data-ch="' + (pathCh + 1) + '">' + esc(tr('chapter', { n: pathCh + 2 })) + '  ▶</button>' : '';
   }
   function openPath() {
     state = 'menu'; player = null; releaseSticks(); keys = {};
     elStats.hidden = true; elKeys.hidden = false;
     overlay.classList.remove('hidden');
+    pathCh = Math.min(CHAPTERS - 1, Math.floor((cWave(cfg.diff, cfg.drone) - 1) / WAVES));
     showView('path');
     try { var cb = pathView.querySelector('.bub.cur') || pathView.querySelector('.bub.done'); if (cb && cb.scrollIntoView) cb.scrollIntoView({ block: 'center' }); } catch (err) { /* ignore */ }
   }
   pathBtn.addEventListener('click', openPath);
   document.getElementById('pathBack').addEventListener('click', function () { showView('main'); });
   pathView.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('[data-wave],[data-combo]') : null;
-    if (!el) return;
-    if (el.hasAttribute('data-combo')) { var pr = el.getAttribute('data-combo').split('|'); cfg.diff = pr[0]; cfg.drone = pr[1]; saveCfg(); renderAll(); return; }
+    var el = e.target && e.target.closest ? e.target.closest('[data-wave],[data-combo],[data-ch]') : null;
+    if (!el || el.disabled) return;
+    if (el.hasAttribute('data-ch')) { pathCh = +el.getAttribute('data-ch'); renderPath(); overlay.scrollTop = 0; return; }
+    if (el.hasAttribute('data-combo')) { var pr = el.getAttribute('data-combo').split('|'); cfg.diff = pr[0]; cfg.drone = pr[1]; saveCfg(); pathCh = Math.min(CHAPTERS - 1, Math.floor((cWave(cfg.diff, cfg.drone) - 1) / WAVES)); renderAll(); return; }
     startWave(+el.getAttribute('data-wave'), true);
   });
 
@@ -1293,7 +1448,7 @@
 
   function startWave(n, fresh) {
     initAudio();
-    n = clamp(n | 0, 1, WAVES);
+    n = clamp(n | 0, 1, TOTAL);
     if (fresh || !player) {
       var spec = DRONES[cfg.drone];
       gameDiff = cfg.diff; gameDrone = cfg.drone; D = DIFFS[gameDiff];
@@ -1303,7 +1458,7 @@
     }
     var p = player;
     p.x = WORLD_W / 2; p.y = WORLD_H / 2; p.vx = p.vy = 0; p.inv = Math.max(p.inv, 1.2);
-    wave = n; gameMap = mapTheme(n); obstacles = getObs(gameMap, n);
+    wave = n; curPal = mapInfo(n).pal; obstacles = getWaveMap(n);
     enemies = []; bullets = []; particles = []; pickups = [];
     score = 0; kills = 0; usedLife = false; shake = 0; clearT = 0; lastRes = null;
     best = ((cGet(gameDiff, gameDrone) || { s: {} }).s[n]) || 0;
@@ -1319,7 +1474,7 @@
   }
   function startGame() {
     if (state === 'play') return;
-    if (state === 'clear') { if (wave < WAVES) startWave(wave + 1, false); else openPath(); }
+    if (state === 'clear') { if (wave < TOTAL) startWave(wave + 1, false); else openPath(); }
     else if (state === 'pause' || state === 'down') startWave(wave, true);
     else startWave(cWave(cfg.diff, cfg.drone), true);
   }
@@ -1345,13 +1500,14 @@
     if (total > prev) c.s[wave] = total;
     if (wave > c.p) c.p = wave;
     c.k += kills; c.n++; c.d = Date.now(); saveCamp();
-    bank.c += total; saveBank();
-    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev };
+    var earned = Math.max(1, Math.round(total * CREDIT_RATE));
+    bank.c += earned; saveBank();
+    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned };
     elStats.hidden = false; elKeys.hidden = true;
     showView('main');
     overlay.classList.remove('hidden');
     beep(523, 0.18, 'triangle', 0.07, 1046); vib([40, 40, 80]);
-    (wave < WAVES ? nextBtn : pathBtn).focus();
+    (wave < TOTAL ? nextBtn : pathBtn).focus();
   }
 
   function downed() {
@@ -1378,7 +1534,7 @@
     burst(p.x, p.y, PCOL.life, 30, 380); beep(440, 0.3, 'triangle', 0.07, 1320); vib(60);
   }
   reviveBtn.addEventListener('click', revive);
-  nextBtn.addEventListener('click', function () { if (state === 'clear' && wave < WAVES) startWave(wave + 1, false); });
+  nextBtn.addEventListener('click', function () { if (state === 'clear' && wave < TOTAL) startWave(wave + 1, false); });
 
   function goMenu() {
     state = 'menu'; player = null; releaseSticks(); keys = {};
@@ -1396,14 +1552,14 @@
     do {
       x = rand(60, WORLD_W - 60); y = rand(60, WORLD_H - 60); tries++;
     } while ((Math.hypot(x - player.x, y - player.y) < 520 || !freeSpot(x, y, t.r + 14)) && tries < 120);
-    var hpBonus = type === 'heavy' ? Math.floor(wave / 3) * 2 : Math.floor(wave / 6);
+    var hpBonus = type === 'heavy' ? Math.floor(Math.min(wave, 45) / 3) * 2 : Math.floor(Math.min(wave, 60) / 6);
     enemies.push({ type: type, x: x, y: y, vx: 0, vy: 0, r: t.r, hp: t.hp + hpBonus, maxHp: t.hp + hpBonus,
                    cd: rand(0.8, 2.2), angle: 0, strafe: Math.random() < 0.5 ? 1 : -1, flash: 0, spawn: 0.6 });
   }
 
   function buildQueue() {
     bossPending = wave % 5 === 0;
-    var n = Math.max(3, Math.round((4 + wave * 0.9) * D.count * (bossPending ? 0.45 : 1)));
+    var n = Math.max(3, Math.round((4 + Math.min(wave, 60) * 0.9 + Math.max(0, wave - 60) * 0.25) * D.count * (bossPending ? 0.45 : 1)));
     waveQueue = [];
     for (var i = 0; i < n; i++) {
       var roll = Math.random(), type = 'scout';
@@ -1415,7 +1571,7 @@
   function spawnBoss() {
     spawnEnemy('boss');
     var bs = enemies[enemies.length - 1];
-    bs.hp = bs.maxHp = Math.round((110 + (wave / 5 - 1) * 70) * D.count);
+    bs.hp = bs.maxHp = Math.round((110 + (wave / 5 - 1) * 36) * D.count);
     bs.spawn = 1.6; bs.pat = 0; bs.cd = 2.5;
   }
 
@@ -1724,7 +1880,7 @@
     ctx.translate(-cam.x + sx, -cam.y + sy);
 
     // ground
-    var th = MAPS[gameMap];
+    var th = curPal;
     drawGround(th, cam.x - 80, cam.y - 80, cam.x + VW + 80, cam.y + VH + 80, 80);
     ctx.strokeStyle = th.border; ctx.lineWidth = 3; ctx.strokeRect(0, 0, WORLD_W, WORLD_H);
     drawObstacles(obstacles, cam, { w: VW, h: VH });
@@ -1943,7 +2099,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, obstacles: function () { return obstacles; }, goMenu: goMenu, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>
