@@ -589,6 +589,94 @@
     .hgFight { padding: 8px 10px; font-size: 12.5px; letter-spacing: 1.2px; }
     .hgGems { padding: 4px 10px; font-size: 15px; }
   }
+  /* ---------- Hangar V1.0 : amélioration, skins, essai, frise ---------- */
+  .gear { width: 16px; height: 16px; vertical-align: -3px; display: inline-block; flex: none; }
+  .gearTxt { color: #ffc94a !important; }
+  .hchip.gearc { display: inline-flex; align-items: center; gap: 4px; } .hchip.gearc b { color: #ffc94a; }
+  .hgCur { margin-left: auto; display: inline-flex; gap: 8px; }
+  .hgCur span { display: inline-flex; align-items: center; gap: 5px; background: #0a1220; border: 1px solid #1f3554; border-radius: 10px; padding: 5px 10px; font-size: 16px; font-weight: 800; }
+  .hgCur .gem, .hgCur .gear { width: 18px; height: 18px; }
+  .hgFight { position: absolute; right: 10px; bottom: 10px; padding: 8px 12px; font-size: 12px; letter-spacing: 1.2px; gap: 7px; }
+  .hgFight svg { width: 16px; height: 16px; }
+  .hgHint { justify-content: flex-end; left: auto; right: 14px; top: 12px; bottom: auto; }
+  .evMis svg { fill: #8a94a8; } .evMis.on svg { fill: #ffffff; }
+  .buyBtn .gem path:first-child { fill: #04121c !important; } .buyBtn .gem path:last-child { stroke: #5ef0ff !important; }
+  #hgBuy .smallBtn { flex: none; padding: 7px 10px; font-size: 12px; letter-spacing: 0.5px; }
+  .gem path:first-child { fill: #5ef0ff !important; stroke: none !important; } .gem path:last-child { fill: none !important; stroke: #0a6b8a !important; }
+  .gear path { fill: #ffc94a !important; stroke: none !important; } .gear circle { fill: #7a5410 !important; stroke: none !important; }
+  .hgFx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .fxt { position: absolute; transform: translate(-50%, 0); font-weight: 900; font-size: 15px; white-space: nowrap; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8); animation: fxUp 1.2s ease-out forwards; }
+  .fxt.hp { color: #ff8ab4; } .fxt.atk { color: #ffc56b; } .fxt.def { color: #8fc2ff; }
+  @keyframes fxUp { 0% { opacity: 0; transform: translate(-50%, 10px) scale(0.7); } 15% { opacity: 1; transform: translate(-50%, 0) scale(1.15); } 100% { opacity: 0; transform: translate(-50%, -60px) scale(1); } }
+  .hgBanner { position: absolute; left: 50%; top: 18%; transform: translate(-50%, 0); padding: 8px 18px; border-radius: 999px; background: linear-gradient(90deg, #5dff9b, #4fd8ff); color: #04121c; font-weight: 900; letter-spacing: 2px; font-size: 16px; white-space: nowrap; pointer-events: none; opacity: 0; }
+  .hgBanner.big { background: linear-gradient(90deg, #ffd166, #ff8a3d, #ff4d6d); font-size: 20px; padding: 10px 22px; box-shadow: 0 0 30px rgba(255, 140, 60, 0.6); }
+  .hgBanner.show { animation: bnr 1.7s ease-out forwards; } .hgBanner.big.show { animation-duration: 2.6s; }
+  @keyframes bnr { 0% { opacity: 0; transform: translate(-50%, 0) scale(0.4); } 12% { opacity: 1; transform: translate(-50%, 0) scale(1.15); } 22% { transform: translate(-50%, 0) scale(1); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -14px) scale(1); } }
+  .hgSide .seg button { padding: 7px 4px; font-size: 12.5px; }
+  .upPanel { display: flex; flex-direction: column; gap: 7px; }
+  .powRow { display: flex; align-items: baseline; justify-content: center; gap: 10px; }
+  .powRow span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8fa6c4; font-weight: 700; }
+  .powRow b { font-size: 26px; font-weight: 900; color: #ffd166; letter-spacing: 1px; text-shadow: 0 0 16px rgba(255, 209, 102, 0.35); font-variant-numeric: tabular-nums; }
+  .stRows { background: #0a1220; border: 1px solid #1f3554; border-radius: 12px; padding: 6px 10px; display: grid; gap: 3px; }
+  .stRow { display: grid; grid-template-columns: 18px 1fr auto auto; align-items: center; gap: 8px; font-size: 13px; }
+  .stRow svg { width: 16px; height: 16px; } .stRow span { color: #c6d4e8; } .stRow b { font-variant-numeric: tabular-nums; color: #ffffff; }
+  .stRow em { font-style: normal; color: #5dff9b; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 84px; text-align: right; }
+  .stRow em.dim { color: #8fa6c4; font-weight: 600; font-size: 11.5px; }
+  .lvRow { display: flex; align-items: baseline; gap: 10px; } .lvRow b { font-size: 20px; color: #ffd166; font-weight: 900; } .lvRow span { color: #e6f1ff; font-weight: 700; font-size: 13px; }
+  .lvRow small { margin-left: auto; font-size: 11px; color: #c77dff; }
+  .stepBar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .stepBar i { height: 12px; border-radius: 4px; background: #1b2538; box-shadow: inset 0 0 0 1px #24324a; }
+  .stepBar i.f { background: linear-gradient(90deg, #5dff9b, #4fd8ff); box-shadow: 0 0 10px rgba(93, 255, 155, 0.45); }
+  .stepBar i.pop { animation: pop .5s ease-out; }
+  @keyframes pop { 0% { transform: scaleY(2.2); filter: brightness(2.2); } 100% { transform: none; filter: none; } }
+  .upAct { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; }
+  .evoBtn { background: #12233a; color: #c6d4e8; border: 1px solid #2a6f9c; font-size: 12px; letter-spacing: 0.5px; padding: 10px 8px; }
+  .upBtn { display: flex; flex-direction: column; align-items: center; gap: 1px; background: linear-gradient(180deg, #5dff9b, #22c46a); color: #04121c; font-size: 17px; letter-spacing: 2px; font-weight: 900; padding: 8px; box-shadow: 0 6px 18px -8px #5dff9b; }
+  .upBtn small { font-size: 12px; letter-spacing: 0; display: inline-flex; align-items: center; gap: 4px; }
+  .upBtn:active { transform: scale(0.96); } .upBtn:disabled { background: #1b2538; color: #56667f; box-shadow: none; }
+  .skGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .skCard { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px 10px; border-radius: 14px; background: radial-gradient(circle at 50% 35%, #16263f, #0a1220 72%); border: 1px solid #1f3554; color: #e6f1ff; letter-spacing: 0; }
+  .skCard.special { background: radial-gradient(circle at 50% 35%, #4a2414, #1a0f0a 75%); border-color: #8a5a20; }
+  .skCard canvas { width: 150px; height: 104px; } .skCard b { font-size: 14px; letter-spacing: 1.5px; } .skCard small { font-size: 12px; color: #5ef0ff; display: inline-flex; align-items: center; gap: 3px; } .skCard em { font-style: normal; font-size: 11px; color: #ffc56b; }
+  .skCard.eq { border-color: #5ef0ff; box-shadow: 0 0 0 1px #5ef0ff; }
+  .skCard.trying, .wrChip.trying { border-color: #ffd166; box-shadow: 0 0 0 1px #ffd166, 0 0 16px -4px #ffd166; }
+  .hgNote { margin: 6px 0 0; font-size: 11px; color: #8fa6c4; }
+  #hgBuy { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 12px; background: rgba(255, 209, 102, 0.1); border: 1px solid #ffd166; }
+  #hgBuy[hidden] { display: none; }
+  .tryLbl { flex: 1; font-size: 12.5px; color: #ffd166; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .tryLbl b { color: #ffffff; }
+  .buyBtn { display: inline-flex; align-items: center; gap: 5px; padding: 8px 12px; font-size: 13px; letter-spacing: 1px; background: linear-gradient(90deg, #5ef0ff, #4fd8ff); }
+  .buyBtn .gem { width: 15px; height: 15px; } .buyBtn:disabled { background: #1b2538; color: #56667f; }
+  .evoList { padding: 4px 22px 18px; }
+  .evRow { display: grid; grid-template-columns: 70px 60px 1fr; align-items: center; min-height: 44px; position: relative; }
+  .evRow.hasCard { min-height: 190px; }
+  .evMis { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 54px; height: 44px; border-radius: 10px; background: #1a1f2d; border: 1px solid #2a3348; opacity: 0.55; }
+  .evMis.on { background: linear-gradient(160deg, #ff6b3d, #b8322a); border-color: #ffb347; opacity: 1; }
+  .evMis.empty { visibility: hidden; } .evMis svg { width: 20px; height: 20px; } .evMis b { font-size: 11px; color: #ffffff; }
+  .evRail { align-self: stretch; display: flex; align-items: center; justify-content: center; background: linear-gradient(90deg, transparent 26px, #1b2538 26px, #1b2538 34px, transparent 34px); }
+  .evRow.done .evRail { background: linear-gradient(90deg, transparent 26px, #ffd166 26px, #ffd166 34px, transparent 34px); }
+  .evLv { position: relative; z-index: 1; min-width: 40px; text-align: center; padding: 3px 6px; border-radius: 7px; background: #24324a; border: 1px solid #3c5070; font-weight: 900; font-size: 13px; color: #e6f1ff; }
+  .evRow.done .evLv { background: #3a2f12; border-color: #ffd166; color: #ffd166; } .evLv.key { font-size: 15px; }
+  .evCard { margin: 8px 0; border-radius: 14px; overflow: hidden; background: linear-gradient(135deg, #2a7ad8, #4a5ad0 55%, #5a3fb0); border: 1px solid #6fa8ff; padding: 0 12px 10px; display: grid; grid-template-columns: 220px 1fr; grid-template-rows: auto auto 1fr; column-gap: 12px; align-items: start; }
+  .evCard.locked { background: linear-gradient(135deg, #3a4150, #2a2f3a); border-color: #4a5266; filter: saturate(0.3); }
+  .evTag { grid-column: 1 / -1; margin: 0 -12px 6px; padding: 6px 12px; background: linear-gradient(90deg, #5ef0ff, #4fd8ff); color: #04121c; font-weight: 900; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  .evCard.locked .evTag { background: #c6ccd8; } .evTag svg { width: 15px; height: 15px; }
+  .evCard canvas { grid-row: 2 / span 2; width: 220px; height: 120px; }
+  .evCard b { font-size: 18px; letter-spacing: 3px; color: #ffffff; align-self: end; } .evCard p { margin: 4px 0 0; font-size: 12.5px; color: #e6f1ff; line-height: 1.35; }
+  @media (max-height: 520px) and (orientation: landscape) {
+    .hgCur span { padding: 3px 8px; font-size: 14px; }
+    .hgSide .seg button { padding: 5px 2px; font-size: 11.5px; }
+    .upPanel { gap: 5px; } .powRow b { font-size: 21px; }
+    .stRows { padding: 4px 8px; gap: 1px; } .stRow { font-size: 12px; gap: 6px; } .stRow em { min-width: 70px; } .stRow em.dim { font-size: 10.5px; }
+    .lvRow b { font-size: 16px; } .lvRow span { font-size: 12px; } .lvRow small { font-size: 10px; }
+    .stepBar i { height: 9px; }
+    .upBtn { font-size: 15px; padding: 6px; } .evoBtn { padding: 6px; font-size: 11px; }
+    .skCard canvas { width: 130px; height: 88px; } .skCard { padding: 4px 4px 6px; }
+    .hgFight { padding: 6px 9px; font-size: 11px; } .hgFight .soonTag { font-size: 9px; padding: 3px 6px; }
+    #hgBuy { padding: 4px 6px; } .buyBtn { padding: 6px 10px; font-size: 12px; } .tryLbl { font-size: 11.5px; }
+    .evoList { padding: 2px 12px 12px; } .evRow.hasCard { min-height: 160px; }
+    .evCard { grid-template-columns: 180px 1fr; } .evCard canvas { width: 180px; height: 100px; }
+  }
+  @media (max-width: 700px) and (orientation: portrait) { .evCard { grid-template-columns: 1fr; } .evCard canvas { grid-row: auto; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -619,20 +707,31 @@
       <div class="setHead">
         <button id="hangarBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
         <h2 data-i18n="online"></h2>
-        <span class="credit hgGems" id="hgGems"></span>
+        <span class="hgCur" id="hgCur"></span>
       </div>
       <div class="hgWrap">
-        <div class="hgStage">
+        <div class="hgStage" id="hgStage">
           <canvas id="hgCanvas" width="420" height="270"></canvas>
-          <div class="hgTag"><b>RAPTOR</b><small data-i18n="hgLevel"></small></div>
+          <div class="hgTag"><b id="hgName">RAPTOR</b><small id="hgLv"></small></div>
+          <div class="hgFx" id="hgFx"></div>
+          <div class="hgBanner" id="hgBanner" hidden></div>
           <p class="hgHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg><span data-i18n="dragHint"></span></p>
+          <button id="hgFight" class="hgFight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span><i class="soonTag" data-i18n="soonTag"></i></button>
         </div>
         <div class="hgSide">
           <div class="seg" id="hgTabs"></div>
           <div id="hgGrid"></div>
-          <button id="hgFight" class="hgFight" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span><i class="soonTag" data-i18n="soonTag"></i></button>
+          <div id="hgBuy" hidden></div>
         </div>
       </div>
+    </div>
+    <div id="evoView" hidden>
+      <div class="setHead">
+        <button id="evoBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2 data-i18n="evoTitle"></h2>
+        <span class="spacer"></span>
+      </div>
+      <div class="evoList" id="evoList"></div>
     </div>
     <div id="gamesView" hidden>
       <div class="setHead">
@@ -804,7 +903,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '0.9';
+  var APP_VERSION = '1.0';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -1134,6 +1233,38 @@
     f_arctic: ['Arctique', 'Arctic', 'Ártico', 'Artico', '极地', 'Арктика'],
     f_crimson: ['Cramoisi', 'Crimson', 'Carmesí', 'Cremisi', '赤红', 'Багрянец'],
     f_jungle: ['Jungle', 'Jungle', 'Selva', 'Giungla', '丛林', 'Джунгли'],
+    tabUp: ['Amélioration', 'Upgrade', 'Mejora', 'Potenziamento', '升级', 'Улучшение'],
+    tabSkins: ['Skins', 'Skins', 'Skins', 'Skin', '皮肤', 'Скины'],
+    tabThemes2: ['Revêtements', 'Wraps', 'Revestimientos', 'Rivestimenti', '涂装', 'Покрытия'],
+    power: ['Puissance', 'Power', 'Poder', 'Potenza', '战力', 'Мощь'],
+    st_hp: ['Vie', 'HP', 'Vida', 'Vita', '生命', 'Жизнь'],
+    st_atk: ['Attaque', 'Attack', 'Ataque', 'Attacco', '攻击', 'Атака'],
+    st_def: ['Défense', 'Defense', 'Defensa', 'Difesa', '防御', 'Защита'],
+    missiles: ['Missiles', 'Missiles', 'Misiles', 'Missili', '导弹', 'Ракеты'],
+    nextMissile: ['prochain au Niv. {n}', 'next at Lv. {n}', 'siguiente en Nv. {n}', 'prossimo al Liv. {n}', '{n} 级获得下一枚', 'след. на ур. {n}'],
+    lvShort: ['Niv. {n}', 'Lv. {n}', 'Nv. {n}', 'Liv. {n}', '{n} 级', 'Ур. {n}'],
+    stepOf: ['Étape {a}/{b}', 'Step {a}/{b}', 'Paso {a}/{b}', 'Fase {a}/{b}', '阶段 {a}/{b}', 'Этап {a}/{b}'],
+    evoAt: ['Évolution {m} au Niv. {n}', '{m} evolution at Lv. {n}', 'Evolución {m} en Nv. {n}', 'Evoluzione {m} al Liv. {n}', '{n} 级进化为 {m}', 'Эволюция {m} на ур. {n}'],
+    upgradeBtn: ['AMÉLIORER', 'UPGRADE', 'MEJORAR', 'POTENZIA', '升级', 'УЛУЧШИТЬ'],
+    evoBtn: ['Aperçu de l\'évolution', 'Evolution preview', 'Vista de evolución', 'Anteprima evoluzione', '进化预览', 'Обзор эволюции'],
+    evoTitle: ['APERÇU DE L\'ÉVOLUTION', 'EVOLUTION PREVIEW', 'VISTA DE EVOLUCIÓN', 'ANTEPRIMA EVOLUZIONE', '进化预览', 'ОБЗОР ЭВОЛЮЦИИ'],
+    unlocked: ['Déverrouillé', 'Unlocked', 'Desbloqueado', 'Sbloccato', '已解锁', 'Открыто'],
+    unlockAt: ['Débloquer au Niv. {n}', 'Unlock at Lv. {n}', 'Desbloquear en Nv. {n}', 'Sblocca al Liv. {n}', '{n} 级解锁', 'Откроется на ур. {n}'],
+    evoDesc0: ['Le drone de départ, agile et polyvalent.', 'The starter drone, agile and versatile.', 'El dron inicial, ágil y versátil.', 'Il drone iniziale, agile e versatile.', '初始无人机，灵活全能。', 'Стартовый дрон, ловкий и универсальный.'],
+    evoDesc1: ['Bimoteur rapide à double dérive. Bonus : statistiques +25 %.', 'Fast twin-engine fighter. Bonus: stats +25%.', 'Bimotor rápido. Bonus: estadísticas +25 %.', 'Bimotore veloce. Bonus: statistiche +25%.', '高速双发战机。加成：属性 +25%。', 'Быстрый двухмоторный истребитель. Бонус: +25% к характеристикам.'],
+    evoDesc2: ['Aile volante furtive. Bonus : statistiques +50 %.', 'Stealth flying wing. Bonus: stats +50%.', 'Ala volante furtiva. Bonus: estadísticas +50 %.', 'Ala volante stealth. Bonus: statistiche +50%.', '隐身飞翼。加成：属性 +50%。', 'Малозаметное летающее крыло. Бонус: +50% к характеристикам.'],
+    evoDesc3: ['Cuirassé lourd à quatre nacelles. Bonus : statistiques +75 %.', 'Heavy four-fan gunship. Bonus: stats +75%.', 'Acorazado pesado de cuatro rotores. Bonus: estadísticas +75 %.', 'Corazzata pesante a quattro rotori. Bonus: statistiche +75%.', '四涵道重型炮艇。加成：属性 +75%。', 'Тяжёлый четырёхвинтовой ганшип. Бонус: +75% к характеристикам.'],
+    evoDone: ['ÉVOLUTION : {n} !', 'EVOLUTION: {n}!', '¡EVOLUCIÓN: {n}!', 'EVOLUZIONE: {n}!', '进化：{n}！', 'ЭВОЛЮЦИЯ: {n}!'],
+    newMissile: ['NOUVEAU MISSILE ! ({n})', 'NEW MISSILE! ({n})', '¡NUEVO MISIL! ({n})', 'NUOVO MISSILE! ({n})', '新导弹！({n})', 'НОВАЯ РАКЕТА! ({n})'],
+    lvUp: ['NIVEAU {n} !', 'LEVEL {n}!', '¡NIVEL {n}!', 'LIVELLO {n}!', '等级 {n}！', 'УРОВЕНЬ {n}!'],
+    noGears: ['Pas assez de roues dentées : gagnez-en en terminant des vagues.', 'Not enough gears: earn them by clearing waves.', 'No hay suficientes engranajes: gánalos superando oleadas.', 'Ingranaggi insufficienti: ottienili completando ondate.', '齿轮不足：完成波次即可获得。', 'Не хватает шестерёнок: проходите волны.'],
+    st_gears: ['Roues dentées', 'Gears', 'Engranajes', 'Ingranaggi', '齿轮', 'Шестерёнки'],
+    sk_x: ['Traîneau Polaire', 'Polar Sleigh', 'Trineo Polar', 'Slitta Polare', '极地雪橇', 'Полярные сани'],
+    skBase: ['Évolue avec le niveau', 'Evolves with level', 'Evoluciona con el nivel', 'Evolve con il livello', '随等级进化', 'Развивается с уровнем'],
+    skNote: ['Un skin remplace l\'apparence du drone ; les statistiques du niveau sont conservées.', 'A skin replaces the drone\'s look; level stats are kept.', 'Un skin reemplaza el aspecto del dron; se conservan las estadísticas.', 'Una skin sostituisce l\'aspetto del drone; le statistiche restano.', '皮肤会替换无人机外观，等级属性保留。', 'Скин меняет внешний вид дрона; характеристики сохраняются.'],
+    wrapSkinNote: ['Les revêtements s\'appliquent quand aucun skin n\'est équipé.', 'Wraps apply when no skin is equipped.', 'Los revestimientos se aplican sin skin equipado.', 'I rivestimenti si applicano senza skin equipaggiata.', '未装备皮肤时涂装生效。', 'Покрытия действуют без скина.'],
+    tryOn: ['Essai', 'Trying', 'Probando', 'Prova', '试用', 'Примерка'],
+    cancel: ['Annuler', 'Cancel', 'Cancelar', 'Annulla', '取消', 'Отмена'],
     tabFlags: ['Drapeaux', 'Flags', 'Banderas', 'Bandiere', '国旗', 'Флаги'],
     tabThemes: ['Revêtements spéciaux', 'Special wraps', 'Revestimientos especiales', 'Rivestimenti speciali', '特殊涂装', 'Особые покрытия'],
     dragHint: ['Faites glisser pour faire pivoter', 'Drag to rotate', 'Desliza para girar', 'Trascina per ruotare', '拖动以旋转', 'Проведите, чтобы повернуть'],
@@ -1445,18 +1576,30 @@
   var OMODELS = [['a', 0], ['d', 10], ['b', 20], ['c', 30]];
   var OFIN = [['std', 0, '#8793ab'], ['carbon', 10, '#2c3039'], ['desert', 8, '#cdac70'], ['arctic', 8, '#ecf6ff'], ['jungle', 8, '#4e7a40'], ['crimson', 12, '#d6243a'], ['gold', 15, '#ffc43c']];
   var DECALS = ['🇫🇷', '🇹🇳', '🇲🇦', '🇩🇿', '🇹🇷', '🇧🇪', '🇨🇭', '🇨🇦', '🇺🇸', '🇬🇧', '🇩🇪', '🇮🇹', '🇪🇸', '🇵🇹', '🇧🇷', '🇯🇵', '🇸🇦', '🇪🇬', '🔥', '⚡', '⭐', '🦅', '🐺', '💀'], DECAL_PRICE = 3;
-  var FLAGS = ['fr', 'tn', 'ma', 'dz', 'tr', 'eg', 'sn', 'ci', 'gb', 'us', 'ca', 'br', 'de', 'it', 'es', 'pt', 'be', 'ch', 'nl', 'jp'];
-  var THEMES = [['noel', 12], ['halloween', 12], ['flames', 10], ['camo', 8], ['carbon', 8], ['galaxy', 10]];
+  var FLAGS = ['fr', 'tn', 'ma', 'dz', 'tr', 'eg', 'sn', 'ci', 'gb', 'us', 'ca', 'br', 'de', 'it', 'es', 'pt', 'be', 'ch', 'nl', 'jp'], FLAG_PRICE = 10;
+  var THEMES = [['noel', 30], ['halloween', 30], ['flames', 25], ['galaxy', 25], ['camo', 20], ['carbon', 20]];
   var WRAPS = [], WRAP_BY = {};
-  FLAGS.forEach(function (f) { WRAPS.push({ id: f, kind: 'flag', price: 3 }); });
+  FLAGS.forEach(function (f) { WRAPS.push({ id: f, kind: 'flag', price: FLAG_PRICE }); });
   THEMES.forEach(function (t) { WRAPS.push({ id: t[0], kind: 'theme', price: t[1] }); });
   WRAPS.forEach(function (w) { WRAP_BY[w.id] = w; });
-  var online = { v: 2, wrap: '', wraps: {} };
+  // Évolutions du drone en ligne (une nouvelle forme tous les 50 niveaux) et skins spéciaux
+  var EVO = [{ lv: 1, m: 'b', name: 'RAPTOR' }, { lv: 50, m: 'e', name: 'TEMPEST' }, { lv: 100, m: 'f', name: 'NIGHTWING' }, { lv: 150, m: 'g', name: 'LEVIATHAN' }], MAXLV = 200, STEPS = 5;
+  var OSKINS = [{ id: 'x', price: 60, atk: 0.08 }];
+  var online = { v: 3, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {} };
+  bank.g = 0;
+  try { var sbg = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null'); if (sbg && sbg.g > 0) bank.g = Math.floor(sbg.g); } catch (err) { /* ignore */ }
   try {
     var so = JSON.parse(localStorage.getItem('droneStrikeOnline') || 'null');
     if (so && typeof so === 'object') {
-      if (so.v === 2) { if (typeof so.wrap === 'string' && (!so.wrap || WRAP_BY[so.wrap])) online.wrap = so.wrap; if (so.wraps && typeof so.wraps === 'object') online.wraps = so.wraps; }
-      else {
+      if (so.v >= 2) {
+        if (typeof so.wrap === 'string' && (!so.wrap || WRAP_BY[so.wrap])) online.wrap = so.wrap;
+        if (so.wraps && typeof so.wraps === 'object') online.wraps = so.wraps;
+        if (so.v >= 3) {
+          online.lv = Math.max(1, Math.min(MAXLV, so.lv | 0)); online.step = Math.max(0, Math.min(STEPS - 1, so.step | 0));
+          if (so.skins && typeof so.skins === 'object') online.skins = so.skins;
+          if (so.skin && online.skins[so.skin]) online.skin = so.skin;
+        }
+      } else {
         // V0.8 : les pièces, modèles, finitions et décors sont retirés ; les diamants dépensés sont rendus
         var back = 0, k1;
         for (k1 in (so.parts || {})) for (var l1 = 0; l1 < Math.min(3, so.parts[k1] | 0); l1++) back += OP_PRICE[l1];
@@ -1464,10 +1607,21 @@
         OFIN.forEach(function (fo) { if (so.finishes && so.finishes[fo[0]]) back += fo[1]; });
         for (k1 in (so.decals || {})) back += DECAL_PRICE;
         if (back > 0) { bank.d += back; try { localStorage.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ } }
-        try { localStorage.setItem('droneStrikeOnline', JSON.stringify(online)); } catch (err) { /* ignore */ }
       }
     }
   } catch (err) { /* ignore */ }
+  function evoIndex(lv) { var k = 0; for (var i = 0; i < EVO.length; i++) if (lv >= EVO[i].lv) k = i; return k; }
+  function oStats(lv, step) {
+    var k = evoIndex(lv), mul = 1 + 0.25 * k, f = (lv - 1) + step / STEPS, sk = online.skin ? OSKINS[0].atk : 0;
+    var hp = Math.round((1200 + f * 140) * mul), atk = Math.round((120 + f * 16) * mul * (1 + sk)), def = Math.round((60 + f * 7) * mul), ms = Math.floor(lv / 10);
+    return { hp: hp, atk: atk, def: def, ms: ms, pow: hp + atk * 12 + def * 25 + ms * 800 };
+  }
+  function pressCost(lv) { return 4 + Math.floor(lv * 0.6); }
+  var GEAR = (function () {
+    var d = '', n = 8, i;
+    for (i = 0; i < n * 2; i++) { var a = i / (n * 2) * Math.PI * 2, r = i % 2 ? 7.2 : 10.4, a2 = a + Math.PI / (n * 2); d += (i ? 'L' : 'M') + (12 + Math.cos(a) * r).toFixed(2) + ' ' + (12 + Math.sin(a) * r).toFixed(2) + 'L' + (12 + Math.cos(a2) * r).toFixed(2) + ' ' + (12 + Math.sin(a2) * r).toFixed(2); }
+    return '<svg class="gear" viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + 'Z" fill="#ffc94a"/><circle cx="12" cy="12" r="3.4" fill="#7a5410"/></svg>';
+  })();
   function saveOnline() { try { localStorage.setItem('droneStrikeOnline', JSON.stringify(online)); } catch (err) { /* ignore */ } }
   var GEM = '<svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z" fill="#5ef0ff"/><path d="M2 9h20M7 3l5 18 5-18M7 3 9.5 9 12 3l2.5 6L17 3" fill="none" stroke="#0a6b8a" stroke-width="1.3" stroke-linejoin="round"/></svg>';
   // Achats par jeu (drone + difficulté) : améliorations, bonus en stock, designs
@@ -1764,6 +1918,7 @@
         (lastRes.bonus ? esc(tr('st_noLife')) + c + '<strong>+' + lastRes.bonus + '</strong><br>' + esc(tr('st_total')) + c + '<strong>' + lastRes.total + '</strong><br>' : '') +
         esc(tr('st_bestWave')) + c + '<strong>' + lastRes.best + '</strong><br>' +
         esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.credits + '</strong>' +
+        '<br>' + esc(tr('st_gears')) + c + '<strong class="gearTxt">+' + lastRes.gears + '</strong> ' + GEAR +
         (lastRes.gems ? '<br>' + esc(tr('st_diamonds')) + c + '<strong class="gemTxt">+' + lastRes.gems + '</strong> ' + GEM : '');
     }
     resumeBtn.hidden = st !== 'pause'; quitBtn.hidden = st !== 'pause';
@@ -1788,7 +1943,8 @@
       document.getElementById('heroName').innerHTML = cg && cg.nm ? esc(cg.nm) + ' <small>· ' + esc(tr('d_' + cfg.drone)) + ' · ' + esc(tr(cfg.diff)) + '</small>' : esc(tr('d_' + cfg.drone)) + ' <small>· ' + esc(tr(cfg.diff)) + '</small>';
       document.getElementById('heroChips').innerHTML = '<span class="hchip">' + esc(tr('p_wave')) + ' <b>' + (cGet(cfg.diff, cfg.drone) || { p: 0 }).p + '/' + TOTAL + '</b></span>' +
         '<span class="hchip gold">' + esc(tr('credits')) + ' <b>' + bank.c + '</b></span>' +
-        '<span class="hchip gemc">' + GEM + ' <b>' + bank.d + '</b></span>';
+        '<span class="hchip gemc">' + GEM + ' <b>' + bank.d + '</b></span>' +
+        '<span class="hchip gearc">' + GEAR + ' <b>' + bank.g + '</b></span>';
     }
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
@@ -1846,7 +2002,7 @@
   var fitDirty = true;
   function fitPanel() {
     panelEl.style.transform = '';
-    var fit = view !== 'path' && (isTouch || window.innerHeight <= 560);
+    var fit = view !== 'path' && view !== 'evo' && (isTouch || window.innerHeight <= 560);
     overlay.classList.toggle('fit', fit);
     if (!fit) return;
     overlay.scrollTop = 0;
@@ -1854,15 +2010,15 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0, setFrom = 'home', delArm = '', delTimer = 0;
-  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView');
+  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView');
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
-    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; delArm = '';
+    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; evoView.hidden = v !== 'evo'; delArm = ''; if (v !== 'hangar' && v !== 'evo') hg.try = null;
     mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game'; pathView.hidden = v !== 'path'; shopView.hidden = v !== 'shop';
     panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
@@ -1888,39 +2044,120 @@
     document.getElementById('scoreSum').innerHTML = h;
   }
   var TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
-  var hgTab = 'flags', hg = { yaw: 2.4, tilt: 0.7, idle: 3, spin: 0, last: 0 };
+  var hgTab = 'up', hg = { yaw: 2.4, tilt: 0.75, idle: 3, spin: 0, last: 0, parts: [], ring: 0, flash: 0, try: null, stepPop: 0 };
+  function curModel() {
+    var sk = hg.try && hg.try.kind === 'skin' ? hg.try.id : (hg.try && hg.try.kind === 'wrap' ? '' : online.skin);
+    if (hg.try && hg.try.kind === 'wrap') sk = '';
+    return sk || EVO[evoIndex(online.lv)].m;
+  }
+  function curWrap() { if (hg.try) return hg.try.kind === 'wrap' ? hg.try.id : ''; return online.skin ? '' : online.wrap; }
+  function fmtN(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
   function renderHangar() {
     if (!hangarView || hangarView.hidden) return;
-    var h = '', i;
-    [['flags', 'tabFlags'], ['themes', 'tabThemes']].forEach(function (t) { h += '<button data-hgtab="' + t[0] + '" class="' + (hgTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
+    var h = '', i, st = oStats(online.lv, online.step), nx = online.step + 1 >= STEPS ? oStats(online.lv + 1, 0) : oStats(online.lv, online.step + 1);
+    var mname = curModel() === 'x' ? tr('sk_x') : EVO[evoIndex(online.lv)].name;
+    document.getElementById('hgName').textContent = mname;
+    document.getElementById('hgLv').textContent = tr('lvShort', { n: online.lv });
+    document.getElementById('hgCur').innerHTML = '<span>' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b></span><span>' + GEM + '<b class="gemTxt">' + bank.d + '</b></span>';
+    [['up', 'tabUp'], ['skins', 'tabSkins'], ['flags', 'tabFlags'], ['themes', 'tabThemes2']].forEach(function (t) { h += '<button data-hgtab="' + t[0] + '" class="' + (hgTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
     document.getElementById('hgTabs').innerHTML = h;
-    document.getElementById('hgGems').innerHTML = GEM + '<strong class="gemTxt">' + bank.d + '</strong>';
-    h = '<div class="wrGrid ' + hgTab + '">';
-    if (hgTab === 'flags') h += '<button class="wrChip none' + (!online.wrap ? ' eq' : '') + '" data-wrap=""><span class="wrImg">∅</span><small>' + esc(tr('noDecal')) + '</small></button>';
-    for (i = 0; i < WRAPS.length; i++) {
-      var w = WRAPS[i];
-      if ((hgTab === 'flags') !== (w.kind === 'flag')) continue;
-      var own = !!online.wraps[w.id], eq = online.wrap === w.id;
-      h += '<button class="wrChip' + (eq ? ' eq' : '') + '" data-wrap="' + w.id + '"' + (!own && bank.d < w.price ? ' disabled' : '') + ' aria-label="' + esc(w.kind === 'flag' ? w.id.toUpperCase() : tr('w_' + w.id)) + '">' +
-        '<img class="wrImg" alt="" src="' + wrapUrl(w.id) + '">' + (w.kind === 'theme' ? '<b>' + esc(tr('w_' + w.id)) + '</b>' : '') +
-        '<small>' + (own ? (eq ? '✓' : esc(tr('equip'))) : w.price + ' ' + GEM) + '</small></button>';
+    h = '';
+    if (hgTab === 'up') {
+      var seg = '', maxed = online.lv >= MAXLV, cost = pressCost(online.lv);
+      for (i = 0; i < STEPS; i++) seg += '<i class="' + (i < online.step ? 'f' : '') + (hg.stepPop && i === hg.stepPop - 1 ? ' pop' : '') + '"></i>';
+      var nextM = (Math.floor(online.lv / 10) + 1) * 10, nextE = null;
+      for (i = 0; i < EVO.length; i++) if (EVO[i].lv > online.lv) { nextE = EVO[i]; break; }
+      h = '<div class="upPanel"><div class="powRow"><span>' + esc(tr('power')) + '</span><b>' + fmtN(st.pow) + '</b></div>' +
+        '<div class="stRows">' +
+        [['hp', '#ff6b9d', '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'], ['atk', '#ffb347', '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'], ['def', '#6fa8ff', '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>']].map(function (r) {
+          return '<div class="stRow"><svg viewBox="0 0 24 24" fill="' + r[1] + '" aria-hidden="true">' + r[2] + '</svg><span>' + esc(tr('st_' + r[0])) + '</span><b>' + fmtN(st[r[0]]) + '</b>' + (maxed ? '' : '<em>▶ ' + fmtN(nx[r[0]]) + '</em>') + '</div>';
+        }).join('') +
+        '<div class="stRow ms"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 2c3.2 3 4.2 7.4 3 12.5L12 18l-3-3.5C7.8 9.4 8.8 5 12 2z"/><path d="M9 13.5 5.5 18H9zM15 13.5l3.5 4.5H15zM10.5 18.5h3L12 22z"/></svg><span>' + esc(tr('missiles')) + '</span><b>' + st.ms + '</b><em class="dim">' + (maxed ? '' : esc(tr('nextMissile', { n: nextM }))) + '</em></div></div>' +
+        '<div class="lvRow"><b>' + esc(tr('lvShort', { n: online.lv })) + '</b><span>' + esc(maxed ? tr('maxed') : tr('stepOf', { a: online.step, b: STEPS })) + '</span>' + (nextE ? '<small>' + esc(tr('evoAt', { n: nextE.lv, m: nextE.name })) + '</small>' : '') + '</div>' +
+        '<div class="stepBar">' + seg + '</div>' +
+        '<div class="upAct"><button class="evoBtn" data-hgact="evo">' + esc(tr('evoBtn')) + '</button>' +
+        '<button class="upBtn" data-hgact="up"' + (maxed ? ' disabled' : '') + '><span>' + esc(tr('upgradeBtn')) + '</span><small>' + GEAR + ' ' + (maxed ? '—' : cost) + '</small></button></div></div>';
+      hg.stepPop = 0;
+    } else if (hgTab === 'skins') {
+      var base = EVO[evoIndex(online.lv)], sTry = hg.try && hg.try.kind === 'skin' ? hg.try.id : null;
+      h = '<div class="skGrid"><button class="skCard' + (!online.skin && !sTry ? ' eq' : '') + '" data-oskin=""><canvas data-skprev="' + base.m + '" width="150" height="104"></canvas><b>' + base.name + '</b><small>' + esc(!online.skin ? tr('equipped') : tr('equip')) + '</small><em>' + esc(tr('skBase')) + '</em></button>';
+      OSKINS.forEach(function (sk) {
+        var own = !!online.skins[sk.id], eq = online.skin === sk.id && !sTry, tr2 = sTry === sk.id;
+        h += '<button class="skCard special' + (eq ? ' eq' : '') + (tr2 ? ' trying' : '') + '" data-oskin="' + sk.id + '"><canvas data-skprev="' + sk.id + '" width="150" height="104"></canvas><b>' + esc(tr('sk_' + sk.id)) + '</b><small>' + (own ? esc(eq ? tr('equipped') : tr('equip')) : sk.price + ' ' + GEM) + '</small><em>' + esc(tr('st_atk')) + ' +' + Math.round(sk.atk * 100) + ' %</em></button>';
+      });
+      h += '</div><p class="hgNote">' + esc(tr('skNote')) + '</p>';
+    } else {
+      var wTry = hg.try && hg.try.kind === 'wrap' ? hg.try.id : null, isF = hgTab === 'flags';
+      h = '<div class="wrGrid ' + (isF ? 'flags' : 'themes') + '">';
+      if (isF) h += '<button class="wrChip none' + (!online.wrap && !wTry ? ' eq' : '') + '" data-wrap=""><span class="wrImg">∅</span><small>' + esc(tr('noDecal')) + '</small></button>';
+      for (i = 0; i < WRAPS.length; i++) {
+        var w = WRAPS[i];
+        if (isF !== (w.kind === 'flag')) continue;
+        var own = !!online.wraps[w.id], eq = online.wrap === w.id && !wTry;
+        h += '<button class="wrChip' + (eq ? ' eq' : '') + (wTry === w.id ? ' trying' : '') + '" data-wrap="' + w.id + '" aria-label="' + esc(w.kind === 'flag' ? w.id.toUpperCase() : tr('w_' + w.id)) + '">' +
+          '<img class="wrImg" alt="" src="' + wrapUrl(w.id) + '">' + (w.kind === 'theme' ? '<b>' + esc(tr('w_' + w.id)) + '</b>' : '') +
+          '<small>' + (own ? (eq ? '✓' : esc(tr('equip'))) : w.price + ' ' + GEM) + '</small></button>';
+      }
+      h += '</div>' + (online.skin ? '<p class="hgNote">' + esc(tr('wrapSkinNote')) + '</p>' : '');
     }
-    h += '</div>';
     var gr = document.getElementById('hgGrid');
     if (gr.getAttribute('data-sig') !== h) { gr.innerHTML = h; gr.setAttribute('data-sig', h); }
+    var bb = document.getElementById('hgBuy');
+    if (hg.try) {
+      var pr = hg.try.kind === 'skin' ? OSKINS[0].price : WRAP_BY[hg.try.id].price, nm = hg.try.kind === 'skin' ? tr('sk_' + hg.try.id) : WRAP_BY[hg.try.id].kind === 'flag' ? hg.try.id.toUpperCase() : tr('w_' + hg.try.id);
+      var bh = '<span class="tryLbl">' + esc(tr('tryOn')) + ' · <b>' + esc(nm) + '</b></span><button class="ghost smallBtn" data-hgact="cancel">' + esc(tr('cancel')) + '</button><button class="buyBtn" data-hgact="buy"' + (bank.d < pr ? ' disabled' : '') + '>' + esc(tr('buy')) + ' · ' + pr + ' ' + GEM + '</button>';
+      if (bb.getAttribute('data-sig') !== bh) { bb.innerHTML = bh; bb.setAttribute('data-sig', bh); }
+      bb.hidden = false;
+    } else bb.hidden = true;
+    fitDirty = true;
   }
   function drawHangar(t) {
     var dt = Math.min(0.05, Math.max(0, t - (hg.last || t))); hg.last = t; hg.idle += dt;
     if (hg.idle > 2.5) hg.yaw += dt * 0.35;
     if (hg.spin > 0) { hg.yaw += dt * hg.spin * 3; hg.spin = Math.max(0, hg.spin - dt); }
     var cv = document.getElementById('hgCanvas'), r = cv.getBoundingClientRect(), w = Math.max(200, Math.round(r.width)), h = Math.max(140, Math.round(r.height));
+    var mdl = curModel(), wr = curWrap(), sc = Math.min(w, h * 1.45) * (mdl === 'g' || mdl === 'x' ? 0.33 : 0.36);
     drawOn(cv, w, h, function () {
-      var gr = ctx.createRadialGradient(w / 2, h * 0.55, 6, w / 2, h * 0.55, w * 0.55);
+      var cx = w / 2, cy = h * 0.52, gr = ctx.createRadialGradient(cx, h * 0.55, 6, cx, h * 0.55, w * 0.55);
       if (gr && gr.addColorStop) { gr.addColorStop(0, 'rgba(94, 240, 255, 0.20)'); gr.addColorStop(1, 'rgba(94, 240, 255, 0)'); ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h); }
       ctx.strokeStyle = 'rgba(94, 240, 255, 0.18)'; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.ellipse(w / 2, h * 0.66, w * 0.36, w * 0.36 * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke();
-      draw3D(getModel('b', online.wrap ? '#121a26' : '#5ef0ff', 1), w / 2, h * 0.52 + Math.sin(t * 1.8) * 3, Math.min(w, h * 1.45) * 0.36, hg.yaw, hg.tilt, 0, 0, 1, t, false, true, { wrap: online.wrap });
+      ctx.beginPath(); ctx.ellipse(cx, h * 0.66, w * 0.36, w * 0.36 * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke();
+      if (hg.ring > 0) { ctx.strokeStyle = 'rgba(93, 255, 155, ' + hg.ring.toFixed(2) + ')'; ctx.lineWidth = 4; ctx.beginPath(); var rr = (1 - hg.ring) * w * 0.5 + 20; ctx.ellipse(cx, h * 0.62, rr, rr * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke(); hg.ring = Math.max(0, hg.ring - dt * 1.4); }
+      draw3D(getModel(mdl, wr ? '#121a26' : '#5ef0ff', 1 + Math.min(2, Math.floor(online.lv / 50))), cx, cy + Math.sin(t * 1.8) * 3, sc, hg.yaw, hg.tilt, 0, 0, 1, t, hg.flash > 0.55, true, { wrap: wr });
+      for (var i = hg.parts.length - 1; i >= 0; i--) {
+        var p = hg.parts[i]; p.life -= dt; if (p.life <= 0) { hg.parts.splice(i, 1); continue; }
+        p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 120 * dt;
+        ctx.globalAlpha = Math.min(1, p.life * 1.6); ctx.fillStyle = p.col; ctx.beginPath(); ctx.arc(cx + p.x, cy + p.y, 2.4, 0, TAU); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (hg.flash > 0) { ctx.fillStyle = 'rgba(255, 255, 255, ' + (hg.flash * 0.75).toFixed(2) + ')'; ctx.fillRect(0, 0, w, h); hg.flash = Math.max(0, hg.flash - dt * 0.9); }
     });
+    var cs = hangarView.querySelectorAll('canvas[data-skprev]');
+    for (var j = 0; j < cs.length; j++) (function (c2, j) { drawOn(c2, 150, 104, function () { draw3D(getModel(c2.getAttribute('data-skprev'), '#5ef0ff', 1), 75, 56, 40, t * 0.6 + j * 2, 0.95, 0, 0, 1, t, false, true); }); })(cs[j], j);
+  }
+  function renderEvo() {
+    if (!evoView || evoView.hidden) return;
+    var h = '', lv, k;
+    for (lv = 0; lv <= MAXLV; lv += 10) {
+      var L = lv || 1, done = online.lv >= L, card = null;
+      for (k = 0; k < EVO.length; k++) if (EVO[k].lv === L || (lv && EVO[k].lv > lv - 10 && EVO[k].lv <= lv && EVO[k].lv !== 1)) card = EVO[k];
+      if (lv === 50 || lv === 100 || lv === 150) card = EVO[lv / 50];
+      if (!lv) card = EVO[0];
+      var mi = lv && lv % 10 === 0 ? '<div class="evMis' + (done ? ' on' : '') + '"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 2c3.2 3 4.2 7.4 3 12.5L12 18l-3-3.5C7.8 9.4 8.8 5 12 2z"/><path d="M9 13.5 5.5 18H9zM15 13.5l3.5 4.5H15zM10.5 18.5h3L12 22z"/></svg><b>×' + (lv / 10) + '</b></div>' : '<div class="evMis empty"></div>';
+      h += '<div class="evRow' + (done ? ' done' : '') + (card ? ' hasCard' : '') + '">' + mi + '<div class="evRail"><span class="evLv' + (card ? ' key' : '') + '">' + L + '</span></div>';
+      if (card) {
+        var un = online.lv >= card.lv, idx = EVO.indexOf(card);
+        h += '<div class="evCard' + (un ? '' : ' locked') + '"><div class="evTag">' + (un ? esc(tr('unlocked')) : LOCK + esc(tr('unlockAt', { n: card.lv }))) + '</div>' +
+          '<canvas data-evprev="' + card.m + '" width="220" height="120"></canvas><b>' + card.name + '</b><p>' + esc(tr('evoDesc' + idx)) + '</p></div>';
+      } else h += '<div></div>';
+      h += '</div>';
+    }
+    var el = document.getElementById('evoList');
+    if (el.getAttribute('data-sig') !== h) { el.innerHTML = h; el.setAttribute('data-sig', h); }
+  }
+  function drawEvoPreviews(t) {
+    var cs = evoView.querySelectorAll('canvas[data-evprev]');
+    for (var j = 0; j < cs.length; j++) (function (c2, j) { drawOn(c2, 220, 120, function () { draw3D(getModel(c2.getAttribute('data-evprev'), '#5ef0ff', 1), c2.getBoundingClientRect().width / 2 || 110, 62, 46, t * 0.5 + j * 1.7, 0.9, 0, 0, 1, t, false, true); }); })(cs[j], j);
   }
   function renderHome() {
     var hgm = document.getElementById('homeGems'); if (hgm) hgm.innerHTML = GEM + ' ' + bank.d;
@@ -1951,16 +2188,34 @@
   document.getElementById('homeSet').addEventListener('click', function () { showSettings(true); });
   document.getElementById('onlineBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); showView('hangar'); });
   document.getElementById('hangarBack').addEventListener('click', function () { showView('home'); });
+  document.getElementById('evoBack').addEventListener('click', function () { showView('hangar'); });
   document.getElementById('hgFight').addEventListener('click', function () { showToast(tr('onlineSoon')); });
   hangarView.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('[data-hgtab],[data-wrap]') : null;
+    var el = e.target && e.target.closest ? e.target.closest('[data-hgtab],[data-wrap],[data-oskin],[data-hgact]') : null;
     if (!el || el.disabled) return;
-    if (el.hasAttribute('data-hgtab')) { hgTab = el.getAttribute('data-hgtab'); renderHangar(); fitDirty = true; return; }
-    var id = el.getAttribute('data-wrap'), w = WRAP_BY[id], cost = 0;
-    if (id && !online.wraps[id]) { cost = w ? w.price : 0; if (!w || bank.d < cost) return; online.wraps[id] = 1; bank.d -= cost; saveBank(); }
-    online.wrap = id; saveOnline(); initAudio(); beep(cost ? 990 : 660, 0.12, 'triangle', 0.06, cost ? 1480 : 990);
-    hg.spin = 1.2; renderAll();
+    if (el.hasAttribute('data-hgtab')) { hgTab = el.getAttribute('data-hgtab'); hg.try = null; renderHangar(); fitDirty = true; return; }
+    var act = el.getAttribute('data-hgact');
+    if (act === 'up') { doUpgrade(); return; }
+    if (act === 'evo') { showView('evo'); return; }
+    if (act === 'cancel') { hg.try = null; renderHangar(); return; }
+    if (act === 'buy' && hg.try) {
+      var it = hg.try, price = it.kind === 'skin' ? OSKINS[0].price : WRAP_BY[it.id].price;
+      if (bank.d < price) return;
+      bank.d -= price; saveBank();
+      if (it.kind === 'skin') { online.skins[it.id] = 1; online.skin = it.id; } else { online.wraps[it.id] = 1; online.wrap = it.id; }
+      saveOnline(); hg.try = null; hg.spin = 1.4; burstHg(60, '#5ef0ff'); initAudio(); beep(990, 0.14, 'triangle', 0.07, 1480); vib([30, 30, 60]); renderAll(); return;
+    }
+    if (el.hasAttribute('data-oskin')) {
+      var sid = el.getAttribute('data-oskin');
+      if (!sid || online.skins[sid]) { online.skin = sid; saveOnline(); hg.try = null; hg.spin = 1; initAudio(); beep(660, 0.1, 'triangle', 0.05, 990); renderAll(); }
+      else { hg.try = { kind: 'skin', id: sid }; hg.spin = 1; renderHangar(); }
+      return;
+    }
+    var id = el.getAttribute('data-wrap');
+    if (!id || online.wraps[id]) { online.wrap = id; saveOnline(); hg.try = null; hg.spin = 1; initAudio(); beep(660, 0.1, 'triangle', 0.05, 990); renderAll(); }
+    else { hg.try = { kind: 'wrap', id: id }; hg.spin = 1; renderHangar(); }
   });
+  evoView.addEventListener('click', function () { /* frise en lecture seule */ });
   (function () {
     var cv = document.getElementById('hgCanvas'), drag = null;
     function down(e) { drag = { x: e.clientX, y: e.clientY }; hg.idle = 0; try { cv.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ } e.preventDefault(); }
@@ -1973,37 +2228,51 @@
     cv.addEventListener('pointerdown', down); cv.addEventListener('pointermove', move);
     cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
   })();
-  document.getElementById('homeBtn').addEventListener('click', goHome);
-  document.getElementById('gamesBack').addEventListener('click', function () { if (cGet()) showView('main'); else showView('home'); });
-  gamesView.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('[data-game],[data-del]') : null;
-    if (!el) return;
-    if (el.hasAttribute('data-game')) { selectGame(el.getAttribute('data-game')); goMenu(); return; }
-    var k = el.getAttribute('data-del');
-    clearTimeout(delTimer);
-    if (delArm !== k) { delArm = k; delTimer = setTimeout(function () { delArm = ''; renderHome(); }, 4000); renderHome(); return; }
-    delArm = ''; deleteGame(k);
-    if (!gameKeys().length) showView('home'); else renderAll();
-  });
-  function createGame() {
-    if (gameKeys().length >= MAX_GAMES) return;
-    makeGame(cfg.diff, cfg.drone, document.getElementById('newName').value);
-    startWave(1, true);
+  function fxText(txt, cls, dx, dy) {
+    var fx = document.getElementById('hgFx'), sp = document.createElement('span');
+    sp.className = 'fxt ' + (cls || ''); sp.textContent = txt;
+    sp.style.left = (50 + (dx || 0)) + '%'; sp.style.top = (46 + (dy || 0)) + '%';
+    fx.appendChild(sp);
+    setTimeout(function () { if (sp.parentNode) sp.parentNode.removeChild(sp); }, 1300);
   }
-  document.getElementById('newName').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); createGame(); } });
-  scoresBtn.addEventListener('click', function () { scoreDiff = cfg.diff; showView('score'); });
-  document.getElementById('scoreBack').addEventListener('click', function () { showView('main'); });
-  document.getElementById('scoreTabs').addEventListener('click', function (e) {
-    var b = e.target && e.target.closest ? e.target.closest('[data-sdiff]') : null;
-    if (!b) return;
-    scoreDiff = b.getAttribute('data-sdiff'); resetArmed = 0; renderScores();
-  });
-  scoreReset.addEventListener('click', function () {
-    if (!resetArmed) { resetArmed = setTimeout(function () { resetArmed = 0; renderScores(); }, 4000); renderScores(); return; }
-    clearTimeout(resetArmed); resetArmed = 0;
-    camp = {}; saveCamp();
+  function showBanner(txt, big) {
+    var b = document.getElementById('hgBanner');
+    b.textContent = txt; b.className = 'hgBanner' + (big ? ' big' : ''); b.hidden = false;
+    void b.offsetWidth; b.classList.add('show');
+    clearTimeout(hg.bt); hg.bt = setTimeout(function () { b.hidden = true; }, big ? 2600 : 1700);
+  }
+  function burstHg(n, col) { for (var i = 0; i < n; i++) { var a = Math.random() * TAU, v = 60 + Math.random() * 220; hg.parts.push({ x: 0, y: 0, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 40, life: 0.6 + Math.random() * 0.6, col: col }); } }
+  function doUpgrade() {
+    if (online.lv >= MAXLV) return;
+    var cost = pressCost(online.lv);
+    if (bank.g < cost) { showToast(tr('noGears')); vib(30); return; }
+    var before = oStats(online.lv, online.step);
+    bank.g -= cost; online.step++;
+    var lvUp = false, evo = null, missile = false;
+    if (online.step >= STEPS) {
+      online.step = 0; online.lv++; lvUp = true;
+      if (online.lv % 10 === 0) missile = true;
+      for (var i = 1; i < EVO.length; i++) if (EVO[i].lv === online.lv) evo = EVO[i];
+    }
+    saveBank(); saveOnline();
+    var after = oStats(online.lv, online.step);
+    hg.stepPop = online.step || STEPS; hg.idle = 0;
+    fxText('+' + (after.hp - before.hp) + ' ' + tr('st_hp'), 'hp', -14, 0);
+    fxText('+' + (after.atk - before.atk) + ' ' + tr('st_atk'), 'atk', 0, -8);
+    fxText('+' + (after.def - before.def) + ' ' + tr('st_def'), 'def', 14, 0);
+    burstHg(14, '#ffc94a'); initAudio(); beep(520 + online.step * 90, 0.08, 'square', 0.035, 780 + online.step * 90); vib(15);
+    if (lvUp) {
+      hg.ring = 1; burstHg(40, '#5dff9b');
+      setTimeout(function () { beep(660, 0.16, 'triangle', 0.07, 1320); }, 90);
+      if (evo) {
+        hg.flash = 1; hg.spin = 2.5; burstHg(110, '#ffffff');
+        showBanner(tr('evoDone', { n: evo.name }), true);
+        setTimeout(function () { beep(440, 0.4, 'sawtooth', 0.05, 1760); }, 200); vib([60, 40, 60, 40, 120]);
+      } else if (missile) { showBanner(tr('newMissile', { n: Math.floor(online.lv / 10) }), false); vib([40, 30, 40]); }
+      else showBanner(tr('lvUp', { n: online.lv }), false);
+    }
     renderAll();
-  });
+  }
   // ---------- Chemin ----------
   var LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
   var CROWN = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18l1.5-10-5.5 4L12 5 7 12 1.5 8z"/></svg>';
@@ -2330,11 +2599,13 @@
     if (total > prev) c.s[wave] = total;
     var firstWin = wave > c.p, gems = 0;
     if (firstWin && wave % 5 === 0) { gems = ({ easy: 1, normal: 2, hard: 3 }[gameDiff] || 1) * (wave % WAVES === 0 ? 3 : 1); bank.d += gems; }
+    var gears = firstWin ? 10 + 2 * Math.floor(wave / 10) + (wave % 5 === 0 ? 40 : 0) : 4;
+    bank.g += gears;
     if (wave > c.p) c.p = wave;
     c.k += kills; c.n++; c.d = Date.now(); saveCamp();
     var earned = Math.max(1, Math.round(total * CREDIT_RATE));
     bank.c += earned; saveBank();
-    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned, gems: gems };
+    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned, gems: gems, gears: gears };
     elStats.hidden = false; elKeys.hidden = true;
     showView('main');
     overlay.classList.remove('hidden');
@@ -2911,6 +3182,91 @@
       rbox(m, -0.640, 0, 0.06, 0.05, 0.2, 0.1, 0, '#ff8a3d', 1);
       guns3(m, cannons, 0.5, 0.06, acc);
       m.top = [-0.1, 0, 0.300];
+    } else if (skin === 'e') {
+      // TEMPEST : chasseur bimoteur à empennage double
+      var fe = [[1.05, 0], [0.6, 0.12], [-0.2, 0.2], [-0.75, 0.2], [-0.75, -0.2], [-0.2, -0.2], [0.6, -0.12]];
+      for (s2 = -1; s2 <= 1; s2 += 2) {
+        addPoly(m, [[0.35, 0.15 * s2], [-0.35, 0.95 * s2], [-0.6, 0.95 * s2], [-0.45, 0.18 * s2]], 0.08, 0.13, 1, '#5a6782');
+        addPoly(m, [[-0.36, 0.86 * s2], [-0.35, 0.95 * s2], [-0.6, 0.95 * s2], [-0.59, 0.86 * s2]], 0.13, 0.145, 1, acc, 1);
+        addPoly(m, [[0.55, 0.12 * s2], [0.36, 0.4 * s2], [0.28, 0.4 * s2], [0.32, 0.12 * s2]], 0.12, 0.15, 1, '#6c7a97');
+        rbox(m, -0.6, 0.17 * s2, 0.24, 0.34, 0.045, 0.3, 0.08 * s2, '#606d89');
+        rbox(m, -0.66, 0.175 * s2, 0.54, 0.2, 0.05, 0.03, 0.08 * s2, acc, 1);
+        rbox(m, -0.5, 0.11 * s2, 0.03, 0.5, 0.14, 0.13, 0, '#3f4860');
+        rbox(m, -0.78, 0.11 * s2, 0.045, 0.06, 0.11, 0.1, 0, '#ff8a3d', 1);
+      }
+      addPoly(m, fe, 0.04, 0.17, 1, '#5d6a85'); addPoly(m, fe, 0.17, 0.28, 0.55, '#8291b0');
+      addPoly(m, [[0.72, 0], [0.52, 0.07], [0.3, 0.06], [0.3, -0.06], [0.52, -0.07]], 0.255, 0.31, 0.7, acc, 1);
+      guns3(m, cannons, 0.75, 0.08, acc);
+      m.top = [-0.1, 0, 0.29];
+    } else if (skin === 'f') {
+      // NIGHTWING : aile volante furtive
+      for (s2 = -1; s2 <= 1; s2 += 2) {
+        addPoly(m, [[0.75, 0], [-0.25, 1.05 * s2], [-0.45, 1.0 * s2], [-0.45, 0]], 0.05, 0.12, 1, '#3d4456');
+        addPoly(m, [[-0.45, 0.68 * s2], [-0.62, 0.52 * s2], [-0.45, 0.36 * s2]], 0.05, 0.12, 1, '#3d4456');
+        addPoly(m, [[-0.45, 0.3 * s2], [-0.62, 0.15 * s2], [-0.45, 0.02 * s2]], 0.05, 0.12, 1, '#3d4456');
+        rbox(m, -0.12, 0.42 * s2, 0.12, 0.5, 0.15, 0.09, 0, '#4a5267');
+        rbox(m, -0.38, 0.42 * s2, 0.13, 0.05, 0.12, 0.06, 0, '#7a8cff', 1);
+        rbox(m, -0.33, 1.0 * s2, 0.12, 0.08, 0.05, 0.03, -0.8 * s2, acc, 1);
+        addPoly(m, [[0.68, 0.02 * s2], [-0.2, 0.95 * s2], [-0.24, 0.98 * s2], [0.6, 0.02 * s2]], 0.12, 0.13, 1, acc, 1);
+      }
+      var hump = [[0.62, 0], [0.2, 0.22], [-0.42, 0.18], [-0.42, -0.18], [0.2, -0.22]];
+      addPoly(m, hump, 0.12, 0.27, 0.55, '#4f576c');
+      addPoly(m, [[0.5, 0], [0.33, 0.08], [0.2, 0.06], [0.2, -0.06], [0.33, -0.08]], 0.24, 0.29, 0.7, acc, 1);
+      guns3(m, cannons, 0.55, 0.06, acc);
+      m.top = [-0.05, 0, 0.27];
+    } else if (skin === 'g') {
+      // LEVIATHAN : cuirassé volant à quatre nacelles carénées
+      var bg = [[0.9, 0], [0.65, 0.28], [-0.55, 0.3], [-0.8, 0.18], [-0.8, -0.18], [-0.55, -0.3], [0.65, -0.28]];
+      var dp = [[0.55, 0.66], [0.55, -0.66], [-0.55, 0.66], [-0.55, -0.66]];
+      for (i = 0; i < 4; i++) {
+        var dx = dp[i][0], dy = dp[i][1];
+        rbox(m, dx, dy * 0.66, 0.1, 0.12, Math.abs(dy) * 0.62, 0.06, 0, '#3a4152');
+        addPoly(m, ngon(dx, dy, 0.28, 10), 0.03, 0.17, 1, '#454d60');
+        addPoly(m, ngon(dx, dy, 0.07, 6), 0.17, 0.2, 1, acc, 1);
+        m.rot.push({ x: dx, y: dy, z: 0.185, r: 0.25 });
+      }
+      addPoly(m, bg, 0.03, 0.2, 1, '#4e5668'); addPoly(m, bg, 0.2, 0.34, 0.62, '#6c7690');
+      addPoly(m, [[0.6, 0], [0.48, 0.1], [0.38, 0.08], [0.38, -0.08], [0.48, -0.1]], 0.3, 0.36, 0.7, acc, 1);
+      for (s2 = -1; s2 <= 1; s2 += 2) {
+        rbox(m, 0.45, 0.36 * s2, 0.08, 0.72, 0.09, 0.09, 0, '#2f3542');
+        rbox(m, 0.83, 0.36 * s2, 0.085, 0.05, 0.08, 0.08, 0, '#ffb347', 1);
+        rbox(m, -0.25, 0.36 * s2, 0.2, 0.36, 0.13, 0.1, 0, '#3c4456');
+        rbox(m, -0.05, 0.36 * s2, 0.21, 0.04, 0.11, 0.08, 0, '#ff4d6d', 1);
+      }
+      addPoly(m, ngon(0.05, 0, 0.16, 8), 0.34, 0.43, 1, '#59627a');
+      rbox(m, 0.3, 0, 0.37, 0.42, 0.06, 0.05, 0, '#2f3542');
+      guns3(m, cannons, 0.8, 0.1, acc);
+      m.top = [-0.35, 0, 0.34];
+    } else if (skin === 'x') {
+      // TRAÎNEAU POLAIRE : drone de Noël
+      for (s2 = -1; s2 <= 1; s2 += 2) {
+        rbox(m, -0.05, 0.42 * s2, 0.0, 1.5, 0.07, 0.05, 0, '#e2b13c');
+        rbox(m, 0.74, 0.42 * s2, 0.03, 0.1, 0.07, 0.26, 0, '#e2b13c');
+        rbox(m, 0.64, 0.42 * s2, 0.27, 0.26, 0.07, 0.05, 0, '#e2b13c');
+        rbox(m, 0.3, 0.42 * s2, 0.05, 0.06, 0.06, 0.14, 0, '#c8962c');
+        rbox(m, -0.45, 0.42 * s2, 0.05, 0.06, 0.06, 0.14, 0, '#c8962c');
+        rbox(m, -0.07, 0.345 * s2, 0.42, 1.25, 0.05, 0.03, 0, '#ffd56a', 1);
+        for (var r2 = -1; r2 <= 1; r2 += 2) {
+          var hx = r2 > 0 ? 0.35 : -0.55;
+          rbox(m, hx, 0.52 * s2, 0.24, 0.07, 0.26, 0.05, 0, '#c8962c');
+          addPoly(m, ngon(hx, 0.66 * s2, 0.1, 8), 0.2, 0.3, 1, '#1f8a45');
+          addPoly(m, ngon(hx, 0.66 * s2, 0.045, 6), 0.3, 0.33, 1, '#ffd56a', 1);
+          m.rot.push({ x: hx, y: 0.66 * s2, z: 0.34, r: 0.22 });
+        }
+      }
+      addPoly(m, [[0.55, -0.32], [0.55, 0.32], [-0.7, 0.36], [-0.7, -0.36]], 0.16, 0.42, 0.94, '#c41e2e');
+      rbox(m, -0.68, 0, 0.42, 0.08, 0.72, 0.2, 0, '#a81624');
+      rbox(m, -0.3, 0.13, 0.42, 0.26, 0.26, 0.22, 0, '#1f8a45');
+      rbox(m, -0.3, 0.13, 0.64, 0.27, 0.05, 0.02, 0, '#ffd56a', 1); rbox(m, -0.3, 0.13, 0.64, 0.05, 0.27, 0.02, 0, '#ffd56a', 1);
+      rbox(m, -0.36, -0.15, 0.42, 0.22, 0.22, 0.18, 0, '#e8edf5');
+      rbox(m, -0.36, -0.15, 0.6, 0.23, 0.05, 0.02, 0, '#d42a3a', 1); rbox(m, -0.36, -0.15, 0.6, 0.05, 0.23, 0.02, 0, '#d42a3a', 1);
+      rbox(m, 0.05, 0, 0.42, 0.16, 0.16, 0.12, 0, '#d42a3a');
+      rbox(m, 0.05, 0, 0.54, 0.17, 0.04, 0.02, 0, '#ffd56a', 1);
+      addPoly(m, ngon(0.5, 0, 0.07, 4), 0.42, 0.56, 0.2, '#ffe14a', 1);
+      addPoly(m, ngon(0.6, 0, 0.06, 6), 0.2, 0.3, 1, '#ff2a2a', 1);
+      var cofs = [[0], [-0.1, 0.1], [-0.16, 0, 0.16]][cannons - 1];
+      for (i = 0; i < cofs.length; i++) for (var sg = 0; sg < 4; sg++) rbox(m, 0.62 + sg * 0.1, cofs[i] * 0.8, 0.2, 0.1, 0.05, 0.05, 0, sg % 2 ? '#d42a3a' : '#f4f6fb');
+      m.top = [0.25, 0, 0.43];
     } else if (skin === 'd') {
       var hb = [[0.780, 0], [0.460, 0.170], [-0.460, 0.210], [-0.7, 0.08], [-0.7, -0.08], [-0.460, -0.210], [0.460, -0.170]], ha = [0.660, -0.660, 2.450, -2.450];
       for (i = 0; i < 4; i++) {
@@ -3519,6 +3875,7 @@
     if (view === 'home') drawHome(ts / 1000);
     if (view === 'games') drawGamePreviews(ts / 1000);
     if (view === 'hangar') drawHangar(ts / 1000);
+    if (view === 'evo') drawEvoPreviews(ts / 1000);
     if (view === 'shop' && shopTab === 'skin') drawSkinPreviews(ts / 1000);
     frameN = (frameN || 0) + 1;
     if (frameN % 60 === 1) checkLivesBack();
@@ -3528,7 +3885,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, d3: function (cv, skin, yaw, tilt, x, y, sc, opt) { var mc = ctx; ctx = cv.getContext('2d'); draw3D(getModel(skin, '#4fd8ff', 3), x, y, sc, yaw, tilt, 0, 0, 1, 0.3, false, true, opt); ctx = mc; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, d3: function (cv, skin, yaw, tilt, x, y, sc, opt) { var mc = ctx; ctx = cv.getContext('2d'); draw3D(getModel(skin, '#4fd8ff', (opt && opt.cn) || 3), x, y, sc, yaw, tilt, 0, 0, 1, 0.3, false, true, opt); ctx = mc; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>
