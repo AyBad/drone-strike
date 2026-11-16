@@ -330,6 +330,60 @@
     background: #16263f; border: 1px solid #ff6b9d; color: #ffffff; font-size: 14px; font-weight: 700; pointer-events: none;
     box-shadow: 0 8px 30px -8px #ff6b9d; animation: toastIn .35s ease-out; white-space: nowrap; }
   @keyframes toastIn { from { opacity: 0; transform: translate(-50%, -16px); } }
+  /* ---------- Menu principal ---------- */
+  #overlay.menuBg { background: radial-gradient(ellipse at center, rgba(5, 9, 18, 0.45), rgba(5, 9, 18, 0.88)); }
+  #overlay.menuBg .panel:not(.wide) { background: rgba(13, 22, 38, 0.8); border-color: #2a4a70; box-shadow: 0 0 80px rgba(40, 200, 255, 0.18); }
+  button.ib { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  button.ib svg { width: 18px; height: 18px; flex: none; }
+  #mainView.isMenu .keys { display: none; }
+  #mainView.isMenu h1 { font-size: 50px; letter-spacing: 8px; background: linear-gradient(90deg, #4fd8ff, #d6f6ff, #c77dff, #4fd8ff); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: flow 7s linear infinite; filter: drop-shadow(0 0 16px rgba(79, 216, 255, 0.45)); }
+  #mainView.isMenu .sub { margin-bottom: 14px; }
+  #hero { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 0 0 18px; padding: 10px 16px; border-radius: 16px;
+    background: linear-gradient(160deg, rgba(17, 32, 56, 0.9), rgba(10, 19, 36, 0.9)); border: 1px solid #1f3554; text-align: left; }
+  #heroDrone { width: 104px; height: 104px; flex: none; cursor: default; }
+  .heroName { font-size: 18px; font-weight: 800; color: #ffffff; margin-bottom: 7px; }
+  .heroName small { font-size: 13px; font-weight: 600; color: #8fa6c4; }
+  .heroChips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 7px; }
+  .hchip { padding: 4px 10px; border-radius: 999px; background: #0a1220; border: 1px solid #1f3554; font-size: 12.5px; color: #c6d4e8; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .hchip b { color: #4fd8ff; } .hchip.gold b { color: #ffd166; }
+  #hero #livesInfo { margin: 0; }
+  #mainView.isMenu .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  #mainView.isMenu .btns button { animation: nodeIn .5s cubic-bezier(.2, .9, .3, 1.2) both; white-space: normal; }
+  #mainView.isMenu .btns button:nth-child(5) { animation-delay: 60ms; } #mainView.isMenu .btns button:nth-child(6) { animation-delay: 110ms; }
+  #mainView.isMenu .btns button:nth-child(7) { animation-delay: 160ms; } #mainView.isMenu .btns button:nth-child(8) { animation-delay: 210ms; }
+  #mainView.isMenu .btns button:nth-child(9) { animation-delay: 260ms; }
+  #mainView.isMenu #startBtn { grid-column: 1 / -1; padding: 16px 20px; font-size: 19px; background: linear-gradient(90deg, #4fd8ff, #8ae6ff, #4fd8ff); background-size: 200% 100%;
+    animation: nodeIn .5s cubic-bezier(.2, .9, .3, 1.2) both, flow 3s linear infinite, playPulse 1.8s ease-out infinite; }
+  @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(79, 216, 255, 0.55); } 100% { box-shadow: 0 0 0 16px rgba(79, 216, 255, 0); } }
+  #mainView.isMenu .ghost { padding: 12px 10px; font-size: 14px; letter-spacing: 1.5px; background: rgba(10, 18, 32, 0.7); }
+  #mainView.isMenu .ghost:hover { background: #12233a; transform: translateY(-2px); }
+  #mainView.isMenu #optBtn { grid-column: 1 / -1; border-color: #1f3554; color: #8fa6c4; }
+  /* ---------- Chapitres en fin de chemin ---------- */
+  .chTitle { text-align: center; font-size: 13px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; color: #4fd8ff; margin: 2px 0 8px; }
+  .chFrame { display: flex; align-items: center; justify-content: center; gap: 14px; width: 100%; padding: 16px; margin: 4px 0 10px; border-radius: 16px; text-align: left;
+    background: #0a1220; border: 2px dashed #2a3a55; color: #8fa6c4; font-size: 16px; font-weight: 800; letter-spacing: 2px; }
+  .chFrame:hover { background: #0a1220; }
+  .chFrame:disabled { cursor: default; }
+  .chFrame svg { width: 26px; height: 26px; flex: none; }
+  .chFrame small { display: block; font-size: 12px; font-weight: 500; letter-spacing: 0; margin-top: 3px; color: #8fa6c4; }
+  .chFrame.open { border-style: solid; border-color: #4fd8ff; color: #ffffff; background: #0f1b30; box-shadow: 0 0 24px -6px #4fd8ff; animation: bubPulse 1.6s ease-in-out infinite; }
+  .chFrame.open:hover { background: #16263f; }
+  .chFrame.soonF { border-color: #6b4fa0; color: #ffd166; }
+  .chFrame.back { padding: 10px; font-size: 13px; border-style: solid; border-color: #1f3554; }
+  @media (max-height: 520px) and (orientation: landscape) {
+    #mainView.isMenu h1 { font-size: 30px; letter-spacing: 5px; margin-bottom: 2px; }
+    #mainView.isMenu .sub { margin-bottom: 8px; }
+    #hero { margin: 0; padding: 8px 12px; gap: 10px; justify-content: flex-start; }
+    #heroDrone { width: 80px; height: 80px; }
+    .heroName { font-size: 15px; margin-bottom: 5px; } .heroName small { font-size: 12px; }
+    .hchip { font-size: 11.5px; padding: 3px 8px; }
+    #mainView.isMenu .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; align-content: center; }
+    #mainView.isMenu #startBtn { padding: 12px 10px; font-size: 16px; }
+    #mainView.isMenu .ghost { padding: 9px 6px; font-size: 12.5px; letter-spacing: 1px; }
+    .chFrame { padding: 10px; font-size: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) { #mainView.isMenu h1, #mainView.isMenu .btns button, #mainView.isMenu #startBtn, .chFrame.open { animation: none; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -348,18 +402,25 @@
       <p class="sub" id="subtitle"></p>
       <p class="stats" id="stats" hidden></p>
       <div class="keys" id="keys"></div>
-      <p class="sub" id="loadout"></p>
-      <p class="sub" id="livesInfo"></p>
+      <div id="hero" hidden>
+        <canvas id="heroDrone" width="104" height="104"></canvas>
+        <div class="heroInfo">
+          <div class="heroName" id="heroName"></div>
+          <div class="heroChips" id="heroChips"></div>
+          <p class="sub" id="livesInfo"></p>
+        </div>
+      </div>
+      <p class="sub" id="loadout" hidden></p>
       <div class="btns">
         <button id="resumeBtn" hidden data-i18n="resume">REPRENDRE</button>
         <button id="reviveBtn" hidden></button>
         <button id="nextBtn" hidden data-i18n="nextWave"></button>
         <button id="startBtn">JOUER</button>
-        <button id="pathBtn" class="ghost" data-i18n="path"></button>
-        <button id="gameBtn" class="ghost" data-i18n="gameOptions">OPTIONS DE JEU</button>
-        <button id="shopBtn" class="ghost" data-i18n="shop"></button>
-        <button id="scoresBtn" class="ghost" data-i18n="scores">SCORES</button>
-        <button id="optBtn" class="ghost" data-i18n="settings">PARAMÈTRES</button>
+        <button id="pathBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.5"/></svg><span></span></button>
+        <button id="gameBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M9.5 9.5 6 6M14.5 9.5 18 6M9.5 14.5 6 18M14.5 14.5 18 18"/><circle cx="5" cy="5" r="2.2"/><circle cx="19" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/></svg><span data-i18n="gameOptions"></span></button>
+        <button id="shopBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span data-i18n="shop"></span></button>
+        <button id="scoresBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg><span data-i18n="scores"></span></button>
+        <button id="optBtn" class="ghost ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><span data-i18n="settings"></span></button>
         <button id="quitBtn" class="ghost" hidden data-i18n="quit">QUITTER</button>
       </div>
     </div>
@@ -439,9 +500,9 @@
         <section class="card full">
           <div class="comboRow" id="comboRow"></div>
           <div class="sumGrid" id="pathSum"></div>
-          <div class="chTabs"><div class="seg" id="chTabs"></div></div>
+          <div id="chPrev"></div>
+          <div class="chTitle" id="chTitle"></div>
           <div class="chBar"><i id="chFill"></i></div>
-          <div id="soonBox"></div>
           <div class="path" id="pathGrid"></div>
           <div class="chNext" id="chNext"></div>
         </section>
@@ -457,7 +518,7 @@
         <section class="card full">
           <div class="sumGrid" id="shopSum" style="grid-template-columns:1fr"></div>
           <div class="shopGrid" id="shopGrid"></div>
-          <div class="ctrlFoot"><p class="sub" data-i18n="shopHint" style="margin:0;font-size:12px;flex:1"></p></div>
+          <div class="ctrlFoot"><p class="sub" id="shopHint" style="margin:0;font-size:12px;flex:1"></p></div>
         </section>
       </div>
     </div>
@@ -916,6 +977,11 @@
     chapter: ['Chapitre {n}', 'Chapter {n}', 'Capítulo {n}', 'Capitolo {n}', '第 {n} 章', 'Глава {n}'],
     chapterDone: ['CHAPITRE {n} TERMINÉ', 'CHAPTER {n} COMPLETE', 'CAPÍTULO {n} COMPLETADO', 'CAPITOLO {n} COMPLETATO', '第 {n} 章完成', 'ГЛАВА {n} ПРОЙДЕНА'],
     chapterUnlock: ['Nouveau chemin débloqué : chapitre {n}', 'New path unlocked: chapter {n}', 'Nuevo camino desbloqueado: capítulo {n}', 'Nuovo percorso sbloccato: capitolo {n}', '新路线已解锁：第 {n} 章', 'Открыт новый маршрут: глава {n}'],
+    shopHintTouch: ['Les bonus achetés s\'utilisent en jeu avec les boutons en bas de l\'écran.', 'Use purchased power-ups in game with the buttons at the bottom of the screen.', 'Usa los bonus comprados durante el juego con los botones de abajo.', 'Usa i bonus acquistati in gioco con i pulsanti in basso.', '在游戏中点击屏幕下方按钮使用已购道具。', 'Используйте купленные бонусы в игре кнопками внизу экрана.'],
+    chLocked: ['Terminez ce chapitre pour le débloquer', 'Finish this chapter to unlock it', 'Termina este capítulo para desbloquearlo', 'Completa questo capitolo per sbloccarlo', '完成本章即可解锁', 'Завершите эту главу, чтобы открыть'],
+    chOpen: ['Débloqué — appuyez pour continuer', 'Unlocked — tap to continue', 'Desbloqueado: toca para continuar', 'Sbloccato: tocca per continuare', '已解锁 — 点击继续', 'Открыто — нажмите, чтобы продолжить'],
+    soonLocked: ['De nouvelles vagues arrivent bientôt', 'New waves are coming soon', 'Pronto llegarán nuevas oleadas', 'Nuove ondate in arrivo', '新的波次即将到来', 'Новые волны скоро появятся'],
+    tagline: ['150 vagues. Des boss. Un seul drone.', '150 waves. Bosses. One drone.', '150 oleadas. Jefes. Un solo dron.', '150 ondate. Boss. Un solo drone.', '150 波敌人，多个 BOSS，一架无人机。', '150 волн. Боссы. Один дрон.'],
     soonTitle: ['BIENTÔT', 'COMING SOON', 'PRÓXIMAMENTE', 'PROSSIMAMENTE', '敬请期待', 'СКОРО'],
     soonText: ['Vous avez terminé les 150 vagues. De nouvelles vagues arrivent bientôt !', 'You have completed all 150 waves. New waves are coming soon!', 'Has completado las 150 oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le 150 ondate. Nuove ondate in arrivo!', '你已完成全部 150 波。新的波次即将到来！', 'Вы прошли все 150 волн. Новые волны скоро появятся!'],
     st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней'],
@@ -939,7 +1005,7 @@
     b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ'],
     c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ'],
     c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ'],
-    hud_hp: ['INTÉGRITÉ', 'INTEGRITY', 'INTEGRIDAD', 'INTEGRITÀ', '机体完整度', 'ПРОЧНОСТЬ'],
+    hud_hp: ['BLINDAGE', 'ARMOR', 'BLINDAJE', 'CORAZZA', '装甲', 'БРОНЯ'],
     hud_wave: ['VAGUE {w}   ·   ENNEMIS {e}', 'WAVE {w}   ·   ENEMIES {e}', 'OLEADA {w}   ·   ENEMIGOS {e}', 'ONDATA {w}   ·   NEMICI {e}', '波次 {w}   ·   敌人 {e}', 'ВОЛНА {w}   ·   ВРАГИ {e}'],
     hud_best: ['RECORD {n}', 'BEST {n}', 'RÉCORD {n}', 'RECORD {n}', '最高分 {n}', 'РЕКОРД {n}'],
     k_Mouse0: ['Clic gauche', 'Left click', 'Clic izquierdo', 'Clic sinistro', '鼠标左键', 'Левая кнопка мыши'],
@@ -1233,6 +1299,7 @@
     var ar = document.querySelectorAll('[data-i18n-aria]');
     for (i = 0; i < ar.length; i++) ar[i].setAttribute('aria-label', tr(ar[i].getAttribute('data-i18n-aria')));
   }
+  function setLabel(btn, text) { var sp = btn.querySelector ? btn.querySelector('span') : null; (sp || btn).textContent = text; }
   function renderText() {
     var st = state, c = tr('colon');
     startBtn.textContent = st === 'menu' ? tr('playWave', { n: cWave(cfg.diff, cfg.drone) }) : tr('retryWave');
@@ -1253,7 +1320,10 @@
     nextBtn.hidden = !(st === 'clear' && wave < TOTAL);
     startBtn.hidden = st === 'clear';
     pathBtn.hidden = st === 'pause';
-    pathBtn.textContent = tr(st === 'menu' ? 'path' : 'toPath');
+    setLabel(pathBtn, tr(st === 'menu' ? 'path' : 'toPath'));
+    if (st === 'menu') { startBtn.textContent = '\u25B6  ' + startBtn.textContent; elSub.textContent = tr('tagline'); }
+    mainView.classList.toggle('isMenu', st === 'menu');
+    overlay.classList.toggle('menuBg', st === 'menu');
     document.getElementById('gameBtn').hidden = st !== 'menu'; document.getElementById('shopBtn').hidden = st !== 'menu';
     document.getElementById('optBtn').hidden = !(st === 'menu' || st === 'pause');
     reviveBtn.textContent = tr('useLife') + '  ♥ ' + lives;
@@ -1261,8 +1331,12 @@
   function renderHelp() {
     renderStatic(); renderText();
     var menu = state === 'menu';
-    elLoad.hidden = !menu; updateLivesInfo();
-    if (menu) elLoad.textContent = tr('loadout', { drone: tr('d_' + cfg.drone), diff: tr(cfg.diff), w: (cGet(cfg.diff, cfg.drone) || { p: 0 }).p, c: bank.c });
+    elLoad.hidden = true; document.getElementById('hero').hidden = !menu; updateLivesInfo();
+    if (menu) {
+      document.getElementById('heroName').innerHTML = esc(tr('d_' + cfg.drone)) + ' <small>· ' + esc(tr(cfg.diff)) + '</small>';
+      document.getElementById('heroChips').innerHTML = '<span class="hchip">' + esc(tr('p_wave')) + ' <b>' + (cGet(cfg.diff, cfg.drone) || { p: 0 }).p + '/' + TOTAL + '</b></span>' +
+        '<span class="hchip gold">' + esc(tr('credits')) + ' <b>' + bank.c + '</b></span>';
+    }
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
         '<b>' + esc(tr('h_rightThumb')) + '</b><span>' + esc(tr('h_dragAim')) + '</span>' +
@@ -1404,15 +1478,10 @@
       '<div class="tile hl" style="--c:#ffd166"><span>' + esc(tr('credits')) + '</span><strong>' + bank.c + '</strong></div>';
     var maxCh = Math.min(CHAPTERS - 1, Math.floor(prog / WAVES));
     if (pathCh > maxCh) pathCh = maxCh;
-    h = '';
-    for (i = 0; i < CHAPTERS; i++) {
-      var open = i <= maxCh;
-      h += '<button data-ch="' + i + '"' + (open ? '' : ' disabled') + ' class="' + (i === pathCh ? 'on' : '') + '">' + (open ? '' : LOCK) + esc(tr('chapter', { n: i + 1 })) + '</button>';
-    }
-    document.getElementById('chTabs').innerHTML = h;
+    document.getElementById('chTitle').textContent = tr('chapter', { n: pathCh + 1 });
+    document.getElementById('chPrev').innerHTML = pathCh > 0 ? '<button class="chFrame back" data-ch="' + (pathCh - 1) + '">\u25C0  ' + esc(tr('chapter', { n: pathCh })) + '</button>' : '';
     var base = pathCh * WAVES, inCh = clamp(prog - base, 0, WAVES);
     document.getElementById('chFill').style.width = (inCh / WAVES * 100) + '%';
-    document.getElementById('soonBox').innerHTML = prog >= TOTAL ? '<div class="soon"><strong>' + esc(tr('soonTitle')) + '</strong><span>' + esc(tr('soonText')) + '</span></div>' : '';
     h = '';
     for (r = 0; r < WAVES / 5; r++) {
       var first = base + r * 5 + 1, links = clamp(prog - first, 0, 4);
@@ -1428,7 +1497,11 @@
     }
     var grid = document.getElementById('pathGrid');
     if (grid.getAttribute('data-sig') !== h) { grid.innerHTML = h; grid.setAttribute('data-sig', h); }
-    document.getElementById('chNext').innerHTML = inCh >= WAVES && pathCh < CHAPTERS - 1 ? '<button data-ch="' + (pathCh + 1) + '">' + esc(tr('chapter', { n: pathCh + 2 })) + '  ▶</button>' : '';
+    var fr;
+    if (pathCh >= CHAPTERS - 1) fr = '<button class="chFrame soonF" disabled>' + LOCK + '<span>' + esc(tr('soonTitle')) + '<small>' + esc(tr(prog >= TOTAL ? 'soonText' : 'soonLocked')) + '</small></span></button>';
+    else if (inCh >= WAVES) fr = '<button class="chFrame open" data-ch="' + (pathCh + 1) + '"><span>' + esc(tr('chapter', { n: pathCh + 2 })) + '  \u25B6<small>' + esc(tr('chOpen')) + '</small></span></button>';
+    else fr = '<button class="chFrame" disabled>' + LOCK + '<span>' + esc(tr('chapter', { n: pathCh + 2 })) + '<small>' + esc(tr('chLocked')) + '</small></span></button>';
+    document.getElementById('chNext').innerHTML = fr;
   }
   function openPath() {
     state = 'menu'; player = null; releaseSticks(); keys = {};
@@ -1463,6 +1536,7 @@
         '<span class="own">' + esc(tr('owned', { n: bank.inv[id] })) + '</span><button data-buy="' + id + '"' + (can ? '' : ' disabled') + '>' + esc(tr('buy')) + ' · ' + price + '</button></div>';
     }
     document.getElementById('shopGrid').innerHTML = h;
+    document.getElementById('shopHint').textContent = tr(isTouch ? 'shopHintTouch' : 'shopHint');
   }
   document.getElementById('shopBtn').addEventListener('click', function () { showView('shop'); });
   document.getElementById('shopBack').addEventListener('click', function () { showView('main'); });
@@ -1595,7 +1669,7 @@
     p.x = WORLD_W / 2; p.y = WORLD_H / 2; p.vx = p.vy = 0; p.inv = Math.max(p.inv, 1.2);
     wave = n; curPal = mapInfo(n).pal; obstacles = getWaveMap(n);
     enemies = []; bullets = []; particles = []; pickups = [];
-    score = 0; kills = 0; usedLife = false; shake = 0; clearT = 0; lastRes = null;
+    score = 0; kills = 0; usedLife = false; shake = 0; clearT = 0; lastRes = null; hpGhost = p.hp / p.maxHp;
     best = ((cGet(gameDiff, gameDrone) || { s: {} }).s[n]) || 0;
     buildQueue(); waveTimer = 1.1;
     banner = tr(bossPending ? 'b_boss' : 'b_wave', { n: wave }); bannerT = 2.2;
@@ -2005,10 +2079,47 @@
     ctx.restore();
   }
 
+  var menuT = 0, hpGhost = 1;
+  function drawMenuScene() {
+    var t = menuT, g = 70, ox = (t * 16) % g, oy = (t * 9) % g, x, y, i;
+    ctx.strokeStyle = '#111c33'; ctx.lineWidth = 1; ctx.beginPath();
+    for (x = -ox; x < W; x += g) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+    for (y = -oy; y < H; y += g) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+    ctx.stroke();
+    var gr = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.6);
+    if (gr && gr.addColorStop) { gr.addColorStop(0, 'rgba(79, 216, 255, 0.12)'); gr.addColorStop(1, 'rgba(79, 216, 255, 0)'); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H); }
+    var cols = ['#ff8a3d', '#ff4d6d', '#c77dff', '#4fd8ff', '#5dff9b', '#ffd166', '#ff8a3d'], saved = time;
+    time = t;
+    for (i = 0; i < cols.length; i++) {
+      var sp = 0.22 + i * 0.045, ph = i * 1.9;
+      var fx = function (a) { return W / 2 + Math.cos(a * sp + ph) * W * (0.34 + 0.05 * (i % 3)); };
+      var fy = function (a) { return H / 2 + Math.sin(a * sp * 1.4 + ph * 0.7) * H * (0.3 + 0.07 * (i % 2)); };
+      var px = fx(t), py = fy(t);
+      drawDrone(px, py, Math.atan2(fy(t + 0.05) - py, fx(t + 0.05) - px), 12 + (i % 3) * 5, cols[i], false, 0.5);
+    }
+    time = saved;
+  }
+  function drawHero() {
+    var c = document.getElementById('heroDrone');
+    if (!c.getContext) return;
+    var sz = 104, px = Math.round(sz * DPR), mainCtx = ctx, saved = time;
+    if (c.width !== px) { c.width = px; c.height = px; }
+    ctx = c.getContext('2d'); time = menuT;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, sz, sz);
+    var col = DRONES[cfg.drone].color, gr = ctx.createRadialGradient(sz / 2, sz / 2, 4, sz / 2, sz / 2, sz / 2);
+    if (gr && gr.addColorStop) { gr.addColorStop(0, col + '55'); gr.addColorStop(1, col + '00'); ctx.fillStyle = gr; ctx.fillRect(0, 0, sz, sz); }
+    drawDrone(sz / 2, sz / 2 + Math.sin(menuT * 2.2) * 4, -Math.PI / 2 + Math.sin(menuT * 1.3) * 0.35, 26, col, false, 1);
+    ctx = mainCtx; time = saved;
+  }
+  function rr(x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
   function draw() {
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.fillStyle = '#070b14'; ctx.fillRect(0, 0, W, H);
-    if (!player) return;
+    if (!player) { drawMenuScene(); return; }
     var cam = camera(), i;
     var sx = shake ? rand(-shake, shake) * 0.5 : 0, sy = shake ? rand(-shake, shake) * 0.5 : 0;
     ctx.save();
@@ -2090,19 +2201,39 @@
   function drawHud(cam) {
     var p = player, i, hw = Math.max(110, Math.min(244, W - 240));
     ctx.textBaseline = 'top';
-    // health
-    ctx.fillStyle = 'rgba(9, 15, 28, 0.75)'; ctx.fillRect(18, 18, hw + 20, 58);
-    ctx.fillStyle = '#8fa6c4'; ctx.font = '600 12px "Segoe UI", system-ui, sans-serif'; ctx.textAlign = 'left';
-    ctx.fillText(tr('hud_hp'), 28, 25);
-    ctx.fillStyle = '#1b2538'; ctx.fillRect(28, 42, hw, 12);
-    var ratio = p.hp / p.maxHp;
-    ctx.fillStyle = ratio > 0.5 ? '#5dff9b' : ratio > 0.25 ? '#ffd166' : '#ff4d6d';
-    ctx.fillRect(28, 42, hw * ratio, 12);
-    ctx.fillStyle = '#e6f1ff'; ctx.textAlign = 'right'; ctx.fillText(Math.ceil(p.hp) + ' / ' + p.maxHp, hw + 28, 25);
+    // armor bar
+    var ratio = clamp(p.hp / p.maxHp, 0, 1), low = ratio <= 0.25, hc = ratio > 0.5 ? '#5dff9b' : ratio > 0.25 ? '#ffd166' : '#ff4d6d';
+    hpGhost = hpGhost > ratio ? Math.max(ratio, hpGhost - 0.005) : ratio;
+    var bx = 26, by = 39, bw = hw + 8, bh = 13, nseg = 12, sw = bw / nseg, sk = 5, q;
+    ctx.fillStyle = 'rgba(9, 15, 28, 0.8)'; rr(14, 12, hw + 34, 64, 12); ctx.fill();
+    ctx.strokeStyle = low ? 'rgba(255, 77, 109, ' + (0.55 + 0.4 * Math.sin(time * 10)).toFixed(2) + ')' : p.hitFlash > 0 ? '#ffffff' : 'rgba(79, 216, 255, 0.35)';
+    ctx.lineWidth = low ? 2 : 1.5; ctx.stroke();
+    ctx.fillStyle = hc; ctx.beginPath(); ctx.moveTo(32, 18); ctx.lineTo(38, 20.5); ctx.lineTo(38, 26); ctx.lineTo(32, 31); ctx.lineTo(26, 26); ctx.lineTo(26, 20.5); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#8fa6c4'; ctx.font = '700 11px "Segoe UI", system-ui, sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText(tr('hud_hp'), 45, 19);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#8fa6c4'; ctx.font = '600 11px "Segoe UI", system-ui, sans-serif';
+    var mx = ' / ' + p.maxHp, mw = ctx.measureText(mx).width;
+    ctx.fillText(mx, hw + 36, 20);
+    ctx.fillStyle = low ? '#ff4d6d' : '#ffffff'; ctx.font = '800 17px "Segoe UI", system-ui, sans-serif';
+    ctx.fillText(String(Math.ceil(p.hp)), hw + 36 - mw, 15);
+    for (i = 0; i < nseg; i++) {
+      var x0 = bx + i * sw, x1 = x0 + sw - 2.5, part = clamp(ratio * nseg - i, 0, 1), gp = clamp(hpGhost * nseg - i, 0, 1);
+      ctx.fillStyle = '#1b2538'; ctx.beginPath(); ctx.moveTo(x0 + sk, by); ctx.lineTo(x1 + sk, by); ctx.lineTo(x1, by + bh); ctx.lineTo(x0, by + bh); ctx.closePath(); ctx.fill();
+      for (q = 0; q < 2; q++) {
+        var fr = q ? part : gp;
+        if (fr <= 0 || (!q && gp <= part)) continue;
+        var xe = x0 + (x1 - x0) * fr;
+        ctx.fillStyle = q ? hc : 'rgba(255, 255, 255, 0.75)';
+        if (q) { ctx.shadowColor = hc; ctx.shadowBlur = 8; }
+        ctx.beginPath(); ctx.moveTo(x0 + sk, by); ctx.lineTo(xe + sk, by); ctx.lineTo(xe, by + bh); ctx.lineTo(x0, by + bh); ctx.closePath(); ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.22)'; ctx.fillRect(bx + sk, by + 1.5, Math.max(0, bw * ratio - 4), 3);
     // dash
     var dr = clamp(1 - p.dashCd / p.spec.dash, 0, 1);
-    ctx.fillStyle = '#1b2538'; ctx.fillRect(28, 60, hw, 5);
-    ctx.fillStyle = dr >= 1 ? '#4fd8ff' : '#2a6f9c'; ctx.fillRect(28, 60, hw * dr, 5);
+    ctx.fillStyle = '#1b2538'; rr(bx, 59, bw, 5, 2.5); ctx.fill();
+    if (dr > 0.03) { ctx.fillStyle = dr >= 1 ? '#4fd8ff' : '#2a6f9c'; rr(bx, 59, bw * dr, 5, 2.5); ctx.fill(); }
     var chips = [[tr('c_rapid'), p.rapid, PCOL.rapid], [tr('b_shield'), p.shield, PCOL.shield], [tr('c_gun'), p.gun, PCOL.gun]], cx = 28;
     ctx.fillStyle = PCOL.life;
     for (i = 0; i < lives; i++) { heart(cx + 7, 91, 7); cx += 18; }
@@ -2162,7 +2293,7 @@
     // boss bar
     for (i = 0; i < enemies.length; i++) {
       if (enemies[i].type !== 'boss') continue;
-      var bo = enemies[i], bbw = W < 700 ? W * 0.5 : Math.min(420, W * 0.26), bbx = (W - bbw) / 2, bby = W < 700 ? 192 : 18;
+      var bo = enemies[i], bbw = W < 700 ? W * 0.5 : Math.min(420, W * 0.26), bbx = W < 700 ? (W - bbw) / 2 : Math.max((W - bbw) / 2, hw + 64), bby = W < 700 ? 192 : 18;
       ctx.fillStyle = 'rgba(9, 15, 28, 0.8)'; ctx.fillRect(bbx - 4, bby - 4, bbw + 8, 18);
       ctx.fillStyle = bo.hp < bo.maxHp / 2 ? '#ffd166' : '#ff3b6b'; ctx.fillRect(bbx, bby, bbw * Math.max(0, bo.hp / bo.maxHp), 10);
       ctx.strokeStyle = '#ff3b6b'; ctx.lineWidth = 1; ctx.strokeRect(bbx - 3.5, bby - 3.5, bbw + 7, 17);
@@ -2228,6 +2359,7 @@
     var showItems = state === 'play' && itemCount() > 0;
     if (itemBar.hidden === showItems) itemBar.hidden = !showItems;
     draw();
+    if (state === 'menu') { menuT += dt; if (view === 'main') drawHero(); }
     if (fitDirty && !overlay.classList.contains('hidden')) { fitDirty = false; fitPanel(); }
     if (setOpen) drawPreviews(ts / 1000);
     frameN = (frameN || 0) + 1;
