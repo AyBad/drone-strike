@@ -251,6 +251,81 @@
   .soon span { font-size: 14px; color: #e6f1ff; }
   @media (max-width: 700px) { .prow .fill { top: 21px; } }
   @media (prefers-reduced-motion: reduce) { .node, .bub.cur::before, .bub.cur::after, .chBar i, .prow .fill, .soon, .bub.boss.lock { animation: none; } }
+  /* ---------- Téléphone en paysage : tout tient à l'écran ---------- */
+  .panel { transform-origin: top center; }
+  #overlay.fit { overflow: hidden; }
+  #overlay.fit .panel { transition: none; }
+  @media (max-height: 520px) and (orientation: landscape) {
+    .panel { width: min(780px, 97vw); padding: 12px 20px; }
+    .panel.wide { width: min(980px, 100vw); padding: 0 0 10px; }
+    #mainView { display: grid; grid-template-columns: 1.15fr 1fr; column-gap: 20px; align-items: center; text-align: left; }
+    #mainView > * { grid-column: 1; }
+    #mainView .btns { grid-column: 2; grid-row: 1 / span 7; flex-direction: column; flex-wrap: nowrap; gap: 7px; }
+    #mainView .btns button { width: 100%; padding: 8px 12px; font-size: 14px; letter-spacing: 1.5px; }
+    h1 { font-size: 26px; letter-spacing: 3px; margin: 0 0 4px; }
+    .sub { font-size: 12.5px; margin: 0 0 8px; }
+    .keys { width: 100%; margin: 0 0 8px; gap: 3px 12px; font-size: 12px; }
+    .stats { font-size: 13.5px; line-height: 1.4; margin: 0 0 8px; }
+    #loadout { margin: 0 0 4px; font-size: 12.5px; }
+    #livesInfo { margin: 0; font-size: 12.5px; }
+    .setHead { position: static; padding: 6px 14px 4px; background: none; }
+    .setHead h2 { font-size: 19px; letter-spacing: 3px; }
+    .iconBtn { width: 36px; height: 36px; }
+    .setHead .spacer { width: 36px; }
+    .setGrid { gap: 8px; padding: 0 12px; }
+    .card { padding: 8px 10px 9px; border-radius: 12px; }
+    .cardHead { margin-bottom: 6px; font-size: 11px; letter-spacing: 2px; gap: 7px; }
+    .cardHead svg { width: 16px; height: 16px; }
+    .optGrid { gap: 7px; }
+    .optCard { padding: 6px 6px 7px; gap: 3px; font-size: 13px; border-radius: 10px; }
+    .optCard small { font-size: 10.5px; line-height: 1.25; }
+    .optCard canvas { width: 50px; height: 50px; }
+    .dstats { font-size: 9.5px; gap: 3px 6px; margin-top: 0; }
+    .bar { height: 4px; }
+    .droneGrid, .shopGrid { grid-template-columns: repeat(4, 1fr); }
+    #droneDesc { margin: 6px 0 0; font-size: 12px; }
+    #nextNote { margin: 3px 0 0; font-size: 11.5px; }
+    .langGrid { gap: 6px; }
+    .chip { padding: 7px 9px; font-size: 13px; }
+    .toggleRow { padding: 7px 2px; font-size: 14px; }
+    /* Options de jeu : difficulté à gauche, drones à droite */
+    #gameView .setGrid { grid-template-columns: 1fr 2.6fr; }
+    #gameView .card.full { grid-column: auto; }
+    #gameView .diffGrid { grid-template-columns: 1fr; }
+    #gameView .diffGrid .optCard { flex-direction: row; flex-wrap: wrap; justify-content: center; column-gap: 8px; row-gap: 1px; }
+    #gameView .diffGrid .optCard small { flex-basis: 100%; }
+    .playBar { padding: 8px 12px 0; }
+    #optPlay { min-width: 220px; padding: 8px 20px; font-size: 14px; }
+    /* Tuiles de résumé */
+    .sumGrid { gap: 7px; margin-bottom: 8px; }
+    .tile { padding: 5px 10px; border-radius: 10px; display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+    .tile span { display: inline; margin: 0; font-size: 10px; letter-spacing: 1px; }
+    .tile strong { font-size: 18px; }
+    /* Boutique */
+    .shopGrid { gap: 7px; }
+    .shopCard { padding: 8px 8px 8px; gap: 3px; border-radius: 10px; }
+    .shopCard svg { width: 24px; height: 24px; }
+    .shopCard .nm { font-size: 13.5px; }
+    .shopCard small { font-size: 10.5px; min-height: 2.5em; line-height: 1.25; }
+    .shopCard .own { font-size: 11px; }
+    .shopCard button { padding: 6px 8px; font-size: 12px; margin-top: 2px; }
+    .ctrlFoot { margin-top: 7px; }
+    .ctrlFoot .smallBtn { padding: 6px 12px; font-size: 11px; }
+    /* Scores : onglets et résumé sur une ligne */
+    #scoreView .card { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; row-gap: 8px; align-items: center; }
+    #scoreView .tabsLine, #scoreView .sumGrid { margin: 0; }
+    #scoreView .droneGrid, #scoreView .ctrlFoot { grid-column: 1 / -1; margin: 0; }
+    #scoreView .seg button { padding: 6px 12px; font-size: 12.5px; }
+    .scoreCard { padding: 7px 6px 8px; gap: 1px; border-radius: 10px; }
+    .scoreCard canvas { width: 42px; height: 42px; }
+    .scoreCard .nm { font-size: 13px; }
+    .scoreCard .big { font-size: 21px; }
+    .scoreCard small { font-size: 10.5px; line-height: 1.25; }
+    #scoreHint { font-size: 11px; }
+    .scoreCard .badge { position: static; margin-bottom: 2px; padding: 2px 6px; font-size: 9px; }
+    .shopCard, .scoreCard, .optCard { min-width: 0; }
+    .shopCard button { margin-top: auto; }
+  }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -1189,7 +1264,18 @@
     droneDesc.textContent = tr('desc_' + cfg.drone);
     nextNote.hidden = state === 'menu';
   }
-  function renderAll() { renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  var fitDirty = true;
+  function fitPanel() {
+    panelEl.style.transform = '';
+    var fit = view !== 'path' && (isTouch || window.innerHeight <= 560);
+    overlay.classList.toggle('fit', fit);
+    if (!fit) return;
+    overlay.scrollTop = 0;
+    var h = panelEl.offsetHeight, avail = window.innerHeight - 6, w = panelEl.offsetWidth, sc = Math.min(1, avail / h, window.innerWidth / w);
+    if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
+  }
+  window.addEventListener('resize', function () { fitDirty = true; });
+  function renderAll() { fitDirty = true; renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0;
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
@@ -2092,6 +2178,7 @@
     var showItems = state === 'play' && itemCount() > 0;
     if (itemBar.hidden === showItems) itemBar.hidden = !showItems;
     draw();
+    if (fitDirty && !overlay.classList.contains('hidden')) { fitDirty = false; fitPanel(); }
     if (setOpen) drawPreviews(ts / 1000);
     if (state === 'menu' && view === 'main' && (frameN = (frameN || 0) + 1) % 20 === 0) updateLivesInfo();
     requestAnimationFrame(frame);
