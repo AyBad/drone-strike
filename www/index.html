@@ -326,6 +326,10 @@
     .shopCard, .scoreCard, .optCard { min-width: 0; }
     .shopCard button { margin-top: auto; }
   }
+  #toast { position: fixed; z-index: 9; left: 50%; top: 14px; transform: translateX(-50%); padding: 10px 18px; border-radius: 999px;
+    background: #16263f; border: 1px solid #ff6b9d; color: #ffffff; font-size: 14px; font-weight: 700; pointer-events: none;
+    box-shadow: 0 8px 30px -8px #ff6b9d; animation: toastIn .35s ease-out; white-space: nowrap; }
+  @keyframes toastIn { from { opacity: 0; transform: translate(-50%, -16px); } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -336,6 +340,7 @@
   <button id="dashBtn" data-i18n="dodgeBtn">ESQUIVE</button>
 </div>
 <div id="itemBar" hidden></div>
+<div id="toast" role="status" hidden></div>
 <div id="overlay">
   <div class="panel" id="panel">
     <div id="mainView">
@@ -380,6 +385,7 @@
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="audio">Son et vibration</span></div>
           <div class="toggleRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="sound">Son</span></span><button class="switch" role="switch" data-opt="sound" data-toggle data-i18n-aria="sound" aria-label="Son"></button></div>
           <div class="toggleRow" id="vibRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4 8v8M20 8v8"/></svg><span data-i18n="vibration">Vibration</span></span><button class="switch" role="switch" data-opt="vib" data-toggle data-i18n-aria="vibration" aria-label="Vibration"></button></div>
+          <div class="toggleRow" id="notifRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg><span data-i18n="notifs">Notifications</span></span><button class="switch" role="switch" data-opt="notif" data-toggle data-i18n-aria="notifs" aria-label="Notifications"></button></div>
         </section>
         <section class="card full" id="ctrlSec">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3M15.5 12h.01M18 13.5h.01"/></svg><span data-i18n="controls">Commandes</span></div>
@@ -787,6 +793,9 @@
     back: ['RETOUR', 'BACK', 'VOLVER', 'INDIETRO', '返回', 'НАЗАД'],
     language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык'],
     sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
+    notifs: ['Notifications', 'Notifications', 'Notificaciones', 'Notifiche', '通知', 'Уведомления'],
+    notifBody: ['Vos 3 vies sont restituées. Reprenez le combat !', 'Your 3 lives are back. Return to the fight!', 'Tus 3 vidas están de vuelta. ¡Vuelve al combate!', 'Le tue 3 vite sono tornate. Riprendi a combattere!', '你的 3 条生命已恢复，继续战斗吧！', 'Ваши 3 жизни восстановлены. Возвращайтесь в бой!'],
+    livesBack: ['\u2665 Vies restituées !', '\u2665 Lives restored!', '\u2665 ¡Vidas restauradas!', '\u2665 Vite ripristinate!', '\u2665 生命已恢复！', '\u2665 Жизни восстановлены!'],
     vibration: ['Vibration', 'Vibration', 'Vibración', 'Vibrazione', '振动', 'Вибрация'],
     on: ['Activé', 'On', 'Activado', 'Attivo', '开', 'Вкл.'],
     off: ['Désactivé', 'Off', 'Desactivado', 'Disattivo', '关', 'Выкл.'],
@@ -986,7 +995,7 @@
   };
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff', life: '#ff6b9d' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
-  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
+  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, notif: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
   var WAVES = 50, CHAPTERS = 3, TOTAL = WAVES * CHAPTERS, CREDIT_RATE = 0.1;
   var camp = {};
   try { camp = JSON.parse(localStorage.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
@@ -1012,13 +1021,50 @@
   function savePool() { try { localStorage.setItem('droneStrikeLives', JSON.stringify(pool)); } catch (err) { /* ignore */ } }
   function poolLives() {
     if (pool.n >= POOL_MAX) pool.t = 0;
-    else if (!pool.t || Date.now() - pool.t >= POOL_MS || Date.now() < pool.t) { pool = { n: POOL_MAX, t: 0 }; savePool(); }
+    else if (!pool.t || Date.now() - pool.t >= POOL_MS || Date.now() < pool.t) { if (pool.t && pool.n < POOL_MAX) livesBack = true; pool = { n: POOL_MAX, t: 0 }; savePool(); }
     return pool.n;
   }
   function usePool() {
     if (poolLives() <= 0) return;
     pool.n--; if (!pool.t) pool.t = Date.now();
     savePool();
+    scheduleLivesNotif();
+  }
+  // Notification Android (application installée) quand la réserve de vies est rechargée
+  var livesBack = false, toastT = 0;
+  function nativeNotif() {
+    try { var C = window.Capacitor; return (C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.LocalNotifications) || null; }
+    catch (err) { return null; }
+  }
+  function scheduleLivesNotif() {
+    var ln = nativeNotif();
+    if (!ln) return;
+    try {
+      var none = function () {};
+      if (!cfg.notif || !pool.t || pool.n >= POOL_MAX || pool.t + POOL_MS <= Date.now() + 2000) { ln.cancel({ notifications: [{ id: 1 }] }).catch(none); return; }
+      var at = new Date(pool.t + POOL_MS);
+      var go = function () {
+        ln.schedule({ notifications: [{ id: 1, title: 'Drone Strike', body: tr('notifBody'), schedule: { at: at, allowWhileIdle: true } }] }).catch(none);
+      };
+      ln.checkPermissions().then(function (r) {
+        if (r && r.display === 'granted') { go(); return; }
+        return ln.requestPermissions().then(function (r2) { if (r2 && r2.display === 'granted') go(); });
+      }).catch(none);
+    } catch (err) { /* notifications indisponibles */ }
+  }
+  function showToast(text) {
+    var el = document.getElementById('toast');
+    el.textContent = text; el.hidden = false;
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { el.hidden = true; }, 5000);
+  }
+  function checkLivesBack() {
+    poolLives();
+    if (!livesBack) return;
+    livesBack = false;
+    showToast(tr('livesBack'));
+    beep(660, 0.2, 'triangle', 0.06, 1320); vib([40, 60, 40]);
+    if (state === 'menu') renderAll();
   }
   function poolWait() {
     var ms = Math.max(0, pool.t + POOL_MS - Date.now()), m = Math.floor(ms / 60000), sec = Math.floor(ms % 60000 / 1000);
@@ -1046,6 +1092,7 @@
     if (saved) {
       if (saved.sound === false) cfg.sound = false;
       if (saved.vib === false) cfg.vib = false;
+      if (saved.notif === false) cfg.notif = false;
       if (DIFFS[saved.diff]) cfg.diff = saved.diff;
       if (DRONES[saved.drone]) cfg.drone = saved.drone;
       if (LANGS.indexOf(saved.lang) >= 0) cfg.lang = saved.lang;
@@ -1261,6 +1308,7 @@
     }
     ctrlSec.hidden = isTouch;
     vibRow.hidden = !navigator.vibrate;
+    document.getElementById('notifRow').hidden = !nativeNotif();
     droneDesc.textContent = tr('desc_' + cfg.drone);
     nextNote.hidden = state === 'menu';
   }
@@ -1479,6 +1527,7 @@
       saveCfg(); renderAll();
       if (o === 'sound' && cfg.sound) { initAudio(); beep(660, 0.15, 'triangle', 0.06, 990); }
       if (o === 'vib') vib(40);
+      if (o === 'notif' || o === 'lang') scheduleLivesNotif();
       return;
     }
     var m = el.getAttribute('data-aim');
@@ -1631,6 +1680,7 @@
   quitBtn.addEventListener('click', goMenu);
   startBtn.addEventListener('click', startGame);
   renderAll();
+  scheduleLivesNotif();
 
   // ---------- Waves ----------
   function spawnEnemy(type) {
@@ -2180,7 +2230,9 @@
     draw();
     if (fitDirty && !overlay.classList.contains('hidden')) { fitDirty = false; fitPanel(); }
     if (setOpen) drawPreviews(ts / 1000);
-    if (state === 'menu' && view === 'main' && (frameN = (frameN || 0) + 1) % 20 === 0) updateLivesInfo();
+    frameN = (frameN || 0) + 1;
+    if (frameN % 60 === 1) checkLivesBack();
+    if (state === 'menu' && view === 'main' && frameN % 20 === 0) updateLivesInfo();
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);

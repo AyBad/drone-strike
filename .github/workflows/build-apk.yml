@@ -29,10 +29,11 @@ jobs:
       - name: Forcer le mode paysage
         run: sed -i 's/<activity/<activity android:screenOrientation="sensorLandscape"/' android/app/src/main/AndroidManifest.xml
 
-      - name: Autoriser la vibration
+      - name: Autoriser la vibration et les notifications
         run: |
-          sed -i 's|</manifest>|    <uses-permission android:name="android.permission.VIBRATE" />\n</manifest>|' android/app/src/main/AndroidManifest.xml
+          sed -i 's|</manifest>|    <uses-permission android:name="android.permission.VIBRATE" />\n    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n</manifest>|' android/app/src/main/AndroidManifest.xml
           grep -q VIBRATE android/app/src/main/AndroidManifest.xml
+          grep -q POST_NOTIFICATIONS android/app/src/main/AndroidManifest.xml
 
       - name: Signature stable (mises à jour sans désinstaller)
         run: |
