@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Dronefang</title>
+<title>Drone Strike Field</title>
 <style>
   html, body { margin: 0; height: 100%; background: #070b14; overflow: hidden; touch-action: none; overscroll-behavior: none; }
   [hidden] { display: none !important; }
@@ -411,7 +411,7 @@
   .skinGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .skinCard { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 10px 12px; border-radius: 14px; background: radial-gradient(circle at 50% 38%, #16263f, #0a1220 70%); border: 1px solid #1f3554; min-width: 0; }
   .skinCard.eq { border-color: #4fd8ff; box-shadow: 0 0 0 1px #4fd8ff, 0 8px 28px -10px #4fd8ff; }
-  .skinCard.locked canvas { filter: grayscale(1) brightness(0.55); }
+  .skinCard.locked canvas { filter: saturate(0.35) brightness(0.85); opacity: 0.85; }
   .skinCard canvas { width: 150px; height: 120px; }
   .skinCard .nm { font-size: 15px; font-weight: 800; letter-spacing: 3px; color: #ffffff; }
   .skinCard button { padding: 8px 12px; font-size: 12.5px; letter-spacing: 0.5px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
@@ -438,9 +438,9 @@
   /* ---------- Accueil, nouveau jeu, mes jeux ---------- */
   #homeView { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px 30px; align-items: center; padding: 26px 30px 4px; }
   .homeL { text-align: center; min-width: 0; }
-  .homeTitle { margin: 0; font-size: 46px; line-height: 1.02; letter-spacing: 9px; font-weight: 900; background: linear-gradient(90deg, #4fd8ff, #d6f6ff, #c77dff, #4fd8ff); background-size: 300% 100%;
+  .homeTitle { margin: 0; font-size: 40px; line-height: 1.05; letter-spacing: 6px; font-weight: 900; background: linear-gradient(90deg, #4fd8ff, #d6f6ff, #c77dff, #4fd8ff); background-size: 300% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent; animation: homeShine 7s linear infinite; }
-  .homeTitle span { display: block; letter-spacing: 12px; }
+  .homeTitle span { display: block; letter-spacing: 16px; font-size: 1.15em; }
   @keyframes homeShine { to { background-position: 300% 0; } }
   .homeL .sub { margin: 8px 0 0; }
   #homeDrone { width: 230px; height: 160px; display: block; margin: 2px auto 0; }
@@ -493,7 +493,7 @@
   }
   @media (max-height: 520px) and (orientation: landscape) {
     #homeView { padding: 12px 22px 0; gap: 6px 22px; }
-    .homeTitle { font-size: 34px; letter-spacing: 7px; } .homeTitle span { letter-spacing: 9px; }
+    .homeTitle { font-size: 29px; letter-spacing: 4px; } .homeTitle span { letter-spacing: 12px; }
     .homeL .sub { margin-top: 4px; font-size: 12.5px; }
     #homeDrone { width: 200px; height: 128px; }
     .homeR { gap: 9px; }
@@ -506,6 +506,48 @@
     .skinCard .nm { font-size: 12px; }
   }
   @media (prefers-reduced-motion: reduce) { .homeTitle, .hbtn { animation: none; } }
+  /* ---------- Diamants et onglet En ligne ---------- */
+  .gem { width: 16px; height: 16px; vertical-align: -3px; display: inline-block; flex: none; }
+  .gemTxt { color: #5ef0ff !important; }
+  .hchip.gemc { display: inline-flex; align-items: center; gap: 4px; } .hchip.gemc b { color: #5ef0ff; }
+  .shopTop .credit .gem { width: 20px; height: 20px; vertical-align: -4px; margin-right: 4px; }
+  .shopTop .seg button { padding: 7px 14px; }
+  .onWrap { display: grid; grid-template-columns: 200px 1fr; gap: 12px; align-items: start; }
+  .onPrev { display: flex; flex-direction: column; align-items: center; gap: 8px; background: radial-gradient(circle at 50% 40%, #13304a, #0a1220 72%); border: 1px solid #1f3554; border-radius: 14px; padding: 8px 6px 10px; }
+  .onPrev canvas { width: 190px; height: 150px; }
+  .onSeg { display: flex; flex-direction: column; width: 100%; }
+  .onSeg button { width: 100%; padding: 7px 8px; }
+  .onBody { min-width: 0; }
+  .onBody .upGrid { grid-template-columns: repeat(2, 1fr); }
+  .onBody .upCard button { min-width: 70px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
+  .onBody .upCard button .gem { width: 14px; height: 14px; }
+  .onLbl { margin: 0 0 6px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8fa6c4; font-weight: 700; }
+  .omGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+  .omCard { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 4px 8px; border-radius: 12px; background: #0a1220; border: 1px solid #1f3554; color: #e6f1ff; letter-spacing: 0; }
+  .omCard canvas { width: 78px; height: 58px; }
+  .omCard b { font-size: 12px; letter-spacing: 1.5px; } .omCard small { font-size: 11px; color: #8fa6c4; display: inline-flex; align-items: center; gap: 3px; }
+  .omCard.eq, .ofChip.eq, .dcChip.eq { border-color: #5ef0ff; box-shadow: 0 0 0 1px #5ef0ff; }
+  .omCard:disabled, .ofChip:disabled, .dcChip:disabled { opacity: 0.5; cursor: default; }
+  .ofRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .ofChip { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 10px; background: #0a1220; border: 1px solid #1f3554; color: #e6f1ff; font-size: 12px; letter-spacing: 0; text-align: left; min-width: 0; }
+  .ofChip i { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.35); flex: none; }
+  .ofChip span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ofChip small { font-size: 10.5px; color: #5ef0ff; display: inline-flex; align-items: center; gap: 2px; } .ofChip small .gem { width: 12px; height: 12px; }
+  .dcGrid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
+  .dcChip { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 5px 2px; border-radius: 10px; background: #0a1220; border: 1px solid #1f3554; color: #e6f1ff; letter-spacing: 0; min-width: 0; }
+  .dcChip .em, .dcChip .dn { font-size: 22px; line-height: 1.1; } .dcChip .dn { color: #8fa6c4; }
+  .dcChip small { font-size: 10px; color: #5ef0ff; display: inline-flex; align-items: center; gap: 2px; min-height: 13px; } .dcChip small .gem { width: 11px; height: 11px; }
+  @media (max-width: 700px) and (orientation: portrait) { .onWrap { grid-template-columns: 1fr; } .dcGrid { grid-template-columns: repeat(5, 1fr); } .omGrid, .ofRow { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-height: 360px) and (orientation: landscape) { .onPrev canvas { width: 140px; height: 92px; } .onWrap { grid-template-columns: 150px 1fr; } .omCard canvas { width: 58px; height: 38px; } .omCard b { font-size: 11px; } .dcChip .em, .dcChip .dn { font-size: 17px; } #shopHint { font-size: 10.5px !important; } .onBody .upCard { padding: 4px 6px; } }
+  @media (max-height: 520px) and (orientation: landscape) {
+    .onWrap { grid-template-columns: 170px 1fr; gap: 8px; }
+    .onPrev { padding: 4px 4px 6px; gap: 5px; } .onPrev canvas { width: 160px; height: 112px; }
+    .onSeg button { padding: 5px 6px; font-size: 12px; }
+    .omGrid { gap: 6px; margin-bottom: 6px; } .omCard { padding: 3px 2px 5px; } .omCard canvas { width: 66px; height: 46px; }
+    .onLbl { margin-bottom: 4px; font-size: 10px; }
+    .ofChip { padding: 5px 6px; font-size: 11px; }
+    .dcGrid { gap: 5px; } .dcChip { padding: 3px 1px; } .dcChip .em, .dcChip .dn { font-size: 19px; }
+  }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -522,7 +564,7 @@
   <div class="panel" id="panel">
     <div id="homeView" hidden>
       <div class="homeL">
-        <h1 class="homeTitle">DRONE<span>FANG</span></h1>
+        <h1 class="homeTitle">DRONE STRIKE<span>FIELD</span></h1>
         <canvas id="homeDrone" width="230" height="160"></canvas>
       </div>
       <div class="homeR">
@@ -541,7 +583,7 @@
       <div class="setGrid"><section class="card full"><div class="gamesGrid" id="gamesGrid"></div></section></div>
     </div>
     <div id="mainView">
-      <h1 id="title">DRONEFANG</h1>
+      <h1 id="title">DRONE STRIKE FIELD</h1>
       <p class="sub" id="subtitle"></p>
       <p class="stats" id="stats" hidden></p>
       <div class="keys" id="keys"></div>
@@ -702,7 +744,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '0.7';
+  var APP_VERSION = '0.8';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -1008,7 +1050,30 @@
     language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык'],
     sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
     notifNote: ['Activez les notifications pour être prévenu quand vos 3 vies sont rechargées.', 'Turn on notifications to be told when your 3 lives are refilled.', 'Activa las notificaciones para saber cuándo se recargan tus 3 vidas.', 'Attiva le notifiche per sapere quando le tue 3 vite sono ricaricate.', '开启通知，3 条生命恢复满时提醒你。', 'Включите уведомления, чтобы узнать, когда все 3 жизни восстановятся.'],
-    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Dronefang).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Dronefang).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Dronefang).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Dronefang).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Dronefang）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Dronefang).'],
+    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Drone Strike Field).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Drone Strike Field).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike Field).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Drone Strike Field).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Drone Strike Field）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Drone Strike Field).'],
+    diamonds: ['Diamants', 'Diamonds', 'Diamantes', 'Diamanti', '钻石', 'Алмазы'],
+    st_diamonds: ['Diamants gagnés', 'Diamonds earned', 'Diamantes ganados', 'Diamanti guadagnati', '获得钻石', 'Получено алмазов'],
+    tabOnline: ['En ligne', 'Online', 'En línea', 'Online', '在线', 'Онлайн'],
+    onParts: ['Pièces', 'Parts', 'Piezas', 'Pezzi', '部件', 'Детали'],
+    onSkins: ['Designs', 'Designs', 'Diseños', 'Design', '外观', 'Дизайны'],
+    onDecals: ['Décors', 'Decals', 'Adornos', 'Decorazioni', '贴纸', 'Наклейки'],
+    onHint: ['Achats en diamants pour votre drone du mode en ligne, communs à tous vos jeux. Les diamants se gagnent en battant un colosse pour la première fois.', 'Diamond purchases for your online drone, shared by all your games. Earn diamonds by beating a colossus for the first time.', 'Compras con diamantes para tu dron en línea, comunes a todas tus partidas. Los diamantes se ganan al vencer a un coloso por primera vez.', 'Acquisti in diamanti per il tuo drone online, comuni a tutte le partite. I diamanti si ottengono battendo un colosso per la prima volta.', '用钻石为在线无人机购买物品，所有存档通用。首次击败巨像可获得钻石。', 'Покупки за алмазы для онлайн-дрона, общие для всех игр. Алмазы даются за первую победу над колоссом.'],
+    onModel: ['Modèle', 'Model', 'Modelo', 'Modello', '机型', 'Модель'],
+    onFinish: ['Finition', 'Finish', 'Acabado', 'Finitura', '涂装', 'Покраска'],
+    noDecal: ['Aucun', 'None', 'Ninguno', 'Nessuno', '无', 'Нет'],
+    p_hull: ['Blindage', 'Hull', 'Blindaje', 'Corazza', '装甲', 'Броня'],
+    p_turbo: ['Turbo', 'Turbo', 'Turbo', 'Turbo', '涡轮', 'Турбо'],
+    p_cannon: ['Canon lourd', 'Heavy cannon', 'Cañón pesado', 'Cannone pesante', '重炮', 'Тяжёлая пушка'],
+    p_shield: ['Bouclier', 'Shield', 'Escudo', 'Scudo', '护盾', 'Щит'],
+    p_missile: ['Missiles', 'Missiles', 'Misiles', 'Missili', '导弹', 'Ракеты'],
+    p_radar: ['Radar', 'Radar', 'Radar', 'Radar', '雷达', 'Радар'],
+    f_std: ['Origine', 'Stock', 'Original', 'Originale', '原厂', 'Базовая'],
+    f_gold: ['Or', 'Gold', 'Oro', 'Oro', '黄金', 'Золото'],
+    f_carbon: ['Carbone', 'Carbon', 'Carbono', 'Carbonio', '碳纤维', 'Карбон'],
+    f_desert: ['Désert', 'Desert', 'Desierto', 'Deserto', '沙漠', 'Пустыня'],
+    f_arctic: ['Arctique', 'Arctic', 'Ártico', 'Artico', '极地', 'Арктика'],
+    f_crimson: ['Cramoisi', 'Crimson', 'Carmesí', 'Cremisi', '赤红', 'Багрянец'],
+    f_jungle: ['Jungle', 'Jungle', 'Selva', 'Giungla', '丛林', 'Джунгли'],
     online: ['JOUER EN LIGNE', 'PLAY ONLINE', 'JUGAR EN LÍNEA', 'GIOCA ONLINE', '在线对战', 'ИГРАТЬ ОНЛАЙН'],
     onlineSub: ['Affrontez d\'autres pilotes', 'Face other pilots', 'Enfréntate a otros pilotos', 'Sfida altri piloti', '与其他玩家对战', 'Сразитесь с другими пилотами'],
     soonTag: ['BIENTÔT', 'SOON', 'PRONTO', 'PRESTO', '即将推出', 'СКОРО'],
@@ -1150,12 +1215,12 @@
     b_heal: ['+30 RÉPARATION', '+30 REPAIR', '+30 REPARACIÓN', '+30 RIPARAZIONE', '+30 修复', '+30 РЕМОНТ'],
     b_rapid: ['TIR RAPIDE', 'RAPID FIRE', 'FUEGO RÁPIDO', 'FUOCO RAPIDO', '快速射击', 'СКОРОСТРЕЛЬНОСТЬ'],
     b_shield: ['BOUCLIER', 'SHIELD', 'ESCUDO', 'SCUDO', '护盾', 'ЩИТ'],
-    b_bossName: ['BOSS : {n}', 'BOSS: {n}', 'JEFE: {n}', 'BOSS: {n}', 'BOSS：{n}', 'БОСС: {n}'],
-    b_boss: ['BOSS !', 'BOSS!', '¡JEFE!', 'BOSS!', 'BOSS 来袭！', 'БОСС!'],
-    b_bossDown: ['BOSS DÉTRUIT', 'BOSS DESTROYED', 'JEFE DESTRUIDO', 'BOSS DISTRUTTO', 'BOSS 已击毁', 'БОСС УНИЧТОЖЕН'],
+    b_bossName: ['COLOSSE : {n}', 'COLOSSUS: {n}', 'COLOSO: {n}', 'COLOSSO: {n}', '巨像：{n}', 'КОЛОСС: {n}'],
+    b_boss: ['COLOSSE !', 'COLOSSUS!', '¡COLOSO!', 'COLOSSO!', '巨像来袭！', 'КОЛОСС!'],
+    b_bossDown: ['COLOSSE DÉTRUIT', 'COLOSSUS DESTROYED', 'COLOSO DESTRUIDO', 'COLOSSO DISTRUTTO', '巨像已击毁', 'КОЛОСС УНИЧТОЖЕН'],
     b_life: ['+1 VIE', '+1 LIFE', '+1 VIDA', '+1 VITA', '+1 生命', '+1 ЖИЗНЬ'],
     b_revive: ['DE RETOUR !', 'BACK IN ACTION!', '¡DE VUELTA!', 'DI NUOVO IN VOLO!', '重新出击！', 'СНОВА В БОЮ!'],
-    hud_boss: ['BOSS', 'BOSS', 'JEFE', 'BOSS', 'BOSS', 'БОСС'],
+    hud_boss: ['COLOSSE', 'COLOSSUS', 'COLOSO', 'COLOSSO', '巨像', 'КОЛОСС'],
     downSub: ['Vies restantes : {n}. Utiliser une vie pour continuer ?', 'Lives left: {n}. Use a life to continue?', 'Vidas restantes: {n}. ¿Usar una vida para continuar?', 'Vite rimaste: {n}. Usare una vita per continuare?', '剩余生命：{n}。使用一条生命继续吗？', 'Осталось жизней: {n}. Потратить жизнь и продолжить?'],
     useLife: ['UTILISER UNE VIE', 'USE A LIFE', 'USAR UNA VIDA', 'USA UNA VITA', '使用生命', 'ПОТРАТИТЬ ЖИЗНЬ'],
     endGame: ['TERMINER', 'END GAME', 'TERMINAR', 'TERMINA', '结束游戏', 'ЗАКОНЧИТЬ'],
@@ -1169,7 +1234,7 @@
     toPath: ['RETOUR AU CHEMIN', 'BACK TO PATH', 'VOLVER AL CAMINO', 'TORNA AL PERCORSO', '返回路线', 'К МАРШРУТУ'],
     path: ['CHEMIN', 'PATH', 'CAMINO', 'PERCORSO', '路线', 'МАРШРУТ'],
     waveClear: ['VAGUE {n} RÉUSSIE', 'WAVE {n} CLEARED', 'OLEADA {n} SUPERADA', 'ONDATA {n} SUPERATA', '第 {n} 波完成', 'ВОЛНА {n} ПРОЙДЕНА'],
-    bossClear: ['BOSS VAINCU', 'BOSS DEFEATED', 'JEFE DERROTADO', 'BOSS SCONFITTO', 'BOSS 已击败', 'БОСС ПОВЕРЖЕН'],
+    bossClear: ['COLOSSE VAINCU', 'COLOSSUS DEFEATED', 'COLOSO DERROTADO', 'COLOSSO SCONFITTO', '巨像已击败', 'КОЛОСС ПОВЕРЖЕН'],
     pathDone: ['CHEMIN TERMINÉ !', 'PATH COMPLETE!', '¡CAMINO COMPLETADO!', 'PERCORSO COMPLETATO!', '路线完成！', 'МАРШРУТ ПРОЙДЕН!'],
     clearSub: ['Vague {n} sur 2500', 'Wave {n} of 2500', 'Oleada {n} de 2500', 'Ondata {n} di 2500', '第 {n} 波，共 2500 波', 'Волна {n} из 2500'],
     chapter: ['Chapitre {n}', 'Chapter {n}', 'Capítulo {n}', 'Capitolo {n}', '第 {n} 章', 'Глава {n}'],
@@ -1179,7 +1244,7 @@
     chLocked: ['Terminez ce chapitre pour le débloquer', 'Finish this chapter to unlock it', 'Termina este capítulo para desbloquearlo', 'Completa questo capitolo per sbloccarlo', '完成本章即可解锁', 'Завершите эту главу, чтобы открыть'],
     chOpen: ['Débloqué — appuyez pour continuer', 'Unlocked — tap to continue', 'Desbloqueado: toca para continuar', 'Sbloccato: tocca per continuare', '已解锁 — 点击继续', 'Открыто — нажмите, чтобы продолжить'],
     soonLocked: ['De nouvelles vagues arrivent bientôt', 'New waves are coming soon', 'Pronto llegarán nuevas oleadas', 'Nuove ondate in arrivo', '新的波次即将到来', 'Новые волны скоро появятся'],
-    tagline: ['2500 vagues. Des boss. Un seul drone.', '2500 waves. Bosses. One drone.', '2500 oleadas. Jefes. Un solo dron.', '2500 ondate. Boss. Un solo drone.', '2500 波敌人，多个 BOSS，一架无人机。', '2500 волн. Боссы. Один дрон.'],
+    tagline: ['2500 vagues. Des colosses. Un seul drone.', '2500 waves. Colossi. One drone.', '2500 oleadas. Colosos. Un solo dron.', '2500 ondate. Colossi. Un solo drone.', '2500 波敌人，多个巨像，一架无人机。', '2500 волн. Колоссы. Один дрон.'],
     soonTitle: ['BIENTÔT', 'COMING SOON', 'PRÓXIMAMENTE', 'PROSSIMAMENTE', '敬请期待', 'СКОРО'],
     soonText: ['Vous avez terminé les 2500 vagues. De nouvelles vagues arrivent bientôt !', 'You have completed all 2500 waves. New waves are coming soon!', 'Has completado las 2500 oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le 2500 ondate. Nuove ondate in arrivo!', '你已完成全部 2500 波。新的波次即将到来！', 'Вы прошли все 2500 волн. Новые волны скоро появятся!'],
     st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней'],
@@ -1302,6 +1367,20 @@
     var sb0 = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null');
     if (sb0 && sb0.c >= 0) { bank.c = Math.floor(sb0.c); for (var bi = 0; bi < ITEMS.length; bi++) bank.inv[ITEMS[bi][0]] = Math.max(0, Math.min(ITEM_MAX, Math.floor((sb0.inv || {})[ITEMS[bi][0]] || 0))); }
   } catch (err) { /* banque vide */ }
+  bank.d = 0;
+  try { var sbd = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null'); if (sbd && sbd.d > 0) bank.d = Math.floor(sbd.d); } catch (err) { /* ignore */ }
+  // Drone du mode en ligne : acheté en diamants, commun à tous les jeux
+  var OPARTS = [['hull', '#5dff9b'], ['turbo', '#4fd8ff'], ['cannon', '#ffd166'], ['shield', '#6fa8ff'], ['missile', '#ff6b3d'], ['radar', '#c77dff']], OP_PRICE = [5, 12, 25];
+  var OMODELS = [['a', 0], ['d', 10], ['b', 20], ['c', 30]];
+  var OFIN = [['std', 0, '#8793ab'], ['carbon', 10, '#2c3039'], ['desert', 8, '#cdac70'], ['arctic', 8, '#ecf6ff'], ['jungle', 8, '#4e7a40'], ['crimson', 12, '#d6243a'], ['gold', 15, '#ffc43c']];
+  var DECALS = ['🇫🇷', '🇹🇳', '🇲🇦', '🇩🇿', '🇹🇷', '🇧🇪', '🇨🇭', '🇨🇦', '🇺🇸', '🇬🇧', '🇩🇪', '🇮🇹', '🇪🇸', '🇵🇹', '🇧🇷', '🇯🇵', '🇸🇦', '🇪🇬', '🔥', '⚡', '⭐', '🦅', '🐺', '💀'], DECAL_PRICE = 3;
+  var online = { model: 'a', models: { a: 1 }, finish: 'std', finishes: { std: 1 }, decal: '', decals: {}, parts: {} };
+  try {
+    var so = JSON.parse(localStorage.getItem('droneStrikeOnline') || 'null');
+    if (so && typeof so === 'object') for (var ok0 in online) if (so[ok0] !== undefined && typeof so[ok0] === typeof online[ok0]) online[ok0] = so[ok0];
+  } catch (err) { /* ignore */ }
+  function saveOnline() { try { localStorage.setItem('droneStrikeOnline', JSON.stringify(online)); } catch (err) { /* ignore */ } }
+  var GEM = '<svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z" fill="#5ef0ff"/><path d="M2 9h20M7 3l5 18 5-18M7 3 9.5 9 12 3l2.5 6L17 3" fill="none" stroke="#0a6b8a" stroke-width="1.3" stroke-linejoin="round"/></svg>';
   // Achats par jeu (drone + difficulté) : améliorations, bonus en stock, designs
   var UPG = [['cannon', [800, 2500], '#f5f7ff'], ['armor', [150, 300, 500, 800, 1200], '#5dff9b'], ['rate', [200, 400, 650, 950, 1300], '#ffd166'],
              ['power', [600, 1400, 2600], '#ff4d6d'], ['engine', [150, 300, 500, 750], '#4fd8ff'], ['dash', [200, 450, 800], '#7df0e0'],
@@ -1366,7 +1445,7 @@
       if (!cfg.notif || !pool.t || pool.n >= POOL_MAX || pool.t + POOL_MS <= Date.now() + 2000) { ln.cancel({ notifications: [{ id: 1 }] }).catch(none); return; }
       var at = new Date(pool.t + POOL_MS);
       var go = function () {
-        ln.schedule({ notifications: [{ id: 1, title: 'Dronefang', body: tr('notifBody'), schedule: { at: at, allowWhileIdle: true } }] }).catch(none);
+        ln.schedule({ notifications: [{ id: 1, title: 'Drone Strike Field', body: tr('notifBody'), schedule: { at: at, allowWhileIdle: true } }] }).catch(none);
       };
       ln.checkPermissions().then(function (r) { if (r && r.display === 'granted') go(); }).catch(none);
     } catch (err) { /* notifications indisponibles */ }
@@ -1586,7 +1665,7 @@
     var st = state, c = tr('colon');
     startBtn.textContent = st === 'menu' ? tr('playWave', { n: cWave(cfg.diff, cfg.drone) }) : tr('retryWave');
     if (typeof optPlay !== 'undefined' && optPlay) optPlay.textContent = '\u25B6  ' + tr('startNew');
-    if (st === 'menu') { elTitle.textContent = 'DRONEFANG'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
+    if (st === 'menu') { elTitle.textContent = 'DRONE STRIKE FIELD'; elSub.textContent = tr(isTouch ? 'introTouch' : 'intro'); }
     else if (st === 'pause') { elTitle.textContent = tr('pauseTitle'); elSub.textContent = isTouch ? tr('pausedTouch') : tr('pausedKey', { k: labelFor(cfg.bind.pause) }); }
     else if (st === 'down') { elTitle.textContent = tr('downed'); elSub.textContent = lives > 0 ? tr('downSub', { n: lives }) : tr('destroyed'); }
     else if (st === 'clear' && lastRes) {
@@ -1595,7 +1674,8 @@
       elStats.innerHTML = esc(tr('st_score')) + c + '<strong>' + lastRes.score + '</strong><br>' +
         (lastRes.bonus ? esc(tr('st_noLife')) + c + '<strong>+' + lastRes.bonus + '</strong><br>' + esc(tr('st_total')) + c + '<strong>' + lastRes.total + '</strong><br>' : '') +
         esc(tr('st_bestWave')) + c + '<strong>' + lastRes.best + '</strong><br>' +
-        esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.credits + '</strong>';
+        esc(tr('st_credits')) + c + '<strong class="coin">+' + lastRes.credits + '</strong>' +
+        (lastRes.gems ? '<br>' + esc(tr('st_diamonds')) + c + '<strong class="gemTxt">+' + lastRes.gems + '</strong> ' + GEM : '');
     }
     resumeBtn.hidden = st !== 'pause'; quitBtn.hidden = st !== 'pause';
     reviveBtn.hidden = !(st === 'down' && lives > 0);
@@ -1618,7 +1698,8 @@
       var cg = cGet(cfg.diff, cfg.drone);
       document.getElementById('heroName').innerHTML = cg && cg.nm ? esc(cg.nm) + ' <small>· ' + esc(tr('d_' + cfg.drone)) + ' · ' + esc(tr(cfg.diff)) + '</small>' : esc(tr('d_' + cfg.drone)) + ' <small>· ' + esc(tr(cfg.diff)) + '</small>';
       document.getElementById('heroChips').innerHTML = '<span class="hchip">' + esc(tr('p_wave')) + ' <b>' + (cGet(cfg.diff, cfg.drone) || { p: 0 }).p + '/' + TOTAL + '</b></span>' +
-        '<span class="hchip gold">' + esc(tr('credits')) + ' <b>' + bank.c + '</b></span>';
+        '<span class="hchip gold">' + esc(tr('credits')) + ' <b>' + bank.c + '</b></span>' +
+        '<span class="hchip gemc">' + GEM + ' <b>' + bank.d + '</b></span>';
     }
     if (isTouch) {
       elKeys.innerHTML = '<b>' + esc(tr('h_leftThumb')) + '</b><span>' + esc(tr('h_dragFly')) + '</span>' +
@@ -1845,7 +1926,9 @@
     shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>', gun: '<path d="M5 12 19 6M5 12h15M5 12l14 6"/>'
   };
   function icon(id) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[id] + '</svg>'; }
-  var shopTab = 'bonus', renaming = false;
+  var shopTab = 'bonus', renaming = false, onSub = 'parts';
+  var OICON = { hull: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12h6"/>', turbo: '<path d="M4 14a8 8 0 1 1 16 0"/><path d="m12 14 4-5"/><path d="M4 18h16"/>', cannon: '<path d="M3 10h13v4H3zM16 11h5v2h-5zM6 14v4h4v-4"/>',
+    shield: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/>', missile: '<path d="M5 19 15 9l3-6 3 3-6 3L5 19z"/><path d="M8 13l-3-1-2 2 3 1M11 16l1 3-2 2-1-3"/>', radar: '<circle cx="12" cy="12" r="8.5"/><path d="M12 12l6-4M12 3.500v3M12 12a3 3 0 1 0 3 3"/>' };
   var UICON = {
     cannon: '<path d="M4 7h13M4 12h16M4 17h13"/>', armor: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>', rate: '<path d="M13 3 5 13h6l-1 8 8-10h-6z"/>',
     power: '<path d="M12 3l2.5 6 6.5.5-5 4.2 1.6 6.3L12 16.6 6.4 20l1.6-6.3-5-4.2 6.5-.5z"/>', engine: '<circle cx="12" cy="12" r="2.5"/><path d="M12 9.5C12 6 14 4 16 5s1 4-2 5.5M14.2 13.2c3 1.7 3.8 4.4 2 5.6s-4-.9-4.2-4.3M9.8 13.2c-3 1.8-5.7 1-5.8-1.2s2.900-3.100 5.800-1.400"/>',
@@ -1860,10 +1943,10 @@
         ? '<input id="nameInput" maxlength="18" value="' + esc(c.nm || '') + '" placeholder="' + esc(gName(cfg.diff, cfg.drone)) + '" aria-label="' + esc(tr('renameGame')) + '"><button data-act="nameOk">OK</button>'
         : '<span class="gn">' + esc(gName(cfg.diff, cfg.drone)) + '</span><button class="pen" data-act="rename" aria-label="' + esc(tr('renameGame')) + '">' + PEN + '</button>';
     }
-    var tabs = [['bonus', 'tabBonus'], ['work', 'tabWork'], ['skin', 'tabSkin']];
+    var tabs = [['bonus', 'tabBonus'], ['work', 'tabWork'], ['skin', 'tabSkin'], ['online', 'tabOnline']];
     for (i = 0; i < tabs.length; i++) h += '<button data-tab="' + tabs[i][0] + '" class="' + (shopTab === tabs[i][0] ? 'on' : '') + '">' + esc(tr(tabs[i][1])) + '</button>';
     document.getElementById('shopTabs').innerHTML = h;
-    document.getElementById('shopSum').innerHTML = esc(tr('credits')) + '<strong>' + bank.c + '</strong>';
+    document.getElementById('shopSum').innerHTML = shopTab === 'online' ? GEM + '<strong class="gemTxt">' + bank.d + '</strong>' : esc(tr('credits')) + '<strong>' + bank.c + '</strong>';
     h = '';
     if (shopTab === 'bonus') {
       h = '<div class="shopGrid">';
@@ -1883,6 +1966,42 @@
           '<button data-up="' + uid + '"' + (full || bank.c < pr[lv] ? ' disabled' : '') + '>' + (full ? esc(tr('maxed')) : pr[lv]) + '</button></div>';
       }
       h += '</div>';
+    } else if (shopTab === 'online') {
+      var sub = [['parts', 'onParts'], ['skins', 'onSkins'], ['decals', 'onDecals']], ob = '';
+      for (i = 0; i < sub.length; i++) ob += '<button data-osub="' + sub[i][0] + '" class="' + (onSub === sub[i][0] ? 'on' : '') + '">' + esc(tr(sub[i][1])) + '</button>';
+      h = '<div class="onWrap"><div class="onPrev"><canvas id="onPrev" width="190" height="150"></canvas><div class="seg onSeg">' + ob + '</div></div><div class="onBody">';
+      if (onSub === 'parts') {
+        h += '<div class="upGrid">';
+        for (i = 0; i < OPARTS.length; i++) {
+          var pid = OPARTS[i][0], plv = Math.min(3, online.parts[pid] | 0), pips2 = '';
+          for (var q2 = 0; q2 < 3; q2++) pips2 += '<i class="' + (q2 < plv ? 'f' : '') + '"></i>';
+          h += '<div class="upCard' + (plv >= 3 ? ' maxed' : '') + '" style="--c:' + OPARTS[i][1] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + OICON[pid] + '</svg>' +
+            '<span class="nm">' + esc(tr('p_' + pid)) + '</span><span class="pp">' + pips2 + '</span>' +
+            '<button data-opart="' + pid + '"' + (plv >= 3 || bank.d < OP_PRICE[plv] ? ' disabled' : '') + '>' + (plv >= 3 ? esc(tr('maxed')) : OP_PRICE[plv] + ' ' + GEM) + '</button></div>';
+        }
+        h += '</div>';
+      } else if (onSub === 'skins') {
+        h += '<p class="onLbl">' + esc(tr('onModel')) + '</p><div class="omGrid">';
+        for (i = 0; i < OMODELS.length; i++) {
+          var mid = OMODELS[i][0], mo = !!online.models[mid], me = online.model === mid, sn = '';
+          for (var z = 0; z < SKINS.length; z++) if (SKINS[z].id === mid) sn = SKINS[z].name;
+          h += '<button class="omCard' + (me ? ' eq' : '') + '" data-omodel="' + mid + '"' + (!mo && bank.d < OMODELS[i][1] ? ' disabled' : '') + '><canvas data-omprev="' + mid + '" width="78" height="58"></canvas><b>' + sn + '</b><small>' + (me ? esc(tr('equipped')) : mo ? esc(tr('equip')) : OMODELS[i][1] + ' ' + GEM) + '</small></button>';
+        }
+        h += '</div><p class="onLbl">' + esc(tr('onFinish')) + '</p><div class="ofRow">';
+        for (i = 0; i < OFIN.length; i++) {
+          var fid = OFIN[i][0], fo = !!online.finishes[fid], fe = online.finish === fid;
+          h += '<button class="ofChip' + (fe ? ' eq' : '') + '" data-ofin="' + fid + '"' + (!fo && bank.d < OFIN[i][1] ? ' disabled' : '') + '><i style="background:' + OFIN[i][2] + '"></i><span>' + esc(tr('f_' + fid)) + '</span><small>' + (fo ? (fe ? '\u2713' : '') : OFIN[i][1] + ' ' + GEM) + '</small></button>';
+        }
+        h += '</div>';
+      } else {
+        h += '<div class="dcGrid"><button class="dcChip' + (!online.decal ? ' eq' : '') + '" data-odecal=""><span class="dn">\u2205</span><small>' + esc(tr('noDecal')) + '</small></button>';
+        for (i = 0; i < DECALS.length; i++) {
+          var dc = DECALS[i], dow = !!online.decals[dc], deq = online.decal === dc;
+          h += '<button class="dcChip' + (deq ? ' eq' : '') + '" data-odecal="' + dc + '"' + (!dow && bank.d < DECAL_PRICE ? ' disabled' : '') + '><span class="em">' + dc + '</span><small>' + (dow ? (deq ? '\u2713' : '') : DECAL_PRICE + ' ' + GEM) + '</small></button>';
+        }
+        h += '</div>';
+      }
+      h += '</div></div>';
     } else {
       h = '<div class="skinGrid">';
       for (i = 0; i < SKINS.length; i++) {
@@ -1897,7 +2016,7 @@
     }
     var body = document.getElementById('shopBody');
     if (body.getAttribute('data-sig') !== h) { body.innerHTML = h; body.setAttribute('data-sig', h); }
-    document.getElementById('shopHint').textContent = shopTab === 'bonus' ? tr(isTouch ? 'shopHintTouch' : 'shopHint') : tr('shopGameOnly');
+    document.getElementById('shopHint').textContent = shopTab === 'bonus' ? tr(isTouch ? 'shopHintTouch' : 'shopHint') : shopTab === 'online' ? tr('onHint') : tr('shopGameOnly');
   }
   function saveName() {
     var inp = document.getElementById('nameInput');
@@ -1907,8 +2026,15 @@
   document.getElementById('shopBtn').addEventListener('click', function () { showView('shop'); });
   document.getElementById('shopBack').addEventListener('click', function () { showView('main'); });
   shopView.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('[data-buy],[data-up],[data-skin-buy],[data-skin-eq],[data-tab],[data-act]') : null;
+    var el = e.target && e.target.closest ? e.target.closest('[data-buy],[data-up],[data-skin-buy],[data-skin-eq],[data-tab],[data-act],[data-osub],[data-opart],[data-omodel],[data-ofin],[data-odecal]') : null;
     if (!el || el.disabled) return;
+    if (el.hasAttribute('data-osub')) { onSub = el.getAttribute('data-osub'); renderShop(); fitDirty = true; return; }
+    var oc = 0, oid;
+    if (el.hasAttribute('data-opart')) { oid = el.getAttribute('data-opart'); var lv0 = online.parts[oid] | 0; if (lv0 < 3) { oc = OP_PRICE[lv0]; if (bank.d < oc) return; online.parts[oid] = lv0 + 1; } else return; }
+    else if (el.hasAttribute('data-omodel')) { oid = el.getAttribute('data-omodel'); if (!online.models[oid]) { for (var a1 = 0; a1 < OMODELS.length; a1++) if (OMODELS[a1][0] === oid) oc = OMODELS[a1][1]; if (bank.d < oc) return; online.models[oid] = 1; } online.model = oid; }
+    else if (el.hasAttribute('data-ofin')) { oid = el.getAttribute('data-ofin'); if (!online.finishes[oid]) { for (var a2 = 0; a2 < OFIN.length; a2++) if (OFIN[a2][0] === oid) oc = OFIN[a2][1]; if (bank.d < oc) return; online.finishes[oid] = 1; } online.finish = oid; }
+    else if (el.hasAttribute('data-odecal')) { oid = el.getAttribute('data-odecal'); if (oid && !online.decals[oid]) { oc = DECAL_PRICE; if (bank.d < oc) return; online.decals[oid] = 1; } online.decal = oid; }
+    if (oid !== undefined) { bank.d -= oc; saveBank(); saveOnline(); initAudio(); beep(oc ? 990 : 660, 0.12, 'triangle', 0.06, oc ? 1480 : 990); renderAll(); return; }
     var c = G(), id, price = 0, i, ok = false;
     if (el.hasAttribute('data-tab')) { shopTab = el.getAttribute('data-tab'); renaming = false; renderAll(); return; }
     if (el.hasAttribute('data-act')) {
@@ -2099,11 +2225,13 @@
     var c = cEnsure(gameDiff, gameDrone);
     var bonus = usedLife ? 0 : Math.round(score * 0.25), total = score + bonus, prev = c.s[wave] || 0;
     if (total > prev) c.s[wave] = total;
+    var firstWin = wave > c.p, gems = 0;
+    if (firstWin && wave % 5 === 0) { gems = ({ easy: 1, normal: 2, hard: 3 }[gameDiff] || 1) * (wave % WAVES === 0 ? 3 : 1); bank.d += gems; }
     if (wave > c.p) c.p = wave;
     c.k += kills; c.n++; c.d = Date.now(); saveCamp();
     var earned = Math.max(1, Math.round(total * CREDIT_RATE));
     bank.c += earned; saveBank();
-    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned };
+    lastRes = { score: score, bonus: bonus, total: total, best: Math.max(prev, total), rec: prev > 0 && total > prev, credits: earned, gems: gems };
     elStats.hidden = false; elKeys.hidden = true;
     showView('main');
     overlay.classList.remove('hidden');
@@ -2679,12 +2807,13 @@
       addPoly(m, [[0.520, 0], [0.250, 0.075], [0.02, 0.06], [0.02, -0.06], [0.250, -0.075]], 0.3, 0.335, 0.8, acc, 1);
       rbox(m, -0.640, 0, 0.06, 0.05, 0.2, 0.1, 0, '#ff8a3d', 1);
       guns3(m, cannons, 0.5, 0.06, acc);
+      m.top = [-0.1, 0, 0.300];
     } else if (skin === 'd') {
       var hb = [[0.780, 0], [0.460, 0.170], [-0.460, 0.210], [-0.7, 0.08], [-0.7, -0.08], [-0.460, -0.210], [0.460, -0.170]], ha = [0.660, -0.660, 2.450, -2.450];
       for (i = 0; i < 4; i++) {
         a = ha[i];
         var hl = i < 2 ? 0.780 : 0.920;
-        rbox(m, Math.cos(a) * (hl + 0.240) / 2, Math.sin(a) * (hl + 0.240) / 2, 0.07, hl - 0.240, 0.08, 0.05, a, '#1b1e28');
+        rbox(m, Math.cos(a) * (hl + 0.240) / 2, Math.sin(a) * (hl + 0.240) / 2, 0.07, hl - 0.240, 0.09, 0.06, a, '#4a5163');
         addPoly(m, ngon(Math.cos(a) * hl, Math.sin(a) * hl, 0.130, 8), 0.02, 0.2, 1, '#ffc93c');
         addPoly(m, ngon(Math.cos(a) * hl, Math.sin(a) * hl, 0.06, 6), 0.2, 0.240, 1, acc, 1);
         m.rot.push({ x: Math.cos(a) * hl, y: Math.sin(a) * hl, z: 0.270, r: i < 2 ? 0.3 : 0.360 });
@@ -2695,6 +2824,7 @@
       rbox(m, -0.640, 0, 0.180, 0.320, 0.04, 0.240, 0, '#1b1e28'); rbox(m, -0.640, 0, 0.420, 0.320, 0.05, 0.03, 0, acc, 1);
       rbox(m, -0.880, 0, 0.08, 0.360, 0.05, 0.05, 0, '#ff8a3d', 1);
       guns3(m, cannons, 0.5, 0.08, acc);
+      m.top = [-0.250, 0, 0.300];
     } else if (skin === 'c') {
       for (i = 0; i < 6; i++) {
         a = i * Math.PI / 3 + Math.PI / 6;
@@ -2708,6 +2838,7 @@
       addPoly(m, ngon(0, 0, 0.440, 12), 0.03, 0.140, 1, '#e3e7ef'); addPoly(m, ngon(0, 0, 0.440, 12), 0.140, 0.270, 0.720, '#c4cbd9');
       addPoly(m, ngon(0, 0, 0.3, 12), 0.270, 0.380, 0.450, acc, 1);
       guns3(m, cannons, 0.360, 0.08, acc);
+      m.top = [-0.240, 0, 0.300];
     } else {
       var hexB = [[0.5, 0], [0.3, 0.270], [-0.320, 0.270], [-0.5, 0.1], [-0.5, -0.1], [-0.320, -0.270], [0.3, -0.270]];
       for (i = 0; i < 4; i++) {
@@ -2720,7 +2851,9 @@
       addPoly(m, hexB, 0.02, 0.160, 1, '#d5dde9'); addPoly(m, hexB, 0.160, 0.260, 0.680, '#f2f5fa');
       addPoly(m, ngon(0.05, 0, 0.130, 6), 0.260, 0.310, 0.6, acc, 1);
       guns3(m, cannons, 0.450, 0.1, acc);
+      m.top = [-0.260, 0, 0.260];
     }
+    m.bsp = buildBSP(m.f.map(function (f) { return { v: f.v, n: f.n, c: f.c, e: f.e }; }), 0);
     m.pc = {};
     var cnt = {};
     for (i = 0; i < m.f.length; i++) { var pf = m.f[i], pp = m.pc[pf.p] || (m.pc[pf.p] = [0, 0, 0]); pp[0] += pf.fc[0]; pp[1] += pf.fc[1]; pp[2] += pf.fc[2]; cnt[pf.p] = (cnt[pf.p] | 0) + 1; }
@@ -2728,25 +2861,75 @@
     modelCache[key] = m;
     return m;
   }
+  function polyPlane(pl) { return pl.n[0] * pl.v[0][0] + pl.n[1] * pl.v[0][1] + pl.n[2] * pl.v[0][2]; }
+  function splitPoly(pl, n, d, fr, bk, co) {
+    var EPS = 1e-6, ds = [], i, nf = 0, nb = 0;
+    for (i = 0; i < pl.v.length; i++) { var dd = n[0] * pl.v[i][0] + n[1] * pl.v[i][1] + n[2] * pl.v[i][2] - d; ds.push(dd); if (dd > EPS) nf++; else if (dd < -EPS) nb++; }
+    if (!nf && !nb) { co.push(pl); return; }
+    if (!nb) { fr.push(pl); return; }
+    if (!nf) { bk.push(pl); return; }
+    var F = [], B = [];
+    for (i = 0; i < pl.v.length; i++) {
+      var j = (i + 1) % pl.v.length, a = pl.v[i], b = pl.v[j], da = ds[i], db = ds[j];
+      if (da >= -EPS) F.push(a); if (da <= EPS) B.push(a);
+      if ((da > EPS && db < -EPS) || (da < -EPS && db > EPS)) {
+        var t = da / (da - db), x = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+        F.push(x); B.push(x);
+      }
+    }
+    if (F.length >= 3) fr.push({ v: F, n: pl.n, c: pl.c, e: pl.e });
+    if (B.length >= 3) bk.push({ v: B, n: pl.n, c: pl.c, e: pl.e });
+  }
+  function buildBSP(list, depth) {
+    if (!list.length) return null;
+    var best = 0, bestCost = 1e9, step = Math.max(1, Math.floor(list.length / 24)), i, k;
+    if (depth < 60) for (i = 0; i < list.length; i += step) {
+      var n = list[i].n, d = polyPlane(list[i]), sp = 0, fC = 0, bC = 0;
+      for (k = 0; k < list.length; k++) {
+        if (k === i) continue;
+        var pf = 0, pb = 0;
+        for (var q = 0; q < list[k].v.length; q++) { var dd = n[0] * list[k].v[q][0] + n[1] * list[k].v[q][1] + n[2] * list[k].v[q][2] - d; if (dd > 1e-6) pf = 1; else if (dd < -1e-6) pb = 1; }
+        if (pf && pb) sp++; else if (pf) fC++; else if (pb) bC++;
+      }
+      var cost = sp * 8 + Math.abs(fC - bC);
+      if (cost < bestCost) { bestCost = cost; best = i; }
+    }
+    var sp0 = list[best], node = { n: sp0.n, d: polyPlane(sp0), co: [sp0], f: null, b: null }, fr = [], bk = [];
+    for (i = 0; i < list.length; i++) if (i !== best) splitPoly(list[i], node.n, node.d, fr, bk, node.co);
+    node.f = buildBSP(fr, depth + 1); node.b = buildBSP(bk, depth + 1);
+    return node;
+  }
+  var FINISH = { std: null, gold: [[255, 196, 60], 0.72], carbon: [[44, 48, 58], 0.78], desert: [[205, 172, 112], 0.62], arctic: [[236, 246, 255], 0.55], crimson: [[214, 36, 58], 0.62], jungle: [[78, 122, 64], 0.65] };
   var L3 = (function () { var v = [-0.450, -0.550, 0.7], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
-  function draw3D(m, cx, cy, sc, yaw, tilt, lx, ly, alpha, t, flash, shadow) {
+  function draw3D(m, cx, cy, sc, yaw, tilt, lx, ly, alpha, t, flash, shadow, opt) {
     var cyw = Math.cos(yaw), syw = Math.sin(yaw), ct = Math.cos(tilt), st = Math.sin(tilt), ca = Math.cos(lx), sa = Math.sin(lx), cb = Math.cos(ly), sb = Math.sin(ly);
-    var items = [], i, j, f, n, q, pdep = {};
+    var items = [], i, j, f, n, q;
     function tf(pt) {
       var x = pt[0] * cyw - pt[1] * syw, y = pt[0] * syw + pt[1] * cyw, z = pt[2];
       var x2 = x * ca + z * sa, z2 = -x * sa + z * ca;
       return [x2, y * cb + z2 * sb, -y * sb + z2 * cb];
     }
-    for (var pk in m.pc) { q = tf(m.pc[pk]); pdep[pk] = q[1] * st + q[2] * ct; }
-    for (i = 0; i < m.f.length; i++) {
-      f = m.f[i]; n = tf(f.n);
-      if (n[1] * st + n[2] * ct <= 0.01) continue;
-      var pts = [], dep = 0;
-      for (j = 0; j < f.v.length; j++) { q = tf(f.v[j]); pts.push(cx + q[0] * sc, cy + (q[1] * ct - q[2] * st) * sc); dep += q[1] * st + q[2] * ct; }
-      var lam = Math.max(0, n[0] * L3[0] + n[1] * L3[1] + n[2] * L3[2]), b = f.e ? 1 : 0.3 + 0.850 * lam;
-      items.push({ pd: pdep[f.p], d: dep / f.v.length, p: pts, col: flash ? '#ffffff' : 'rgb(' + Math.min(255, f.c[0] * b | 0) + ',' + Math.min(255, f.c[1] * b | 0) + ',' + Math.min(255, f.c[2] * b | 0) + ')', e: f.e });
+    var fin = opt && opt.finish && FINISH[opt.finish];
+    function walk(node) {
+      if (!node) return;
+      var tn = tf(node.n), front = tn[1] * st + tn[2] * ct > 0;
+      walk(front ? node.b : node.f);
+      for (var a = 0; a < node.co.length; a++) {
+        f = node.co[a]; n = tf(f.n);
+        if (n[1] * st + n[2] * ct <= 0.005) continue;
+        var pts = [];
+        for (j = 0; j < f.v.length; j++) { q = tf(f.v[j]); pts.push(cx + q[0] * sc, cy + (q[1] * ct - q[2] * st) * sc); }
+        var lam = Math.max(0, n[0] * L3[0] + n[1] * L3[1] + n[2] * L3[2]), b = f.e ? 1 : 0.3 + 0.850 * lam, c = f.c;
+        if (fin && !f.e) c = [c[0] + (fin[0][0] - c[0]) * fin[1], c[1] + (fin[0][1] - c[1]) * fin[1], c[2] + (fin[0][2] - c[2]) * fin[1]];
+        items.push({ p: pts, col: flash ? '#ffffff' : 'rgb(' + Math.min(255, c[0] * b | 0) + ',' + Math.min(255, c[1] * b | 0) + ',' + Math.min(255, c[2] * b | 0) + ')' });
+      }
+      walk(front ? node.f : node.b);
     }
-    for (i = 0; i < m.rot.length; i++) { q = tf([m.rot[i].x, m.rot[i].y, m.rot[i].z]); items.push({ pd: q[1] * st + q[2] * ct + 0.02, d: 0, rx: cx + q[0] * sc, ry: cy + (q[1] * ct - q[2] * st) * sc, r: m.rot[i].r * sc, k: i }); }
+    walk(m.bsp);
+    var rots = [];
+    for (i = 0; i < m.rot.length; i++) { q = tf([m.rot[i].x, m.rot[i].y, m.rot[i].z]); rots.push({ pd: q[1] * st + q[2] * ct, rx: cx + q[0] * sc, ry: cy + (q[1] * ct - q[2] * st) * sc, r: m.rot[i].r * sc, k: i }); }
+    rots.sort(function (u, v) { return u.pd - v.pd; });
+    items = items.concat(rots);
     items.sort(function (u, v) { return (u.pd - v.pd) || (u.d - v.d); });
     ctx.save();
     ctx.globalAlpha = alpha;
@@ -2760,14 +2943,35 @@
         for (j = 2; j < it.p.length; j += 2) ctx.lineTo(it.p[j], it.p[j + 1]);
         ctx.closePath(); ctx.fill(); ctx.stroke();
       } else {
-        var sp = t * 34 * (it.k % 2 ? 1 : -1) + it.k;
-        ctx.fillStyle = 'rgba(200, 225, 255, 0.160)'; ctx.beginPath(); ctx.ellipse(it.rx, it.ry, it.r, it.r * ct, 0, 0, TAU); ctx.fill();
-        ctx.strokeStyle = 'rgba(225, 238, 255, 0.6)'; ctx.lineWidth = 1.400;
-        ctx.beginPath(); ctx.moveTo(it.rx + Math.cos(sp) * it.r, it.ry + Math.sin(sp) * it.r * ct); ctx.lineTo(it.rx - Math.cos(sp) * it.r, it.ry - Math.sin(sp) * it.r * ct); ctx.stroke();
-        ctx.lineWidth = 0.7;
+        var sp = t * 34 * (it.k % 2 ? 1 : -1) + it.k, rr = it.r * 0.96;
+        ctx.fillStyle = 'rgba(200, 225, 255, 0.130)'; ctx.beginPath(); ctx.ellipse(it.rx, it.ry, it.r, it.r * ct, 0, 0, TAU); ctx.fill();
+        ctx.strokeStyle = 'rgba(210, 232, 255, 0.300)'; ctx.lineWidth = 0.9; ctx.stroke();
+        ctx.strokeStyle = 'rgba(235, 244, 255, 0.800)'; ctx.lineWidth = Math.max(1.200, it.r * 0.090); ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(it.rx + Math.cos(sp) * rr, it.ry + Math.sin(sp) * rr * ct); ctx.lineTo(it.rx - Math.cos(sp) * rr, it.ry - Math.sin(sp) * rr * ct);
+        ctx.stroke(); ctx.lineCap = 'butt'; ctx.lineWidth = 0.7;
       }
     }
+    if (opt && opt.flag && m.top) {
+      q = tf(m.top);
+      var fx = cx + q[0] * sc, fy = cy + (q[1] * ct - q[2] * st) * sc, fs = sc * 0.420;
+      ctx.save(); ctx.translate(fx, fy); ctx.scale(1, Math.max(0.45, ct + 0.15));
+      ctx.globalAlpha = alpha; ctx.fillStyle = '#ffffff'; ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; ctx.shadowBlur = 3; ctx.font = Math.round(fs) + 'px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(opt.flag, 0, 0);
+      ctx.restore();
+    }
     ctx.restore();
+  }
+  function drawOnlinePreviews(t) {
+    var opt = { finish: online.finish, flag: online.decal };
+    drawOn(document.getElementById('onPrev'), 190, 150, function () {
+      var gr = ctx.createRadialGradient(95, 80, 4, 95, 80, 95);
+      if (gr && gr.addColorStop) { gr.addColorStop(0, 'rgba(94, 240, 255, 0.22)'); gr.addColorStop(1, 'rgba(94, 240, 255, 0)'); ctx.fillStyle = gr; ctx.fillRect(0, 0, 190, 150); }
+      draw3D(getModel(online.model, '#5ef0ff', 1 + Math.min(2, online.parts.cannon | 0)), 95, 82 + Math.sin(t * 2) * 3, 58, t * 0.6, 0.950, 0, 0, 1, t, false, true, opt);
+    });
+    var cs = shopView.querySelectorAll('canvas[data-omprev]');
+    for (var i = 0; i < cs.length; i++) (function (cv, i) {
+      drawOn(cv, 78, 58, function () { draw3D(getModel(cv.getAttribute('data-omprev'), '#5ef0ff', 1), 39, 32, 24, t * 0.7 + i, 0.950, 0, 0, online.models[cv.getAttribute('data-omprev')] ? 1 : 0.6, t, false, false, { finish: online.finish }); });
+    })(cs[i], i);
   }
   function drawSkinPreviews(t) {
     var cs = shopView.querySelectorAll('canvas[data-skin]'), mainCtx = ctx, c = G();
@@ -3111,6 +3315,7 @@
     if (view === 'home') drawHome(ts / 1000);
     if (view === 'games') drawGamePreviews(ts / 1000);
     if (view === 'shop' && shopTab === 'skin') drawSkinPreviews(ts / 1000);
+    if (view === 'shop' && shopTab === 'online') drawOnlinePreviews(ts / 1000);
     frameN = (frameN || 0) + 1;
     if (frameN % 60 === 1) checkLivesBack();
     if (state === 'menu' && view === 'main' && frameN % 20 === 0) updateLivesInfo();
@@ -3119,7 +3324,7 @@
   requestAnimationFrame(frame);
 
   // test hook
-  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, d3: function (cv, skin, yaw, tilt, x, y, sc) { var mc = ctx; ctx = cv.getContext('2d'); draw3D(getModel(skin, '#4fd8ff', 3), x, y, sc, yaw, tilt, 0, 0, 1, 0.3, false, true); ctx = mc; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
+  window.__drone = { start: startGame, get: function () { return { state: state, player: player, enemies: enemies, score: score, wave: wave, bullets: bullets, lives: lives }; }, revive: revive, startWave: startWave, bank: bank, camp: function () { return camp; }, inv: INV, G: G, genMap: genMap, mapInfo: mapInfo, useItem: useItem, mouse: mouse, keys: function () { return keys; }, cfg: cfg, assign: assign, bossInfo: bossInfo, gallery: function (c) { var m = ctx; ctx = c.getContext('2d'); ctx.fillStyle = '#0b1322'; ctx.fillRect(0, 0, c.width, c.height); for (var i = 0; i < 12; i++) drawBoss({ x: 110 + (i % 6) * 200, y: 110 + Math.floor(i / 6) * 210, r: 46 * BOSSES[i % 6].scale, bd: BOSSES[i % 6], tier: i < 6 ? 0 : 1, hd: -Math.PI / 2, flash: 0, spawn: 0, cloak: 0 }); ctx = m; }, obstacles: function () { return obstacles; }, d3: function (cv, skin, yaw, tilt, x, y, sc, opt) { var mc = ctx; ctx = cv.getContext('2d'); draw3D(getModel(skin, '#4fd8ff', 3), x, y, sc, yaw, tilt, 0, 0, 1, 0.3, false, true, opt); ctx = mc; }, goMenu: goMenu, goHome: goHome, newGame: function (d, dr, n) { cfg.diff = d; cfg.drone = dr; return makeGame(d, dr, n); }, selectGame: selectGame, view: function () { return view; }, pickups: function () { return pickups; }, sticks: sticks, setTouch: setTouch };
 })();
 </script>
 </body>

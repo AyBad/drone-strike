@@ -118,20 +118,20 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: dronefang-apk
+          name: drone-strike-field-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Publier l'APK (lien de téléchargement fixe)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk "dronefang-v$APP_VERSION.apk"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "drone-strike-field-v$APP_VERSION.apk"
           cp android/app/build/outputs/apk/debug/app-debug.apk drone-strike.apk
           TAG="v$APP_VERSION"
           gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
-          gh release create "$TAG" "dronefang-v$APP_VERSION.apk" drone-strike.apk \
+          gh release create "$TAG" "drone-strike-field-v$APP_VERSION.apk" drone-strike.apk \
             --target "${{ github.sha }}" --latest \
-            --title "Dronefang V$APP_VERSION ($(TZ=Europe/Paris date '+%d/%m/%Y %H:%M'))" \
+            --title "Drone Strike Field V$APP_VERSION ($(TZ=Europe/Paris date '+%d/%m/%Y %H:%M'))" \
             --notes "$(git log -1 --pretty=%B | sed '/^Co-Authored-By/d;/^Claude-Session/d')"
           # garder les 10 dernières versions
           gh release list --limit 100 --json tagName,createdAt -q 'sort_by(.createdAt) | reverse | .[10:] | .[].tagName' |
