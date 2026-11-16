@@ -747,6 +747,25 @@
     .bootIn h1 { font-size: 26px; }
   }
   @media (max-width: 700px) and (orientation: portrait) { .stGrid { grid-template-columns: 1fr 1fr; } .pfWrap { grid-template-columns: 1fr; } }
+  /* ---------- Clavier intégré ---------- */
+  #vk { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(600px, 100vw); z-index: 900; background: rgba(8, 14, 26, 0.97); border: 1px solid #2a6f9c; border-bottom: 0; border-radius: 16px 16px 0 0; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.55); user-select: none; -webkit-user-select: none; }
+  #vk.num { width: min(360px, 100vw); }
+  .vkTop { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .vkVal { flex: 1; min-width: 0; height: 30px; display: flex; align-items: center; padding: 0 10px; border-radius: 8px; background: #0a1220; border: 1px solid #ffd166; color: #ffffff; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; }
+  .vkPh { color: #56667f; font-weight: 500; margin-left: 2px; }
+  .vkCaret { display: inline-block; width: 2px; height: 18px; background: #ffd166; margin-left: 1px; animation: vkBlink 1s steps(1) infinite; }
+  @keyframes vkBlink { 50% { opacity: 0; } }
+  .vkOk { padding: 6px 16px; font-size: 13px; letter-spacing: 1px; background: linear-gradient(90deg, #5dff9b, #22c46a); }
+  .vkKeys { display: flex; flex-direction: column; gap: 4px; }
+  .vkRow { display: flex; gap: 4px; justify-content: center; }
+  .vkK { flex: 1 1 0; max-width: 70px; height: 34px; padding: 0; border-radius: 7px; background: #1b2a42; border: 1px solid #2a3d5c; color: #e6f1ff; font-size: 16px; font-weight: 700; letter-spacing: 0; text-transform: none; box-shadow: 0 2px 0 #0a1220; }
+  .vkK:active { background: #2f4a72; transform: translateY(1px); }
+  .vkK.k_shift.on { background: #ffd166; color: #04121c; }
+  .vkK.k_sp { flex: 6 1 0; max-width: 300px; } .vkK.k_123, .vkK.k_abc { flex: 1.4 1 0; max-width: 80px; font-size: 13px; } .vkK.k_ok { flex: 1.6 1 0; max-width: 110px; background: linear-gradient(90deg, #5dff9b, #22c46a); color: #04121c; }
+  .vkK.k_bk, .vkK.k_shift { flex: 1.4 1 0; max-width: 90px; }
+  #vk.num .vkK { max-width: 64px; height: 38px; }
+  input.vkTarget { outline: 2px solid #ffd166; outline-offset: 1px; }
+  @media (max-height: 400px) { .vkK { height: 27px; font-size: 14px; } .vkKeys { gap: 3px; } .vkRow { gap: 3px; } .vkVal { height: 26px; font-size: 14px; } .vkTop { margin-bottom: 3px; } #vk { padding: 4px 6px 4px; } }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -760,6 +779,7 @@
 <div id="itemBar" hidden></div>
 <div id="verTag"></div>
 <div id="toast" role="status" hidden></div>
+<div id="vk" hidden><div class="vkTop"><span class="vkVal" id="vkVal"></span><button class="vkOk" data-k="ok">OK</button></div><div class="vkKeys" id="vkKeys"></div></div>
 <div id="overlay">
   <div class="panel" id="panel">
     <div id="homeView" hidden>
@@ -806,8 +826,8 @@
           <p class="onLbl" data-i18n="avatar"></p>
           <div class="pfAvs" id="pfAvs"></div>
           <div class="pfFields">
-            <label><span data-i18n="pseudo"></span><input id="pfNick" maxlength="16" autocomplete="off"></label>
-            <label class="age"><span data-i18n="age"></span><input id="pfAge" type="number" min="5" max="99" inputmode="numeric"></label>
+            <label><span data-i18n="pseudo"></span><input id="pfNick" maxlength="16" autocomplete="off" data-vk="text"></label>
+            <label class="age"><span data-i18n="age"></span><input id="pfAge" maxlength="2" inputmode="numeric" data-vk="num"></label>
           </div>
           <div class="pfAct"><p class="stNote" data-i18n="profileNote"></p><button id="pfSave" data-i18n="saveProfile"></button></div>
         </div>
@@ -945,7 +965,7 @@
           <p id="nextNote" hidden data-i18n="nextNote"></p>
         </section>
       </div>
-      <div class="playBar"><input id="newName" maxlength="18" autocomplete="off" data-i18n-aria="gameNamePh" aria-label="Nom du jeu"><button id="optPlay"></button></div>
+      <div class="playBar"><input id="newName" maxlength="18" autocomplete="off" data-vk="text" data-i18n-aria="gameNamePh" aria-label="Nom du jeu"><button id="optPlay"></button></div>
       <p id="fullNote" hidden data-i18n="maxGames"></p>
     </div>
     <div id="pathView" hidden>
@@ -1013,7 +1033,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.1';
+  var APP_VERSION = '1.2';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -2146,6 +2166,7 @@
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
+    if (typeof closeVK === 'function' && vkIn) closeVK();
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
     homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; evoView.hidden = v !== 'evo'; storeView.hidden = v !== 'store'; profileView.hidden = v !== 'profile'; delArm = ''; if (v !== 'hangar' && v !== 'evo') hg.try = null;
     mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game'; pathView.hidden = v !== 'path'; shopView.hidden = v !== 'shop';
@@ -2359,6 +2380,59 @@
     showToast(tr('gearsBought', { n: fmtN(g[0]) }));
     renderAll();
   });
+  // ---------- Clavier intégré (le clavier du téléphone réduisait l'écran de jeu) ----------
+  var vkIn = null, vkShift = false, vkMode = 'abc', vkOpenAt = 0;
+  var VK_ABC = [['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'], ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'], ['shift', 'w', 'x', 'c', 'v', 'b', 'n', 'bk'], ['123', 'sp', '-']];
+  var VK_123 = [['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], ['_', '.', '!', '?', '#', '@', 'bk'], ['abc', 'sp', '-']];
+  function vkRender() {
+    var num = vkIn && vkIn.getAttribute('data-vk') === 'num', h = '';
+    var rows = num ? [['1', '2', '3', '4', '5'], ['6', '7', '8', '9', '0'], ['bk']] : vkMode === '123' ? VK_123 : VK_ABC;
+    rows.forEach(function (r) {
+      h += '<div class="vkRow">';
+      r.forEach(function (k) {
+        var lab = k === 'bk' ? '⌫' : k === 'shift' ? '⇧' : k === 'sp' ? '␣' : k === '123' ? '123' : k === 'abc' ? 'ABC' : (vkShift ? k.toUpperCase() : k);
+        h += '<button class="vkK k_' + k + (k === 'shift' && vkShift ? ' on' : '') + '" data-k="' + k + '">' + lab + '</button>';
+      });
+      h += '</div>';
+    });
+    document.getElementById('vkKeys').innerHTML = h;
+    document.getElementById('vk').classList.toggle('num', num);
+    vkShow();
+  }
+  function vkShow() { var v = vkIn ? vkIn.value : ''; document.getElementById('vkVal').innerHTML = esc(v || '') + '<i class="vkCaret"></i>' + (v ? '' : '<span class="vkPh">' + esc(vkIn && vkIn.placeholder || '') + '</span>'); }
+  function openVK(inp) {
+    if (!inp) return;
+    inp.readOnly = true; vkIn = inp; vkShift = inp.getAttribute('data-vk') === 'text' && !inp.value; vkMode = 'abc'; vkOpenAt = Date.now();
+    document.querySelectorAll('.vkTarget').forEach(function (x) { x.classList.remove('vkTarget'); });
+    inp.classList.add('vkTarget');
+    document.getElementById('vk').hidden = false; vkRender();
+  }
+  function closeVK() {
+    if (vkIn) vkIn.classList.remove('vkTarget');
+    vkIn = null; document.getElementById('vk').hidden = true;
+  }
+  document.addEventListener('pointerdown', function (e) {
+    var t = e.target;
+    if (!isTouch) return;
+    if (t && t.closest && t.closest('#vk')) return;
+    if (t && t.tagName === 'INPUT' && t.hasAttribute('data-vk')) { t.readOnly = true; e.preventDefault(); openVK(t); return; }
+    if (vkIn) closeVK();
+  }, true);
+  document.getElementById('vk').addEventListener('pointerdown', function (e) { e.preventDefault(); }, false);
+  document.getElementById('vk').addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-k]') : null;
+    if (!b || !vkIn || Date.now() - vkOpenAt < 350) return;
+    var k = b.getAttribute('data-k'), v = vkIn.value, max = vkIn.maxLength > 0 ? vkIn.maxLength : 18;
+    vib(8);
+    if (k === 'ok') { var tgt = vkIn; closeVK(); if (tgt.id === 'nameInput') saveName(); return; }
+    if (k === 'shift') { vkShift = !vkShift; vkRender(); return; }
+    if (k === '123' || k === 'abc') { vkMode = k === '123' ? '123' : 'abc'; vkRender(); return; }
+    if (k === 'bk') v = v.slice(0, -1);
+    else if (v.length < max) { v += k === 'sp' ? ' ' : (vkShift ? k.toUpperCase() : k); if (vkShift && k !== 'sp') { vkShift = false; } }
+    vkIn.value = v;
+    try { vkIn.dispatchEvent(new Event('input', { bubbles: true })); } catch (err) { /* ignore */ }
+    vkRender();
+  });
   // ---------- Profil ----------
   var AVATARS = ['🦅', '🐺', '🦊', '🐯', '🤖', '👽', '🐉', '💀'];
   var profile = { nick: '', age: 0, av: '🦅', photo: '' }, pfDraft = null;
@@ -2382,7 +2456,7 @@
     if (el && pfDraft) { pfDraft.av = el.getAttribute('data-av'); pfDraft.photo = ''; renderProfile(); }
   });
   document.getElementById('pfNick').addEventListener('input', function (e) { if (pfDraft) pfDraft.nick = e.target.value.replace(/[<>]/g, '').slice(0, 16); });
-  document.getElementById('pfAge').addEventListener('input', function (e) { if (pfDraft) pfDraft.age = Math.max(0, Math.min(99, parseInt(e.target.value, 10) || 0)); });
+  document.getElementById('pfAge').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2); if (pfDraft) pfDraft.age = Math.max(0, Math.min(99, parseInt(e.target.value, 10) || 0)); });
   document.getElementById('pfFile').addEventListener('change', function (e) {
     var f = e.target.files && e.target.files[0];
     if (!f || !pfDraft) return;
@@ -2609,7 +2683,7 @@
     var c = G(), h = '', i, nb = document.getElementById('gameNameBox');
     if (!(renaming && document.getElementById('nameInput') && nb.firstChild)) {
       nb.innerHTML = renaming
-        ? '<input id="nameInput" maxlength="18" value="' + esc(c.nm || '') + '" placeholder="' + esc(gName(cfg.diff, cfg.drone)) + '" aria-label="' + esc(tr('renameGame')) + '"><button data-act="nameOk">OK</button>'
+        ? '<input id="nameInput" data-vk="text" maxlength="18" value="' + esc(c.nm || '') + '" placeholder="' + esc(gName(cfg.diff, cfg.drone)) + '" aria-label="' + esc(tr('renameGame')) + '"><button data-act="nameOk">OK</button>'
         : '<span class="gn">' + esc(gName(cfg.diff, cfg.drone)) + '</span><button class="pen" data-act="rename" aria-label="' + esc(tr('renameGame')) + '">' + PEN + '</button>';
     }
     var tabs = [['bonus', 'tabBonus'], ['work', 'tabWork'], ['skin', 'tabSkin']];
@@ -2663,7 +2737,7 @@
     if (!el || el.disabled) return;
     if (el.hasAttribute('data-tab')) { shopTab = el.getAttribute('data-tab'); renaming = false; renderAll(); return; }
     if (el.hasAttribute('data-act')) {
-      if (el.getAttribute('data-act') === 'rename') { renaming = true; renderShop(); var inp = document.getElementById('nameInput'); if (inp && inp.focus) inp.focus(); }
+      if (el.getAttribute('data-act') === 'rename') { renaming = true; renderShop(); var inp = document.getElementById('nameInput'); if (inp) { if (isTouch) openVK(inp); else if (inp.focus) inp.focus(); } }
       else saveName();
       return;
     }

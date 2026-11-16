@@ -42,6 +42,7 @@ jobs:
           $pkg
 
           import android.os.Bundle;
+          import android.view.WindowManager;
           import androidx.core.view.WindowCompat;
           import androidx.core.view.WindowInsetsCompat;
           import androidx.core.view.WindowInsetsControllerCompat;
@@ -52,6 +53,7 @@ jobs:
               public void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
                   getWindow().getDecorView().setBackgroundColor(0xFF070B14);
+                  getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                   hideSystemBars();
               }
 
@@ -101,7 +103,7 @@ jobs:
         run: sed -i 's/<activity/<activity android:screenOrientation="sensorLandscape"/' android/app/src/main/AndroidManifest.xml
 
       - name: Déclarer l'application comme un jeu
-        run: sed -i 's/<application/<application android:appCategory="game"/' android/app/src/main/AndroidManifest.xml
+        run: sed -i 's/<application/<application android:appCategory="game" android:isGame="true"/' android/app/src/main/AndroidManifest.xml
 
       - name: Autoriser la vibration et les notifications
         run: |
