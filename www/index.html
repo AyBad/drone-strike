@@ -384,6 +384,7 @@
     .chFrame { padding: 10px; font-size: 14px; }
   }
   @media (prefers-reduced-motion: reduce) { #mainView.isMenu h1, #mainView.isMenu .btns button, #mainView.isMenu #startBtn, .chFrame.open { animation: none; } }
+  #verTag { position: fixed; z-index: 6; right: 10px; bottom: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #56667f; pointer-events: none; }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -394,6 +395,7 @@
   <button id="dashBtn" data-i18n="dodgeBtn">ESQUIVE</button>
 </div>
 <div id="itemBar" hidden></div>
+<div id="verTag"></div>
 <div id="toast" role="status" hidden></div>
 <div id="overlay">
   <div class="panel" id="panel">
@@ -550,6 +552,7 @@
 <script>
 (function () {
   'use strict';
+  var APP_VERSION = '0.1';
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -1397,7 +1400,7 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  function renderAll() { fitDirty = true; var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0;
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
