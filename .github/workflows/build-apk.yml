@@ -5,6 +5,9 @@ on:
   push:
     branches: [main, master]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -94,3 +97,17 @@ jobs:
         with:
           name: drone-strike-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publier l'APK (lien de téléchargement fixe)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          N=${{ github.run_number }}
+          cp android/app/build/outputs/apk/debug/app-debug.apk drone-strike.apk
+          gh release create "build-$N" drone-strike.apk \
+            --target "${{ github.sha }}" --latest \
+            --title "Drone Strike – build $N ($(TZ=Europe/Paris date '+%d/%m/%Y %H:%M'))" \
+            --notes "$(git log -1 --pretty=%s)"
+          # garder les 10 dernières versions
+          gh release list --limit 100 --json tagName,createdAt -q 'sort_by(.createdAt) | reverse | .[10:] | .[].tagName' |
+            while read -r t; do gh release delete "$t" --yes --cleanup-tag; done

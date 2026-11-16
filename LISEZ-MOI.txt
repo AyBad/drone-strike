@@ -1,14 +1,10 @@
-DRONE STRIKE - Mettre à jour l'APK
+DRONE STRIKE - Télécharger l'application Android
 
-1. Sur GitHub, ouvrez votre dépôt drone-strike.
-2. "Add file" > "Upload files" : glissez le dossier www et le fichier
-   debug.keystore de ce dossier, puis "Commit changes".
-3. Ouvrez .github/workflows/build-apk.yml dans le dépôt, cliquez sur le crayon,
-   remplacez tout le contenu par celui du fichier build-apk.yml de ce dossier,
-   puis "Commit changes".
-4. Onglet "Actions" : attendez la coche verte de la DERNIÈRE exécution, ouvrez-la
-   et téléchargez "drone-strike-apk" en bas de page.
-5. Sur le téléphone : désinstallez l'ancienne version de Drone Strike (une seule
-   fois), puis installez le nouvel app-debug.apk.
+Lien fixe, toujours vers la dernière version :
+https://github.com/AyBad/drone-strike/releases/latest/download/drone-strike.apk
 
-Pour les mises à jour suivantes, seul www/index.html sera à remplacer.
+Ouvrez ce lien sur le téléphone, puis ouvrez le fichier téléchargé pour
+installer la mise à jour par-dessus l'ancienne version.
+
+Les 10 dernières versions restent disponibles ici :
+https://github.com/AyBad/drone-strike/releases
