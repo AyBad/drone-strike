@@ -1,11 +1,11 @@
 DRONE STRIKE - Télécharger l'application Android
 
-Lien fixe, toujours vers la dernière version (à ouvrir dans Chrome) :
+Page de la dernière version (fichier drone-strike-vX.Y.apk, à ouvrir dans Chrome) :
+https://github.com/AyBad/drone-strike/releases/latest
+
+Lien direct (toujours la dernière version, nom de fichier sans numéro) :
 https://github.com/AyBad/drone-strike/releases/latest/download/drone-strike.apk
 
-Ouvrez le fichier téléchargé pour installer la mise à jour par-dessus
-l'ancienne version. Le numéro de version (V0.1, V0.2...) est affiché en bas à
-droite du menu.
-
-Les 10 dernières versions restent disponibles ici :
+Le numéro de version est affiché en bas à droite du menu du jeu.
+Les 10 dernières versions restent disponibles :
 https://github.com/AyBad/drone-strike/releases
