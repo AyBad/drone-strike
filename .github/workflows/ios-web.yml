@@ -3,10 +3,14 @@ name: Version iPhone (web installable)
 on:
   workflow_dispatch:
   push:
-    branches: [ios]
+    branches: [ios, v2]
 
 permissions:
   contents: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -14,25 +18,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Préparer le site (version de test DSF Test)
+      - name: Préparer le site
         run: |
           VER=$(grep -oP "APP_VERSION = '\K[0-9.]+" www/index.html)
-          mkdir site
-          cp -r www/. site/
-          sed -i 's/var TEST_MODE = false;/var TEST_MODE = true;/' site/index.html
-          sed -i 's|<title>Drone Strike Field</title>|<title>DSF Test</title>|; s|content="Drone Strike Field">|content="DSF Test">|' site/index.html
-          sed -i 's/"name": "Drone Strike Field"/"name": "DSF Test"/; s/"short_name": "Drone Strike Field"/"short_name": "DSF Test"/' site/manifest.webmanifest
-          sed -i "s/var CACHE = 'dsf-v1';/var CACHE = 'dsf-test-$VER-${{ github.run_number }}';/" site/sw.js
-          touch site/.nojekyll
-          grep -q 'var TEST_MODE = true;' site/index.html
-          grep -q '"DSF Test"' site/manifest.webmanifest
+          if [ "${{ github.ref_name }}" = "v2" ]; then DIR=v2; NAME="DSF V2"; else DIR=.; NAME="DSF Test"; fi
+          echo "DIR=$DIR" >> $GITHUB_ENV
+          mkdir out
+          cp -r www/. out/
+          sed -i 's/var TEST_MODE = false;/var TEST_MODE = true;/' out/index.html
+          sed -i "s|<title>Drone Strike Field</title>|<title>$NAME</title>|; s|content=\"Drone Strike Field\">|content=\"$NAME\">|" out/index.html
+          sed -i "s/\"name\": \"Drone Strike Field\"/\"name\": \"$NAME\"/; s/\"short_name\": \"Drone Strike Field\"/\"short_name\": \"$NAME\"/" out/manifest.webmanifest
+          sed -i "s/var CACHE = 'dsf-v1';/var CACHE = 'dsf-$DIR-$VER-${{ github.run_number }}';/" out/sw.js
+          grep -q 'var TEST_MODE = true;' out/index.html
+          grep -q "\"$NAME\"" out/manifest.webmanifest
 
-      - name: Publier sur la branche gh-pages
+      - name: Publier sur la branche gh-pages (sans écraser l'autre version)
         run: |
-          cd site
-          git init -q -b gh-pages
+          URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if git clone -q --depth 1 -b gh-pages "$URL" pages; then :; else mkdir pages && cd pages && git init -q -b gh-pages && git remote add origin "$URL" && cd ..; fi
+          cd pages
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
+          if [ "$DIR" = "." ]; then
+            find . -mindepth 1 -maxdepth 1 ! -name .git ! -name v2 -exec rm -rf {} +
+          else
+            rm -rf "$DIR" && mkdir -p "$DIR"
+          fi
+          cp -r ../out/. "$DIR"/
+          touch .nojekyll
           git add -A
-          git commit -q -m "DSF Test (iPhone) depuis ${{ github.sha }}"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
+          git commit -q -m "${{ github.ref_name }} depuis ${{ github.sha }}" || echo "rien à publier"
+          git push -q origin gh-pages
