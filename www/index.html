@@ -600,6 +600,7 @@
   .hgFight svg { width: 16px; height: 16px; }
   .hgHint { justify-content: flex-end; left: auto; right: 14px; top: 12px; bottom: auto; }
   .evMis svg { fill: #8a94a8; } .evMis.on svg { fill: #ffffff; }
+  .evMis.kz.on { background: linear-gradient(160deg, #c2185b, #5a1030); border-color: #ff6b9d; }
   .buyBtn .gem path:first-child { fill: #04121c !important; } .buyBtn .gem path:last-child { stroke: #5ef0ff !important; }
   #hgBuy .smallBtn { flex: none; padding: 7px 10px; font-size: 12px; letter-spacing: 0.5px; }
   .gem path:first-child { fill: #5ef0ff !important; stroke: none !important; } .gem path:last-child { fill: none !important; stroke: #0a6b8a !important; }
@@ -750,6 +751,8 @@
   /* ---------- Clavier intégré ---------- */
   #vk { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(600px, 100vw); z-index: 900; background: rgba(8, 14, 26, 0.97); border: 1px solid #2a6f9c; border-bottom: 0; border-radius: 16px 16px 0 0; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.55); user-select: none; -webkit-user-select: none; }
   #vk.num { width: min(360px, 100vw); }
+  .vkSug { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 6px; } .vkSug[hidden] { display: none; }
+  .vkSug .chip { flex: none; padding: 6px 12px; font-size: 13px; } .vkSug .langNone { color: #8fa6c4; font-size: 13px; padding: 6px 4px; }
   .vkTop { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
   .vkVal { flex: 1; min-width: 0; height: 30px; display: flex; align-items: center; padding: 0 10px; border-radius: 8px; background: #0a1220; border: 1px solid #ffd166; color: #ffffff; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; }
   .vkPh { color: #56667f; font-weight: 500; margin-left: 2px; }
@@ -776,6 +779,16 @@
   .shopCard button, .upCard button, .skinCard button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
   .shopCard button .coin, .upCard button .coin, .skinCard button .coin { width: 15px; height: 15px; }
   button, .htile, .hbtn { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+  /* ---------- Sélecteur de langue ---------- */
+  .langPick { position: relative; }
+  .langCur { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: #0a1220; border: 1px solid #2a6f9c; color: #e6f1ff; font-size: 15px; letter-spacing: 0; text-align: start; }
+  .langCur b { color: #4fd8ff; font-size: 13px; letter-spacing: 1px; } .langCur span { flex: 1; } .langCur i { font-style: normal; color: #8fa6c4; }
+  .langPop { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+  .langPop[hidden] { display: none; }
+  #langSearch { font: inherit; font-size: 14px; padding: 8px 12px; border-radius: 10px; border: 1px solid #2a6f9c; background: #0a1220; color: #ffffff; user-select: text; }
+  .langList { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; max-height: 150px; overflow-y: auto; }
+  .langNone { margin: 4px 0; color: #8fa6c4; font-size: 13px; }
+  body.rtl p, body.rtl small, body.rtl span, body.rtl b, body.rtl h2, body.rtl em, body.rtl strong, body.rtl label { unicode-bidi: plaintext; }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -789,7 +802,7 @@
 <div id="itemBar" hidden></div>
 <div id="verTag"></div>
 <div id="toast" role="status" hidden></div>
-<div id="vk" hidden><div class="vkTop"><span class="vkVal" id="vkVal"></span><button class="vkOk" data-k="ok">OK</button></div><div class="vkKeys" id="vkKeys"></div></div>
+<div id="vk" hidden><div class="vkSug" id="vkSug"></div><div class="vkTop"><span class="vkVal" id="vkVal"></span><button class="vkOk" data-k="ok">OK</button></div><div class="vkKeys" id="vkKeys"></div></div>
 <div id="overlay">
   <div class="panel" id="panel">
     <div id="homeView" hidden>
@@ -918,13 +931,12 @@
       <div class="setGrid">
         <section class="card">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-i18n="language">Langue</span></div>
-          <div class="langGrid">
-            <button class="chip" data-opt="lang" data-val="fr" lang="fr"><b>FR</b>Français</button>
-            <button class="chip" data-opt="lang" data-val="en" lang="en"><b>EN</b>English</button>
-            <button class="chip" data-opt="lang" data-val="es" lang="es"><b>ES</b>Español</button>
-            <button class="chip" data-opt="lang" data-val="it" lang="it"><b>IT</b>Italiano</button>
-            <button class="chip" data-opt="lang" data-val="zh" lang="zh"><b>ZH</b>中文</button>
-            <button class="chip" data-opt="lang" data-val="ru" lang="ru"><b>RU</b>Русский</button>
+          <div class="langPick">
+            <button class="langCur" id="langCur"></button>
+            <div class="langPop" id="langPop" hidden>
+              <input id="langSearch" maxlength="20" autocomplete="off" data-vk="text">
+              <div class="langList" id="langList"></div>
+            </div>
           </div>
         </section>
         <section class="card">
@@ -1043,7 +1055,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.5';
+  var APP_VERSION = '1.6';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = false;
   var canvas = document.getElementById('game');
@@ -1339,317 +1351,324 @@
   }
 
   // ---------- Langues ----------
-  var LANGS = ['fr', 'en', 'es', 'it', 'zh', 'ru'];
+  var LANGS = ['fr', 'en', 'es', 'it', 'zh', 'ru', 'ar', 'fa', 'ja', 'ko'];
+  var RTL = { ar: 1, fa: 1 };
+  var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'] };
   var T = {
-    play: ['JOUER', 'PLAY', 'JUGAR', 'GIOCA', '开始游戏', 'ИГРАТЬ'],
-    restart: ['RECOMMENCER', 'RESTART', 'REINICIAR', 'RICOMINCIA', '重新开始', 'ЗАНОВО'],
-    replay: ['REJOUER', 'PLAY AGAIN', 'VOLVER A JUGAR', 'RIGIOCA', '再玩一次', 'ЕЩЁ РАЗ'],
-    resume: ['REPRENDRE', 'RESUME', 'CONTINUAR', 'RIPRENDI', '继续', 'ПРОДОЛЖИТЬ'],
-    settings: ['PARAMÈTRES', 'SETTINGS', 'AJUSTES', 'IMPOSTAZIONI', '设置', 'НАСТРОЙКИ'],
-    quit: ['QUITTER', 'QUIT', 'SALIR', 'ESCI', '退出', 'ВЫЙТИ'],
-    back: ['RETOUR', 'BACK', 'VOLVER', 'INDIETRO', '返回', 'НАЗАД'],
-    language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык'],
-    sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук'],
-    notifNote: ['Activez les notifications pour être prévenu quand vos 3 vies sont rechargées.', 'Turn on notifications to be told when your 3 lives are refilled.', 'Activa las notificaciones para saber cuándo se recargan tus 3 vidas.', 'Attiva le notifiche per sapere quando le tue 3 vite sono ricaricate.', '开启通知，3 条生命恢复满时提醒你。', 'Включите уведомления, чтобы узнать, когда все 3 жизни восстановятся.'],
-    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Drone Strike Field).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Drone Strike Field).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike Field).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Drone Strike Field).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Drone Strike Field）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Drone Strike Field).'],
-    diamonds: ['Diamants', 'Diamonds', 'Diamantes', 'Diamanti', '钻石', 'Алмазы'],
-    st_diamonds: ['Diamants gagnés', 'Diamonds earned', 'Diamantes ganados', 'Diamanti guadagnati', '获得钻石', 'Получено алмазов'],
-    tabOnline: ['En ligne', 'Online', 'En línea', 'Online', '在线', 'Онлайн'],
-    onParts: ['Pièces', 'Parts', 'Piezas', 'Pezzi', '部件', 'Детали'],
-    onSkins: ['Designs', 'Designs', 'Diseños', 'Design', '外观', 'Дизайны'],
-    onDecals: ['Décors', 'Decals', 'Adornos', 'Decorazioni', '贴纸', 'Наклейки'],
-    onHint: ['Achats en diamants pour votre drone du mode en ligne, communs à tous vos jeux. Les diamants se gagnent en battant un colosse pour la première fois.', 'Diamond purchases for your online drone, shared by all your games. Earn diamonds by beating a colossus for the first time.', 'Compras con diamantes para tu dron en línea, comunes a todas tus partidas. Los diamantes se ganan al vencer a un coloso por primera vez.', 'Acquisti in diamanti per il tuo drone online, comuni a tutte le partite. I diamanti si ottengono battendo un colosso per la prima volta.', '用钻石为在线无人机购买物品，所有存档通用。首次击败巨像可获得钻石。', 'Покупки за алмазы для онлайн-дрона, общие для всех игр. Алмазы даются за первую победу над колоссом.'],
-    onModel: ['Modèle', 'Model', 'Modelo', 'Modello', '机型', 'Модель'],
-    onFinish: ['Finition', 'Finish', 'Acabado', 'Finitura', '涂装', 'Покраска'],
-    noDecal: ['Aucun', 'None', 'Ninguno', 'Nessuno', '无', 'Нет'],
-    p_hull: ['Blindage', 'Hull', 'Blindaje', 'Corazza', '装甲', 'Броня'],
-    p_turbo: ['Turbo', 'Turbo', 'Turbo', 'Turbo', '涡轮', 'Турбо'],
-    p_cannon: ['Canon lourd', 'Heavy cannon', 'Cañón pesado', 'Cannone pesante', '重炮', 'Тяжёлая пушка'],
-    p_shield: ['Bouclier', 'Shield', 'Escudo', 'Scudo', '护盾', 'Щит'],
-    p_missile: ['Missiles', 'Missiles', 'Misiles', 'Missili', '导弹', 'Ракеты'],
-    p_radar: ['Radar', 'Radar', 'Radar', 'Radar', '雷达', 'Радар'],
-    f_std: ['Origine', 'Stock', 'Original', 'Originale', '原厂', 'Базовая'],
-    f_gold: ['Or', 'Gold', 'Oro', 'Oro', '黄金', 'Золото'],
-    f_carbon: ['Carbone', 'Carbon', 'Carbono', 'Carbonio', '碳纤维', 'Карбон'],
-    f_desert: ['Désert', 'Desert', 'Desierto', 'Deserto', '沙漠', 'Пустыня'],
-    f_arctic: ['Arctique', 'Arctic', 'Ártico', 'Artico', '极地', 'Арктика'],
-    f_crimson: ['Cramoisi', 'Crimson', 'Carmesí', 'Cremisi', '赤红', 'Багрянец'],
-    f_jungle: ['Jungle', 'Jungle', 'Selva', 'Giungla', '丛林', 'Джунгли'],
-    onlineDrone: ['DRONE DE COMBAT EN LIGNE', 'ONLINE COMBAT DRONE', 'DRON DE COMBATE EN LÍNEA', 'DRONE DA COMBATTIMENTO ONLINE', '在线战斗无人机', 'БОЕВОЙ ДРОН ОНЛАЙН'],
-    store: ['STORE', 'STORE', 'TIENDA', 'STORE', '商店', 'МАГАЗИН'],
-    profile: ['PROFIL', 'PROFILE', 'PERFIL', 'PROFILO', '个人资料', 'ПРОФИЛЬ'],
-    stGems: ['Diamants', 'Diamonds', 'Diamantes', 'Diamanti', '钻石', 'Алмазы'],
-    stGears: ['Roues dentées', 'Gears', 'Engranajes', 'Ingranaggi', '齿轮', 'Шестерёнки'],
-    freeGems: ['Diamants gratuits', 'Free diamonds', 'Diamantes gratis', 'Diamanti gratis', '免费钻石', 'Бесплатные алмазы'],
-    freeGemsTxt: ['Battez des colosses en mode hors ligne', 'Beat colossi in offline mode', 'Vence colosos en modo sin conexión', 'Sconfiggi colossi in modalità offline', '在离线模式击败巨像', 'Побеждайте колоссов офлайн'],
-    playOffline: ['JOUER HORS LIGNE', 'PLAY OFFLINE', 'JUGAR SIN CONEXIÓN', 'GIOCA OFFLINE', '离线游戏', 'ИГРАТЬ ОФЛАЙН'],
-    payNote: ['Paiement par carte bancaire via Google Play, activé à la publication sur le Play Store. Moins de 18 ans : demandez l\'accord d\'un parent.', 'Card payment through Google Play, enabled once the game is on the Play Store. Under 18: ask a parent first.', 'Pago con tarjeta a través de Google Play, activo al publicarse en Play Store. Menores de 18: pide permiso a un adulto.', 'Pagamento con carta tramite Google Play, attivo con la pubblicazione sul Play Store. Minori di 18 anni: chiedete a un genitore.', '通过 Google Play 使用银行卡付款，上架 Play 商店后开放。未满 18 岁请先征得家长同意。', 'Оплата картой через Google Play станет доступна после публикации в Play Store. До 18 лет — спросите родителей.'],
-    payUnavailable: ['Le paiement sera disponible après la publication du jeu sur le Play Store.', 'Payment will be available once the game is published on the Play Store.', 'El pago estará disponible cuando el juego se publique en Play Store.', 'Il pagamento sarà disponibile dopo la pubblicazione sul Play Store.', '游戏上架 Play 商店后即可付款。', 'Оплата станет доступна после публикации игры в Play Store.'],
-    gearNote: ['Les roues dentées servent à améliorer le drone de combat en ligne.', 'Gears upgrade your online combat drone.', 'Los engranajes mejoran tu dron de combate en línea.', 'Gli ingranaggi potenziano il drone da combattimento online.', '齿轮用于升级在线战斗无人机。', 'Шестерёнки улучшают боевой дрон онлайн.'],
-    gearsBought: ['+{n} roues dentées !', '+{n} gears!', '¡+{n} engranajes!', '+{n} ingranaggi!', '+{n} 齿轮！', '+{n} шестерёнок!'],
-    avatar: ['Avatar', 'Avatar', 'Avatar', 'Avatar', '头像', 'Аватар'],
-    photoBtn: ['Photo', 'Photo', 'Foto', 'Foto', '照片', 'Фото'],
-    pseudo: ['Pseudo', 'Nickname', 'Apodo', 'Nickname', '昵称', 'Ник'],
-    pseudoPh: ['Votre pseudo', 'Your nickname', 'Tu apodo', 'Il tuo nickname', '你的昵称', 'Ваш ник'],
-    age: ['Âge', 'Age', 'Edad', 'Età', '年龄', 'Возраст'],
-    saveProfile: ['ENREGISTRER', 'SAVE', 'GUARDAR', 'SALVA', '保存', 'СОХРАНИТЬ'],
-    profileSaved: ['Profil enregistré.', 'Profile saved.', 'Perfil guardado.', 'Profilo salvato.', '资料已保存。', 'Профиль сохранён.'],
-    profileNote: ['Votre profil sera visible par les autres pilotes en mode en ligne.', 'Your profile will be visible to other pilots online.', 'Tu perfil será visible para otros pilotos en línea.', 'Il tuo profilo sarà visibile agli altri piloti online.', '在线模式中其他玩家可以看到你的资料。', 'Профиль будет виден другим пилотам онлайн.'],
-    loading: ['Chargement', 'Loading', 'Cargando', 'Caricamento', '加载中', 'Загрузка'],
-    chShort: ['Ch. {n}', 'Ch. {n}', 'Cap. {n}', 'Cap. {n}', '第 {n} 章', 'Гл. {n}'],
-    tabUp: ['Amélioration', 'Upgrade', 'Mejora', 'Potenziamento', '升级', 'Улучшение'],
-    tabSkins: ['Skins', 'Skins', 'Skins', 'Skin', '皮肤', 'Скины'],
-    tabThemes2: ['Revêtements', 'Wraps', 'Revestimientos', 'Rivestimenti', '涂装', 'Покрытия'],
-    power: ['Puissance', 'Power', 'Poder', 'Potenza', '战力', 'Мощь'],
-    st_hp: ['Vie', 'HP', 'Vida', 'Vita', '生命', 'Жизнь'],
-    st_atk: ['Attaque', 'Attack', 'Ataque', 'Attacco', '攻击', 'Атака'],
-    st_def: ['Défense', 'Defense', 'Defensa', 'Difesa', '防御', 'Защита'],
-    missiles: ['Missiles', 'Missiles', 'Misiles', 'Missili', '导弹', 'Ракеты'],
-    nextMissile: ['prochain au Niv. {n}', 'next at Lv. {n}', 'siguiente en Nv. {n}', 'prossimo al Liv. {n}', '{n} 级获得下一枚', 'след. на ур. {n}'],
-    lvShort: ['Niv. {n}', 'Lv. {n}', 'Nv. {n}', 'Liv. {n}', '{n} 级', 'Ур. {n}'],
-    stepOf: ['Étape {a}/{b}', 'Step {a}/{b}', 'Paso {a}/{b}', 'Fase {a}/{b}', '阶段 {a}/{b}', 'Этап {a}/{b}'],
-    evoAt: ['Évolution {m} au Niv. {n}', '{m} evolution at Lv. {n}', 'Evolución {m} en Nv. {n}', 'Evoluzione {m} al Liv. {n}', '{n} 级进化为 {m}', 'Эволюция {m} на ур. {n}'],
-    upgradeBtn: ['AMÉLIORER', 'UPGRADE', 'MEJORAR', 'POTENZIA', '升级', 'УЛУЧШИТЬ'],
-    evoBtn: ['Aperçu de l\'évolution', 'Evolution preview', 'Vista de evolución', 'Anteprima evoluzione', '进化预览', 'Обзор эволюции'],
-    evoTitle: ['APERÇU DE L\'ÉVOLUTION', 'EVOLUTION PREVIEW', 'VISTA DE EVOLUCIÓN', 'ANTEPRIMA EVOLUZIONE', '进化预览', 'ОБЗОР ЭВОЛЮЦИИ'],
-    unlocked: ['Déverrouillé', 'Unlocked', 'Desbloqueado', 'Sbloccato', '已解锁', 'Открыто'],
-    unlockAt: ['Débloquer au Niv. {n}', 'Unlock at Lv. {n}', 'Desbloquear en Nv. {n}', 'Sblocca al Liv. {n}', '{n} 级解锁', 'Откроется на ур. {n}'],
-    evoDesc0: ['Le drone de départ, agile et polyvalent.', 'The starter drone, agile and versatile.', 'El dron inicial, ágil y versátil.', 'Il drone iniziale, agile e versatile.', '初始无人机，灵活全能。', 'Стартовый дрон, ловкий и универсальный.'],
-    evoDesc1: ['Bimoteur rapide à double dérive. Bonus : statistiques +25 %.', 'Fast twin-engine fighter. Bonus: stats +25%.', 'Bimotor rápido. Bonus: estadísticas +25 %.', 'Bimotore veloce. Bonus: statistiche +25%.', '高速双发战机。加成：属性 +25%。', 'Быстрый двухмоторный истребитель. Бонус: +25% к характеристикам.'],
-    evoDesc2: ['Aile volante furtive. Bonus : statistiques +50 %.', 'Stealth flying wing. Bonus: stats +50%.', 'Ala volante furtiva. Bonus: estadísticas +50 %.', 'Ala volante stealth. Bonus: statistiche +50%.', '隐身飞翼。加成：属性 +50%。', 'Малозаметное летающее крыло. Бонус: +50% к характеристикам.'],
-    evoDesc3: ['Cuirassé lourd à quatre nacelles. Bonus : statistiques +75 %.', 'Heavy four-fan gunship. Bonus: stats +75%.', 'Acorazado pesado de cuatro rotores. Bonus: estadísticas +75 %.', 'Corazzata pesante a quattro rotori. Bonus: statistiche +75%.', '四涵道重型炮艇。加成：属性 +75%。', 'Тяжёлый четырёхвинтовой ганшип. Бонус: +75% к характеристикам.'],
-    evoDone: ['ÉVOLUTION : {n} !', 'EVOLUTION: {n}!', '¡EVOLUCIÓN: {n}!', 'EVOLUZIONE: {n}!', '进化：{n}！', 'ЭВОЛЮЦИЯ: {n}!'],
-    newMissile: ['NOUVEAU MISSILE ! ({n})', 'NEW MISSILE! ({n})', '¡NUEVO MISIL! ({n})', 'NUOVO MISSILE! ({n})', '新导弹！({n})', 'НОВАЯ РАКЕТА! ({n})'],
-    lvUp: ['NIVEAU {n} !', 'LEVEL {n}!', '¡NIVEL {n}!', 'LIVELLO {n}!', '等级 {n}！', 'УРОВЕНЬ {n}!'],
-    noGears: ['Pas assez de roues dentées : gagnez-en en terminant des vagues.', 'Not enough gears: earn them by clearing waves.', 'No hay suficientes engranajes: gánalos superando oleadas.', 'Ingranaggi insufficienti: ottienili completando ondate.', '齿轮不足：完成波次即可获得。', 'Не хватает шестерёнок: проходите волны.'],
-    st_gears: ['Roues dentées', 'Gears', 'Engranajes', 'Ingranaggi', '齿轮', 'Шестерёнки'],
-    sk_x: ['Traîneau Polaire', 'Polar Sleigh', 'Trineo Polar', 'Slitta Polare', '极地雪橇', 'Полярные сани'],
-    skBase: ['Évolue avec le niveau', 'Evolves with level', 'Evoluciona con el nivel', 'Evolve con il livello', '随等级进化', 'Развивается с уровнем'],
-    skNote: ['Un skin remplace l\'apparence du drone ; les statistiques du niveau sont conservées.', 'A skin replaces the drone\'s look; level stats are kept.', 'Un skin reemplaza el aspecto del dron; se conservan las estadísticas.', 'Una skin sostituisce l\'aspetto del drone; le statistiche restano.', '皮肤会替换无人机外观，等级属性保留。', 'Скин меняет внешний вид дрона; характеристики сохраняются.'],
-    wrapSkinNote: ['Les revêtements s\'appliquent quand aucun skin n\'est équipé.', 'Wraps apply when no skin is equipped.', 'Los revestimientos se aplican sin skin equipado.', 'I rivestimenti si applicano senza skin equipaggiata.', '未装备皮肤时涂装生效。', 'Покрытия действуют без скина.'],
-    tryOn: ['Essai', 'Trying', 'Probando', 'Prova', '试用', 'Примерка'],
-    cancel: ['Annuler', 'Cancel', 'Cancelar', 'Annulla', '取消', 'Отмена'],
-    tabFlags: ['Drapeaux', 'Flags', 'Banderas', 'Bandiere', '国旗', 'Флаги'],
-    tabThemes: ['Revêtements spéciaux', 'Special wraps', 'Revestimientos especiales', 'Rivestimenti speciali', '特殊涂装', 'Особые покрытия'],
-    dragHint: ['Faites glisser pour faire pivoter', 'Drag to rotate', 'Desliza para girar', 'Trascina per ruotare', '拖动以旋转', 'Проведите, чтобы повернуть'],
-    hgLevel: ['Drone du mode en ligne', 'Online mode drone', 'Dron del modo en línea', 'Drone della modalità online', '在线模式无人机', 'Дрон онлайн-режима'],
-    fightOnline: ['COMBATTRE EN LIGNE', 'FIGHT ONLINE', 'COMBATIR EN LÍNEA', 'COMBATTI ONLINE', '在线对战', 'СРАЖАТЬСЯ ОНЛАЙН'],
-    w_noel: ['Noël', 'Christmas', 'Navidad', 'Natale', '圣诞', 'Рождество'],
-    w_halloween: ['Halloween', 'Halloween', 'Halloween', 'Halloween', '万圣节', 'Хэллоуин'],
-    w_flames: ['Flammes', 'Flames', 'Llamas', 'Fiamme', '烈焰', 'Пламя'],
-    w_camo: ['Camouflage', 'Camo', 'Camuflaje', 'Mimetico', '迷彩', 'Камуфляж'],
-    w_carbon: ['Carbone', 'Carbon', 'Carbono', 'Carbonio', '碳纤维', 'Карбон'],
-    w_galaxy: ['Galaxie', 'Galaxy', 'Galaxia', 'Galassia', '星河', 'Галактика'],
-    online: ['JOUER EN LIGNE', 'PLAY ONLINE', 'JUGAR EN LÍNEA', 'GIOCA ONLINE', '在线对战', 'ИГРАТЬ ОНЛАЙН'],
-    onlineSub: ['Hangar et revêtements du drone', 'Hangar and drone wraps', 'Hangar y revestimientos', 'Hangar e rivestimenti', '机库与涂装', 'Ангар и покрытия дрона'],
-    soonTag: ['BIENTÔT', 'SOON', 'PRONTO', 'PRESTO', '即将推出', 'СКОРО'],
-    onlineSoon: ['Le jeu en ligne arrive dans une prochaine version.', 'Online play is coming in a future version.', 'El juego en línea llegará en una próxima versión.', 'Il gioco online arriverà in una prossima versione.', '在线模式将在后续版本推出。', 'Онлайн-режим появится в следующей версии.'],
-    sc_topWave: ['Meilleure vague', 'Best wave', 'Mejor oleada', 'Miglior ondata', '最佳波次', 'Лучшая волна'],
-    newGame: ['NOUVEAU JEU', 'NEW GAME', 'NUEVA PARTIDA', 'NUOVA PARTITA', '新游戏', 'НОВАЯ ИГРА'],
-    myGames: ['Mes jeux', 'My games', 'Mis partidas', 'Le mie partite', '我的存档', 'Мои игры'],
-    mainMenu: ['Menu principal', 'Main menu', 'Menú principal', 'Menu principale', '主菜单', 'Главное меню'],
-    gameNamePh: ['Nom du jeu', 'Game name', 'Nombre de la partida', 'Nome della partita', '存档名称', 'Название игры'],
-    startNew: ['COMMENCER', 'START', 'EMPEZAR', 'INIZIA', '开始', 'НАЧАТЬ'],
-    maxGames: ['6 jeux maximum : supprimez un jeu dans « Mes jeux » pour en créer un autre.', 'Maximum 6 games: delete one in “My games” to create another.', 'Máximo 6 partidas: elimina una en «Mis partidas» para crear otra.', 'Massimo 6 partite: eliminane una in «Le mie partite» per crearne un’altra.', '最多 6 个存档：请先在“我的存档”中删除一个。', 'Максимум 6 игр: удалите одну в «Мои игры».'],
-    delGame: ['Supprimer ce jeu', 'Delete this game', 'Eliminar esta partida', 'Elimina questa partita', '删除存档', 'Удалить игру'],
-    delConfirm: ['Supprimer ?', 'Delete?', '¿Eliminar?', 'Eliminare?', '确认删除？', 'Удалить?'],
-    noGames: ['Aucun jeu commencé.', 'No game started.', 'Ninguna partida empezada.', 'Nessuna partita iniziata.', '还没有存档。', 'Нет начатых игр.'],
-    comfort: ['Confort visuel', 'Visual comfort', 'Confort visual', 'Comfort visivo', '护眼模式', 'Комфорт для глаз'],
-    tabBonus: ['Bonus', 'Power-ups', 'Bonus', 'Bonus', '道具', 'Бонусы'],
-    tabWork: ['Atelier', 'Workshop', 'Taller', 'Officina', '改装', 'Мастерская'],
-    tabSkin: ['Designs', 'Designs', 'Diseños', 'Design', '外观', 'Дизайны'],
-    maxed: ['MAX', 'MAX', 'MÁX', 'MAX', '满级', 'МАКС'],
-    equip: ['ÉQUIPER', 'EQUIP', 'EQUIPAR', 'EQUIPAGGIA', '装备', 'ВЫБРАТЬ'],
-    equipped: ['ÉQUIPÉ', 'EQUIPPED', 'EQUIPADO', 'IN USO', '已装备', 'ВЫБРАН'],
-    needChapter: ['Chapitre {n} à terminer', 'Finish chapter {n}', 'Termina el capítulo {n}', 'Completa il capitolo {n}', '需完成第 {n} 章', 'Пройдите главу {n}'],
-    renameGame: ['Renommer ce jeu', 'Rename this game', 'Renombrar esta partida', 'Rinomina questa partita', '重命名存档', 'Переименовать игру'],
-    shopGameOnly: ['Les achats sont valables uniquement pour ce jeu.', 'Purchases apply to this game only.', 'Las compras solo valen para esta partida.', 'Gli acquisti valgono solo per questa partita.', '购买内容仅对当前存档有效。', 'Покупки действуют только для этой игры.'],
-    u_cannon: ['Canons', 'Cannons', 'Cañones', 'Cannoni', '机炮', 'Пушки'],
-    ud_cannon: ['+1 canon latéral (3 max)', '+1 side cannon (max 3)', '+1 cañón lateral (máx. 3)', '+1 cannone laterale (max 3)', '+1 门侧炮（最多 3）', '+1 боковая пушка (макс. 3)'],
-    u_armor: ['Blindage', 'Armor', 'Blindaje', 'Corazza', '装甲', 'Броня'],
-    ud_armor: ['+12 blindage', '+12 armor', '+12 blindaje', '+12 corazza', '装甲 +12', '+12 брони'],
-    u_rate: ['Cadence', 'Fire rate', 'Cadencia', 'Cadenza', '射速', 'Скорострельность'],
-    ud_rate: ['Tir 7 % plus rapide', '7% faster fire', 'Disparo 7 % más rápido', 'Fuoco 7% più rapido', '射速 +7%', 'Стрельба на 7% быстрее'],
-    u_power: ['Puissance', 'Power', 'Potencia', 'Potenza', '威力', 'Мощность'],
-    ud_power: ['Dégâts +15 %', 'Damage +15%', 'Daño +15 %', 'Danno +15%', '伤害 +15%', 'Урон +15%'],
-    u_engine: ['Moteur', 'Engine', 'Motor', 'Motore', '引擎', 'Двигатель'],
-    ud_engine: ['Vitesse +6 %', 'Speed +6%', 'Velocidad +6 %', 'Velocità +6%', '速度 +6%', 'Скорость +6%'],
-    u_dash: ['Esquive', 'Dodge', 'Esquiva', 'Schivata', '闪避', 'Рывок'],
-    ud_dash: ['Recharge 12 % plus courte', '12% shorter cooldown', 'Recarga 12 % más corta', 'Ricarica 12% più breve', '冷却缩短 12%', 'Перезарядка на 12% короче'],
-    u_magnet: ['Aimant', 'Magnet', 'Imán', 'Magnete', '磁铁', 'Магнит'],
-    ud_magnet: ['Attire les bonus proches', 'Pulls nearby power-ups', 'Atrae los bonus cercanos', 'Attira i bonus vicini', '吸引附近道具', 'Притягивает бонусы'],
-    u_dur: ['Durée des bonus', 'Bonus duration', 'Duración de bonus', 'Durata bonus', '道具时长', 'Длительность бонусов'],
-    ud_dur: ['Bonus 20 % plus longs', 'Power-ups last 20% longer', 'Bonus 20 % más largos', 'Bonus 20% più lunghi', '道具持续 +20%', 'Бонусы на 20% дольше'],
-    u_regen: ['Réparation auto', 'Auto-repair', 'Autorreparación', 'Autoriparazione', '自动修复', 'Авторемонт'],
-    ud_regen: ['Répare jusqu\'à 50 % hors combat', 'Repairs up to 50% out of combat', 'Repara hasta el 50 % fuera de combate', 'Ripara fino al 50% fuori combattimento', '脱战时修复至 50%', 'Чинит до 50% вне боя'],
-    notifs: ['Notifications', 'Notifications', 'Notificaciones', 'Notifiche', '通知', 'Уведомления'],
-    notifBody: ['Vos 3 vies sont restituées. Reprenez le combat !', 'Your 3 lives are back. Return to the fight!', 'Tus 3 vidas están de vuelta. ¡Vuelve al combate!', 'Le tue 3 vite sono tornate. Riprendi a combattere!', '你的 3 条生命已恢复，继续战斗吧！', 'Ваши 3 жизни восстановлены. Возвращайтесь в бой!'],
-    livesBack: ['\u2665 Vies restituées !', '\u2665 Lives restored!', '\u2665 ¡Vidas restauradas!', '\u2665 Vite ripristinate!', '\u2665 生命已恢复！', '\u2665 Жизни восстановлены!'],
-    vibration: ['Vibration', 'Vibration', 'Vibración', 'Vibrazione', '振动', 'Вибрация'],
-    on: ['Activé', 'On', 'Activado', 'Attivo', '开', 'Вкл.'],
-    off: ['Désactivé', 'Off', 'Desactivado', 'Disattivo', '关', 'Выкл.'],
-    vibOn: ['Activée', 'On', 'Activada', 'Attiva', '开', 'Вкл.'],
-    vibOff: ['Désactivée', 'Off', 'Desactivada', 'Disattiva', '关', 'Выкл.'],
-    difficulty: ['Difficulté', 'Difficulty', 'Dificultad', 'Difficoltà', '难度', 'Сложность'],
-    easy: ['Facile', 'Easy', 'Fácil', 'Facile', '简单', 'Лёгкая'],
-    normal: ['Moyen', 'Medium', 'Media', 'Media', '中等', 'Средняя'],
-    hard: ['Difficile', 'Hard', 'Difícil', 'Difficile', '困难', 'Сложная'],
-    drone: ['Drone', 'Drone', 'Dron', 'Drone', '无人机', 'Дрон'],
-    d_poly: ['Polyvalent', 'All-rounder', 'Polivalente', 'Versatile', '全能型', 'Универсал'],
-    d_eclair: ['Éclaireur', 'Scout', 'Explorador', 'Esploratore', '侦察型', 'Разведчик'],
-    d_blinde: ['Blindé', 'Armored', 'Blindado', 'Corazzato', '装甲型', 'Бронированный'],
-    d_assaut: ['Assaut', 'Assault', 'Asalto', 'Assalto', '突击型', 'Штурмовик'],
-    desc_poly: ['Équilibré : 100 points de vie, vitesse et cadence moyennes.', 'Balanced: 100 health, average speed and fire rate.', 'Equilibrado: 100 puntos de vida, velocidad y cadencia medias.', 'Equilibrato: 100 punti vita, velocità e cadenza medie.', '均衡：100 生命值，速度和射速中等。', 'Сбалансированный: 100 очков здоровья, средняя скорость и скорострельность.'],
-    desc_eclair: ['Très rapide, esquive plus fréquente, mais fragile (75 points de vie).', 'Very fast, dodges more often, but fragile (75 health).', 'Muy rápido, esquiva más a menudo, pero frágil (75 puntos de vida).', 'Molto veloce, schiva più spesso, ma fragile (75 punti vita).', '速度极快，闪避更频繁，但较脆弱（75 生命值）。', 'Очень быстрый, чаще уклоняется, но хрупкий (75 очков здоровья).'],
-    desc_blinde: ['Résistant (160 points de vie), tirs lourds à double dégâts, mais lent.', 'Tough (160 health), heavy shots with double damage, but slow.', 'Resistente (160 puntos de vida), disparos pesados con daño doble, pero lento.', 'Resistente (160 punti vita), colpi pesanti a danno doppio, ma lento.', '坚固（160 生命值），重型射击造成双倍伤害，但速度慢。', 'Прочный (160 очков здоровья), тяжёлые выстрелы с двойным уроном, но медленный.'],
-    desc_assaut: ['Cadence de tir élevée, blindage léger (90 points de vie).', 'High fire rate, light armor (90 health).', 'Cadencia de disparo alta, blindaje ligero (90 puntos de vida).', 'Cadenza di fuoco elevata, corazza leggera (90 punti vita).', '射速高，装甲轻（90 生命值）。', 'Высокая скорострельность, лёгкая броня (90 очков здоровья).'],
-    nextNote: ['La carte, la difficulté et le drone s\'appliquent à la prochaine partie.', 'Map, difficulty and drone apply from the next game.', 'El mapa, la dificultad y el dron se aplican en la próxima partida.', 'Mappa, difficoltà e drone si applicano dalla prossima partita.', '地图、难度和无人机将在下一局生效。', 'Карта, сложность и дрон применяются со следующей игры.'],
-    audio: ['Son et vibration', 'Sound & vibration', 'Sonido y vibración', 'Audio e vibrazione', '声音与振动', 'Звук и вибрация'],
-    diffDesc_easy: ['Moins d\'ennemis, plus de bonus', 'Fewer enemies, more power-ups', 'Menos enemigos, más bonus', 'Meno nemici, più bonus', '敌人更少，道具更多', 'Меньше врагов, больше бонусов'],
-    diffDesc_normal: ['L\'expérience équilibrée', 'The balanced experience', 'La experiencia equilibrada', 'L\'esperienza equilibrata', '均衡的标准体验', 'Сбалансированная игра'],
-    diffDesc_hard: ['Ennemis rapides et redoutables', 'Fast, deadly enemies', 'Enemigos rápidos y letales', 'Nemici veloci e letali', '敌人更快更致命', 'Быстрые и опасные враги'],
-    stat_hp: ['Vie', 'Health', 'Vida', 'Vita', '生命', 'Здоровье'],
-    stat_speed: ['Vitesse', 'Speed', 'Velocidad', 'Velocità', '速度', 'Скорость'],
-    stat_power: ['Feu', 'Firepower', 'Potencia', 'Potenza', '火力', 'Огонь'],
-    scores: ['SCORES', 'SCORES', 'PUNTUACIONES', 'PUNTEGGI', '排行榜', 'РЕКОРДЫ'],
-    scoresTitle: ['MEILLEURS SCORES', 'HIGH SCORES', 'MEJORES PUNTUACIONES', 'MIGLIORI PUNTEGGI', '最高分', 'ЛУЧШИЕ РЕЗУЛЬТАТЫ'],
-    sc_best: ['Score total', 'Total score', 'Puntuación total', 'Punteggio totale', '总分', 'Общий счёт'],
-    sc_games: ['Vagues jouées', 'Waves played', 'Oleadas jugadas', 'Ondate giocate', '已玩波数', 'Сыграно волн'],
-    sc_kills: ['Abattus', 'Kills', 'Derribos', 'Abbattuti', '击落', 'Сбито'],
-    sc_none: ['Pas encore joué', 'Not played yet', 'Aún sin jugar', 'Non ancora giocato', '尚未游玩', 'Ещё не играли'],
-    sc_line: ['Vague {w} · {k} abattus', 'Wave {w} · {k} kills', 'Oleada {w} · {k} derribos', 'Ondata {w} · {k} abbattuti', '第 {w} 波 · 击落 {k}', 'Волна {w} · сбито {k}'],
-    sc_played: ['{n} vague(s) jouée(s) · {date}', '{n} wave(s) played · {date}', '{n} oleada(s) jugada(s) · {date}', '{n} ondata/e giocata/e · {date}', '已玩 {n} 波 · {date}', 'Сыграно волн: {n} · {date}'],
-    sc_top: ['MEILLEUR', 'TOP', 'MEJOR', 'MIGLIORE', '最佳', 'ЛУЧШИЙ'],
-    sc_hint: ['Le score total d\'un chemin est la somme des meilleurs scores de ses vagues.', 'A path\'s total score is the sum of the best scores of its waves.', 'La puntuación total de un camino es la suma de las mejores puntuaciones de sus oleadas.', 'Il punteggio totale di un percorso è la somma dei migliori punteggi delle sue ondate.', '路线总分为各波最高分之和。', 'Общий счёт маршрута — сумма лучших результатов его волн.'],
-    sc_reset: ['RÉINITIALISER LES CHEMINS', 'RESET ALL PATHS', 'REINICIAR LOS CAMINOS', 'AZZERA I PERCORSI', '重置所有路线', 'СБРОСИТЬ МАРШРУТЫ'],
-    sc_confirm: ['CONFIRMER L\'EFFACEMENT ?', 'CONFIRM RESET?', '¿CONFIRMAR BORRADO?', 'CONFERMI LA CANCELLAZIONE?', '确认清除？', 'ПОДТВЕРДИТЬ СБРОС?'],
-    gameOptions: ['OPTIONS DE JEU', 'GAME OPTIONS', 'OPCIONES DE JUEGO', 'OPZIONI DI GIOCO', '游戏选项', 'ИГРОВЫЕ ПАРАМЕТРЫ'],
-    map: ['Carte', 'Map', 'Mapa', 'Mappa', '地图', 'Карта'],
-    m_plain: ['Plaine', 'Open field', 'Llanura', 'Pianura', '平原', 'Равнина'],
-    m_city: ['Ville', 'City', 'Ciudad', 'Città', '城市', 'Город'],
-    m_canyon: ['Canyon', 'Canyon', 'Cañón', 'Canyon', '峡谷', 'Каньон'],
-    m_base: ['Base', 'Base', 'Base', 'Base', '基地', 'База'],
-    mdesc_plain: ['Terrain dégagé, aucun abri.', 'Wide open ground, nowhere to hide.', 'Terreno despejado, sin refugio.', 'Terreno aperto, nessun riparo.', '开阔地带，无处可躲。', 'Открытая местность, укрыться негде.'],
-    mdesc_city: ['Immeubles et rues : cachez-vous derrière les bâtiments.', 'Buildings and streets: take cover behind the blocks.', 'Edificios y calles: cúbrete tras los bloques.', 'Palazzi e strade: riparati dietro gli edifici.', '楼房与街道：躲在建筑后面。', 'Дома и улицы: укрывайтесь за зданиями.'],
-    mdesc_canyon: ['Rochers dispersés qui bloquent le passage et les tirs.', 'Scattered rocks that block movement and shots.', 'Rocas dispersas que bloquean el paso y los disparos.', 'Rocce sparse che bloccano passaggio e colpi.', '散布的岩石会阻挡移动和子弹。', 'Разбросанные скалы мешают движению и выстрелам.'],
-    mdesc_base: ['Murs et couloirs étroits : attention aux embuscades.', 'Walls and narrow corridors: beware of ambushes.', 'Muros y pasillos estrechos: cuidado con las emboscadas.', 'Muri e corridoi stretti: attenzione alle imboscate.', '墙壁与狭窄走廊：小心埋伏。', 'Стены и узкие коридоры: берегитесь засад.'],
-    controls: ['Commandes', 'Controls', 'Controles', 'Comandi', '操作', 'Управление'],
-    aim: ['Visée', 'Aiming', 'Apuntado', 'Mira', '瞄准', 'Прицел'],
-    mouse: ['Souris', 'Mouse', 'Ratón', 'Mouse', '鼠标', 'Мышь'],
-    keyboard: ['Clavier', 'Keyboard', 'Teclado', 'Tastiera', '键盘', 'Клавиатура'],
-    bindHint: ['Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.', 'Click a control, then press the key or mouse button you want. Esc to cancel.', 'Haz clic en un control y pulsa la tecla o el botón del ratón que quieras. Esc para cancelar.', 'Fai clic su un comando, poi premi il tasto o il pulsante del mouse desiderato. Esc per annullare.', '点击一个操作，然后按下想要的按键或鼠标键。按 Esc 取消。', 'Нажмите на действие, затем нужную клавишу или кнопку мыши. Esc — отмена.'],
-    resetCtrl: ['COMMANDES PAR DÉFAUT', 'DEFAULT CONTROLS', 'CONTROLES PREDETERMINADOS', 'COMANDI PREDEFINITI', '恢复默认操作', 'УПРАВЛЕНИЕ ПО УМОЛЧАНИЮ'],
-    dodgeBtn: ['ESQUIVE', 'DODGE', 'ESQUIVAR', 'SCHIVA', '闪避', 'РЫВОК'],
-    pause: ['Pause', 'Pause', 'Pausa', 'Pausa', '暂停', 'Пауза'],
-    pauseTitle: ['PAUSE', 'PAUSED', 'PAUSA', 'PAUSA', '已暂停', 'ПАУЗА'],
-    a_up: ['Voler vers le haut', 'Fly up', 'Volar hacia arriba', 'Vola su', '向上飞', 'Лететь вверх'],
-    a_down: ['Voler vers le bas', 'Fly down', 'Volar hacia abajo', 'Vola giù', '向下飞', 'Лететь вниз'],
-    a_left: ['Voler à gauche', 'Fly left', 'Volar a la izquierda', 'Vola a sinistra', '向左飞', 'Лететь влево'],
-    a_right: ['Voler à droite', 'Fly right', 'Volar a la derecha', 'Vola a destra', '向右飞', 'Лететь вправо'],
-    a_fire: ['Tirer', 'Shoot', 'Disparar', 'Spara', '射击', 'Стрелять'],
-    a_dash: ['Esquive rapide', 'Quick dodge', 'Esquiva rápida', 'Schivata rapida', '快速闪避', 'Быстрый рывок'],
-    a_pause: ['Pause', 'Pause', 'Pausa', 'Pausa', '暂停', 'Пауза'],
-    a_aimUp: ['Viser en haut', 'Aim up', 'Apuntar arriba', 'Mira in alto', '向上瞄准', 'Целиться вверх'],
-    a_aimDown: ['Viser en bas', 'Aim down', 'Apuntar abajo', 'Mira in basso', '向下瞄准', 'Целиться вниз'],
-    a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево'],
-    a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо'],
-    pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…'],
-    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w} 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}  ·  кредиты: {c}'],
-    intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.'],
-    introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.'],
-    h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец'],
-    h_dragFly: ['Glisser pour voler', 'Drag to fly', 'Desliza para volar', 'Trascina per volare', '滑动以飞行', 'Проведите, чтобы лететь'],
-    h_rightThumb: ['Pouce droit', 'Right thumb', 'Pulgar derecho', 'Pollice destro', '右手拇指', 'Правый палец'],
-    h_dragAim: ['Glisser pour viser et tirer', 'Drag to aim and shoot', 'Desliza para apuntar y disparar', 'Trascina per mirare e sparare', '滑动以瞄准并射击', 'Проведите, чтобы целиться и стрелять'],
-    h_button: ['Bouton {b}', '{b} button', 'Botón {b}', 'Pulsante {b}', '{b} 按钮', 'Кнопка {b}'],
-    h_dodgeDesc: ['Esquive rapide (invulnérable un instant)', 'Quick dodge (briefly invulnerable)', 'Esquiva rápida (invulnerable un instante)', 'Schivata rapida (invulnerabile per un istante)', '快速闪避（短暂无敌）', 'Быстрый рывок (ненадолго неуязвим)'],
-    h_fly: ['Voler', 'Fly', 'Volar', 'Volare', '飞行', 'Полёт'],
-    h_aim: ['Viser', 'Aim', 'Apuntar', 'Mirare', '瞄准', 'Прицел'],
-    h_shoot: ['Tirer', 'Shoot', 'Disparar', 'Sparare', '射击', 'Стрельба'],
-    h_held: ['{k} (maintenu)', '{k} (hold)', '{k} (mantener)', '{k} (tieni premuto)', '{k}（按住）', '{k} (удерживать)'],
-    pausedTouch: ['Partie en pause.', 'Game paused.', 'Partida en pausa.', 'Partita in pausa.', '游戏已暂停。', 'Игра на паузе.'],
-    pausedKey: ['Appuyez sur {k} pour reprendre.', 'Press {k} to resume.', 'Pulsa {k} para continuar.', 'Premi {k} per riprendere.', '按 {k} 继续。', 'Нажмите {k}, чтобы продолжить.'],
-    downed: ['DRONE ABATTU', 'DRONE DOWN', 'DRON DERRIBADO', 'DRONE ABBATTUTO', '无人机被击落', 'ДРОН СБИТ'],
-    newRecord: ['Nouveau record !', 'New record!', '¡Nuevo récord!', 'Nuovo record!', '新纪录！', 'Новый рекорд!'],
-    destroyed: ['Votre drone a été détruit.', 'Your drone was destroyed.', 'Tu dron ha sido destruido.', 'Il tuo drone è stato distrutto.', '你的无人机已被摧毁。', 'Ваш дрон уничтожен.'],
-    colon: [' : ', ': ', ': ', ': ', '：', ': '],
-    st_score: ['Score', 'Score', 'Puntuación', 'Punteggio', '得分', 'Очки'],
-    st_wave: ['Vague atteinte', 'Wave reached', 'Oleada alcanzada', 'Ondata raggiunta', '到达波次', 'Достигнутая волна'],
-    st_kills: ['Drones abattus', 'Drones shot down', 'Drones derribados', 'Droni abbattuti', '击落无人机', 'Сбито дронов'],
-    st_best: ['Meilleur score ({d})', 'Best score ({d})', 'Mejor puntuación ({d})', 'Miglior punteggio ({d})', '最高分（{d}）', 'Лучший счёт ({d})'],
-    b_wave: ['VAGUE {n}', 'WAVE {n}', 'OLEADA {n}', 'ONDATA {n}', '第 {n} 波', 'ВОЛНА {n}'],
-    b_heal: ['+30 RÉPARATION', '+30 REPAIR', '+30 REPARACIÓN', '+30 RIPARAZIONE', '+30 修复', '+30 РЕМОНТ'],
-    b_rapid: ['TIR RAPIDE', 'RAPID FIRE', 'FUEGO RÁPIDO', 'FUOCO RAPIDO', '快速射击', 'СКОРОСТРЕЛЬНОСТЬ'],
-    b_shield: ['BOUCLIER', 'SHIELD', 'ESCUDO', 'SCUDO', '护盾', 'ЩИТ'],
-    b_bossName: ['COLOSSE : {n}', 'COLOSSUS: {n}', 'COLOSO: {n}', 'COLOSSO: {n}', '巨像：{n}', 'КОЛОСС: {n}'],
-    b_boss: ['COLOSSE !', 'COLOSSUS!', '¡COLOSO!', 'COLOSSO!', '巨像来袭！', 'КОЛОСС!'],
-    b_bossDown: ['COLOSSE DÉTRUIT', 'COLOSSUS DESTROYED', 'COLOSO DESTRUIDO', 'COLOSSO DISTRUTTO', '巨像已击毁', 'КОЛОСС УНИЧТОЖЕН'],
-    b_life: ['+1 VIE', '+1 LIFE', '+1 VIDA', '+1 VITA', '+1 生命', '+1 ЖИЗНЬ'],
-    b_revive: ['DE RETOUR !', 'BACK IN ACTION!', '¡DE VUELTA!', 'DI NUOVO IN VOLO!', '重新出击！', 'СНОВА В БОЮ!'],
-    hud_boss: ['COLOSSE', 'COLOSSUS', 'COLOSO', 'COLOSSO', '巨像', 'КОЛОСС'],
-    downSub: ['Vies restantes : {n}. Utiliser une vie pour continuer ?', 'Lives left: {n}. Use a life to continue?', 'Vidas restantes: {n}. ¿Usar una vida para continuar?', 'Vite rimaste: {n}. Usare una vita per continuare?', '剩余生命：{n}。使用一条生命继续吗？', 'Осталось жизней: {n}. Потратить жизнь и продолжить?'],
-    useLife: ['UTILISER UNE VIE', 'USE A LIFE', 'USAR UNA VIDA', 'USA UNA VITA', '使用生命', 'ПОТРАТИТЬ ЖИЗНЬ'],
-    endGame: ['TERMINER', 'END GAME', 'TERMINAR', 'TERMINA', '结束游戏', 'ЗАКОНЧИТЬ'],
-    livesFull: ['Vies : {h}', 'Lives: {h}', 'Vidas: {h}', 'Vite: {h}', '生命：{h}', 'Жизни: {h}'],
-    livesWait: ['Vies : {h}  ·  recharge dans {t}', 'Lives: {h}  ·  refill in {t}', 'Vidas: {h}  ·  recarga en {t}', 'Vite: {h}  ·  ricarica tra {t}', '生命：{h}  ·  {t} 后恢复', 'Жизни: {h}  ·  восстановление через {t}'],
-    livesNone: ['Aucune vie : une seule chance par partie  ·  recharge dans {t}', 'No lives: one chance per game  ·  refill in {t}', 'Sin vidas: una sola oportunidad por partida  ·  recarga en {t}', 'Nessuna vita: una sola possibilità a partita  ·  ricarica tra {t}', '没有生命：每局只有一次机会  ·  {t} 后恢复', 'Жизней нет: одна попытка за игру  ·  восстановление через {t}'],
-    st_bonus: ['Bonus vies gardées', 'Unused lives bonus', 'Bonus por vidas guardadas', 'Bonus vite conservate', '保留生命奖励', 'Бонус за сохранённые жизни'],
-    playWave: ['JOUER · VAGUE {n}', 'PLAY · WAVE {n}', 'JUGAR · OLEADA {n}', 'GIOCA · ONDATA {n}', '开始 · 第 {n} 波', 'ИГРАТЬ · ВОЛНА {n}'],
-    retryWave: ['RECOMMENCER LA VAGUE', 'RETRY WAVE', 'REPETIR OLEADA', 'RIPROVA ONDATA', '重试本波', 'ПОВТОРИТЬ ВОЛНУ'],
-    nextWave: ['VAGUE SUIVANTE', 'NEXT WAVE', 'SIGUIENTE OLEADA', 'ONDATA SUCCESSIVA', '下一波', 'СЛЕДУЮЩАЯ ВОЛНА'],
-    toPath: ['RETOUR AU CHEMIN', 'BACK TO PATH', 'VOLVER AL CAMINO', 'TORNA AL PERCORSO', '返回路线', 'К МАРШРУТУ'],
-    path: ['CHEMIN', 'PATH', 'CAMINO', 'PERCORSO', '路线', 'МАРШРУТ'],
-    waveClear: ['VAGUE {n} RÉUSSIE', 'WAVE {n} CLEARED', 'OLEADA {n} SUPERADA', 'ONDATA {n} SUPERATA', '第 {n} 波完成', 'ВОЛНА {n} ПРОЙДЕНА'],
-    bossClear: ['COLOSSE VAINCU', 'COLOSSUS DEFEATED', 'COLOSO DERROTADO', 'COLOSSO SCONFITTO', '巨像已击败', 'КОЛОСС ПОВЕРЖЕН'],
-    pathDone: ['CHEMIN TERMINÉ !', 'PATH COMPLETE!', '¡CAMINO COMPLETADO!', 'PERCORSO COMPLETATO!', '路线完成！', 'МАРШРУТ ПРОЙДЕН!'],
-    clearSub: ['Vague {n}', 'Wave {n}', 'Oleada {n}', 'Ondata {n}', '第 {n} 波', 'Волна {n}'],
-    chapter: ['Chapitre {n}', 'Chapter {n}', 'Capítulo {n}', 'Capitolo {n}', '第 {n} 章', 'Глава {n}'],
-    chapterDone: ['CHAPITRE {n} TERMINÉ', 'CHAPTER {n} COMPLETE', 'CAPÍTULO {n} COMPLETADO', 'CAPITOLO {n} COMPLETATO', '第 {n} 章完成', 'ГЛАВА {n} ПРОЙДЕНА'],
-    chapterUnlock: ['Nouveau chemin débloqué : chapitre {n}', 'New path unlocked: chapter {n}', 'Nuevo camino desbloqueado: capítulo {n}', 'Nuovo percorso sbloccato: capitolo {n}', '新路线已解锁：第 {n} 章', 'Открыт новый маршрут: глава {n}'],
-    shopHintTouch: ['Les bonus achetés s\'utilisent en jeu avec les boutons en bas de l\'écran.', 'Use purchased power-ups in game with the buttons at the bottom of the screen.', 'Usa los bonus comprados durante el juego con los botones de abajo.', 'Usa i bonus acquistati in gioco con i pulsanti in basso.', '在游戏中点击屏幕下方按钮使用已购道具。', 'Используйте купленные бонусы в игре кнопками внизу экрана.'],
-    chLocked: ['Terminez ce chapitre pour le débloquer', 'Finish this chapter to unlock it', 'Termina este capítulo para desbloquearlo', 'Completa questo capitolo per sbloccarlo', '完成本章即可解锁', 'Завершите эту главу, чтобы открыть'],
-    chOpen: ['Débloqué — appuyez pour continuer', 'Unlocked — tap to continue', 'Desbloqueado: toca para continuar', 'Sbloccato: tocca per continuare', '已解锁 — 点击继续', 'Открыто — нажмите, чтобы продолжить'],
-    soonLocked: ['De nouvelles vagues arrivent bientôt', 'New waves are coming soon', 'Pronto llegarán nuevas oleadas', 'Nuove ondate in arrivo', '新的波次即将到来', 'Новые волны скоро появятся'],
-    tagline: ['Des vagues sans fin. Des colosses. Un seul drone.', 'Endless waves. Colossi. One drone.', 'Oleadas sin fin. Colosos. Un solo dron.', 'Ondate infinite. Colossi. Un solo drone.', '无尽波次，多个巨像，一架无人机。', 'Бесконечные волны. Колоссы. Один дрон.'],
-    soonTitle: ['BIENTÔT', 'COMING SOON', 'PRÓXIMAMENTE', 'PROSSIMAMENTE', '敬请期待', 'СКОРО'],
-    soonText: ['Vous avez terminé toutes les vagues. De nouvelles vagues arrivent bientôt !', 'You have completed every wave. New waves are coming soon!', 'Has completado todas las oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le ondate. Nuove ondate in arrivo!', '你已完成全部波次，新波次即将推出！', 'Вы прошли все волны. Скоро появятся новые!'],
-    st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней'],
-    st_total: ['Total', 'Total', 'Total', 'Totale', '合计', 'Итого'],
-    st_bestWave: ['Meilleur score de la vague', 'Best score for this wave', 'Mejor puntuación de la oleada', 'Miglior punteggio dell\'ondata', '本波最高分', 'Лучший счёт волны'],
-    st_credits: ['Crédits gagnés', 'Credits earned', 'Créditos ganados', 'Crediti guadagnati', '获得金币', 'Получено кредитов'],
-    credits: ['Crédits', 'Credits', 'Créditos', 'Crediti', '金币', 'Кредиты'],
-    shop: ['BOUTIQUE', 'SHOP', 'TIENDA', 'NEGOZIO', '商店', 'МАГАЗИН'],
-    buy: ['ACHETER', 'BUY', 'COMPRAR', 'COMPRA', '购买', 'КУПИТЬ'],
-    owned: ['En stock : {n}/3', 'In stock: {n}/3', 'En stock: {n}/3', 'In scorta: {n}/3', '库存：{n}/3', 'В запасе: {n}/3'],
-    it_heal: ['Réparation', 'Repair kit', 'Reparación', 'Riparazione', '修复包', 'Ремкомплект'],
-    itd_heal: ['Rend 40 points de vie.', 'Restores 40 health.', 'Restaura 40 puntos de vida.', 'Ripristina 40 punti vita.', '恢复 40 生命值。', 'Восстанавливает 40 здоровья.'],
-    it_rapid: ['Tir rapide', 'Rapid fire', 'Fuego rápido', 'Fuoco rapido', '快速射击', 'Скорострельность'],
-    itd_rapid: ['Double la cadence pendant 8 s.', 'Doubles fire rate for 8 s.', 'Duplica la cadencia durante 8 s.', 'Raddoppia la cadenza per 8 s.', '8 秒内射速翻倍。', 'Удваивает скорострельность на 8 с.'],
-    it_shield: ['Bouclier', 'Shield', 'Escudo', 'Scudo', '护盾', 'Щит'],
-    itd_shield: ['Bloque tous les dégâts pendant 8 s.', 'Blocks all damage for 8 s.', 'Bloquea todo el daño durante 8 s.', 'Blocca tutti i danni per 8 s.', '8 秒内免疫所有伤害。', 'Блокирует весь урон на 8 с.'],
-    it_gun: ['Fusil triple', 'Triple gun', 'Arma triple', 'Fucile triplo', '三连发', 'Тройной выстрел'],
-    itd_gun: ['Trois balles en éventail pendant 10 s.', 'Three-way spread for 10 s.', 'Tres balas en abanico durante 10 s.', 'Tre colpi a ventaglio per 10 s.', '10 秒内三向散射。', 'Тройной веер на 10 с.'],
-    shopHint: ['Les bonus achetés s\'utilisent en jeu avec les boutons en bas de l\'écran (touches 1 à 4 sur PC).', 'Use purchased power-ups in game with the buttons at the bottom of the screen (keys 1–4 on PC).', 'Usa los bonus comprados durante el juego con los botones de abajo (teclas 1 a 4 en PC).', 'Usa i bonus acquistati in gioco con i pulsanti in basso (tasti 1–4 su PC).', '在游戏中点击屏幕下方按钮使用已购道具（电脑上按 1–4 键）。', 'Используйте купленные бонусы в игре кнопками внизу экрана (клавиши 1–4 на ПК).'],
-    p_wave: ['Vague', 'Wave', 'Oleada', 'Ondata', '波次', 'Волна'],
-    b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ'],
-    c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ'],
-    c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ'],
-    hud_hp: ['BLINDAGE', 'ARMOR', 'BLINDAJE', 'CORAZZA', '装甲', 'БРОНЯ'],
-    hud_wave: ['VAGUE {w}   ·   ENNEMIS {e}', 'WAVE {w}   ·   ENEMIES {e}', 'OLEADA {w}   ·   ENEMIGOS {e}', 'ONDATA {w}   ·   NEMICI {e}', '波次 {w}   ·   敌人 {e}', 'ВОЛНА {w}   ·   ВРАГИ {e}'],
-    hud_best: ['RECORD {n}', 'BEST {n}', 'RÉCORD {n}', 'RECORD {n}', '最高分 {n}', 'РЕКОРД {n}'],
-    k_Mouse0: ['Clic gauche', 'Left click', 'Clic izquierdo', 'Clic sinistro', '鼠标左键', 'Левая кнопка мыши'],
-    k_Mouse1: ['Clic molette', 'Middle click', 'Clic central', 'Clic centrale', '鼠标中键', 'Средняя кнопка мыши'],
-    k_Mouse2: ['Clic droit', 'Right click', 'Clic derecho', 'Clic destro', '鼠标右键', 'Правая кнопка мыши'],
-    k_Mouse3: ['Souris 4', 'Mouse 4', 'Ratón 4', 'Mouse 4', '鼠标键 4', 'Кнопка мыши 4'],
-    k_Mouse4: ['Souris 5', 'Mouse 5', 'Ratón 5', 'Mouse 5', '鼠标键 5', 'Кнопка мыши 5'],
-    k_Space: ['Espace', 'Space', 'Espacio', 'Spazio', '空格', 'Пробел'],
-    k_ShiftLeft: ['Maj gauche', 'Left Shift', 'Mayús izq.', 'Maiusc sinistro', '左 Shift', 'Левый Shift'],
-    k_ShiftRight: ['Maj droite', 'Right Shift', 'Mayús der.', 'Maiusc destro', '右 Shift', 'Правый Shift'],
-    k_ControlLeft: ['Ctrl gauche', 'Left Ctrl', 'Ctrl izq.', 'Ctrl sinistro', '左 Ctrl', 'Левый Ctrl'],
-    k_ControlRight: ['Ctrl droite', 'Right Ctrl', 'Ctrl der.', 'Ctrl destro', '右 Ctrl', 'Правый Ctrl'],
-    k_Enter: ['Entrée', 'Enter', 'Intro', 'Invio', '回车', 'Enter'],
-    k_Backspace: ['Retour arrière', 'Backspace', 'Retroceso', 'Backspace', '退格', 'Backspace'],
-    k_CapsLock: ['Verr. maj', 'Caps Lock', 'Bloq Mayús', 'Bloc Maiusc', '大写锁定', 'Caps Lock']
+    play: ['JOUER', 'PLAY', 'JUGAR', 'GIOCA', '开始游戏', 'ИГРАТЬ', "العب", "بازی", "プレイ", "플레이"],
+    restart: ['RECOMMENCER', 'RESTART', 'REINICIAR', 'RICOMINCIA', '重新开始', 'ЗАНОВО', "إعادة البدء", "شروع دوباره", "やり直す", "다시 시작"],
+    replay: ['REJOUER', 'PLAY AGAIN', 'VOLVER A JUGAR', 'RIGIOCA', '再玩一次', 'ЕЩЁ РАЗ', "العب مجددًا", "بازی دوباره", "もう一度", "다시 하기"],
+    resume: ['REPRENDRE', 'RESUME', 'CONTINUAR', 'RIPRENDI', '继续', 'ПРОДОЛЖИТЬ', "متابعة", "ادامه", "再開", "계속"],
+    settings: ['PARAMÈTRES', 'SETTINGS', 'AJUSTES', 'IMPOSTAZIONI', '设置', 'НАСТРОЙКИ', "الإعدادات", "تنظیمات", "設定", "설정"],
+    quit: ['QUITTER', 'QUIT', 'SALIR', 'ESCI', '退出', 'ВЫЙТИ', "خروج", "خروج", "終了", "종료"],
+    back: ['RETOUR', 'BACK', 'VOLVER', 'INDIETRO', '返回', 'НАЗАД', "رجوع", "بازگشت", "戻る", "뒤로"],
+    language: ['Langue', 'Language', 'Idioma', 'Lingua', '语言', 'Язык', "اللغة", "زبان", "言語", "언어"],
+    sound: ['Son', 'Sound', 'Sonido', 'Audio', '声音', 'Звук', "الصوت", "صدا", "サウンド", "소리"],
+    notifNote: ['Activez les notifications pour être prévenu quand vos 3 vies sont rechargées.', 'Turn on notifications to be told when your 3 lives are refilled.', 'Activa las notificaciones para saber cuándo se recargan tus 3 vidas.', 'Attiva le notifiche per sapere quando le tue 3 vite sono ricaricate.', '开启通知，3 条生命恢复满时提醒你。', 'Включите уведомления, чтобы узнать, когда все 3 жизни восстановятся.', "فعّل الإشعارات لتعرف متى تعود أرواحك الثلاث.", "اعلان‌ها را روشن کنید تا وقتی ۳ جانتان پر شد باخبر شوید.", "ライフ3つが回復したときに通知を受け取るには、通知をオンにしてください。", "생명 3개가 다시 채워지면 알림을 받으려면 알림을 켜세요."],
+    notifBlocked: ['Notifications refusées. Activez l\'interrupteur pour les autoriser ; si Android ne le propose plus, autorisez-les dans les réglages du téléphone (Applications › Drone Strike Field).', 'Notifications refused. Turn the switch on to allow them; if Android no longer asks, allow them in your phone settings (Apps › Drone Strike Field).', 'Notificaciones rechazadas. Activa el interruptor para permitirlas; si Android ya no lo pregunta, permítelas en los ajustes del teléfono (Aplicaciones › Drone Strike Field).', 'Notifiche rifiutate. Attiva l\'interruttore per consentirle; se Android non lo chiede più, consentile nelle impostazioni del telefono (App › Drone Strike Field).', '通知已被拒绝。打开开关即可授权；如果 Android 不再询问，请在手机设置（应用 › Drone Strike Field）中允许。', 'Уведомления отклонены. Включите переключатель, чтобы разрешить их; если Android больше не спрашивает, разрешите их в настройках телефона (Приложения › Drone Strike Field).', "تم رفض الإشعارات. فعّل المفتاح للسماح بها؛ وإذا لم يعد Android يسأل، اسمح بها من إعدادات الهاتف (التطبيقات › Drone Strike Field).", "اعلان‌ها رد شد. کلید را روشن کنید تا اجازه دهید؛ اگر Android دیگر نپرسید، از تنظیمات گوشی اجازه دهید (برنامه‌ها › Drone Strike Field).", "通知が拒否されました。スイッチをオンにして許可してください。Androidが再度確認しない場合は、端末の設定（アプリ › Drone Strike Field）で許可してください。", "알림이 거부되었습니다. 스위치를 켜서 허용하세요. Android가 더 이상 묻지 않으면 휴대폰 설정(앱 › Drone Strike Field)에서 허용하세요."],
+    diamonds: ['Diamants', 'Diamonds', 'Diamantes', 'Diamanti', '钻石', 'Алмазы', "الماس", "الماس", "ダイヤ", "다이아몬드"],
+    st_diamonds: ['Diamants gagnés', 'Diamonds earned', 'Diamantes ganados', 'Diamanti guadagnati', '获得钻石', 'Получено алмазов', "الماس المكتسب", "الماس به‌دست‌آمده", "獲得ダイヤ", "획득한 다이아몬드"],
+    tabOnline: ['En ligne', 'Online', 'En línea', 'Online', '在线', 'Онлайн', "على الإنترنت", "آنلاین", "オンライン", "온라인"],
+    onParts: ['Pièces', 'Parts', 'Piezas', 'Pezzi', '部件', 'Детали', "القطع", "قطعات", "パーツ", "부품"],
+    onSkins: ['Designs', 'Designs', 'Diseños', 'Design', '外观', 'Дизайны', "التصاميم", "طرح‌ها", "デザイン", "디자인"],
+    onDecals: ['Décors', 'Decals', 'Adornos', 'Decorazioni', '贴纸', 'Наклейки', "الملصقات", "برچسب‌ها", "デカール", "데칼"],
+    onHint: ['Achats en diamants pour votre drone du mode en ligne, communs à tous vos jeux. Les diamants se gagnent en battant un colosse pour la première fois.', 'Diamond purchases for your online drone, shared by all your games. Earn diamonds by beating a colossus for the first time.', 'Compras con diamantes para tu dron en línea, comunes a todas tus partidas. Los diamantes se ganan al vencer a un coloso por primera vez.', 'Acquisti in diamanti per il tuo drone online, comuni a tutte le partite. I diamanti si ottengono battendo un colosso per la prima volta.', '用钻石为在线无人机购买物品，所有存档通用。首次击败巨像可获得钻石。', 'Покупки за алмазы для онлайн-дрона, общие для всех игр. Алмазы даются за первую победу над колоссом.', "مشتريات بالماس لطائرتك على الإنترنت، مشتركة بين كل ألعابك. اربح الماس بهزيمة عملاق لأول مرة.", "خرید با الماس برای پهپاد آنلاین شما، مشترک بین همه بازی‌ها. با شکست دادن یک غول برای اولین بار الماس بگیرید.", "オンライン用ドローンのダイヤ購入。全ゲーム共通です。巨像を初めて倒すとダイヤを獲得できます。", "온라인 드론용 다이아몬드 구매로, 모든 게임에서 공유됩니다. 거상을 처음 물리치면 다이아몬드를 얻습니다."],
+    onModel: ['Modèle', 'Model', 'Modelo', 'Modello', '机型', 'Модель', "الطراز", "مدل", "機体", "기종"],
+    onFinish: ['Finition', 'Finish', 'Acabado', 'Finitura', '涂装', 'Покраска', "الطلاء", "رنگ", "塗装", "도색"],
+    noDecal: ['Aucun', 'None', 'Ninguno', 'Nessuno', '无', 'Нет', "بدون", "هیچ", "なし", "없음"],
+    p_hull: ['Blindage', 'Hull', 'Blindaje', 'Corazza', '装甲', 'Броня', "الدرع", "بدنه", "装甲", "장갑"],
+    p_turbo: ['Turbo', 'Turbo', 'Turbo', 'Turbo', '涡轮', 'Турбо', "التوربو", "توربو", "ターボ", "터보"],
+    p_cannon: ['Canon lourd', 'Heavy cannon', 'Cañón pesado', 'Cannone pesante', '重炮', 'Тяжёлая пушка', "مدفع ثقيل", "توپ سنگین", "重砲", "중포"],
+    p_shield: ['Bouclier', 'Shield', 'Escudo', 'Scudo', '护盾', 'Щит', "الدرع الواقي", "سپر", "シールド", "방어막"],
+    p_missile: ['Missiles', 'Missiles', 'Misiles', 'Missili', '导弹', 'Ракеты', "الصواريخ", "موشک‌ها", "ミサイル", "미사일"],
+    p_radar: ['Radar', 'Radar', 'Radar', 'Radar', '雷达', 'Радар', "الرادار", "رادار", "レーダー", "레이더"],
+    f_std: ['Origine', 'Stock', 'Original', 'Originale', '原厂', 'Базовая', "الأصلي", "اصلی", "標準", "기본"],
+    f_gold: ['Or', 'Gold', 'Oro', 'Oro', '黄金', 'Золото', "ذهبي", "طلایی", "ゴールド", "골드"],
+    f_carbon: ['Carbone', 'Carbon', 'Carbono', 'Carbonio', '碳纤维', 'Карбон', "كربون", "کربنی", "カーボン", "카본"],
+    f_desert: ['Désert', 'Desert', 'Desierto', 'Deserto', '沙漠', 'Пустыня', "صحراوي", "صحرایی", "デザート", "사막"],
+    f_arctic: ['Arctique', 'Arctic', 'Ártico', 'Artico', '极地', 'Арктика', "قطبي", "قطبی", "アークティック", "극지"],
+    f_crimson: ['Cramoisi', 'Crimson', 'Carmesí', 'Cremisi', '赤红', 'Багрянец', "قرمزي", "ارغوانی", "クリムゾン", "크림슨"],
+    f_jungle: ['Jungle', 'Jungle', 'Selva', 'Giungla', '丛林', 'Джунгли', "أدغال", "جنگلی", "ジャングル", "정글"],
+    onlineDrone: ['DRONE DE COMBAT EN LIGNE', 'ONLINE COMBAT DRONE', 'DRON DE COMBATE EN LÍNEA', 'DRONE DA COMBATTIMENTO ONLINE', '在线战斗无人机', 'БОЕВОЙ ДРОН ОНЛАЙН', "طائرة القتال على الإنترنت", "پهپاد نبرد آنلاین", "オンライン戦闘ドローン", "온라인 전투 드론"],
+    store: ['STORE', 'STORE', 'TIENDA', 'STORE', '商店', 'МАГАЗИН', "المتجر", "فروشگاه", "ストア", "스토어"],
+    profile: ['PROFIL', 'PROFILE', 'PERFIL', 'PROFILO', '个人资料', 'ПРОФИЛЬ', "الملف الشخصي", "نمایه", "プロフィール", "프로필"],
+    stGems: ['Diamants', 'Diamonds', 'Diamantes', 'Diamanti', '钻石', 'Алмазы', "الماس", "الماس", "ダイヤ", "다이아몬드"],
+    stGears: ['Roues dentées', 'Gears', 'Engranajes', 'Ingranaggi', '齿轮', 'Шестерёнки', "التروس", "چرخ‌دنده", "ギア", "기어"],
+    freeGems: ['Diamants gratuits', 'Free diamonds', 'Diamantes gratis', 'Diamanti gratis', '免费钻石', 'Бесплатные алмазы', "ماس مجاني", "الماس رایگان", "無料ダイヤ", "무료 다이아몬드"],
+    freeGemsTxt: ['Battez des colosses en mode hors ligne', 'Beat colossi in offline mode', 'Vence colosos en modo sin conexión', 'Sconfiggi colossi in modalità offline', '在离线模式击败巨像', 'Побеждайте колоссов офлайн', "اهزم العمالقة في وضع اللعب دون اتصال", "غول‌ها را در حالت آفلاین شکست دهید", "オフラインモードで巨像を倒そう", "오프라인 모드에서 거상을 물리치세요"],
+    playOffline: ['JOUER HORS LIGNE', 'PLAY OFFLINE', 'JUGAR SIN CONEXIÓN', 'GIOCA OFFLINE', '离线游戏', 'ИГРАТЬ ОФЛАЙН', "العب دون اتصال", "بازی آفلاین", "オフラインでプレイ", "오프라인 플레이"],
+    payNote: ['Paiement par carte bancaire via Google Play, activé à la publication sur le Play Store. Moins de 18 ans : demandez l\'accord d\'un parent.', 'Card payment through Google Play, enabled once the game is on the Play Store. Under 18: ask a parent first.', 'Pago con tarjeta a través de Google Play, activo al publicarse en Play Store. Menores de 18: pide permiso a un adulto.', 'Pagamento con carta tramite Google Play, attivo con la pubblicazione sul Play Store. Minori di 18 anni: chiedete a un genitore.', '通过 Google Play 使用银行卡付款，上架 Play 商店后开放。未满 18 岁请先征得家长同意。', 'Оплата картой через Google Play станет доступна после публикации в Play Store. До 18 лет — спросите родителей.', "الدفع بالبطاقة عبر Google Play، يُفعَّل عند نشر اللعبة على متجر Play. أقل من 18 عامًا: اطلب إذن أحد الوالدين أولًا.", "پرداخت با کارت از طریق Google Play، پس از انتشار بازی در Play Store فعال می‌شود. زیر ۱۸ سال: ابتدا از والدین اجازه بگیرید.", "Google Play経由のカード決済。Playストア公開後に有効になります。18歳未満の方は保護者の許可を得てください。", "Google Play를 통한 카드 결제는 Play 스토어 출시 후 활성화됩니다. 18세 미만은 먼저 보호자의 허락을 받으세요."],
+    payUnavailable: ['Le paiement sera disponible après la publication du jeu sur le Play Store.', 'Payment will be available once the game is published on the Play Store.', 'El pago estará disponible cuando el juego se publique en Play Store.', 'Il pagamento sarà disponibile dopo la pubblicazione sul Play Store.', '游戏上架 Play 商店后即可付款。', 'Оплата станет доступна после публикации игры в Play Store.', "سيتوفر الدفع بعد نشر اللعبة على متجر Play.", "پرداخت پس از انتشار بازی در Play Store در دسترس خواهد بود.", "ゲームがPlayストアで公開されると決済が利用可能になります。", "게임이 Play 스토어에 출시되면 결제를 이용할 수 있습니다."],
+    gearNote: ['Les roues dentées servent à améliorer le drone de combat en ligne.', 'Gears upgrade your online combat drone.', 'Los engranajes mejoran tu dron de combate en línea.', 'Gli ingranaggi potenziano il drone da combattimento online.', '齿轮用于升级在线战斗无人机。', 'Шестерёнки улучшают боевой дрон онлайн.', "التروس تطوّر طائرة القتال على الإنترنت.", "چرخ‌دنده‌ها پهپاد نبرد آنلاین شما را ارتقا می‌دهند.", "ギアでオンライン戦闘ドローンを強化できます。", "기어로 온라인 전투 드론을 강화합니다."],
+    gearsBought: ['+{n} roues dentées !', '+{n} gears!', '¡+{n} engranajes!', '+{n} ingranaggi!', '+{n} 齿轮！', '+{n} шестерёнок!', "+{n} ترس!", "+{n} چرخ‌دنده!", "ギア +{n}！", "기어 +{n}!"],
+    avatar: ['Avatar', 'Avatar', 'Avatar', 'Avatar', '头像', 'Аватар', "الصورة الرمزية", "آواتار", "アバター", "아바타"],
+    photoBtn: ['Photo', 'Photo', 'Foto', 'Foto', '照片', 'Фото', "صورة", "عکس", "写真", "사진"],
+    pseudo: ['Pseudo', 'Nickname', 'Apodo', 'Nickname', '昵称', 'Ник', "الاسم المستعار", "نام مستعار", "ニックネーム", "닉네임"],
+    pseudoPh: ['Votre pseudo', 'Your nickname', 'Tu apodo', 'Il tuo nickname', '你的昵称', 'Ваш ник', "اسمك المستعار", "نام مستعار شما", "ニックネーム", "닉네임"],
+    age: ['Âge', 'Age', 'Edad', 'Età', '年龄', 'Возраст', "العمر", "سن", "年齢", "나이"],
+    saveProfile: ['ENREGISTRER', 'SAVE', 'GUARDAR', 'SALVA', '保存', 'СОХРАНИТЬ', "حفظ", "ذخیره", "保存", "저장"],
+    profileSaved: ['Profil enregistré.', 'Profile saved.', 'Perfil guardado.', 'Profilo salvato.', '资料已保存。', 'Профиль сохранён.', "تم حفظ الملف الشخصي.", "نمایه ذخیره شد.", "プロフィールを保存しました。", "프로필이 저장되었습니다."],
+    profileNote: ['Votre profil sera visible par les autres pilotes en mode en ligne.', 'Your profile will be visible to other pilots online.', 'Tu perfil será visible para otros pilotos en línea.', 'Il tuo profilo sarà visibile agli altri piloti online.', '在线模式中其他玩家可以看到你的资料。', 'Профиль будет виден другим пилотам онлайн.', "سيظهر ملفك الشخصي للطيارين الآخرين على الإنترنت.", "نمایه شما برای خلبانان دیگر در حالت آنلاین قابل مشاهده است.", "プロフィールはオンラインで他のパイロットに表示されます。", "프로필은 온라인에서 다른 파일럿에게 표시됩니다."],
+    loading: ['Chargement', 'Loading', 'Cargando', 'Caricamento', '加载中', 'Загрузка', "جارٍ التحميل", "در حال بارگذاری", "読み込み中", "로딩 중"],
+    chShort: ['Ch. {n}', 'Ch. {n}', 'Cap. {n}', 'Cap. {n}', '第 {n} 章', 'Гл. {n}', "ف. {n}", "فصل {n}", "第{n}章", "{n}장"],
+    tabUp: ['Amélioration', 'Upgrade', 'Mejora', 'Potenziamento', '升级', 'Улучшение', "التطوير", "ارتقا", "強化", "강화"],
+    tabSkins: ['Skins', 'Skins', 'Skins', 'Skin', '皮肤', 'Скины', "الأشكال", "پوسته‌ها", "スキン", "스킨"],
+    tabThemes2: ['Revêtements', 'Wraps', 'Revestimientos', 'Rivestimenti', '涂装', 'Покрытия', "الأغلفة", "روکش‌ها", "ラッピング", "래핑"],
+    power: ['Puissance', 'Power', 'Poder', 'Potenza', '战力', 'Мощь', "القوة", "قدرت", "戦力", "전투력"],
+    st_hp: ['Vie', 'HP', 'Vida', 'Vita', '生命', 'Жизнь', "الحياة", "جان", "HP", "체력"],
+    st_atk: ['Attaque', 'Attack', 'Ataque', 'Attacco', '攻击', 'Атака', "الهجوم", "حمله", "攻撃", "공격"],
+    st_def: ['Défense', 'Defense', 'Defensa', 'Difesa', '防御', 'Защита', "الدفاع", "دفاع", "防御", "방어"],
+    missiles: ['Missiles', 'Missiles', 'Misiles', 'Missili', '导弹', 'Ракеты', "الصواريخ", "موشک‌ها", "ミサイル", "미사일"],
+    nextMissile: ['prochain au Niv. {n}', 'next at Lv. {n}', 'siguiente en Nv. {n}', 'prossimo al Liv. {n}', '{n} 级获得下一枚', 'след. на ур. {n}', "التالي عند المستوى {n}", "بعدی در سطح {n}", "次はLv.{n}", "다음: Lv.{n}"],
+    lvShort: ['Niv. {n}', 'Lv. {n}', 'Nv. {n}', 'Liv. {n}', '{n} 级', 'Ур. {n}', "مستوى {n}", "سطح {n}", "Lv.{n}", "Lv.{n}"],
+    stepOf: ['Étape {a}/{b}', 'Step {a}/{b}', 'Paso {a}/{b}', 'Fase {a}/{b}', '阶段 {a}/{b}', 'Этап {a}/{b}', "المرحلة {a}/{b}", "مرحله {a}/{b}", "段階 {a}/{b}", "단계 {a}/{b}"],
+    evoAt: ['Évolution {m} au Niv. {n}', '{m} evolution at Lv. {n}', 'Evolución {m} en Nv. {n}', 'Evoluzione {m} al Liv. {n}', '{n} 级进化为 {m}', 'Эволюция {m} на ур. {n}', "تطور {m} عند المستوى {n}", "تکامل {m} در سطح {n}", "Lv.{n}で{m}に進化", "Lv.{n}에서 {m}(으)로 진화"],
+    upgradeBtn: ['AMÉLIORER', 'UPGRADE', 'MEJORAR', 'POTENZIA', '升级', 'УЛУЧШИТЬ', "طوّر", "ارتقا", "強化", "강화"],
+    evoBtn: ['Aperçu de l\'évolution', 'Evolution preview', 'Vista de evolución', 'Anteprima evoluzione', '进化预览', 'Обзор эволюции', "معاينة التطور", "پیش‌نمایش تکامل", "進化プレビュー", "진화 미리보기"],
+    evoTitle: ['APERÇU DE L\'ÉVOLUTION', 'EVOLUTION PREVIEW', 'VISTA DE EVOLUCIÓN', 'ANTEPRIMA EVOLUZIONE', '进化预览', 'ОБЗОР ЭВОЛЮЦИИ', "معاينة التطور", "پیش‌نمایش تکامل", "進化プレビュー", "진화 미리보기"],
+    unlocked: ['Déverrouillé', 'Unlocked', 'Desbloqueado', 'Sbloccato', '已解锁', 'Открыто', "مفتوح", "باز شده", "解放済み", "해제됨"],
+    unlockAt: ['Débloquer au Niv. {n}', 'Unlock at Lv. {n}', 'Desbloquear en Nv. {n}', 'Sblocca al Liv. {n}', '{n} 级解锁', 'Откроется на ур. {n}', "يُفتح عند المستوى {n}", "باز شدن در سطح {n}", "Lv.{n}で解放", "Lv.{n}에서 해제"],
+    evoDesc0: ['Le drone de départ, agile et polyvalent.', 'The starter drone, agile and versatile.', 'El dron inicial, ágil y versátil.', 'Il drone iniziale, agile e versatile.', '初始无人机，灵活全能。', 'Стартовый дрон, ловкий и универсальный.', "طائرة البداية، رشيقة ومتعددة الاستخدامات.", "پهپاد آغازین، چابک و همه‌کاره.", "機敏で万能な初期ドローン。", "민첩하고 다재다능한 시작 드론."],
+    evoDesc1: ['Bimoteur rapide à double dérive. Bonus : statistiques +25 %.', 'Fast twin-engine fighter. Bonus: stats +25%.', 'Bimotor rápido. Bonus: estadísticas +25 %.', 'Bimotore veloce. Bonus: statistiche +25%.', '高速双发战机。加成：属性 +25%。', 'Быстрый двухмоторный истребитель. Бонус: +25% к характеристикам.', "مقاتلة سريعة بمحركين. مكافأة: الإحصائيات +25%.", "جنگنده دوموتوره سریع. پاداش: آمار +۲۵٪.", "高速の双発戦闘機。ボーナス：能力値+25%。", "빠른 쌍발 전투기. 보너스: 능력치 +25%."],
+    evoDesc2: ['Aile volante furtive. Bonus : statistiques +50 %.', 'Stealth flying wing. Bonus: stats +50%.', 'Ala volante furtiva. Bonus: estadísticas +50 %.', 'Ala volante stealth. Bonus: statistiche +50%.', '隐身飞翼。加成：属性 +50%。', 'Малозаметное летающее крыло. Бонус: +50% к характеристикам.', "جناح طائر شبحي. مكافأة: الإحصائيات +50%.", "بال پرنده رادارگریز. پاداش: آمار +۵۰٪.", "ステルス全翼機。ボーナス：能力値+50%。", "스텔스 전익기. 보너스: 능력치 +50%."],
+    evoDesc3: ['Cuirassé lourd à quatre nacelles. Bonus : statistiques +75 %.', 'Heavy four-fan gunship. Bonus: stats +75%.', 'Acorazado pesado de cuatro rotores. Bonus: estadísticas +75 %.', 'Corazzata pesante a quattro rotori. Bonus: statistiche +75%.', '四涵道重型炮艇。加成：属性 +75%。', 'Тяжёлый четырёхвинтовой ганшип. Бонус: +75% к характеристикам.', "مدرعة ثقيلة بأربع مراوح. مكافأة: الإحصائيات +75%.", "ناو هوایی سنگین با چهار پروانه. پاداش: آمار +۷۵٪.", "4ファンの重武装ガンシップ。ボーナス：能力値+75%。", "4개의 팬을 단 중무장 건쉽. 보너스: 능력치 +75%."],
+    evoDone: ['ÉVOLUTION : {n} !', 'EVOLUTION: {n}!', '¡EVOLUCIÓN: {n}!', 'EVOLUZIONE: {n}!', '进化：{n}！', 'ЭВОЛЮЦИЯ: {n}!', "تطور: {n}!", "تکامل: {n}!", "進化：{n}！", "진화: {n}!"],
+    newMissile: ["MISSILE ÉQUIPÉ ! ({n})", "MISSILE EQUIPPED! ({n})", "¡MISIL EQUIPADO! ({n})", "MISSILE EQUIPAGGIATO! ({n})", "导弹已装备！({n})", "РАКЕТА УСТАНОВЛЕНА! ({n})", "تم تجهيز صاروخ! ({n})", "موشک نصب شد! ({n})", "ミサイル装備！（{n}）", "미사일 장착! ({n})"],
+    lvUp: ['NIVEAU {n} !', 'LEVEL {n}!', '¡NIVEL {n}!', 'LIVELLO {n}!', '等级 {n}！', 'УРОВЕНЬ {n}!', "المستوى {n}!", "سطح {n}!", "レベル{n}！", "레벨 {n}!"],
+    noGears: ["Pas assez de roues dentées : achetez-en dans le store.", "Not enough gears: buy some in the store.", "No hay suficientes engranajes: cómpralos en la tienda.", "Ingranaggi insufficienti: acquistali nello store.", "齿轮不足：请在商店购买。", "Не хватает шестерёнок: купите их в магазине.", "لا تكفي التروس: اشترها من المتجر.", "چرخ‌دنده کافی نیست: از فروشگاه بخرید.", "ギアが足りません。ストアで購入してください。", "기어가 부족합니다. 스토어에서 구매하세요."],
+    st_gears: ['Roues dentées', 'Gears', 'Engranajes', 'Ingranaggi', '齿轮', 'Шестерёнки', "التروس", "چرخ‌دنده", "ギア", "기어"],
+    sk_x: ['Traîneau Polaire', 'Polar Sleigh', 'Trineo Polar', 'Slitta Polare', '极地雪橇', 'Полярные сани', "الزلاجة القطبية", "سورتمه قطبی", "ポーラースレイ", "폴라 썰매"],
+    skBase: ['Évolue avec le niveau', 'Evolves with level', 'Evoluciona con el nivel', 'Evolve con il livello', '随等级进化', 'Развивается с уровнем', "يتطور مع المستوى", "با سطح تکامل می‌یابد", "レベルで進化", "레벨에 따라 진화"],
+    skNote: ['Un skin remplace l\'apparence du drone ; les statistiques du niveau sont conservées.', 'A skin replaces the drone\'s look; level stats are kept.', 'Un skin reemplaza el aspecto del dron; se conservan las estadísticas.', 'Una skin sostituisce l\'aspetto del drone; le statistiche restano.', '皮肤会替换无人机外观，等级属性保留。', 'Скин меняет внешний вид дрона; характеристики сохраняются.', "الشكل يغيّر مظهر الطائرة؛ وتبقى إحصائيات المستوى كما هي.", "پوسته ظاهر پهپاد را تغییر می‌دهد؛ آمار سطح حفظ می‌شود.", "スキンは見た目だけを変え、レベルの能力値は維持されます。", "스킨은 외형만 바꾸며 레벨 능력치는 유지됩니다."],
+    wrapSkinNote: ['Les revêtements s\'appliquent quand aucun skin n\'est équipé.', 'Wraps apply when no skin is equipped.', 'Los revestimientos se aplican sin skin equipado.', 'I rivestimenti si applicano senza skin equipaggiata.', '未装备皮肤时涂装生效。', 'Покрытия действуют без скина.', "تُطبَّق الأغلفة عند عدم تجهيز أي شكل.", "روکش‌ها وقتی پوسته‌ای مجهز نیست اعمال می‌شوند.", "ラッピングはスキン未装備時に適用されます。", "래핑은 스킨을 장착하지 않았을 때 적용됩니다."],
+    tryOn: ['Essai', 'Trying', 'Probando', 'Prova', '试用', 'Примерка', "تجربة", "امتحان", "試着中", "착용 중"],
+    cancel: ['Annuler', 'Cancel', 'Cancelar', 'Annulla', '取消', 'Отмена', "إلغاء", "لغو", "キャンセル", "취소"],
+    tabFlags: ['Drapeaux', 'Flags', 'Banderas', 'Bandiere', '国旗', 'Флаги', "الأعلام", "پرچم‌ها", "国旗", "국기"],
+    tabThemes: ['Revêtements spéciaux', 'Special wraps', 'Revestimientos especiales', 'Rivestimenti speciali', '特殊涂装', 'Особые покрытия', "أغلفة خاصة", "روکش‌های ویژه", "特別ラッピング", "특별 래핑"],
+    dragHint: ['Faites glisser pour faire pivoter', 'Drag to rotate', 'Desliza para girar', 'Trascina per ruotare', '拖动以旋转', 'Проведите, чтобы повернуть', "اسحب للتدوير", "برای چرخاندن بکشید", "ドラッグで回転", "드래그하여 회전"],
+    hgLevel: ['Drone du mode en ligne', 'Online mode drone', 'Dron del modo en línea', 'Drone della modalità online', '在线模式无人机', 'Дрон онлайн-режима', "طائرة وضع الإنترنت", "پهپاد حالت آنلاین", "オンラインモード用ドローン", "온라인 모드 드론"],
+    fightOnline: ['COMBATTRE EN LIGNE', 'FIGHT ONLINE', 'COMBATIR EN LÍNEA', 'COMBATTI ONLINE', '在线对战', 'СРАЖАТЬСЯ ОНЛАЙН', "قاتل على الإنترنت", "نبرد آنلاین", "オンライン対戦", "온라인 전투"],
+    w_noel: ['Noël', 'Christmas', 'Navidad', 'Natale', '圣诞', 'Рождество', "عيد الميلاد", "کریسمس", "クリスマス", "크리스마스"],
+    w_halloween: ['Halloween', 'Halloween', 'Halloween', 'Halloween', '万圣节', 'Хэллоуин', "الهالوين", "هالووین", "ハロウィン", "할로윈"],
+    w_flames: ['Flammes', 'Flames', 'Llamas', 'Fiamme', '烈焰', 'Пламя', "لهب", "شعله", "フレイム", "불꽃"],
+    w_camo: ['Camouflage', 'Camo', 'Camuflaje', 'Mimetico', '迷彩', 'Камуфляж', "تمويه", "استتار", "迷彩", "위장"],
+    w_carbon: ['Carbone', 'Carbon', 'Carbono', 'Carbonio', '碳纤维', 'Карбон', "كربون", "کربنی", "カーボン", "카본"],
+    w_galaxy: ['Galaxie', 'Galaxy', 'Galaxia', 'Galassia', '星河', 'Галактика', "مجرة", "کهکشان", "ギャラクシー", "은하"],
+    online: ['JOUER EN LIGNE', 'PLAY ONLINE', 'JUGAR EN LÍNEA', 'GIOCA ONLINE', '在线对战', 'ИГРАТЬ ОНЛАЙН', "العب على الإنترنت", "بازی آنلاین", "オンラインでプレイ", "온라인 플레이"],
+    onlineSub: ['Hangar et revêtements du drone', 'Hangar and drone wraps', 'Hangar y revestimientos', 'Hangar e rivestimenti', '机库与涂装', 'Ангар и покрытия дрона', "الحظيرة وأغلفة الطائرة", "آشیانه و روکش‌های پهپاد", "格納庫とラッピング", "격납고와 드론 래핑"],
+    soonTag: ['BIENTÔT', 'SOON', 'PRONTO', 'PRESTO', '即将推出', 'СКОРО', "قريبًا", "به‌زودی", "近日", "곧 출시"],
+    onlineSoon: ['Le jeu en ligne arrive dans une prochaine version.', 'Online play is coming in a future version.', 'El juego en línea llegará en una próxima versión.', 'Il gioco online arriverà in una prossima versione.', '在线模式将在后续版本推出。', 'Онлайн-режим появится в следующей версии.', "اللعب على الإنترنت قادم في إصدار لاحق.", "بازی آنلاین در نسخه‌ای بعدی می‌آید.", "オンラインプレイは今後のバージョンで登場します。", "온라인 플레이는 향후 버전에서 제공됩니다."],
+    sc_topWave: ['Meilleure vague', 'Best wave', 'Mejor oleada', 'Miglior ondata', '最佳波次', 'Лучшая волна', "أفضل موجة", "بهترین موج", "最高ウェーブ", "최고 웨이브"],
+    newGame: ['NOUVEAU JEU', 'NEW GAME', 'NUEVA PARTIDA', 'NUOVA PARTITA', '新游戏', 'НОВАЯ ИГРА', "لعبة جديدة", "بازی جدید", "新しいゲーム", "새 게임"],
+    myGames: ['Mes jeux', 'My games', 'Mis partidas', 'Le mie partite', '我的存档', 'Мои игры', "ألعابي", "بازی‌های من", "マイゲーム", "내 게임"],
+    mainMenu: ['Menu principal', 'Main menu', 'Menú principal', 'Menu principale', '主菜单', 'Главное меню', "القائمة الرئيسية", "منوی اصلی", "メインメニュー", "메인 메뉴"],
+    gameNamePh: ['Nom du jeu', 'Game name', 'Nombre de la partida', 'Nome della partita', '存档名称', 'Название игры', "اسم اللعبة", "نام بازی", "ゲーム名", "게임 이름"],
+    startNew: ['COMMENCER', 'START', 'EMPEZAR', 'INIZIA', '开始', 'НАЧАТЬ', "ابدأ", "شروع", "開始", "시작"],
+    maxGames: ['6 jeux maximum : supprimez un jeu dans « Mes jeux » pour en créer un autre.', 'Maximum 6 games: delete one in “My games” to create another.', 'Máximo 6 partidas: elimina una en «Mis partidas» para crear otra.', 'Massimo 6 partite: eliminane una in «Le mie partite» per crearne un’altra.', '最多 6 个存档：请先在“我的存档”中删除一个。', 'Максимум 6 игр: удалите одну в «Мои игры».', "6 ألعاب كحد أقصى: احذف لعبة من «ألعابي» لإنشاء أخرى.", "حداکثر ۶ بازی: یکی را در «بازی‌های من» حذف کنید تا بازی دیگری بسازید.", "最大6ゲーム：新しく作るには「マイゲーム」で1つ削除してください。", "최대 6개 게임: 새로 만들려면 “내 게임”에서 하나를 삭제하세요."],
+    delGame: ['Supprimer ce jeu', 'Delete this game', 'Eliminar esta partida', 'Elimina questa partita', '删除存档', 'Удалить игру', "حذف هذه اللعبة", "حذف این بازی", "このゲームを削除", "이 게임 삭제"],
+    delConfirm: ['Supprimer ?', 'Delete?', '¿Eliminar?', 'Eliminare?', '确认删除？', 'Удалить?', "حذف؟", "حذف؟", "削除しますか？", "삭제할까요?"],
+    noGames: ['Aucun jeu commencé.', 'No game started.', 'Ninguna partida empezada.', 'Nessuna partita iniziata.', '还没有存档。', 'Нет начатых игр.', "لم تبدأ أي لعبة.", "هیچ بازی‌ای شروع نشده.", "開始したゲームはありません。", "시작한 게임이 없습니다."],
+    comfort: ['Confort visuel', 'Visual comfort', 'Confort visual', 'Comfort visivo', '护眼模式', 'Комфорт для глаз', "راحة العين", "راحتی چشم", "目の保護", "눈 보호"],
+    tabBonus: ['Bonus', 'Power-ups', 'Bonus', 'Bonus', '道具', 'Бонусы', "المعززات", "تقویت‌ها", "ボーナス", "보너스"],
+    tabWork: ['Atelier', 'Workshop', 'Taller', 'Officina', '改装', 'Мастерская', "الورشة", "کارگاه", "工房", "작업장"],
+    tabSkin: ['Designs', 'Designs', 'Diseños', 'Design', '外观', 'Дизайны', "التصاميم", "طرح‌ها", "デザイン", "디자인"],
+    maxed: ['MAX', 'MAX', 'MÁX', 'MAX', '满级', 'МАКС', "الحد الأقصى", "حداکثر", "MAX", "MAX"],
+    equip: ['ÉQUIPER', 'EQUIP', 'EQUIPAR', 'EQUIPAGGIA', '装备', 'ВЫБРАТЬ', "تجهيز", "تجهیز", "装備", "장착"],
+    equipped: ['ÉQUIPÉ', 'EQUIPPED', 'EQUIPADO', 'IN USO', '已装备', 'ВЫБРАН', "مُجهَّز", "مجهز", "装備中", "장착됨"],
+    needChapter: ['Chapitre {n} à terminer', 'Finish chapter {n}', 'Termina el capítulo {n}', 'Completa il capitolo {n}', '需完成第 {n} 章', 'Пройдите главу {n}', "أنهِ الفصل {n}", "فصل {n} را تمام کنید", "第{n}章をクリア", "{n}장 완료 필요"],
+    renameGame: ['Renommer ce jeu', 'Rename this game', 'Renombrar esta partida', 'Rinomina questa partita', '重命名存档', 'Переименовать игру', "إعادة تسمية هذه اللعبة", "تغییر نام این بازی", "このゲームの名前を変更", "이 게임 이름 변경"],
+    shopGameOnly: ['Les achats sont valables uniquement pour ce jeu.', 'Purchases apply to this game only.', 'Las compras solo valen para esta partida.', 'Gli acquisti valgono solo per questa partita.', '购买内容仅对当前存档有效。', 'Покупки действуют только для этой игры.', "المشتريات صالحة لهذه اللعبة فقط.", "خریدها فقط برای همین بازی معتبرند.", "購入品はこのゲームでのみ有効です。", "구매품은 이 게임에서만 유효합니다."],
+    u_cannon: ['Canons', 'Cannons', 'Cañones', 'Cannoni', '机炮', 'Пушки', "المدافع", "توپ‌ها", "砲", "포"],
+    ud_cannon: ['+1 canon latéral (3 max)', '+1 side cannon (max 3)', '+1 cañón lateral (máx. 3)', '+1 cannone laterale (max 3)', '+1 门侧炮（最多 3）', '+1 боковая пушка (макс. 3)', "+1 مدفع جانبي (3 كحد أقصى)", "+۱ توپ جانبی (حداکثر ۳)", "側面砲+1（最大3）", "측면포 +1 (최대 3)"],
+    u_armor: ['Blindage', 'Armor', 'Blindaje', 'Corazza', '装甲', 'Броня', "الدرع", "زره", "装甲", "장갑"],
+    ud_armor: ['+12 blindage', '+12 armor', '+12 blindaje', '+12 corazza', '装甲 +12', '+12 брони', "+12 درع", "+۱۲ زره", "装甲+12", "장갑 +12"],
+    u_rate: ['Cadence', 'Fire rate', 'Cadencia', 'Cadenza', '射速', 'Скорострельность', "معدل الإطلاق", "سرعت شلیک", "連射", "연사"],
+    ud_rate: ['Tir 7 % plus rapide', '7% faster fire', 'Disparo 7 % más rápido', 'Fuoco 7% più rapido', '射速 +7%', 'Стрельба на 7% быстрее', "إطلاق أسرع بـ 7%", "شلیک ۷٪ سریع‌تر", "射撃7%高速化", "발사 7% 빨라짐"],
+    u_power: ['Puissance', 'Power', 'Potencia', 'Potenza', '威力', 'Мощность', "القوة", "قدرت", "威力", "위력"],
+    ud_power: ['Dégâts +15 %', 'Damage +15%', 'Daño +15 %', 'Danno +15%', '伤害 +15%', 'Урон +15%', "الضرر +15%", "آسیب +۱۵٪", "ダメージ+15%", "피해 +15%"],
+    u_engine: ['Moteur', 'Engine', 'Motor', 'Motore', '引擎', 'Двигатель', "المحرك", "موتور", "エンジン", "엔진"],
+    ud_engine: ['Vitesse +6 %', 'Speed +6%', 'Velocidad +6 %', 'Velocità +6%', '速度 +6%', 'Скорость +6%', "السرعة +6%", "سرعت +۶٪", "速度+6%", "속도 +6%"],
+    u_dash: ['Esquive', 'Dodge', 'Esquiva', 'Schivata', '闪避', 'Рывок', "المراوغة", "جاخالی", "回避", "회피"],
+    ud_dash: ['Recharge 12 % plus courte', '12% shorter cooldown', 'Recarga 12 % más corta', 'Ricarica 12% più breve', '冷却缩短 12%', 'Перезарядка на 12% короче', "شحن أقصر بـ 12%", "شارژ ۱۲٪ کوتاه‌تر", "クールダウン12%短縮", "재사용 대기 12% 감소"],
+    u_magnet: ['Aimant', 'Magnet', 'Imán', 'Magnete', '磁铁', 'Магнит', "المغناطيس", "آهن‌ربا", "マグネット", "자석"],
+    ud_magnet: ['Attire les bonus proches', 'Pulls nearby power-ups', 'Atrae los bonus cercanos', 'Attira i bonus vicini', '吸引附近道具', 'Притягивает бонусы', "يجذب المعززات القريبة", "تقویت‌های نزدیک را جذب می‌کند", "近くのボーナスを引き寄せる", "가까운 보너스를 끌어당김"],
+    u_dur: ['Durée des bonus', 'Bonus duration', 'Duración de bonus', 'Durata bonus', '道具时长', 'Длительность бонусов', "مدة المعززات", "مدت تقویت‌ها", "ボーナス時間", "보너스 지속"],
+    ud_dur: ['Bonus 20 % plus longs', 'Power-ups last 20% longer', 'Bonus 20 % más largos', 'Bonus 20% più lunghi', '道具持续 +20%', 'Бонусы на 20% дольше', "المعززات تدوم أطول بـ 20%", "تقویت‌ها ۲۰٪ بیشتر دوام می‌آورند", "ボーナスが20%長持ち", "보너스 20% 더 오래 지속"],
+    u_regen: ['Réparation auto', 'Auto-repair', 'Autorreparación', 'Autoriparazione', '自动修复', 'Авторемонт', "إصلاح تلقائي", "تعمیر خودکار", "自動修理", "자동 수리"],
+    ud_regen: ['Répare jusqu\'à 50 % hors combat', 'Repairs up to 50% out of combat', 'Repara hasta el 50 % fuera de combate', 'Ripara fino al 50% fuori combattimento', '脱战时修复至 50%', 'Чинит до 50% вне боя', "يصلح حتى 50% خارج القتال", "خارج از نبرد تا ۵۰٪ تعمیر می‌کند", "戦闘外で50%まで修理", "전투 외 50%까지 수리"],
+    notifs: ['Notifications', 'Notifications', 'Notificaciones', 'Notifiche', '通知', 'Уведомления', "الإشعارات", "اعلان‌ها", "通知", "알림"],
+    notifBody: ['Vos 3 vies sont restituées. Reprenez le combat !', 'Your 3 lives are back. Return to the fight!', 'Tus 3 vidas están de vuelta. ¡Vuelve al combate!', 'Le tue 3 vite sono tornate. Riprendi a combattere!', '你的 3 条生命已恢复，继续战斗吧！', 'Ваши 3 жизни восстановлены. Возвращайтесь в бой!', "عادت أرواحك الثلاث. عُد إلى المعركة!", "۳ جان شما برگشت. به نبرد برگردید!", "ライフ3つが回復しました。戦場に戻ろう！", "생명 3개가 돌아왔습니다. 전투로 복귀하세요!"],
+    livesBack: ['\u2665 Vies restituées !', '\u2665 Lives restored!', '\u2665 ¡Vidas restauradas!', '\u2665 Vite ripristinate!', '\u2665 生命已恢复！', '\u2665 Жизни восстановлены!', "♥ عادت الأرواح!", "♥ جان‌ها برگشت!", "♥ ライフ回復！", "♥ 생명 회복!"],
+    vibration: ['Vibration', 'Vibration', 'Vibración', 'Vibrazione', '振动', 'Вибрация', "الاهتزاز", "لرزش", "振動", "진동"],
+    on: ['Activé', 'On', 'Activado', 'Attivo', '开', 'Вкл.', "تشغيل", "روشن", "オン", "켜기"],
+    off: ['Désactivé', 'Off', 'Desactivado', 'Disattivo', '关', 'Выкл.', "إيقاف", "خاموش", "オフ", "끄기"],
+    vibOn: ['Activée', 'On', 'Activada', 'Attiva', '开', 'Вкл.', "تشغيل", "روشن", "オン", "켜기"],
+    vibOff: ['Désactivée', 'Off', 'Desactivada', 'Disattiva', '关', 'Выкл.', "إيقاف", "خاموش", "オフ", "끄기"],
+    difficulty: ['Difficulté', 'Difficulty', 'Dificultad', 'Difficoltà', '难度', 'Сложность', "الصعوبة", "سختی", "難易度", "난이도"],
+    easy: ['Facile', 'Easy', 'Fácil', 'Facile', '简单', 'Лёгкая', "سهل", "آسان", "やさしい", "쉬움"],
+    normal: ['Moyen', 'Medium', 'Media', 'Media', '中等', 'Средняя', "متوسط", "متوسط", "ふつう", "보통"],
+    hard: ['Difficile', 'Hard', 'Difícil', 'Difficile', '困难', 'Сложная', "صعب", "سخت", "むずかしい", "어려움"],
+    drone: ['Drone', 'Drone', 'Dron', 'Drone', '无人机', 'Дрон', "الطائرة", "پهپاد", "ドローン", "드론"],
+    d_poly: ['Polyvalent', 'All-rounder', 'Polivalente', 'Versatile', '全能型', 'Универсал', "متعددة المهام", "همه‌کاره", "オールラウンダー", "만능형"],
+    d_eclair: ['Éclaireur', 'Scout', 'Explorador', 'Esploratore', '侦察型', 'Разведчик', "استطلاع", "شناسایی", "スカウト", "정찰형"],
+    d_blinde: ['Blindé', 'Armored', 'Blindado', 'Corazzato', '装甲型', 'Бронированный', "مدرّعة", "زرهی", "装甲型", "장갑형"],
+    d_assaut: ['Assaut', 'Assault', 'Asalto', 'Assalto', '突击型', 'Штурмовик', "هجومية", "تهاجمی", "アサルト", "돌격형"],
+    desc_poly: ['Équilibré : 100 points de vie, vitesse et cadence moyennes.', 'Balanced: 100 health, average speed and fire rate.', 'Equilibrado: 100 puntos de vida, velocidad y cadencia medias.', 'Equilibrato: 100 punti vita, velocità e cadenza medie.', '均衡：100 生命值，速度和射速中等。', 'Сбалансированный: 100 очков здоровья, средняя скорость и скорострельность.', "متوازنة: 100 نقطة حياة، سرعة ومعدل إطلاق متوسطان.", "متعادل: ۱۰۰ جان، سرعت و نرخ شلیک متوسط.", "バランス型：HP100、速度と連射は標準。", "균형형: 체력 100, 보통 속도와 연사."],
+    desc_eclair: ['Très rapide, esquive plus fréquente, mais fragile (75 points de vie).', 'Very fast, dodges more often, but fragile (75 health).', 'Muy rápido, esquiva más a menudo, pero frágil (75 puntos de vida).', 'Molto veloce, schiva più spesso, ma fragile (75 punti vita).', '速度极快，闪避更频繁，但较脆弱（75 生命值）。', 'Очень быстрый, чаще уклоняется, но хрупкий (75 очков здоровья).', "سريعة جدًا وتراوغ أكثر، لكنها هشة (75 نقطة حياة).", "بسیار سریع، بیشتر جاخالی می‌دهد، اما شکننده است (۷۵ جان).", "非常に速く回避も多いが、もろい（HP75）。", "매우 빠르고 자주 회피하지만 약함(체력 75)."],
+    desc_blinde: ['Résistant (160 points de vie), tirs lourds à double dégâts, mais lent.', 'Tough (160 health), heavy shots with double damage, but slow.', 'Resistente (160 puntos de vida), disparos pesados con daño doble, pero lento.', 'Resistente (160 punti vita), colpi pesanti a danno doppio, ma lento.', '坚固（160 生命值），重型射击造成双倍伤害，但速度慢。', 'Прочный (160 очков здоровья), тяжёлые выстрелы с двойным уроном, но медленный.', "متينة (160 نقطة حياة)، طلقات ثقيلة بضرر مضاعف، لكنها بطيئة.", "مقاوم (۱۶۰ جان)، شلیک سنگین با آسیب دوبرابر، اما کند.", "頑丈（HP160）、2倍ダメージの重い射撃だが遅い。", "튼튼함(체력 160), 2배 피해의 강한 사격이지만 느림."],
+    desc_assaut: ['Cadence de tir élevée, blindage léger (90 points de vie).', 'High fire rate, light armor (90 health).', 'Cadencia de disparo alta, blindaje ligero (90 puntos de vida).', 'Cadenza di fuoco elevata, corazza leggera (90 punti vita).', '射速高，装甲轻（90 生命值）。', 'Высокая скорострельность, лёгкая броня (90 очков здоровья).', "معدل إطلاق مرتفع، درع خفيف (90 نقطة حياة).", "نرخ شلیک بالا، زره سبک (۹۰ جان).", "高い連射速度、軽装甲（HP90）。", "높은 연사 속도, 가벼운 장갑(체력 90)."],
+    nextNote: ['La carte, la difficulté et le drone s\'appliquent à la prochaine partie.', 'Map, difficulty and drone apply from the next game.', 'El mapa, la dificultad y el dron se aplican en la próxima partida.', 'Mappa, difficoltà e drone si applicano dalla prossima partita.', '地图、难度和无人机将在下一局生效。', 'Карта, сложность и дрон применяются со следующей игры.', "الخريطة والصعوبة والطائرة تُطبَّق من اللعبة التالية.", "نقشه، سختی و پهپاد از بازی بعدی اعمال می‌شوند.", "マップ・難易度・ドローンは次のゲームから適用されます。", "맵, 난이도, 드론은 다음 게임부터 적용됩니다."],
+    audio: ['Son et vibration', 'Sound & vibration', 'Sonido y vibración', 'Audio e vibrazione', '声音与振动', 'Звук и вибрация', "الصوت والاهتزاز", "صدا و لرزش", "サウンドと振動", "소리 및 진동"],
+    diffDesc_easy: ['Moins d\'ennemis, plus de bonus', 'Fewer enemies, more power-ups', 'Menos enemigos, más bonus', 'Meno nemici, più bonus', '敌人更少，道具更多', 'Меньше врагов, больше бонусов', "أعداء أقل ومعززات أكثر", "دشمنان کمتر، تقویت‌های بیشتر", "敵が少なく、ボーナスが多い", "적은 적, 더 많은 보너스"],
+    diffDesc_normal: ['L\'expérience équilibrée', 'The balanced experience', 'La experiencia equilibrada', 'L\'esperienza equilibrata', '均衡的标准体验', 'Сбалансированная игра', "التجربة المتوازنة", "تجربه متعادل", "バランスの取れた体験", "균형 잡힌 경험"],
+    diffDesc_hard: ['Ennemis rapides et redoutables', 'Fast, deadly enemies', 'Enemigos rápidos y letales', 'Nemici veloci e letali', '敌人更快更致命', 'Быстрые и опасные враги', "أعداء سريعون وقاتلون", "دشمنان سریع و مرگبار", "速くて危険な敵", "빠르고 치명적인 적"],
+    stat_hp: ['Vie', 'Health', 'Vida', 'Vita', '生命', 'Здоровье', "الحياة", "جان", "HP", "체력"],
+    stat_speed: ['Vitesse', 'Speed', 'Velocidad', 'Velocità', '速度', 'Скорость', "السرعة", "سرعت", "速度", "속도"],
+    stat_power: ['Feu', 'Firepower', 'Potencia', 'Potenza', '火力', 'Огонь', "قوة النيران", "قدرت آتش", "火力", "화력"],
+    scores: ['SCORES', 'SCORES', 'PUNTUACIONES', 'PUNTEGGI', '排行榜', 'РЕКОРДЫ', "النتائج", "امتیازها", "スコア", "점수"],
+    scoresTitle: ['MEILLEURS SCORES', 'HIGH SCORES', 'MEJORES PUNTUACIONES', 'MIGLIORI PUNTEGGI', '最高分', 'ЛУЧШИЕ РЕЗУЛЬТАТЫ', "أفضل النتائج", "بهترین امتیازها", "ハイスコア", "최고 점수"],
+    sc_best: ['Score total', 'Total score', 'Puntuación total', 'Punteggio totale', '总分', 'Общий счёт', "النتيجة الإجمالية", "امتیاز کل", "合計スコア", "총점"],
+    sc_games: ['Vagues jouées', 'Waves played', 'Oleadas jugadas', 'Ondate giocate', '已玩波数', 'Сыграно волн', "الموجات الملعوبة", "موج‌های بازی‌شده", "プレイしたウェーブ", "플레이한 웨이브"],
+    sc_kills: ['Abattus', 'Kills', 'Derribos', 'Abbattuti', '击落', 'Сбито', "الإسقاطات", "سرنگونی‌ها", "撃墜数", "격추"],
+    sc_none: ['Pas encore joué', 'Not played yet', 'Aún sin jugar', 'Non ancora giocato', '尚未游玩', 'Ещё не играли', "لم تُلعب بعد", "هنوز بازی نشده", "未プレイ", "아직 플레이하지 않음"],
+    sc_line: ['Vague {w} · {k} abattus', 'Wave {w} · {k} kills', 'Oleada {w} · {k} derribos', 'Ondata {w} · {k} abbattuti', '第 {w} 波 · 击落 {k}', 'Волна {w} · сбито {k}', "الموجة {w} · {k} إسقاط", "موج {w} · {k} سرنگونی", "ウェーブ{w} · 撃墜{k}", "웨이브 {w} · 격추 {k}"],
+    sc_played: ['{n} vague(s) jouée(s) · {date}', '{n} wave(s) played · {date}', '{n} oleada(s) jugada(s) · {date}', '{n} ondata/e giocata/e · {date}', '已玩 {n} 波 · {date}', 'Сыграно волн: {n} · {date}', "{n} موجة ملعوبة · {date}", "{n} موج بازی‌شده · {date}", "{n}ウェーブ · {date}", "{n}개 웨이브 플레이 · {date}"],
+    sc_top: ['MEILLEUR', 'TOP', 'MEJOR', 'MIGLIORE', '最佳', 'ЛУЧШИЙ', "الأفضل", "برتر", "TOP", "TOP"],
+    sc_hint: ['Le score total d\'un chemin est la somme des meilleurs scores de ses vagues.', 'A path\'s total score is the sum of the best scores of its waves.', 'La puntuación total de un camino es la suma de las mejores puntuaciones de sus oleadas.', 'Il punteggio totale di un percorso è la somma dei migliori punteggi delle sue ondate.', '路线总分为各波最高分之和。', 'Общий счёт маршрута — сумма лучших результатов его волн.', "النتيجة الإجمالية للمسار هي مجموع أفضل نتائج موجاته.", "امتیاز کل یک مسیر، مجموع بهترین امتیازهای موج‌های آن است.", "ルートの合計スコアは各ウェーブの最高スコアの合計です。", "경로 총점은 각 웨이브 최고 점수의 합입니다."],
+    sc_reset: ['RÉINITIALISER LES CHEMINS', 'RESET ALL PATHS', 'REINICIAR LOS CAMINOS', 'AZZERA I PERCORSI', '重置所有路线', 'СБРОСИТЬ МАРШРУТЫ', "إعادة تعيين كل المسارات", "بازنشانی همه مسیرها", "全ルートをリセット", "모든 경로 초기화"],
+    sc_confirm: ['CONFIRMER L\'EFFACEMENT ?', 'CONFIRM RESET?', '¿CONFIRMAR BORRADO?', 'CONFERMI LA CANCELLAZIONE?', '确认清除？', 'ПОДТВЕРДИТЬ СБРОС?', "تأكيد إعادة التعيين؟", "بازنشانی تأیید شود؟", "リセットしますか？", "초기화할까요?"],
+    gameOptions: ['OPTIONS DE JEU', 'GAME OPTIONS', 'OPCIONES DE JUEGO', 'OPZIONI DI GIOCO', '游戏选项', 'ИГРОВЫЕ ПАРАМЕТРЫ', "خيارات اللعبة", "گزینه‌های بازی", "ゲームオプション", "게임 옵션"],
+    map: ['Carte', 'Map', 'Mapa', 'Mappa', '地图', 'Карта', "الخريطة", "نقشه", "マップ", "맵"],
+    m_plain: ['Plaine', 'Open field', 'Llanura', 'Pianura', '平原', 'Равнина', "أرض مفتوحة", "دشت باز", "平原", "평원"],
+    m_city: ['Ville', 'City', 'Ciudad', 'Città', '城市', 'Город', "مدينة", "شهر", "市街地", "도시"],
+    m_canyon: ['Canyon', 'Canyon', 'Cañón', 'Canyon', '峡谷', 'Каньон', "وادٍ", "دره", "渓谷", "협곡"],
+    m_base: ['Base', 'Base', 'Base', 'Base', '基地', 'База', "قاعدة", "پایگاه", "基地", "기지"],
+    mdesc_plain: ['Terrain dégagé, aucun abri.', 'Wide open ground, nowhere to hide.', 'Terreno despejado, sin refugio.', 'Terreno aperto, nessun riparo.', '开阔地带，无处可躲。', 'Открытая местность, укрыться негде.', "أرض واسعة مكشوفة، لا مكان للاختباء.", "زمین باز و گسترده، جایی برای پنهان شدن نیست.", "広く開けた土地。隠れる場所はない。", "탁 트인 넓은 땅, 숨을 곳이 없습니다."],
+    mdesc_city: ['Immeubles et rues : cachez-vous derrière les bâtiments.', 'Buildings and streets: take cover behind the blocks.', 'Edificios y calles: cúbrete tras los bloques.', 'Palazzi e strade: riparati dietro gli edifici.', '楼房与街道：躲在建筑后面。', 'Дома и улицы: укрывайтесь за зданиями.', "مبانٍ وشوارع: احتمِ خلف الكتل.", "ساختمان‌ها و خیابان‌ها: پشت بلوک‌ها پناه بگیرید.", "建物と通り：ブロックの陰に隠れよう。", "건물과 거리: 블록 뒤에 숨으세요."],
+    mdesc_canyon: ['Rochers dispersés qui bloquent le passage et les tirs.', 'Scattered rocks that block movement and shots.', 'Rocas dispersas que bloquean el paso y los disparos.', 'Rocce sparse che bloccano passaggio e colpi.', '散布的岩石会阻挡移动和子弹。', 'Разбросанные скалы мешают движению и выстрелам.', "صخور متناثرة تعيق الحركة والطلقات.", "صخره‌های پراکنده که حرکت و شلیک را سد می‌کنند.", "散らばった岩が移動と射撃を妨げる。", "흩어진 바위가 이동과 사격을 막습니다."],
+    mdesc_base: ['Murs et couloirs étroits : attention aux embuscades.', 'Walls and narrow corridors: beware of ambushes.', 'Muros y pasillos estrechos: cuidado con las emboscadas.', 'Muri e corridoi stretti: attenzione alle imboscate.', '墙壁与狭窄走廊：小心埋伏。', 'Стены и узкие коридоры: берегитесь засад.', "جدران وممرات ضيقة: احذر الكمائن.", "دیوارها و راهروهای باریک: مراقب کمین باشید.", "壁と狭い通路：待ち伏せに注意。", "벽과 좁은 통로: 매복에 주의하세요."],
+    controls: ['Commandes', 'Controls', 'Controles', 'Comandi', '操作', 'Управление', "التحكم", "کنترل‌ها", "操作", "조작"],
+    aim: ['Visée', 'Aiming', 'Apuntado', 'Mira', '瞄准', 'Прицел', "التصويب", "نشانه‌گیری", "照準", "조준"],
+    mouse: ['Souris', 'Mouse', 'Ratón', 'Mouse', '鼠标', 'Мышь', "الفأرة", "ماوس", "マウス", "마우스"],
+    keyboard: ['Clavier', 'Keyboard', 'Teclado', 'Tastiera', '键盘', 'Клавиатура', "لوحة المفاتيح", "صفحه‌کلید", "キーボード", "키보드"],
+    bindHint: ['Cliquez sur une commande, puis appuyez sur la touche ou le bouton de souris voulu. Échap pour annuler.', 'Click a control, then press the key or mouse button you want. Esc to cancel.', 'Haz clic en un control y pulsa la tecla o el botón del ratón que quieras. Esc para cancelar.', 'Fai clic su un comando, poi premi il tasto o il pulsante del mouse desiderato. Esc per annullare.', '点击一个操作，然后按下想要的按键或鼠标键。按 Esc 取消。', 'Нажмите на действие, затем нужную клавишу или кнопку мыши. Esc — отмена.', "انقر على أمر، ثم اضغط المفتاح أو زر الفأرة المطلوب. Esc للإلغاء.", "روی یک فرمان بزنید، سپس کلید یا دکمه ماوس دلخواه را فشار دهید. Esc برای لغو.", "操作をクリックし、使いたいキーかマウスボタンを押してください。Escでキャンセル。", "조작을 클릭한 뒤 원하는 키나 마우스 버튼을 누르세요. Esc로 취소."],
+    resetCtrl: ['COMMANDES PAR DÉFAUT', 'DEFAULT CONTROLS', 'CONTROLES PREDETERMINADOS', 'COMANDI PREDEFINITI', '恢复默认操作', 'УПРАВЛЕНИЕ ПО УМОЛЧАНИЮ', "التحكم الافتراضي", "کنترل‌های پیش‌فرض", "初期設定に戻す", "기본 조작으로"],
+    dodgeBtn: ['ESQUIVE', 'DODGE', 'ESQUIVAR', 'SCHIVA', '闪避', 'РЫВОК', "مراوغة", "جاخالی", "回避", "회피"],
+    pause: ['Pause', 'Pause', 'Pausa', 'Pausa', '暂停', 'Пауза', "إيقاف مؤقت", "مکث", "一時停止", "일시정지"],
+    pauseTitle: ['PAUSE', 'PAUSED', 'PAUSA', 'PAUSA', '已暂停', 'ПАУЗА', "متوقف مؤقتًا", "متوقف شد", "一時停止中", "일시정지됨"],
+    a_up: ['Voler vers le haut', 'Fly up', 'Volar hacia arriba', 'Vola su', '向上飞', 'Лететь вверх', "الطيران للأعلى", "پرواز به بالا", "上へ飛ぶ", "위로 비행"],
+    a_down: ['Voler vers le bas', 'Fly down', 'Volar hacia abajo', 'Vola giù', '向下飞', 'Лететь вниз', "الطيران للأسفل", "پرواز به پایین", "下へ飛ぶ", "아래로 비행"],
+    a_left: ['Voler à gauche', 'Fly left', 'Volar a la izquierda', 'Vola a sinistra', '向左飞', 'Лететь влево', "الطيران لليسار", "پرواز به چپ", "左へ飛ぶ", "왼쪽으로 비행"],
+    a_right: ['Voler à droite', 'Fly right', 'Volar a la derecha', 'Vola a destra', '向右飞', 'Лететь вправо', "الطيران لليمين", "پرواز به راست", "右へ飛ぶ", "오른쪽으로 비행"],
+    a_fire: ['Tirer', 'Shoot', 'Disparar', 'Spara', '射击', 'Стрелять', "إطلاق النار", "شلیک", "射撃", "사격"],
+    a_dash: ['Esquive rapide', 'Quick dodge', 'Esquiva rápida', 'Schivata rapida', '快速闪避', 'Быстрый рывок', "مراوغة سريعة", "جاخالی سریع", "緊急回避", "긴급 회피"],
+    a_pause: ['Pause', 'Pause', 'Pausa', 'Pausa', '暂停', 'Пауза', "إيقاف مؤقت", "مکث", "一時停止", "일시정지"],
+    a_aimUp: ['Viser en haut', 'Aim up', 'Apuntar arriba', 'Mira in alto', '向上瞄准', 'Целиться вверх', "التصويب للأعلى", "نشانه به بالا", "上を狙う", "위 조준"],
+    a_aimDown: ['Viser en bas', 'Aim down', 'Apuntar abajo', 'Mira in basso', '向下瞄准', 'Целиться вниз', "التصويب للأسفل", "نشانه به پایین", "下を狙う", "아래 조준"],
+    a_aimLeft: ['Viser à gauche', 'Aim left', 'Apuntar a la izquierda', 'Mira a sinistra', '向左瞄准', 'Целиться влево', "التصويب لليسار", "نشانه به چپ", "左を狙う", "왼쪽 조준"],
+    a_aimRight: ['Viser à droite', 'Aim right', 'Apuntar a la derecha', 'Mira a destra', '向右瞄准', 'Целиться вправо', "التصويب لليمين", "نشانه به راست", "右を狙う", "오른쪽 조준"],
+    pressKey: ['Appuyez…', 'Press a key…', 'Pulsa…', 'Premi…', '请按键…', 'Нажмите…', "اضغط على مفتاح…", "یک کلید را فشار دهید…", "キーを押してください…", "키를 누르세요…"],
+    loadout: ['Drone : {drone}  ·  Difficulté : {diff}  ·  Vague {w}  ·  {c} crédits', 'Drone: {drone}  ·  Difficulty: {diff}  ·  Wave {w}  ·  {c} credits', 'Dron: {drone}  ·  Dificultad: {diff}  ·  Oleada {w}  ·  {c} créditos', 'Drone: {drone}  ·  Difficoltà: {diff}  ·  Ondata {w}  ·  {c} crediti', '无人机：{drone}  ·  难度：{diff}  ·  第 {w} 波  ·  {c} 金币', 'Дрон: {drone}  ·  Сложность: {diff}  ·  Волна {w}  ·  кредиты: {c}', "الطائرة: {drone}  ·  الصعوبة: {diff}  ·  الموجة {w}  ·  {c} رصيد", "پهپاد: {drone}  ·  سختی: {diff}  ·  موج {w}  ·  {c} اعتبار", "ドローン：{drone}  ·  難易度：{diff}  ·  ウェーブ{w}  ·  {c}クレジット", "드론: {drone}  ·  난이도: {diff}  ·  웨이브 {w}  ·  {c} 크레딧"],
+    intro: ['Pilotez votre drone et abattez les drones ennemis, vague après vague.', 'Pilot your drone and shoot down enemy drones, wave after wave.', 'Pilota tu dron y derriba los drones enemigos, oleada tras oleada.', 'Pilota il tuo drone e abbatti i droni nemici, ondata dopo ondata.', '驾驶你的无人机，一波又一波地击落敌方无人机。', 'Управляйте дроном и сбивайте вражеские дроны волна за волной.', "قُد طائرتك وأسقط طائرات العدو، موجة بعد موجة.", "پهپاد خود را هدایت کنید و پهپادهای دشمن را موج به موج سرنگون کنید.", "ドローンを操縦し、敵ドローンをウェーブごとに撃墜しよう。", "드론을 조종해 웨이브마다 적 드론을 격추하세요."],
+    introTouch: ['Pilotez votre drone et abattez les drones ennemis. Tenez le téléphone à l\'horizontale pour plus de confort.', 'Pilot your drone and shoot down enemy drones. Hold your phone sideways for the best experience.', 'Pilota tu dron y derriba los drones enemigos. Pon el teléfono en horizontal para jugar más cómodo.', 'Pilota il tuo drone e abbatti i droni nemici. Tieni il telefono in orizzontale per giocare meglio.', '驾驶你的无人机，击落敌方无人机。横屏握持手机体验更佳。', 'Управляйте дроном и сбивайте вражеские дроны. Держите телефон горизонтально — так удобнее.', "قُد طائرتك وأسقط طائرات العدو. أمسك هاتفك بالعرض لأفضل تجربة.", "پهپاد خود را هدایت کنید و پهپادهای دشمن را سرنگون کنید. برای بهترین تجربه گوشی را افقی نگه دارید.", "ドローンを操縦して敵ドローンを撃墜しよう。端末は横向きがおすすめです。", "드론을 조종해 적 드론을 격추하세요. 휴대폰을 가로로 들면 더 좋습니다."],
+    h_leftThumb: ['Pouce gauche', 'Left thumb', 'Pulgar izquierdo', 'Pollice sinistro', '左手拇指', 'Левый палец', "الإبهام الأيسر", "شست چپ", "左の親指", "왼쪽 엄지"],
+    h_dragFly: ['Glisser pour voler', 'Drag to fly', 'Desliza para volar', 'Trascina per volare', '滑动以飞行', 'Проведите, чтобы лететь', "اسحب للطيران", "برای پرواز بکشید", "ドラッグで飛行", "드래그하여 비행"],
+    h_rightThumb: ['Pouce droit', 'Right thumb', 'Pulgar derecho', 'Pollice destro', '右手拇指', 'Правый палец', "الإبهام الأيمن", "شست راست", "右の親指", "오른쪽 엄지"],
+    h_dragAim: ['Glisser pour viser et tirer', 'Drag to aim and shoot', 'Desliza para apuntar y disparar', 'Trascina per mirare e sparare', '滑动以瞄准并射击', 'Проведите, чтобы целиться и стрелять', "اسحب للتصويب وإطلاق النار", "برای نشانه‌گیری و شلیک بکشید", "ドラッグで照準と射撃", "드래그하여 조준 및 사격"],
+    h_button: ['Bouton {b}', '{b} button', 'Botón {b}', 'Pulsante {b}', '{b} 按钮', 'Кнопка {b}', "زر {b}", "دکمه {b}", "{b}ボタン", "{b} 버튼"],
+    h_dodgeDesc: ['Esquive rapide (invulnérable un instant)', 'Quick dodge (briefly invulnerable)', 'Esquiva rápida (invulnerable un instante)', 'Schivata rapida (invulnerabile per un istante)', '快速闪避（短暂无敌）', 'Быстрый рывок (ненадолго неуязвим)', "مراوغة سريعة (حصانة قصيرة)", "جاخالی سریع (آسیب‌ناپذیری کوتاه)", "緊急回避（短時間無敵）", "긴급 회피 (잠시 무적)"],
+    h_fly: ['Voler', 'Fly', 'Volar', 'Volare', '飞行', 'Полёт', "طيران", "پرواز", "飛行", "비행"],
+    h_aim: ['Viser', 'Aim', 'Apuntar', 'Mirare', '瞄准', 'Прицел', "تصويب", "نشانه‌گیری", "照準", "조준"],
+    h_shoot: ['Tirer', 'Shoot', 'Disparar', 'Sparare', '射击', 'Стрельба', "إطلاق", "شلیک", "射撃", "사격"],
+    h_held: ['{k} (maintenu)', '{k} (hold)', '{k} (mantener)', '{k} (tieni premuto)', '{k}（按住）', '{k} (удерживать)', "{k} (مع الضغط)", "{k} (نگه دارید)", "{k}（長押し）", "{k} (누르고 있기)"],
+    pausedTouch: ['Partie en pause.', 'Game paused.', 'Partida en pausa.', 'Partita in pausa.', '游戏已暂停。', 'Игра на паузе.', "اللعبة متوقفة مؤقتًا.", "بازی متوقف شد.", "一時停止中です。", "게임이 일시정지되었습니다."],
+    pausedKey: ['Appuyez sur {k} pour reprendre.', 'Press {k} to resume.', 'Pulsa {k} para continuar.', 'Premi {k} per riprendere.', '按 {k} 继续。', 'Нажмите {k}, чтобы продолжить.', "اضغط {k} للمتابعة.", "برای ادامه {k} را فشار دهید.", "{k}で再開します。", "{k}를 눌러 계속하세요."],
+    downed: ['DRONE ABATTU', 'DRONE DOWN', 'DRON DERRIBADO', 'DRONE ABBATTUTO', '无人机被击落', 'ДРОН СБИТ', "سقطت الطائرة", "پهپاد سقوط کرد", "ドローン撃墜", "드론 격추됨"],
+    newRecord: ['Nouveau record !', 'New record!', '¡Nuevo récord!', 'Nuovo record!', '新纪录！', 'Новый рекорд!', "رقم قياسي جديد!", "رکورد جدید!", "新記録！", "신기록!"],
+    destroyed: ['Votre drone a été détruit.', 'Your drone was destroyed.', 'Tu dron ha sido destruido.', 'Il tuo drone è stato distrutto.', '你的无人机已被摧毁。', 'Ваш дрон уничтожен.', "دُمِّرت طائرتك.", "پهپاد شما نابود شد.", "ドローンが破壊されました。", "드론이 파괴되었습니다."],
+    colon: [' : ', ': ', ': ', ': ', '：', ': ', ":", ":", "：", ":"],
+    st_score: ['Score', 'Score', 'Puntuación', 'Punteggio', '得分', 'Очки', "النتيجة", "امتیاز", "スコア", "점수"],
+    st_wave: ['Vague atteinte', 'Wave reached', 'Oleada alcanzada', 'Ondata raggiunta', '到达波次', 'Достигнутая волна', "الموجة المُحرزة", "موج رسیده", "到達ウェーブ", "도달 웨이브"],
+    st_kills: ['Drones abattus', 'Drones shot down', 'Drones derribados', 'Droni abbattuti', '击落无人机', 'Сбито дронов', "الطائرات المُسقَطة", "پهپادهای سرنگون‌شده", "撃墜したドローン", "격추한 드론"],
+    st_best: ['Meilleur score ({d})', 'Best score ({d})', 'Mejor puntuación ({d})', 'Miglior punteggio ({d})', '最高分（{d}）', 'Лучший счёт ({d})', "أفضل نتيجة ({d})", "بهترین امتیاز ({d})", "ベストスコア（{d}）", "최고 점수 ({d})"],
+    b_wave: ['VAGUE {n}', 'WAVE {n}', 'OLEADA {n}', 'ONDATA {n}', '第 {n} 波', 'ВОЛНА {n}', "الموجة {n}", "موج {n}", "ウェーブ{n}", "웨이브 {n}"],
+    b_heal: ['+30 RÉPARATION', '+30 REPAIR', '+30 REPARACIÓN', '+30 RIPARAZIONE', '+30 修复', '+30 РЕМОНТ', "+30 إصلاح", "+۳۰ تعمیر", "修理+30", "수리 +30"],
+    b_rapid: ['TIR RAPIDE', 'RAPID FIRE', 'FUEGO RÁPIDO', 'FUOCO RAPIDO', '快速射击', 'СКОРОСТРЕЛЬНОСТЬ', "إطلاق سريع", "شلیک سریع", "連射", "속사"],
+    b_shield: ['BOUCLIER', 'SHIELD', 'ESCUDO', 'SCUDO', '护盾', 'ЩИТ', "درع واقٍ", "سپر", "シールド", "방어막"],
+    b_bossName: ['COLOSSE : {n}', 'COLOSSUS: {n}', 'COLOSO: {n}', 'COLOSSO: {n}', '巨像：{n}', 'КОЛОСС: {n}', "عملاق: {n}", "غول: {n}", "巨像：{n}", "거상: {n}"],
+    b_boss: ['COLOSSE !', 'COLOSSUS!', '¡COLOSO!', 'COLOSSO!', '巨像来袭！', 'КОЛОСС!', "عملاق!", "غول!", "巨像出現！", "거상 출현!"],
+    b_bossDown: ['COLOSSE DÉTRUIT', 'COLOSSUS DESTROYED', 'COLOSO DESTRUIDO', 'COLOSSO DISTRUTTO', '巨像已击毁', 'КОЛОСС УНИЧТОЖЕН', "دُمِّر العملاق", "غول نابود شد", "巨像撃破", "거상 파괴"],
+    b_life: ['+1 VIE', '+1 LIFE', '+1 VIDA', '+1 VITA', '+1 生命', '+1 ЖИЗНЬ', "+1 روح", "+۱ جان", "ライフ+1", "생명 +1"],
+    b_revive: ['DE RETOUR !', 'BACK IN ACTION!', '¡DE VUELTA!', 'DI NUOVO IN VOLO!', '重新出击！', 'СНОВА В БОЮ!', "عدتَ إلى المعركة!", "دوباره در نبرد!", "戦線復帰！", "전투 복귀!"],
+    hud_boss: ['COLOSSE', 'COLOSSUS', 'COLOSO', 'COLOSSO', '巨像', 'КОЛОСС', "عملاق", "غول", "巨像", "거상"],
+    downSub: ['Vies restantes : {n}. Utiliser une vie pour continuer ?', 'Lives left: {n}. Use a life to continue?', 'Vidas restantes: {n}. ¿Usar una vida para continuar?', 'Vite rimaste: {n}. Usare una vita per continuare?', '剩余生命：{n}。使用一条生命继续吗？', 'Осталось жизней: {n}. Потратить жизнь и продолжить?', "الأرواح المتبقية: {n}. استخدام روح للمتابعة؟", "جان‌های باقی‌مانده: {n}. برای ادامه از یک جان استفاده شود؟", "残りライフ：{n}。ライフを使って続けますか？", "남은 생명: {n}. 생명을 사용해 계속할까요?"],
+    useLife: ['UTILISER UNE VIE', 'USE A LIFE', 'USAR UNA VIDA', 'USA UNA VITA', '使用生命', 'ПОТРАТИТЬ ЖИЗНЬ', "استخدم روحًا", "استفاده از جان", "ライフを使う", "생명 사용"],
+    endGame: ['TERMINER', 'END GAME', 'TERMINAR', 'TERMINA', '结束游戏', 'ЗАКОНЧИТЬ', "إنهاء اللعبة", "پایان بازی", "ゲーム終了", "게임 종료"],
+    livesFull: ['Vies : {h}', 'Lives: {h}', 'Vidas: {h}', 'Vite: {h}', '生命：{h}', 'Жизни: {h}', "الأرواح: {h}", "جان‌ها: {h}", "ライフ：{h}", "생명: {h}"],
+    livesWait: ['Vies : {h}  ·  recharge dans {t}', 'Lives: {h}  ·  refill in {t}', 'Vidas: {h}  ·  recarga en {t}', 'Vite: {h}  ·  ricarica tra {t}', '生命：{h}  ·  {t} 后恢复', 'Жизни: {h}  ·  восстановление через {t}', "الأرواح: {h}  ·  تعود بعد {t}", "جان‌ها: {h}  ·  پر شدن تا {t}", "ライフ：{h}  ·  回復まで{t}", "생명: {h}  ·  {t} 후 회복"],
+    livesNone: ['Aucune vie : une seule chance par partie  ·  recharge dans {t}', 'No lives: one chance per game  ·  refill in {t}', 'Sin vidas: una sola oportunidad por partida  ·  recarga en {t}', 'Nessuna vita: una sola possibilità a partita  ·  ricarica tra {t}', '没有生命：每局只有一次机会  ·  {t} 后恢复', 'Жизней нет: одна попытка за игру  ·  восстановление через {t}', "لا أرواح: فرصة واحدة لكل لعبة  ·  تعود بعد {t}", "بدون جان: یک فرصت در هر بازی  ·  پر شدن تا {t}", "ライフなし：1ゲーム1回のみ  ·  回復まで{t}", "생명 없음: 게임당 한 번의 기회  ·  {t} 후 회복"],
+    st_bonus: ['Bonus vies gardées', 'Unused lives bonus', 'Bonus por vidas guardadas', 'Bonus vite conservate', '保留生命奖励', 'Бонус за сохранённые жизни', "مكافأة الأرواح غير المستخدمة", "پاداش جان‌های استفاده‌نشده", "未使用ライフボーナス", "미사용 생명 보너스"],
+    playWave: ['JOUER · VAGUE {n}', 'PLAY · WAVE {n}', 'JUGAR · OLEADA {n}', 'GIOCA · ONDATA {n}', '开始 · 第 {n} 波', 'ИГРАТЬ · ВОЛНА {n}', "العب · الموجة {n}", "بازی · موج {n}", "プレイ · ウェーブ{n}", "플레이 · 웨이브 {n}"],
+    retryWave: ['RECOMMENCER LA VAGUE', 'RETRY WAVE', 'REPETIR OLEADA', 'RIPROVA ONDATA', '重试本波', 'ПОВТОРИТЬ ВОЛНУ', "أعد الموجة", "تکرار موج", "ウェーブに再挑戦", "웨이브 재도전"],
+    nextWave: ['VAGUE SUIVANTE', 'NEXT WAVE', 'SIGUIENTE OLEADA', 'ONDATA SUCCESSIVA', '下一波', 'СЛЕДУЮЩАЯ ВОЛНА', "الموجة التالية", "موج بعدی", "次のウェーブ", "다음 웨이브"],
+    toPath: ['RETOUR AU CHEMIN', 'BACK TO PATH', 'VOLVER AL CAMINO', 'TORNA AL PERCORSO', '返回路线', 'К МАРШРУТУ', "العودة إلى المسار", "بازگشت به مسیر", "ルートに戻る", "경로로 돌아가기"],
+    path: ['CHEMIN', 'PATH', 'CAMINO', 'PERCORSO', '路线', 'МАРШРУТ', "المسار", "مسیر", "ルート", "경로"],
+    waveClear: ['VAGUE {n} RÉUSSIE', 'WAVE {n} CLEARED', 'OLEADA {n} SUPERADA', 'ONDATA {n} SUPERATA', '第 {n} 波完成', 'ВОЛНА {n} ПРОЙДЕНА', "اكتملت الموجة {n}", "موج {n} پاک شد", "ウェーブ{n}クリア", "웨이브 {n} 클리어"],
+    bossClear: ['COLOSSE VAINCU', 'COLOSSUS DEFEATED', 'COLOSO DERROTADO', 'COLOSSO SCONFITTO', '巨像已击败', 'КОЛОСС ПОВЕРЖЕН', "هُزم العملاق", "غول شکست خورد", "巨像撃破", "거상 격파"],
+    pathDone: ['CHEMIN TERMINÉ !', 'PATH COMPLETE!', '¡CAMINO COMPLETADO!', 'PERCORSO COMPLETATO!', '路线完成！', 'МАРШРУТ ПРОЙДЕН!', "اكتمل المسار!", "مسیر کامل شد!", "ルート制覇！", "경로 완료!"],
+    clearSub: ['Vague {n}', 'Wave {n}', 'Oleada {n}', 'Ondata {n}', '第 {n} 波', 'Волна {n}', "الموجة {n}", "موج {n}", "ウェーブ{n}", "웨이브 {n}"],
+    chapter: ['Chapitre {n}', 'Chapter {n}', 'Capítulo {n}', 'Capitolo {n}', '第 {n} 章', 'Глава {n}', "الفصل {n}", "فصل {n}", "第{n}章", "{n}장"],
+    chapterDone: ['CHAPITRE {n} TERMINÉ', 'CHAPTER {n} COMPLETE', 'CAPÍTULO {n} COMPLETADO', 'CAPITOLO {n} COMPLETATO', '第 {n} 章完成', 'ГЛАВА {n} ПРОЙДЕНА', "اكتمل الفصل {n}", "فصل {n} کامل شد", "第{n}章クリア", "{n}장 완료"],
+    chapterUnlock: ['Nouveau chemin débloqué : chapitre {n}', 'New path unlocked: chapter {n}', 'Nuevo camino desbloqueado: capítulo {n}', 'Nuovo percorso sbloccato: capitolo {n}', '新路线已解锁：第 {n} 章', 'Открыт новый маршрут: глава {n}', "فُتح مسار جديد: الفصل {n}", "مسیر جدید باز شد: فصل {n}", "新ルート解放：第{n}章", "새 경로 해제: {n}장"],
+    shopHintTouch: ['Les bonus achetés s\'utilisent en jeu avec les boutons en bas de l\'écran.', 'Use purchased power-ups in game with the buttons at the bottom of the screen.', 'Usa los bonus comprados durante el juego con los botones de abajo.', 'Usa i bonus acquistati in gioco con i pulsanti in basso.', '在游戏中点击屏幕下方按钮使用已购道具。', 'Используйте купленные бонусы в игре кнопками внизу экрана.', "استخدم المعززات المشتراة أثناء اللعب بالأزرار أسفل الشاشة.", "تقویت‌های خریداری‌شده را در بازی با دکمه‌های پایین صفحه استفاده کنید.", "購入したボーナスは画面下のボタンでゲーム中に使えます。", "구매한 보너스는 게임 중 화면 하단 버튼으로 사용합니다."],
+    chLocked: ['Terminez ce chapitre pour le débloquer', 'Finish this chapter to unlock it', 'Termina este capítulo para desbloquearlo', 'Completa questo capitolo per sbloccarlo', '完成本章即可解锁', 'Завершите эту главу, чтобы открыть', "أنهِ هذا الفصل لفتحه", "این فصل را تمام کنید تا باز شود", "この章をクリアすると解放", "이 장을 완료하면 해제됩니다"],
+    chOpen: ['Débloqué — appuyez pour continuer', 'Unlocked — tap to continue', 'Desbloqueado: toca para continuar', 'Sbloccato: tocca per continuare', '已解锁 — 点击继续', 'Открыто — нажмите, чтобы продолжить', "مفتوح — المس للمتابعة", "باز شده — برای ادامه لمس کنید", "解放済み — タップで続行", "해제됨 — 탭하여 계속"],
+    soonLocked: ['De nouvelles vagues arrivent bientôt', 'New waves are coming soon', 'Pronto llegarán nuevas oleadas', 'Nuove ondate in arrivo', '新的波次即将到来', 'Новые волны скоро появятся', "موجات جديدة قادمة قريبًا", "موج‌های جدید به‌زودی می‌آیند", "新しいウェーブは近日登場", "새 웨이브가 곧 추가됩니다"],
+    tagline: ['Des vagues sans fin. Des colosses. Un seul drone.', 'Endless waves. Colossi. One drone.', 'Oleadas sin fin. Colosos. Un solo dron.', 'Ondate infinite. Colossi. Un solo drone.', '无尽波次，多个巨像，一架无人机。', 'Бесконечные волны. Колоссы. Один дрон.', "موجات لا تنتهي. عمالقة. طائرة واحدة.", "موج‌های بی‌پایان. غول‌ها. یک پهپاد.", "終わりなきウェーブ。巨像。ただ一機のドローン。", "끝없는 웨이브. 거상. 단 하나의 드론."],
+    soonTitle: ['BIENTÔT', 'COMING SOON', 'PRÓXIMAMENTE', 'PROSSIMAMENTE', '敬请期待', 'СКОРО', "قريبًا", "به‌زودی", "近日登場", "곧 출시"],
+    soonText: ['Vous avez terminé toutes les vagues. De nouvelles vagues arrivent bientôt !', 'You have completed every wave. New waves are coming soon!', 'Has completado todas las oleadas. ¡Pronto llegarán nuevas oleadas!', 'Hai completato tutte le ondate. Nuove ondate in arrivo!', '你已完成全部波次，新波次即将推出！', 'Вы прошли все волны. Скоро появятся новые!', "أكملت كل الموجات. موجات جديدة قادمة قريبًا!", "همه موج‌ها را تمام کردید. موج‌های جدید به‌زودی می‌آیند!", "すべてのウェーブをクリアしました。新しいウェーブは近日登場！", "모든 웨이브를 완료했습니다. 새 웨이브가 곧 추가됩니다!"],
+    st_noLife: ['Bonus sans vie utilisée', 'No-life-used bonus', 'Bonus sin usar vidas', 'Bonus senza vite usate', '未用生命奖励', 'Бонус без траты жизней', "مكافأة عدم استخدام الأرواح", "پاداش عدم استفاده از جان", "ライフ未使用ボーナス", "생명 미사용 보너스"],
+    st_total: ['Total', 'Total', 'Total', 'Totale', '合计', 'Итого', "المجموع", "مجموع", "合計", "합계"],
+    st_bestWave: ['Meilleur score de la vague', 'Best score for this wave', 'Mejor puntuación de la oleada', 'Miglior punteggio dell\'ondata', '本波最高分', 'Лучший счёт волны', "أفضل نتيجة لهذه الموجة", "بهترین امتیاز این موج", "このウェーブのベストスコア", "이 웨이브 최고 점수"],
+    st_credits: ['Crédits gagnés', 'Credits earned', 'Créditos ganados', 'Crediti guadagnati', '获得金币', 'Получено кредитов', "الرصيد المكتسب", "اعتبار به‌دست‌آمده", "獲得クレジット", "획득 크레딧"],
+    credits: ['Crédits', 'Credits', 'Créditos', 'Crediti', '金币', 'Кредиты', "الرصيد", "اعتبار", "クレジット", "크레딧"],
+    shop: ['BOUTIQUE', 'SHOP', 'TIENDA', 'NEGOZIO', '商店', 'МАГАЗИН', "المتجر", "فروشگاه", "ショップ", "상점"],
+    buy: ['ACHETER', 'BUY', 'COMPRAR', 'COMPRA', '购买', 'КУПИТЬ', "شراء", "خرید", "購入", "구매"],
+    owned: ['En stock : {n}/3', 'In stock: {n}/3', 'En stock: {n}/3', 'In scorta: {n}/3', '库存：{n}/3', 'В запасе: {n}/3', "في المخزون: {n}/3", "در انبار: {n}/3", "在庫：{n}/3", "보유: {n}/3"],
+    it_heal: ['Réparation', 'Repair kit', 'Reparación', 'Riparazione', '修复包', 'Ремкомплект', "عدة إصلاح", "کیت تعمیر", "修理キット", "수리 키트"],
+    itd_heal: ['Rend 40 points de vie.', 'Restores 40 health.', 'Restaura 40 puntos de vida.', 'Ripristina 40 punti vita.', '恢复 40 生命值。', 'Восстанавливает 40 здоровья.', "تستعيد 40 نقطة حياة.", "۴۰ جان را بازمی‌گرداند.", "HPを40回復。", "체력 40 회복."],
+    it_rapid: ['Tir rapide', 'Rapid fire', 'Fuego rápido', 'Fuoco rapido', '快速射击', 'Скорострельность', "إطلاق سريع", "شلیک سریع", "連射", "속사"],
+    itd_rapid: ['Double la cadence pendant 8 s.', 'Doubles fire rate for 8 s.', 'Duplica la cadencia durante 8 s.', 'Raddoppia la cadenza per 8 s.', '8 秒内射速翻倍。', 'Удваивает скорострельность на 8 с.', "يضاعف معدل الإطلاق لمدة 8 ث.", "نرخ شلیک را ۸ ثانیه دو برابر می‌کند.", "8秒間連射速度2倍。", "8초간 연사 속도 2배."],
+    it_shield: ['Bouclier', 'Shield', 'Escudo', 'Scudo', '护盾', 'Щит', "درع واقٍ", "سپر", "シールド", "방어막"],
+    itd_shield: ['Bloque tous les dégâts pendant 8 s.', 'Blocks all damage for 8 s.', 'Bloquea todo el daño durante 8 s.', 'Blocca tutti i danni per 8 s.', '8 秒内免疫所有伤害。', 'Блокирует весь урон на 8 с.', "يصد كل الضرر لمدة 8 ث.", "همه آسیب‌ها را ۸ ثانیه دفع می‌کند.", "8秒間すべてのダメージを防ぐ。", "8초간 모든 피해 차단."],
+    it_gun: ['Fusil triple', 'Triple gun', 'Arma triple', 'Fucile triplo', '三连发', 'Тройной выстрел', "مدفع ثلاثي", "تفنگ سه‌گانه", "トリプルガン", "트리플 건"],
+    itd_gun: ['Trois balles en éventail pendant 10 s.', 'Three-way spread for 10 s.', 'Tres balas en abanico durante 10 s.', 'Tre colpi a ventaglio per 10 s.', '10 秒内三向散射。', 'Тройной веер на 10 с.', "إطلاق في ثلاثة اتجاهات لمدة 10 ث.", "شلیک سه‌جهته به مدت ۱۰ ثانیه.", "10秒間3方向に射撃。", "10초간 3방향 사격."],
+    shopHint: ['Les bonus achetés s\'utilisent en jeu avec les boutons en bas de l\'écran (touches 1 à 4 sur PC).', 'Use purchased power-ups in game with the buttons at the bottom of the screen (keys 1–4 on PC).', 'Usa los bonus comprados durante el juego con los botones de abajo (teclas 1 a 4 en PC).', 'Usa i bonus acquistati in gioco con i pulsanti in basso (tasti 1–4 su PC).', '在游戏中点击屏幕下方按钮使用已购道具（电脑上按 1–4 键）。', 'Используйте купленные бонусы в игре кнопками внизу экрана (клавиши 1–4 на ПК).', "استخدم المعززات المشتراة أثناء اللعب بالأزرار أسفل الشاشة (المفاتيح 1–4 على الحاسوب).", "تقویت‌های خریداری‌شده را در بازی با دکمه‌های پایین صفحه استفاده کنید (کلیدهای ۱ تا ۴ روی رایانه).", "購入したボーナスは画面下のボタンでゲーム中に使えます（PCでは1〜4キー）。", "구매한 보너스는 게임 중 화면 하단 버튼으로 사용합니다(PC에서는 1–4 키)."],
+    p_wave: ['Vague', 'Wave', 'Oleada', 'Ondata', '波次', 'Волна', "الموجة", "موج", "ウェーブ", "웨이브"],
+    b_gun: ['FUSIL TRIPLE', 'TRIPLE GUN', 'ARMA TRIPLE', 'FUCILE TRIPLO', '三连发', 'ТРОЙНОЙ ВЫСТРЕЛ', "مدفع ثلاثي", "تفنگ سه‌گانه", "トリプルガン", "트리플 건"],
+    c_rapid: ['RAPIDE', 'RAPID', 'RÁPIDO', 'RAPIDO', '速射', 'СКОРОСТЬ', "سريع", "سریع", "連射", "속사"],
+    c_gun: ['FUSIL', 'GUN', 'ARMA', 'FUCILE', '三连发', 'ТРОЙНОЙ', "مدفع", "تفنگ", "ガン", "건"],
+    hud_hp: ['BLINDAGE', 'ARMOR', 'BLINDAJE', 'CORAZZA', '装甲', 'БРОНЯ', "الدرع", "زره", "装甲", "장갑"],
+    hud_wave: ['VAGUE {w}   ·   ENNEMIS {e}', 'WAVE {w}   ·   ENEMIES {e}', 'OLEADA {w}   ·   ENEMIGOS {e}', 'ONDATA {w}   ·   NEMICI {e}', '波次 {w}   ·   敌人 {e}', 'ВОЛНА {w}   ·   ВРАГИ {e}', "الموجة {w}   ·   الأعداء {e}", "موج {w}   ·   دشمنان {e}", "ウェーブ{w}   ·   敵{e}", "웨이브 {w}   ·   적 {e}"],
+    hud_best: ['RECORD {n}', 'BEST {n}', 'RÉCORD {n}', 'RECORD {n}', '最高分 {n}', 'РЕКОРД {n}', "الأفضل {n}", "بهترین {n}", "ベスト{n}", "최고 {n}"],
+    k_Mouse0: ['Clic gauche', 'Left click', 'Clic izquierdo', 'Clic sinistro', '鼠标左键', 'Левая кнопка мыши', "نقرة يسرى", "کلیک چپ", "左クリック", "왼쪽 클릭"],
+    k_Mouse1: ['Clic molette', 'Middle click', 'Clic central', 'Clic centrale', '鼠标中键', 'Средняя кнопка мыши', "نقرة وسطى", "کلیک وسط", "中クリック", "가운데 클릭"],
+    k_Mouse2: ['Clic droit', 'Right click', 'Clic derecho', 'Clic destro', '鼠标右键', 'Правая кнопка мыши', "نقرة يمنى", "کلیک راست", "右クリック", "오른쪽 클릭"],
+    k_Mouse3: ['Souris 4', 'Mouse 4', 'Ratón 4', 'Mouse 4', '鼠标键 4', 'Кнопка мыши 4', "زر الفأرة 4", "دکمه ماوس ۴", "マウス4", "마우스 4"],
+    k_Mouse4: ['Souris 5', 'Mouse 5', 'Ratón 5', 'Mouse 5', '鼠标键 5', 'Кнопка мыши 5', "زر الفأرة 5", "دکمه ماوس ۵", "マウス5", "마우스 5"],
+    k_Space: ['Espace', 'Space', 'Espacio', 'Spazio', '空格', 'Пробел', "مسافة", "فاصله", "スペース", "스페이스"],
+    k_ShiftLeft: ['Maj gauche', 'Left Shift', 'Mayús izq.', 'Maiusc sinistro', '左 Shift', 'Левый Shift', "Shift الأيسر", "Shift چپ", "左Shift", "왼쪽 Shift"],
+    k_ShiftRight: ['Maj droite', 'Right Shift', 'Mayús der.', 'Maiusc destro', '右 Shift', 'Правый Shift', "Shift الأيمن", "Shift راست", "右Shift", "오른쪽 Shift"],
+    k_ControlLeft: ['Ctrl gauche', 'Left Ctrl', 'Ctrl izq.', 'Ctrl sinistro', '左 Ctrl', 'Левый Ctrl', "Ctrl الأيسر", "Ctrl چپ", "左Ctrl", "왼쪽 Ctrl"],
+    k_ControlRight: ['Ctrl droite', 'Right Ctrl', 'Ctrl der.', 'Ctrl destro', '右 Ctrl', 'Правый Ctrl', "Ctrl الأيمن", "Ctrl راست", "右Ctrl", "오른쪽 Ctrl"],
+    k_Enter: ['Entrée', 'Enter', 'Intro', 'Invio', '回车', 'Enter', "إدخال", "Enter", "Enter", "Enter"],
+    k_Backspace: ['Retour arrière', 'Backspace', 'Retroceso', 'Backspace', '退格', 'Backspace', "حذف للخلف", "پاک‌کردن", "Backspace", "Backspace"],
+    k_CapsLock: ['Verr. maj', 'Caps Lock', 'Bloq Mayús', 'Bloc Maiusc', '大写锁定', 'Caps Lock', "الأحرف الكبيرة", "Caps Lock", "Caps Lock", "Caps Lock"],
+    newKamikaze: ["DRONE KAMIKAZE ÉQUIPÉ ! ({n})", "KAMIKAZE DRONE EQUIPPED! ({n})", "¡DRON KAMIKAZE EQUIPADO! ({n})", "DRONE KAMIKAZE EQUIPAGGIATO! ({n})", "自爆无人机已装备！({n})", "ДРОН-КАМИКАДЗЕ УСТАНОВЛЕН! ({n})", "تم تجهيز طائرة انتحارية! ({n})", "پهپاد انتحاری نصب شد! ({n})", "自爆ドローン装備！（{n}）", "자폭 드론 장착! ({n})"],
+    kamikaze: ["Drones kamikazes", "Kamikaze drones", "Drones kamikaze", "Droni kamikaze", "自爆无人机", "Дроны-камикадзе", "طائرات انتحارية", "پهپادهای انتحاری", "自爆ドローン", "자폭 드론"],
+    kzFrom: ["avec le Leviathan (Niv. 150)", "with Leviathan (Lv. 150)", "con Leviathan (Nv. 150)", "con Leviathan (Liv. 150)", "LEVIATHAN（150 级）解锁", "с Leviathan (ур. 150)", "مع Leviathan (مستوى 150)", "با Leviathan (سطح ۱۵۰)", "LEVIATHAN（Lv.150）から", "LEVIATHAN(Lv.150)부터"],
+    langSearch: ["Rechercher une langue", "Search a language", "Buscar un idioma", "Cerca una lingua", "搜索语言", "Поиск языка", "ابحث عن لغة", "جستجوی زبان", "言語を検索", "언어 검색"],
+    noLang: ["Aucune langue trouvée", "No language found", "Ningún idioma encontrado", "Nessuna lingua trovata", "未找到语言", "Язык не найден", "لم يتم العثور على لغة", "زبانی یافت نشد", "言語が見つかりません", "언어를 찾을 수 없음"],
   };
   function detectLang() {
     try {
@@ -1660,6 +1679,19 @@
       }
     } catch (err) { /* ignore */ }
     return 'en';
+  }
+  function renderLangPick() {
+    var cur = document.getElementById('langCur'); if (!cur) return;
+    cur.innerHTML = '<b>' + cfg.lang.toUpperCase() + '</b><span>' + LANG_INFO[cfg.lang][0] + '</span><i>\u25BE</i>';
+    var inp = document.getElementById('langSearch'), q = (inp.value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(), h = '';
+    inp.placeholder = tr('langSearch');
+    LANGS.forEach(function (l) {
+      var hay = (l + ' ' + LANG_INFO[l][0] + ' ' + LANG_INFO[l][1]).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      if (q && hay.indexOf(q) < 0) return;
+      h += '<button class="chip' + (l === cfg.lang ? ' on' : '') + '" data-opt="lang" data-val="' + l + '" lang="' + l + '"' + (RTL[l] ? ' dir="rtl"' : '') + '><b>' + l.toUpperCase() + '</b>' + LANG_INFO[l][0] + '</button>';
+    });
+    var list = document.getElementById('langList'), body = h || '<p class="langNone">' + esc(tr('noLang')) + '</p>';
+    if (list.getAttribute('data-sig') !== body) { list.innerHTML = body; list.setAttribute('data-sig', body); }
   }
   function tr(key, vars) {
     var row = T[key];
@@ -1777,8 +1809,8 @@
   function evoIndex(lv) { var k = 0; for (var i = 0; i < EVO.length; i++) if (lv >= EVO[i].lv) k = i; return k; }
   function oStats(lv, step) {
     var k = evoIndex(lv), mul = 1 + 0.25 * k, f = (lv - 1) + step / STEPS, sk = online.skin ? OSKINS[0].atk : 0;
-    var hp = Math.round((1200 + f * 140) * mul), atk = Math.round((120 + f * 16) * mul * (1 + sk)), def = Math.round((60 + f * 7) * mul), ms = Math.floor(lv / 10);
-    return { hp: hp, atk: atk, def: def, ms: ms, pow: hp + atk * 12 + def * 25 + ms * 800 };
+    var hp = Math.round((1200 + f * 140) * mul), atk = Math.round((120 + f * 16) * mul * (1 + sk)), def = Math.round((60 + f * 7) * mul), ms = Math.floor(Math.min(lv, 149) / 10), kz = lv >= 150 ? Math.floor((lv - 140) / 10) : 0;
+    return { hp: hp, atk: atk, def: def, ms: ms, kz: kz, pow: hp + atk * 12 + def * 25 + ms * 800 + kz * 2500 };
   }
   function pressCost(lv) { return 4 + Math.floor(lv * 0.6); }
   var GEAR = (function () {
@@ -2067,7 +2099,8 @@
   var bindList = document.getElementById('bindList'), elLoad = document.getElementById('loadout'), quitBtn = document.getElementById('quitBtn');
   var ctrlSec = document.getElementById('ctrlSec'), vibRow = document.getElementById('vibRow'), droneDesc = document.getElementById('droneDesc'), nextNote = document.getElementById('nextNote');
   function renderStatic() {
-    try { document.documentElement.lang = cfg.lang; } catch (err) { /* ignore */ }
+    try { document.documentElement.lang = cfg.lang; document.body.classList.toggle('rtl', !!RTL[cfg.lang]); } catch (err) { /* ignore */ }
+    renderLangPick();
     var els = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < els.length; i++) els[i].textContent = tr(els[i].getAttribute('data-i18n'));
     var ar = document.querySelectorAll('[data-i18n-aria]');
@@ -2216,12 +2249,12 @@
   var hgTab = 'up', hg = { yaw: 2.4, tilt: 0.75, idle: 3, spin: 0, last: 0, parts: [], ring: 0, flash: 0, try: null, stepPop: 0 };
   function hgQueue(a) { a.t = 0; a.fired = false; hg.q = hg.q || []; if (!hg.anim) startAnim(a); else hg.q.push(a); }
   function startAnim(a) {
-    hg.anim = a; hg.idle = a.type === 'missile' ? -1.5 : 0;
+    hg.anim = a; hg.idle = a.type === 'missile' ? -3 : 0;
     if (a.type === 'evo') { showBanner(tr('evoDone', { n: a.name }), true); vib([60, 40, 60, 40, 120]); beep(330, 0.5, 'sawtooth', 0.04, 90); }
-    else { showBanner(tr('newMissile', { n: a.n }), false); beep(520, 0.2, 'triangle', 0.05, 700); }
+    else { beep(180, 0.5, 'sawtooth', 0.025, 260); }
   }
   // Nombre de missiles affichés sous le drone (le missile apparaît quand le bras le fixe)
-  function shownMissiles() { var ms = Math.floor(online.lv / 10), a = hg.anim; if (a && a.type === 'missile' && !a.fired) ms--; (hg.q || []).forEach(function (q) { if (q.type === 'missile') ms--; }); return Math.max(0, ms); }
+  function shownMissiles() { return 0; }
   function ease(x) { return x < 0 ? 0 : x > 1 ? 1 : 1 - Math.pow(1 - x, 3); }
   function drawMissile2D(x, y, ang, L) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
@@ -2231,34 +2264,127 @@
     ctx.beginPath(); ctx.moveTo(-L / 2, L * 0.09); ctx.lineTo(-L / 2 - L * 0.08, L * 0.22); ctx.lineTo(-L / 2 + L * 0.12, L * 0.09); ctx.fill();
     ctx.restore();
   }
-  // Petit drone assistant avec bras robotique qui vient fixer le missile sous le drone
-  function drawMissileAnim(a, cx, cy, sc, w, h, t) {
-    var p = a.t / a.dur, hx, hy, mp = missilePos(Math.min(5, a.n - 1)), cyw = Math.cos(hg.yaw), syw = Math.sin(hg.yaw), ct = Math.cos(hg.tilt), st = Math.sin(hg.tilt);
-    var px = mp[0] * cyw - mp[1] * syw, py = mp[0] * syw + mp[1] * cyw, tx = cx + px * sc, ty = cy + (py * ct - mp[2] * st) * sc;
-    var dl = Math.hypot(tx - cx, ty - cy) || 1, parkX = clamp(tx + (tx - cx) / dl * sc * 0.55, 40, w - 40), parkY = clamp(ty + (ty - cy) / dl * sc * 0.35 + sc * 0.25, 40, h - 30);
-    var fromX = parkX > cx ? w + 60 : -60;
-    if (p < 0.28) { var e = ease(p / 0.28); hx = fromX + (parkX - fromX) * e; hy = parkY - 40 * (1 - e); }
-    else if (p < 0.8) { hx = parkX; hy = parkY + Math.sin(t * 6) * 2; }
-    else { var e2 = ease((p - 0.8) / 0.2); hx = parkX + (fromX - parkX) * e2; hy = parkY + 60 * e2; }
-    var ext = p < 0.3 ? 0 : p < 0.58 ? ease((p - 0.3) / 0.28) : p < 0.66 ? 1 : p < 0.8 ? 1 - ease((p - 0.66) / 0.14) : 0;
-    var bx = hx - sc * 0.08, by = hy - sc * 0.06, ex = bx + (tx - bx) * ext, ey = by + (ty - by) * ext;
-    var mx = (bx + ex) / 2, my = Math.min(by, ey) - sc * 0.22 * ext - 6;
+  // Plateforme circulaire du hangar avec trappe : le bras robotique sort, charge l'arme dans le drone puis redescend
+  function armPhase(a) {
+    if (!a || a.type !== 'missile') return { door: 0, rise: 0, reach: 0, load: 0 };
+    var p = a.t / a.dur, k = function (x0, x1) { return ease((p - x0) / (x1 - x0)); };
+    var door = p < 0.1 ? k(0, 0.1) : p > 0.9 ? 1 - k(0.9, 1) : 1;
+    var rise = p < 0.1 ? 0 : p < 0.26 ? k(0.1, 0.26) : p < 0.76 ? 1 : p < 0.9 ? 1 - k(0.76, 0.9) : 0;
+    var reach = p < 0.26 ? 0 : p < 0.48 ? k(0.26, 0.48) : p < 0.6 ? 1 : p < 0.76 ? 1 - k(0.6, 0.76) : 0;
+    var load = p < 0.48 ? 0 : p < 0.58 ? k(0.48, 0.58) : 1;
+    return { door: door, rise: rise, reach: reach, load: load, p: p };
+  }
+  function hatchPos(cx, py, rx, ry) { return { x: cx - rx * 0.5, y: py + ry * 0.36 }; }
+  function drawPlatform(cx, py, rx, ry, door, t) {
+    var hp0 = hatchPos(cx, py, rx, ry);
     ctx.save();
-    ctx.lineCap = 'round'; ctx.strokeStyle = '#2b3446'; ctx.lineWidth = Math.max(5, sc * 0.07);
-    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(mx, my); ctx.lineTo(ex, ey); ctx.stroke();
-    ctx.strokeStyle = '#ffc94a'; ctx.lineWidth = Math.max(3, sc * 0.04);
-    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(mx, my); ctx.lineTo(ex, ey); ctx.stroke();
-    ctx.fillStyle = '#2b3446'; [[bx, by], [mx, my]].forEach(function (j) { ctx.beginPath(); ctx.arc(j[0], j[1], Math.max(4, sc * 0.045), 0, TAU); ctx.fill(); });
-    var ang = Math.atan2(ey - my, ex - mx);
-    ctx.strokeStyle = '#c6ccd8'; ctx.lineWidth = 2.5;
-    ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex + Math.cos(ang + 0.6) * 10, ey + Math.sin(ang + 0.6) * 10); ctx.moveTo(ex, ey); ctx.lineTo(ex + Math.cos(ang - 0.6) * 10, ey + Math.sin(ang - 0.6) * 10); ctx.stroke();
-    if (!a.fired && p < 0.62) drawMissile2D(ex, ey, hg.yaw, Math.max(24, sc * 0.36));
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.45)'; ctx.beginPath(); ctx.ellipse(cx, py + ry * 0.2, rx * 1.04, ry * 1.04, 0, 0, TAU); ctx.fill();
+    ctx.fillStyle = '#0d1420'; ctx.beginPath(); ctx.ellipse(cx, py + ry * 0.12, rx, ry, 0, 0, TAU); ctx.fill();
+    var g = ctx.createLinearGradient(cx, py - ry, cx, py + ry);
+    g.addColorStop(0, '#2f405c'); g.addColorStop(1, '#151d2c');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, py, rx, ry, 0, 0, TAU); ctx.fill();
+    ctx.strokeStyle = 'rgba(94, 240, 255, 0.55)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(cx, py, rx * 0.97, ry * 0.97, 0, 0, TAU); ctx.stroke();
+    ctx.strokeStyle = 'rgba(143, 166, 196, 0.25)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(cx, py, rx * 0.7, ry * 0.7, 0, 0, TAU); ctx.stroke();
+    for (var i = 0; i < 16; i++) {
+      var a = i / 16 * TAU + t * 0.4, on = (i + Math.floor(t * 4)) % 4 === 0;
+      ctx.fillStyle = on ? '#5ef0ff' : 'rgba(94, 240, 255, 0.25)'; ctx.beginPath(); ctx.arc(cx + Math.cos(a) * rx * 0.85, py + Math.sin(a) * ry * 0.85, 2.2, 0, TAU); ctx.fill();
+    }
+    // bande de sécurité autour de la trappe
+    var hr = rx * 0.26, hry = ry * 0.26, hx0 = hp0.x, hy0 = hp0.y;
+    ctx.save(); ctx.beginPath(); ctx.ellipse(hx0, hy0, hr * 1.22, hry * 1.22, 0, 0, TAU); ctx.clip();
+    for (var s2 = -10; s2 < 10; s2++) {
+      ctx.fillStyle = s2 % 2 ? '#ffc94a' : '#1b1e28';
+      var x0 = hx0 + s2 * hr * 0.24;
+      ctx.beginPath(); ctx.moveTo(x0, hy0 - hry * 1.3); ctx.lineTo(x0 + hr * 0.12, hy0 - hry * 1.3); ctx.lineTo(x0 + hr * 0.52, hy0 + hry * 1.3); ctx.lineTo(x0 + hr * 0.4, hy0 + hry * 1.3); ctx.fill();
+    }
     ctx.restore();
-    draw3D(getModel('a', '#ffd166', 1), hx, hy, sc * 0.3, Math.PI + Math.sin(t * 2) * 0.2, 0.9, 0, 0, 1, t, false, true);
-    if (!a.fired && p >= 0.62) {
-      a.fired = true;
-      for (var i = 0; i < 26; i++) { var an = Math.random() * TAU, v = 40 + Math.random() * 140; hg.parts.push({ x: tx - cx + Math.cos(an) * 4, y: ty - cy, vx: Math.cos(an) * v, vy: Math.sin(an) * v - 30, life: 0.4 + Math.random() * 0.4, col: i % 2 ? '#ffd166' : '#ffffff' }); }
-      initAudio(); beep(1200, 0.06, 'square', 0.05, 900); setTimeout(function () { beep(700, 0.12, 'triangle', 0.05, 1400); }, 90); vib([20, 30, 40]);
+    // puits et portes coulissantes
+    ctx.save(); ctx.beginPath(); ctx.ellipse(hx0, hy0, hr, hry, 0, 0, TAU); ctx.clip();
+    ctx.fillStyle = '#020407'; ctx.fillRect(hx0 - hr, hy0 - hry, hr * 2, hry * 2);
+    if (door > 0) {
+      var lg = ctx.createRadialGradient(hx0, hy0, 1, hx0, hy0, hr);
+      lg.addColorStop(0, 'rgba(94, 240, 255, ' + (0.5 * door).toFixed(2) + ')'); lg.addColorStop(1, 'rgba(94, 240, 255, 0)');
+      ctx.fillStyle = lg; ctx.fillRect(hx0 - hr, hy0 - hry, hr * 2, hry * 2);
+    }
+    var off = door * hr;
+    [-1, 1].forEach(function (sd) {
+      var dx = hx0 + sd * (hr / 2 + off);
+      var dg = ctx.createLinearGradient(dx - hr / 2, hy0, dx + hr / 2, hy0); dg.addColorStop(0, '#4f5e7a'); dg.addColorStop(1, '#2e3a50');
+      ctx.fillStyle = dg; ctx.fillRect(dx - hr / 2, hy0 - hry, hr, hry * 2);
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(dx - sd * hr / 2, hy0 - hry); ctx.lineTo(dx - sd * hr / 2, hy0 + hry); ctx.stroke();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.14)'; for (var r = -1; r <= 1; r++) ctx.fillRect(dx - hr * 0.3, hy0 + r * hry * 0.45 - 1, hr * 0.6, 2);
+    });
+    ctx.restore();
+    ctx.strokeStyle = '#5ef0ff'; ctx.globalAlpha = 0.45 + 0.55 * door; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(hx0, hy0, hr, hry, 0, 0, TAU); ctx.stroke();
+    ctx.restore();
+  }
+  function rrect(x, y, w, h, r) { ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h); }
+  function seg3D(x0, y0, x1, y1, wd, c0, c1, c2) {
+    var a = Math.atan2(y1 - y0, x1 - x0), l = Math.hypot(x1 - x0, y1 - y0);
+    ctx.save(); ctx.translate(x0, y0); ctx.rotate(a);
+    ctx.fillStyle = '#0a0f18'; rrect(-1.5, -wd / 2 - 1.5, l + 3, wd + 3, wd / 2); ctx.fill();
+    var g = ctx.createLinearGradient(0, -wd / 2, 0, wd / 2); g.addColorStop(0, c0); g.addColorStop(0.45, c1); g.addColorStop(1, c2);
+    ctx.fillStyle = g; rrect(0, -wd / 2, l, wd, wd / 2.2); ctx.fill();
+    ctx.restore();
+  }
+  function joint(x, y, r, a) {
+    ctx.fillStyle = '#0a0f18'; ctx.beginPath(); ctx.arc(x, y, r + 1.8, 0, TAU); ctx.fill();
+    var g = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.1, x, y, r); g.addColorStop(0, '#8fd8ff'); g.addColorStop(0.55, '#1f8be0'); g.addColorStop(1, '#0d4f8f');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+    ctx.fillStyle = '#d9e2ee'; ctx.beginPath(); ctx.arc(x, y, r * 0.38, 0, TAU); ctx.fill();
+    ctx.strokeStyle = 'rgba(10, 15, 24, 0.6)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x + Math.cos(a) * r * 0.4, y + Math.sin(a) * r * 0.4); ctx.lineTo(x + Math.cos(a) * r * 0.85, y + Math.sin(a) * r * 0.85); ctx.stroke();
+  }
+  // Bras industriel à 3 articulations (base bleue, bras argent, avant-bras bleu, pince noire)
+  function drawArm(a, cx, py, ry, dx, dy, sc, t, cy0) {
+    var ph = armPhase(a); if (ph.rise <= 0) return;
+    var u = sc / 84, hp1 = hatchPos(cx, py, ry / Math.max(0.28, Math.cos(hg.tilt) * 0.6), ry), bx = hp1.x, by = hp1.y, colH = 46 * u * ph.rise;
+    var S = { x: bx, y: by - colH - 4 * u }, L1 = 60 * u, L2 = 54 * u;
+    var R = { x: S.x + 22 * u, y: S.y - 30 * u }, P = { x: dx - 6 * u, y: dy + 4 * u };
+    var T = { x: R.x + (P.x - R.x) * ph.reach, y: R.y + (P.y - R.y) * ph.reach };
+    var vx = T.x - S.x, vy = T.y - S.y, d = Math.max(4, Math.min(Math.hypot(vx, vy), L1 + L2 - 1)), ang = Math.atan2(vy, vx);
+    var al = Math.acos(clamp((L1 * L1 + d * d - L2 * L2) / (2 * L1 * d), -1, 1));
+    var E1 = { x: S.x + Math.cos(ang + al) * L1, y: S.y + Math.sin(ang + al) * L1 }, E2 = { x: S.x + Math.cos(ang - al) * L1, y: S.y + Math.sin(ang - al) * L1 };
+    var E = E1.y < E2.y ? E1 : E2;
+    var fa = Math.atan2(T.y - E.y, T.x - E.x), W = { x: E.x + Math.cos(fa) * L2, y: E.y + Math.sin(fa) * L2 };
+    // colonne qui sort de la trappe
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0, 0, ctx.canvas.width, by); ctx.clip();
+    var cw = 22 * u, cg = ctx.createLinearGradient(bx - cw / 2, 0, bx + cw / 2, 0);
+    cg.addColorStop(0, '#0d4f8f'); cg.addColorStop(0.4, '#3aa8f0'); cg.addColorStop(1, '#0d4f8f');
+    ctx.fillStyle = '#0a0f18'; ctx.fillRect(bx - cw / 2 - 1.5, S.y - 1.5, cw + 3, by - S.y + 4);
+    ctx.fillStyle = cg; ctx.fillRect(bx - cw / 2, S.y, cw, by - S.y + 2);
+    ctx.fillStyle = '#c6ccd8'; ctx.fillRect(bx - cw / 2 - 3 * u, S.y + 12 * u, cw + 6 * u, 5 * u);
+    ctx.fillStyle = '#0a1a2c'; ctx.font = 'bold ' + Math.max(7, Math.round(7 * u)) + 'px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('DSF', bx, S.y + 30 * u);
+    ctx.restore();
+    seg3D(S.x, S.y, E.x, E.y, 15 * u, '#f6f8fc', '#bcc6d4', '#6b778c');
+    joint(S.x, S.y, 12 * u, ang + al);
+    seg3D(E.x, E.y, W.x, W.y, 13 * u, '#8fd8ff', '#1f8be0', '#0d4f8f');
+    joint(E.x, E.y, 10 * u, fa);
+    var gx = W.x + Math.cos(fa) * 9 * u, gy = W.y + Math.sin(fa) * 9 * u, open = ph.load > 0.05 ? 0.95 : 0.35;
+    seg3D(W.x, W.y, gx, gy, 10 * u, '#59627a', '#2b3446', '#141922');
+    // charge tenue par la pince : missile ou petit drone kamikaze
+    if (ph.load < 1) {
+      var ld = ph.load, lx = gx + Math.cos(fa) * 12 * u + (P.x - gx - Math.cos(fa) * 12 * u) * ld, ly = gy + Math.sin(fa) * 12 * u + (P.y - gy - Math.sin(fa) * 12 * u) * ld;
+      ctx.save(); ctx.globalAlpha = 1 - ld;
+      if (a.kz) draw3D(getModel('a', '#ff4d6d', 1), lx, ly, 14 * u * (1 - ld * 0.8), fa, 0.9, 0, 0, 1 - ld * 0.6, t, false, false);
+      else drawMissile2D(lx, ly, fa, 30 * u * (1 - ld * 0.85));
+      ctx.restore();
+    }
+    [-1, 1].forEach(function (sd) {
+      var na = fa + sd * open * 0.7, fx = gx + Math.cos(na) * 13 * u, fy = gy + Math.sin(na) * 13 * u;
+      ctx.strokeStyle = '#0a0f18'; ctx.lineWidth = 5 * u; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(fx, fy); ctx.lineTo(fx + Math.cos(fa - sd * 0.6) * 7 * u, fy + Math.sin(fa - sd * 0.6) * 7 * u); ctx.stroke();
+    });
+    joint(W.x, W.y, 6.5 * u, fa);
+    if (ph.load >= 1 && !a.fired) {
+      a.fired = true; hg.flash = 0.35; hg.ring = 1;
+      for (var i = 0; i < 34; i++) {
+        var an = Math.random() * TAU, v = 50 + Math.random() * 170;
+        hg.parts.push({ x: P.x - cx, y: P.y - cy0, vx: Math.cos(an) * v, vy: Math.sin(an) * v - 40, life: 0.5 + Math.random() * 0.4, col: a.kz ? (i % 2 ? '#ff4d6d' : '#ffd166') : (i % 2 ? '#ffd166' : '#ffffff') });
+      }
+      showBanner(tr(a.kz ? 'newKamikaze' : 'newMissile', { n: a.n }), false);
+      initAudio(); beep(1200, 0.06, 'square', 0.05, 900); setTimeout(function () { beep(520, 0.25, 'triangle', 0.06, 1240); }, 90); vib([30, 30, 60]);
     }
   }
   function curModel() {
@@ -2281,14 +2407,15 @@
     if (hgTab === 'up') {
       var seg = '', maxed = online.lv >= MAXLV, cost = pressCost(online.lv);
       for (i = 0; i < STEPS; i++) seg += '<i class="' + (i < online.step ? 'f' : '') + (hg.stepPop && i === hg.stepPop - 1 ? ' pop' : '') + '"></i>';
-      var nextM = (Math.floor(online.lv / 10) + 1) * 10, nextE = null;
+      var nextM = (Math.floor(online.lv / 10) + 1) * 10, nextE = null, kzIco = '<path d="M12 7.5l3 3-3 3-3-3z"/><circle cx="5" cy="5" r="2.6"/><circle cx="19" cy="5" r="2.6"/><circle cx="5" cy="19" r="2.6"/><circle cx="19" cy="19" r="2.6"/><path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3" stroke="#ff4d6d" stroke-width="1.6"/>';
       for (i = 0; i < EVO.length; i++) if (EVO[i].lv > online.lv) { nextE = EVO[i]; break; }
       h = '<div class="upPanel"><div class="powRow"><span>' + esc(tr('power')) + '</span><b>' + fmtN(st.pow) + '</b></div>' +
         '<div class="stRows">' +
         [['hp', '#ff6b9d', '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'], ['atk', '#ffb347', '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'], ['def', '#6fa8ff', '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>']].map(function (r) {
           return '<div class="stRow"><svg viewBox="0 0 24 24" fill="' + r[1] + '" aria-hidden="true">' + r[2] + '</svg><span>' + esc(tr('st_' + r[0])) + '</span><b>' + fmtN(st[r[0]]) + '</b>' + (maxed ? '' : '<em>▶ ' + fmtN(nx[r[0]]) + '</em>') + '</div>';
         }).join('') +
-        '<div class="stRow ms"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 2c3.2 3 4.2 7.4 3 12.5L12 18l-3-3.5C7.8 9.4 8.8 5 12 2z"/><path d="M9 13.5 5.5 18H9zM15 13.5l3.5 4.5H15zM10.5 18.5h3L12 22z"/></svg><span>' + esc(tr('missiles')) + '</span><b>' + st.ms + '</b><em class="dim">' + (maxed ? '' : esc(tr('nextMissile', { n: nextM }))) + '</em></div></div>' +
+        '<div class="stRow ms"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 2c3.2 3 4.2 7.4 3 12.5L12 18l-3-3.5C7.8 9.4 8.8 5 12 2z"/><path d="M9 13.5 5.5 18H9zM15 13.5l3.5 4.5H15zM10.5 18.5h3L12 22z"/></svg><span>' + esc(tr('missiles')) + '</span><b>' + st.ms + '</b><em class="dim">' + (maxed || online.lv >= 140 ? '' : esc(tr('nextMissile', { n: nextM }))) + '</em></div>' +
+        '<div class="stRow ms"><svg viewBox="0 0 24 24" fill="#ff4d6d" aria-hidden="true">' + kzIco + '</svg><span>' + esc(tr('kamikaze')) + '</span><b>' + st.kz + '</b><em class="dim">' + (maxed ? '' : online.lv < 150 ? esc(tr('kzFrom')) : esc(tr('nextMissile', { n: nextM }))) + '</em></div></div>' +
         '<div class="lvRow"><b>' + esc(tr('lvShort', { n: online.lv })) + '</b><span>' + esc(maxed ? tr('maxed') : tr('stepOf', { a: online.step, b: STEPS })) + '</span>' + (nextE ? '<small>' + esc(tr('evoAt', { n: nextE.lv, m: nextE.name })) + '</small>' : '') + '</div>' +
         '<div class="stepBar">' + seg + '</div>' +
         '<div class="upAct"><button class="evoBtn" data-hgact="evo">' + esc(tr('evoBtn')) + '</button>' +
@@ -2336,8 +2463,8 @@
     drawOn(cv, w, h, function () {
       var cx = w / 2, cy = h * 0.52, gr = ctx.createRadialGradient(cx, h * 0.55, 6, cx, h * 0.55, w * 0.55);
       if (gr && gr.addColorStop) { gr.addColorStop(0, 'rgba(94, 240, 255, 0.20)'); gr.addColorStop(1, 'rgba(94, 240, 255, 0)'); ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h); }
-      ctx.strokeStyle = 'rgba(94, 240, 255, 0.18)'; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.ellipse(cx, h * 0.66, w * 0.36, w * 0.36 * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke();
+      var prx = Math.min(w * 0.34, sc * 1.25), pry = prx * Math.max(0.28, Math.cos(hg.tilt) * 0.6), ppy = Math.min(h - pry - 10, cy + sc * 0.62);
+      drawPlatform(cx, ppy, prx, pry, armPhase(hg.anim).door, t);
       if (hg.ring > 0) { ctx.strokeStyle = 'rgba(93, 255, 155, ' + hg.ring.toFixed(2) + ')'; ctx.lineWidth = 4; ctx.beginPath(); var rr = (1 - hg.ring) * w * 0.5 + 20; ctx.ellipse(cx, h * 0.62, rr, rr * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke(); hg.ring = Math.max(0, hg.ring - dt * 1.4); }
       var an = hg.anim, cn = 1 + Math.min(2, Math.floor(online.lv / 50)), acc = wr ? '#121a26' : '#5ef0ff', bob = Math.sin(t * 1.8) * 3;
       if (an) an.t += dt;
@@ -2346,16 +2473,17 @@
         if (p < 0.42) {
           var e = p < 0.1 ? 0 : Math.pow((p - 0.1) / 0.32, 2.2);
           for (var k = 0; k < 2; k++) hg.parts.push({ x: -e * w * 0.7 - sc * 0.5, y: -e * h * 0.55 + sc * 0.1, vx: 60 + Math.random() * 60, vy: 40 + Math.random() * 40, life: 0.35, col: '#ffb347' });
-          draw3D(getModel(an.from, acc, oldCn, shownMissiles()), cx - e * w * 0.7, cy - e * h * 0.55 + bob, sc * (1 - 0.55 * e), hg.yaw + e * 1.2, hg.tilt, -0.3 * e, 0, 1, t, false, e < 0.3, { wrap: wr });
+          draw3D(getModel(an.from, acc, oldCn, 0), cx - e * w * 0.7, cy - e * h * 0.55 + bob, sc * (1 - 0.55 * e), hg.yaw + e * 1.2, hg.tilt, -0.3 * e, 0, 1, t, false, e < 0.3, { wrap: wr });
         } else if (p >= 0.55) {
           var e3 = ease((p - 0.55) / 0.45);
           if (p < 0.85) for (var k2 = 0; k2 < 2; k2++) hg.parts.push({ x: (1 - e3) * w * 0.75 + sc * 0.5, y: (1 - e3) * h * 0.2, vx: 80 + Math.random() * 60, vy: (Math.random() - 0.5) * 40, life: 0.35, col: '#5ef0ff' });
-          draw3D(getModel(an.to, acc, cn, shownMissiles()), cx + (1 - e3) * w * 0.75, cy + (1 - e3) * h * 0.2 + bob, sc * (0.6 + 0.4 * e3), hg.yaw - (1 - e3) * 1.5, hg.tilt, 0.35 * (1 - e3), 0, 1, t, false, true, { wrap: wr });
+          draw3D(getModel(an.to, acc, cn, 0), cx + (1 - e3) * w * 0.75, cy + (1 - e3) * h * 0.2 + bob, sc * (0.6 + 0.4 * e3), hg.yaw - (1 - e3) * 1.5, hg.tilt, 0.35 * (1 - e3), 0, 1, t, false, true, { wrap: wr });
           if (e3 > 0.96 && !an.fired) { an.fired = true; hg.ring = 1; burstHg(70, '#5ef0ff'); beep(660, 0.3, 'triangle', 0.06, 1320); }
         }
       } else {
-        draw3D(getModel(mdl, acc, cn, online.skin ? 0 : shownMissiles()), cx, cy + bob, sc, hg.yaw, hg.tilt, 0, 0, 1, t, hg.flash > 0.55, true, { wrap: wr });
-        if (an && an.type === 'missile') drawMissileAnim(an, cx, cy, sc, w, h, t);
+        var lift = an && an.type === 'missile' ? -sc * 0.2 * armPhase(an).rise : 0; bob += lift;
+        draw3D(getModel(mdl, acc, cn, 0), cx, cy + bob, sc, hg.yaw, hg.tilt, 0, 0, 1, t, hg.flash > 0.55, false, { wrap: wr });
+        if (an && an.type === 'missile') drawArm(an, cx, ppy, pry, cx, cy + bob, sc, t, cy);
       }
       if (an && an.t >= an.dur) { hg.anim = null; if (hg.q && hg.q.length) startAnim(hg.q.shift()); else renderHangar(); }
       for (var i = hg.parts.length - 1; i >= 0; i--) {
@@ -2377,7 +2505,7 @@
       for (k = 0; k < EVO.length; k++) if (EVO[k].lv === L || (lv && EVO[k].lv > lv - 10 && EVO[k].lv <= lv && EVO[k].lv !== 1)) card = EVO[k];
       if (lv === 50 || lv === 100 || lv === 150) card = EVO[lv / 50];
       if (!lv) card = EVO[0];
-      var mi = lv && lv % 10 === 0 ? '<div class="evMis' + (done ? ' on' : '') + '"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 2c3.2 3 4.2 7.4 3 12.5L12 18l-3-3.5C7.8 9.4 8.8 5 12 2z"/><path d="M9 13.5 5.5 18H9zM15 13.5l3.5 4.5H15zM10.5 18.5h3L12 22z"/></svg><b>×' + (lv / 10) + '</b></div>' : '<div class="evMis empty"></div>';
+      var mi = lv && lv % 10 === 0 ? (lv >= 150 ? '<div class="evMis kz' + (done ? ' on' : '') + '"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 7.5l3 3-3 3-3-3z"/><circle cx="5" cy="5" r="2.6"/><circle cx="19" cy="5" r="2.6"/><circle cx="5" cy="19" r="2.6"/><circle cx="19" cy="19" r="2.6"/><path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3" stroke-width="1.6"/></svg><b>\u00d7' + ((lv - 140) / 10) + '</b></div>' : '<div class="evMis' + (done ? ' on' : '') + '"><svg viewBox="0 0 24 24" fill="#ff6b3d" aria-hidden="true"><path d="M12 2c3.2 3 4.2 7.4 3 12.5L12 18l-3-3.5C7.8 9.4 8.8 5 12 2z"/><path d="M9 13.5 5.5 18H9zM15 13.5l3.5 4.5H15zM10.5 18.5h3L12 22z"/></svg><b>\u00d7' + (lv / 10) + '</b></div>') : '<div class="evMis empty"></div>';
       h += '<div class="evRow' + (done ? ' done' : '') + (card ? ' hasCard' : '') + '">' + mi + '<div class="evRail"><span class="evLv' + (card ? ' key' : '') + '">' + L + '</span></div>';
       if (card) {
         var un = online.lv >= card.lv, idx = EVO.indexOf(card);
@@ -2483,7 +2611,21 @@
     document.getElementById('vk').classList.toggle('num', num);
     vkShow();
   }
-  function vkShow() { var v = vkIn ? vkIn.value : ''; document.getElementById('vkVal').innerHTML = esc(v || '') + '<i class="vkCaret"></i>' + (v ? '' : '<span class="vkPh">' + esc(vkIn && vkIn.placeholder || '') + '</span>'); }
+  function langMatches(q) {
+    q = (q || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    return LANGS.filter(function (l) { return !q || (l + ' ' + LANG_INFO[l][0] + ' ' + LANG_INFO[l][1]).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; });
+  }
+  function vkSuggest() {
+    var box = document.getElementById('vkSug'), h = '';
+    if (vkIn && vkIn.id === 'langSearch') {
+      var m = langMatches(vkIn.value);
+      m.forEach(function (l) { h += '<button class="chip' + (l === cfg.lang ? ' on' : '') + '" data-sug="' + l + '"' + (RTL[l] ? ' dir="rtl"' : '') + '><b>' + l.toUpperCase() + '</b>' + LANG_INFO[l][0] + '</button>'; });
+      if (!m.length) h = '<span class="langNone">' + esc(tr('noLang')) + '</span>';
+    }
+    box.innerHTML = h; box.hidden = !h;
+  }
+  function vkShow() {
+    vkSuggest(); var v = vkIn ? vkIn.value : ''; document.getElementById('vkVal').innerHTML = esc(v || '') + '<i class="vkCaret"></i>' + (v ? '' : '<span class="vkPh">' + esc(vkIn && vkIn.placeholder || '') + '</span>'); }
   function openVK(inp) {
     if (!inp) return;
     inp.readOnly = true; vkIn = inp; vkShift = inp.getAttribute('data-vk') === 'text' && !inp.value; vkMode = 'abc'; vkOpenAt = Date.now();
@@ -2505,6 +2647,8 @@
   document.getElementById('vk').addEventListener('pointerdown', function (e) { e.preventDefault(); }, false);
   document.getElementById('vk').addEventListener('click', function (e) {
     var b = e.target && e.target.closest ? e.target.closest('[data-k]') : null;
+    var sg = e.target && e.target.closest ? e.target.closest('[data-sug]') : null;
+    if (sg && vkIn && Date.now() - vkOpenAt >= 350) { cfg.lang = sg.getAttribute('data-sug'); saveCfg(); closeVK(); document.getElementById('langPop').hidden = true; renderAll(); scheduleLivesNotif(); return; }
     if (!b || !vkIn || Date.now() - vkOpenAt < 350) return;
     var k = b.getAttribute('data-k'), v = vkIn.value, max = vkIn.maxLength > 0 ? vkIn.maxLength : 18;
     vib(8);
@@ -2516,6 +2660,17 @@
     vkIn.value = v;
     try { vkIn.dispatchEvent(new Event('input', { bubbles: true })); } catch (err) { /* ignore */ }
     vkRender();
+  });
+  // ---------- Sélecteur de langue ----------
+  document.getElementById('langCur').addEventListener('click', function () {
+    var pop = document.getElementById('langPop'); pop.hidden = !pop.hidden;
+    if (!pop.hidden) { document.getElementById('langSearch').value = ''; renderLangPick(); }
+    fitDirty = true;
+  });
+  document.getElementById('langSearch').addEventListener('input', renderLangPick);
+  document.getElementById('langList').addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-opt="lang"]') : null;
+    if (b) setTimeout(function () { document.getElementById('langPop').hidden = true; if (vkIn) closeVK(); renderAll(); }, 0);
   });
   // ---------- Profil ----------
   var AVATARS = ['🦅', '🐺', '🦊', '🐯', '🤖', '👽', '🐉', '💀'];
@@ -2644,11 +2799,12 @@
     if (lvUp) {
       hg.ring = 1; burstHg(40, '#5dff9b');
       setTimeout(function () { beep(660, 0.16, 'triangle', 0.07, 1320); }, 90);
+      var kz = online.lv >= 150, load = missile ? { type: 'missile', dur: 4.2, kz: kz, n: kz ? Math.floor((online.lv - 140) / 10) : Math.floor(online.lv / 10) } : null;
       if (evo) {
         var prevM = EVO[EVO.indexOf(evo) - 1].m;
         hgQueue({ type: 'evo', dur: 2.8, from: prevM, to: evo.m, name: evo.name });
-        if (missile) hgQueue({ type: 'missile', dur: 3.4, n: Math.floor(online.lv / 10) });
-      } else if (missile) hgQueue({ type: 'missile', dur: 3.4, n: Math.floor(online.lv / 10) });
+        if (load) hgQueue(load);
+      } else if (load) hgQueue(load);
       else showBanner(tr('lvUp', { n: online.lv }), false);
     }
     renderAll();
