@@ -632,8 +632,7 @@
   .chAv { width: 36px; height: 36px; border-radius: 10px; overflow: hidden; padding: 0; border: 2px solid #2a6f9c; background: #0a1220; cursor: pointer; flex: none; } .chAv img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .chB { position: relative; cursor: pointer; } .chMsg.sel .chB { outline: 2px solid #4fd8ff; outline-offset: 1px; } .chMsg.rep .chB { opacity: 0.55; }
   .chMsg .chB p { word-break: break-word; } .chTr { display: block; font-size: 10.5px; color: #8fa6c4; margin-top: 3px; font-style: italic; }
-  .chLk { position: absolute; bottom: -10px; inset-inline-end: 8px; font-size: 11px; font-weight: 800; padding: 1px 7px; border-radius: 999px; background: #1a2a44; color: #ff8fa3; border: 1px solid #ff4d6d; } .chLk.on { background: #ff4d6d; color: #ffffff; }
-  .chMsg .chB:has(.chLk) { margin-bottom: 8px; }
+  .chLk { display: flex; justify-content: flex-end; gap: 4px; margin-top: 5px; font-size: 11px; font-weight: 800; }
   .chActs { display: flex; gap: 6px; padding-inline-start: 46px; margin-top: -2px; } .chActs.me { justify-content: flex-end; padding-inline-start: 0; padding-inline-end: 46px; }
   .chActs button { font: inherit; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid #2a6f9c; background: #0d1a2c; color: #cfe3ff; cursor: pointer; letter-spacing: 0; } .chActs button.on { background: #ff4d6d; border-color: #ff4d6d; color: #fff; }
   .chMsg.sys .chB { cursor: default; }
@@ -777,6 +776,32 @@
   body.light .evCard { background: linear-gradient(135deg, #dbe9ff, #e7e0fb); border-color: #8fb0f0; } body.light .evCard.locked { background: linear-gradient(135deg, #eceef2, #f6f7f9); border-color: #c3c9d6; } body.light .evCard.locked .evTag { background: #c6ccd8; color: #1a2333; }
   body.comfort .dsShine, body.comfort .dsEmb::after, body.comfort .dsRadar, body.comfort .dsHex, body.comfort .dsOrb, body.comfort .dsChev, body.comfort .dsBar span { animation: none; }
   .chMsg.pend .chB { opacity: 0.55; } .chMsg.err .chB { border-color: #ff4d6d; }
+  .onDot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #56667f; margin-inline-start: 6px; vertical-align: 1px; box-shadow: 0 0 0 2px rgba(10, 18, 32, 0.9); }
+  .onDot.on { background: #33e07a; box-shadow: 0 0 0 2px rgba(10, 18, 32, 0.9), 0 0 8px #33e07a; }
+  .alWrap { height: 330px; position: relative; } .alScroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 4px; }
+  .alCnt { font-style: normal; display: inline-grid; place-items: center; min-width: 18px; height: 18px; border-radius: 9px; background: #ff4d6d; color: #ffffff; font-size: 11px; margin-inline-start: 4px; }
+  .alMem { display: flex; flex-direction: column; gap: 6px; }
+  .alMr { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 12px; background: #0e1a2e; border: 1px solid #1f3554; }
+  .alMr.req b { flex: 1; } .alMr.me { border-color: #4fd8ff; } .alMr.req { border-color: #ffc94a; border-style: dashed; }
+  .alMp { position: relative; padding: 0; border: 0; background: none; cursor: pointer; flex: none; } .alMp img { width: 40px; height: 40px; border-radius: 10px; display: block; object-fit: cover; }
+  .alMp .onDot { position: absolute; right: -3px; bottom: -3px; margin: 0; width: 11px; height: 11px; }
+  .alMn { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; cursor: pointer; letter-spacing: 0; }
+  .alMr b { font-size: 14.5px; } .alMr small { font-size: 11.5px; color: #8fa6c4; }
+  .alMr em { font-style: normal; display: inline-flex; align-items: center; gap: 4px; font-weight: 800; color: #ffc94a; font-size: 14px; } .alMr em svg { width: 15px; height: 15px; }
+  .alBtns { display: flex; gap: 6px; } .alBtns button { padding: 6px 12px; border-radius: 9px; border: 1px solid #2a4a6e; background: #12203a; color: #e6f1ff; font: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: 0; cursor: pointer; }
+  .alBtns button.ok { background: #22c46a; border-color: #22c46a; color: #04121c; } .alBtns button.no { border-color: #ff4d6d; color: #ff8fa3; }
+  .alHist { display: flex; flex-direction: column; gap: 4px; } .alEv { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 10px; background: #0e1a2e; font-size: 13px; }
+  .alEv i { width: 9px; height: 9px; border-radius: 50%; background: #4fd8ff; flex: none; } .alEv.k-join i { background: #33e07a; } .alEv.k-leave i, .alEv.k-kick i { background: #ff4d6d; } .alEv.k-lead i, .alEv.k-create i { background: #ffc94a; }
+  .alEv span { flex: 1; } .alEv small { color: #8fa6c4; font-size: 11.5px; white-space: nowrap; }
+  .alJoin.sent { background: transparent; border: 1px dashed currentColor; color: #ffc94a; }
+  .alModal { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; background: rgba(3, 7, 15, 0.7); border-radius: 14px; }
+  .alMBox { width: min(420px, 90%); padding: 18px 20px; border-radius: 16px; background: #0e1a2e; border: 1.5px solid #ff4d6d; display: flex; flex-direction: column; gap: 10px; animation: pcIn .2s ease-out; }
+  .alMBox b { font-size: 17px; } .alMBox p { margin: 0; font-size: 13px; color: #9fb6d0; }
+  .alMBox div { display: flex; gap: 10px; justify-content: flex-end; } .alMBox button { padding: 9px 16px; border-radius: 10px; border: 1px solid #2a4a6e; background: #12203a; color: #e6f1ff; font: inherit; font-weight: 700; letter-spacing: 0; cursor: pointer; }
+  .alMBox button.danger { background: #ff4d6d; border-color: #ff4d6d; color: #ffffff; }
+  .alBusy { position: absolute; inset: 0; z-index: 4; cursor: progress; }
+  body.light .chLk em.on { color: #ffffff; background: #e0335a; border-color: #e0335a; }
+  body.light .onDot { box-shadow: 0 0 0 2px #ffffff; } body.light .onDot.on { background: #12b85a; box-shadow: 0 0 0 2px #ffffff, 0 0 6px #12b85a; } body.light .alMBox button.danger { color: #ffffff; } body.light .alBtns button.ok { color: #ffffff; background: #12a457; border-color: #12a457; }
   .frSeason { font-size: 13px; letter-spacing: 1px; color: #9fb6d0; font-weight: 600; }
   .frWrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px; padding: 0 22px 16px; align-items: stretch; }
   .frLeft { display: flex; flex-direction: column; gap: 10px; }
@@ -1319,8 +1344,6 @@
   :where(body.light) .chAv { border: 2px solid #63a8d5; background: #f2f5fb; }
   :where(body.light) .chMsg.sel .chB { outline: 2px solid #0081a6; }
   :where(body.light) .chTr { color: #3b5270; }
-  :where(body.light) .chLk { background: #e7edf6; color: #99001b; border: 1px solid #a8001e; }
-  :where(body.light) .chLk.on { background: #a8001e; color: #1a1a1a; }
   :where(body.light) .chActs button { border: 1px solid #63a8d5; background: #eef3fa; color: #001d46; }
   :where(body.light) .chActs button.on { background: #a8001e; border-color: #a8001e; color: #1a1a1a; }
   :where(body.light) .chEmos { background: #eef3fa; border: 1px solid #a1b6d5; }
@@ -1405,6 +1428,29 @@
   :where(body.light) .dsGrid { background-image: radial-gradient(rgba(0, 129, 166, 0.2) 1px, transparent 1.6px); }
   :where(body.light) .dsRadar { background: conic-gradient(from 0deg, rgba(0, 129, 166, 0.22), transparent 16%); }
   :where(body.light) .chMsg.err .chB { border-color: #a8001e; }
+  :where(body.light) .onDot { background: #8090a9; box-shadow: 0 0 0 2px rgba(242, 245, 251, 0.9); }
+  :where(body.light) .onDot.on { background: #1ec362; box-shadow: 0 0 0 2px rgba(242, 245, 251, 0.9), 0 0 8px #1ec362; }
+  :where(body.light) .alCnt { background: #a8001e; color: #1a1a1a; }
+  :where(body.light) .alMr { background: #edf2fa; border: 1px solid #abc1e0; }
+  :where(body.light) .alMr.me { border-color: #0081a6; }
+  :where(body.light) .alMr.req { border-color: #ab7800; }
+  :where(body.light) .alMr small { color: #3b5270; }
+  :where(body.light) .alMr em { color: #ab7800; }
+  :where(body.light) .alBtns button { border: 1px solid #91b1d5; background: #eaeff8; color: #001b3d; }
+  :where(body.light) .alBtns button.ok { background: #32db7e; border-color: #32db7e; color: #f2f9fd; }
+  :where(body.light) .alBtns button.no { border-color: #a8001e; color: #99001b; }
+  :where(body.light) .alEv { background: #edf2fa; }
+  :where(body.light) .alEv i { background: #0081a6; }
+  :where(body.light) .alEv.k-join i { background: #1ec362; }
+  :where(body.light) .alEv.k-leave i, :where(body.light) .alEv.k-kick i { background: #a8001e; }
+  :where(body.light) .alEv.k-lead i, :where(body.light) .alEv.k-create i { background: #ab7800; }
+  :where(body.light) .alEv small { color: #3b5270; }
+  :where(body.light) .alJoin.sent { color: #ab7800; }
+  :where(body.light) .alModal { background: rgba(246, 249, 253, 0.7); }
+  :where(body.light) .alMBox { background: #edf2fa; border: 1.5px solid #a8001e; }
+  :where(body.light) .alMBox p { color: #2f4660; }
+  :where(body.light) .alMBox button { border: 1px solid #91b1d5; background: #eaeff8; color: #001b3d; }
+  :where(body.light) .alMBox button.danger { background: #a8001e; border-color: #a8001e; color: #1a1a1a; }
   :where(body.light) .frSeason { color: #2f4660; }
   :where(body.light) .frCard { background: rgba(242, 245, 251, 0.78); }
   :where(body.light) .frAv { background: #eef3fa; }
@@ -1858,7 +1904,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '2.0.7';
+  var APP_VERSION = '2.0.8';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = true;
   var LS = (function () {
@@ -2217,6 +2263,30 @@
   var RTL = { ar: 1, fa: 1 };
   var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'], pt: ['Português', 'Portuguese portugais'], de: ['Deutsch', 'German allemand'], tr: ['Türkçe', 'Turkish turc'], id: ['Indonesia', 'Indonesian indonesien bahasa'], hi: ['हिन्दी', 'Hindi'] };
   var T = {
+    alMembers: ["Membres", "Members", "Miembros", "Membri", "成员", "Участники", "الأعضاء", "اعضا", "メンバー", "멤버", "Membros", "Mitglieder", "Üyeler", "Anggota", "सदस्य"],
+    alHist: ["Historique", "History", "Historial", "Cronologia", "历史", "История", "السجل", "تاریخچه", "履歴", "기록", "Histórico", "Verlauf", "Geçmiş", "Riwayat", "इतिहास"],
+    alEvCreate: ["{n} a créé l’alliance", "{n} created the alliance", "{n} creó la alianza", "{n} ha creato l’alleanza", "{n} 创建了联盟", "{n} создал(а) альянс", "{n} أنشأ التحالف", "{n} اتحاد را ساخت", "{n} が同盟を結成", "{n} 님이 동맹을 만들었습니다", "{n} criou a aliança", "{n} hat die Allianz gegründet", "{n} ittifakı kurdu", "{n} membuat aliansi", "{n} ने गठबंधन बनाया"],
+    alEvJoin: ["{n} a rejoint l’alliance", "{n} joined the alliance", "{n} se unió a la alianza", "{n} si è unito all’alleanza", "{n} 加入了联盟", "{n} вступил(а) в альянс", "{n} انضم إلى التحالف", "{n} به اتحاد پیوست", "{n} が加入", "{n} 님이 가입했습니다", "{n} entrou na aliança", "{n} ist beigetreten", "{n} ittifaka katıldı", "{n} bergabung", "{n} गठबंधन में शामिल हुए"],
+    alEvLeave: ["{n} a quitté l’alliance", "{n} left the alliance", "{n} dejó la alianza", "{n} ha lasciato l’alleanza", "{n} 退出了联盟", "{n} покинул(а) альянс", "{n} غادر التحالف", "{n} اتحاد را ترک کرد", "{n} が脱退", "{n} 님이 떠났습니다", "{n} saiu da aliança", "{n} hat die Allianz verlassen", "{n} ittifaktan ayrıldı", "{n} keluar dari aliansi", "{n} ने गठबंधन छोड़ा"],
+    alEvKick: ["{n} a été exclu par {b}", "{n} was removed by {b}", "{n} fue expulsado por {b}", "{n} è stato espulso da {b}", "{n} 被 {b} 移出", "{n} исключён(а): {b}", "{b} طرد {n}", "{n} توسط {b} اخراج شد", "{n} は {b} により除名", "{n} 님이 {b} 님에 의해 추방됨", "{n} foi expulso por {b}", "{n} wurde von {b} entfernt", "{n}, {b} tarafından çıkarıldı", "{n} dikeluarkan oleh {b}", "{n} को {b} ने हटाया"],
+    alEvLead: ["{n} est le nouveau chef", "{n} is the new leader", "{n} es el nuevo líder", "{n} è il nuovo capo", "{n} 成为新盟主", "{n} — новый лидер", "{n} هو القائد الجديد", "{n} رهبر جدید است", "{n} が新リーダー", "{n} 님이 새 리더입니다", "{n} é o novo líder", "{n} ist neuer Anführer", "{n} yeni lider", "{n} pemimpin baru", "{n} नए प्रमुख हैं"],
+    alRequests: ["Demandes d’adhésion", "Join requests", "Solicitudes", "Richieste", "加入申请", "Заявки", "طلبات الانضمام", "درخواست‌ها", "加入申請", "가입 요청", "Pedidos", "Beitrittsanfragen", "Katılım istekleri", "Permintaan bergabung", "सदस्यता अनुरोध"],
+    alAccept: ["Accepter", "Accept", "Aceptar", "Accetta", "接受", "Принять", "قبول", "پذیرفتن", "承認", "수락", "Aceitar", "Annehmen", "Kabul et", "Terima", "स्वीकारें"],
+    alRefuse: ["Refuser", "Decline", "Rechazar", "Rifiuta", "拒绝", "Отклонить", "رفض", "رد", "拒否", "거절", "Recusar", "Ablehnen", "Reddet", "Tolak", "अस्वीकारें"],
+    alKick: ["Exclure", "Remove", "Expulsar", "Espelli", "移出", "Исключить", "طرد", "اخراج", "除名", "추방", "Expulsar", "Entfernen", "Çıkar", "Keluarkan", "हटाएँ"],
+    alKickQ: ["Exclure {n} de l’alliance ?", "Remove {n} from the alliance?", "¿Expulsar a {n} de la alianza?", "Espellere {n} dall’alleanza?", "将 {n} 移出联盟？", "Исключить {n} из альянса?", "طرد {n} من التحالف؟", "{n} از اتحاد اخراج شود؟", "{n} を除名しますか？", "{n} 님을 추방할까요?", "Expulsar {n} da aliança?", "{n} aus der Allianz entfernen?", "{n} ittifaktan çıkarılsın mı?", "Keluarkan {n} dari aliansi?", "{n} को गठबंधन से हटाएँ?"],
+    alLeaveQ: ["Quitter {a} ?", "Leave {a}?", "¿Abandonar {a}?", "Lasciare {a}?", "退出 {a}？", "Покинуть {a}?", "مغادرة {a}؟", "ترک {a}؟", "{a} を脱退しますか？", "{a}에서 나갈까요?", "Sair de {a}?", "{a} verlassen?", "{a} ittifakından ayrıl?", "Keluar dari {a}?", "{a} छोड़ें?"],
+    alLeaveD: ["Tu pourras ensuite rejoindre une autre alliance.", "You can then join another alliance.", "Luego podrás unirte a otra alianza.", "Potrai poi unirti a un’altra alleanza.", "之后可以加入其他联盟。", "Затем можно вступить в другой альянс.", "يمكنك بعدها الانضمام إلى تحالف آخر.", "سپس می‌توانی به اتحاد دیگری بپیوندی.", "その後、別の同盟に参加できます。", "이후 다른 동맹에 가입할 수 있습니다.", "Depois você pode entrar em outra aliança.", "Danach kannst du einer anderen Allianz beitreten.", "Sonra başka bir ittifaka katılabilirsin.", "Lalu kamu bisa bergabung ke aliansi lain.", "फिर आप दूसरे गठबंधन में शामिल हो सकते हैं।"],
+    alLeaveLd: ["Tu es le chef : le membre le plus puissant prendra le relais.", "You are the leader: the strongest member will take over.", "Eres el líder: el miembro más fuerte tomará el relevo.", "Sei il capo: il membro più forte prenderà il comando.", "你是盟主：战力最高的成员将接任。", "Ты лидер: руководство перейдёт к самому сильному участнику.", "أنت القائد: سيتولى أقوى عضو القيادة.", "تو رهبری: قوی‌ترین عضو جانشین می‌شود.", "あなたはリーダーです。最強のメンバーが引き継ぎます。", "리더입니다: 가장 강한 멤버가 이어받습니다.", "Você é o líder: o membro mais forte assume.", "Du bist Anführer: das stärkste Mitglied übernimmt.", "Lidersin: en güçlü üye devralacak.", "Kamu pemimpin: anggota terkuat akan menggantikan.", "आप प्रमुख हैं: सबसे शक्तिशाली सदस्य कमान लेगा।"],
+    alReqSent: ["Demande envoyée", "Request sent", "Solicitud enviada", "Richiesta inviata", "已申请", "Заявка отправлена", "تم إرسال الطلب", "درخواست ارسال شد", "申請済み", "요청됨", "Pedido enviado", "Anfrage gesendet", "İstek gönderildi", "Permintaan terkirim", "अनुरोध भेजा"],
+    alReqToast: ["Demande envoyée : le chef de {a} doit l’accepter.", "Request sent: the leader of {a} must accept it.", "Solicitud enviada: el líder de {a} debe aceptarla.", "Richiesta inviata: il capo di {a} deve accettarla.", "申请已发送：需 {a} 的盟主同意。", "Заявка отправлена: лидер {a} должен её принять.", "تم إرسال الطلب: يجب أن يقبله قائد {a}.", "درخواست ارسال شد: رهبر {a} باید بپذیرد.", "申請しました。{a} のリーダーの承認待ちです。", "요청을 보냈습니다: {a} 리더의 수락이 필요합니다.", "Pedido enviado: o líder de {a} precisa aceitar.", "Anfrage gesendet: der Anführer von {a} muss annehmen.", "İstek gönderildi: {a} lideri onaylamalı.", "Permintaan terkirim: pemimpin {a} harus menerimanya.", "अनुरोध भेजा: {a} के प्रमुख को स्वीकार करना होगा।"],
+    alNoHist: ["Aucun évènement pour l’instant.", "No events yet.", "Aún no hay eventos.", "Nessun evento per ora.", "暂无记录。", "Пока нет событий.", "لا توجد أحداث بعد.", "هنوز رویدادی نیست.", "まだ履歴はありません。", "아직 기록이 없습니다.", "Nenhum evento ainda.", "Noch keine Ereignisse.", "Henüz olay yok.", "Belum ada kejadian.", "अभी कोई घटना नहीं।"],
+    alEmpty: ["Aucune alliance pour l’instant : crée la première !", "No alliance yet: create the first one!", "Aún no hay alianzas: ¡crea la primera!", "Nessuna alleanza: crea la prima!", "还没有联盟：创建第一个吧！", "Альянсов пока нет: создай первый!", "لا توجد تحالفات بعد: أنشئ الأول!", "هنوز اتحادی نیست: اولی را بساز!", "同盟はまだありません。最初の同盟を作ろう！", "아직 동맹이 없습니다: 첫 동맹을 만드세요!", "Nenhuma aliança ainda: crie a primeira!", "Noch keine Allianz: gründe die erste!", "Henüz ittifak yok: ilkini kur!", "Belum ada aliansi: buat yang pertama!", "अभी कोई गठबंधन नहीं: पहला बनाइए!"],
+    alSrvErr: ["Serveur à mettre à jour : exécute le script SQL v2 dans Supabase.", "Server needs updating: run the v2 SQL script in Supabase.", "Servidor por actualizar: ejecuta el script SQL v2 en Supabase.", "Server da aggiornare: esegui lo script SQL v2 su Supabase.", "服务器需更新：请在 Supabase 运行 v2 SQL 脚本。", "Нужно обновить сервер: выполни SQL-скрипт v2 в Supabase.", "يلزم تحديث الخادم: شغّل سكربت SQL v2 في Supabase.", "سرور باید به‌روز شود: اسکریپت SQL v2 را در Supabase اجرا کن.", "サーバー更新が必要：Supabase で SQL v2 を実行。", "서버 업데이트 필요: Supabase에서 SQL v2 스크립트를 실행하세요.", "Servidor a atualizar: execute o script SQL v2 no Supabase.", "Server muss aktualisiert werden: SQL-Skript v2 in Supabase ausführen.", "Sunucu güncellenmeli: Supabase’de SQL v2 betiğini çalıştır.", "Server perlu diperbarui: jalankan skrip SQL v2 di Supabase.", "सर्वर अपडेट करें: Supabase में SQL v2 स्क्रिप्ट चलाएँ।"],
+    alTagUsed: ["Ce sigle est déjà pris.", "This tag is already taken.", "Esta sigla ya está ocupada.", "Questa sigla è già presa.", "该缩写已被使用。", "Этот тег уже занят.", "هذا الرمز مستخدم.", "این نشان قبلاً گرفته شده.", "このタグは使用済みです。", "이미 사용 중인 태그입니다.", "Esta sigla já está em uso.", "Dieses Kürzel ist vergeben.", "Bu etiket alınmış.", "Tag ini sudah dipakai.", "यह टैग पहले से लिया गया है।"],
+    onlineNow: ["En ligne", "Online", "En línea", "Online", "在线", "В сети", "متصل", "آنلاین", "オンライン", "온라인", "Online", "Online", "Çevrimiçi", "Online", "ऑनलाइन"],
+    offlineNow: ["Hors ligne", "Offline", "Desconectado", "Offline", "离线", "Не в сети", "غير متصل", "آفلاین", "オフライン", "오프라인", "Offline", "Offline", "Çevrimdışı", "Offline", "ऑफ़लाइन"],
+    alOffOnly: ["Disponible quand le serveur en ligne est connecté.", "Available when the online server is connected.", "Disponible cuando el servidor está conectado.", "Disponibile con il server online connesso.", "连接在线服务器后可用。", "Доступно при подключении к серверу.", "متاح عند الاتصال بالخادم.", "پس از اتصال به سرور در دسترس است.", "オンラインサーバー接続時に利用できます。", "온라인 서버에 연결되면 사용할 수 있습니다.", "Disponível com o servidor online conectado.", "Verfügbar, wenn der Online-Server verbunden ist.", "Çevrimiçi sunucuya bağlanınca kullanılabilir.", "Tersedia saat server online terhubung.", "ऑनलाइन सर्वर जुड़ने पर उपलब्ध।"],
     netOn: ["Connecté au serveur en ligne.", "Connected to the online server.", "Conectado al servidor en línea.", "Connesso al server online.", "已连接在线服务器。", "Подключено к онлайн-серверу.", "متصل بالخادم عبر الإنترنت.", "به سرور آنلاین متصل هستی.", "オンラインサーバーに接続中。", "온라인 서버에 연결됨.", "Conectado ao servidor online.", "Mit dem Online-Server verbunden.", "Çevrimiçi sunucuya bağlı.", "Terhubung ke server online.", "ऑनलाइन सर्वर से जुड़े हैं।"],
     netOff: ["Serveur injoignable : mode démo.", "Server unreachable: demo mode.", "Servidor inaccesible: modo demo.", "Server non raggiungibile: modalità demo.", "无法连接服务器：演示模式。", "Сервер недоступен: демо-режим.", "تعذّر الوصول إلى الخادم: وضع تجريبي.", "سرور در دسترس نیست: حالت نمایشی.", "サーバーに接続できません：デモモード。", "서버에 연결할 수 없음: 데모 모드.", "Servidor inacessível: modo demo.", "Server nicht erreichbar: Demo-Modus.", "Sunucuya ulaşılamıyor: demo modu.", "Server tidak terjangkau: mode demo.", "सर्वर उपलब्ध नहीं: डेमो मोड।"],
     netSendErr: ["Message non envoyé. Vérifie ta connexion.", "Message not sent. Check your connection.", "Mensaje no enviado. Revisa tu conexión.", "Messaggio non inviato. Controlla la connessione.", "消息未发送，请检查网络。", "Сообщение не отправлено. Проверь соединение.", "لم تُرسل الرسالة. تحقق من اتصالك.", "پیام ارسال نشد. اتصالت را بررسی کن.", "送信できませんでした。接続を確認してください。", "메시지를 보내지 못했습니다. 연결을 확인하세요.", "Mensagem não enviada. Verifique sua conexão.", "Nachricht nicht gesendet. Prüfe deine Verbindung.", "Mesaj gönderilemedi. Bağlantını kontrol et.", "Pesan tidak terkirim. Periksa koneksimu.", "संदेश नहीं भेजा गया। कनेक्शन जाँचें।"],
@@ -3860,6 +3930,7 @@
     if (!online.al) return null;
     if (online.al.mine) return { id: 'me', n: online.al.n, t: online.al.t, ic: online.al.ic, c: online.al.c, m: 1, p: oStats(online.lv, online.step).pow, ld: profile.nick || tr('profile'), mine: 1 };
     var a = ALLYS.filter(function (q) { return q.id === online.al.id; })[0]; if (!a) return null;
+    if (a.srv) return a;
     return { id: a.id, n: a.n, t: a.t, ic: a.ic, c: a.c, m: Math.min(50, a.m + 1), p: a.p + oStats(online.lv, online.step).pow, ld: a.ld };
   }
   function allyList() {
@@ -4014,11 +4085,11 @@
         else { msgs = '<div class="chMsg sys" style="--fc:' + me.c + '">' + embHtml(me, 'frEmb') + '<div class="chB"><b>[' + esc(me.t) + '] ' + esc(me.n) + '</b><p>' + esc(tr('chatWelcome', { f: me.n })) + '</p></div></div>'; list = chMsgs('ally'); canW = TEST_MODE || NET.ok === true; }
       } else if (!pmWith) {
         var th = NET.ok === true ? NET.threads.filter(function (x) { return PILOTS[x.k]; }) : Object.keys(chPM).filter(function (k) { return chPM[k].length && PILOTS[k]; }).map(function (k) { return { k: k, t: chPM[k][chPM[k].length - 1].t }; });
-        th.forEach(function (x) { var P = PILOTS[x.k]; msgs += '<button class="pmRow" data-pm="' + x.k + '"><img src="' + (P.photo || avURL(P.av)) + '" alt=""><span><b>' + esc(P.n) + ' <i class="emo">' + flagOf(P.fl) + '</i></b><small>' + esc(x.t) + '</small></span><i>›</i></button>'; });
+        th.forEach(function (x) { var P = PILOTS[x.k]; msgs += '<button class="pmRow" data-pm="' + x.k + '"><img src="' + (P.photo || avURL(P.av)) + '" alt=""><span><b>' + esc(P.n) + ' <i class="emo">' + flagOf(P.fl) + '</i>' + (P.net ? dotH(isOnP(P)) : '') + '</b><small>' + esc(cleanChat(x.t)) + '</small></span><i>›</i></button>'; });
         msgs += '<div class="chMsg info"><div><p>' + esc(tr('pmEmpty')) + '</p></div></div>';
       } else {
         var PW = PILOTS[pmWith];
-        msgs = '<div class="pmHead"><button class="chBack" data-pm="">‹</button><button class="chAv" data-pc="' + pmWith + '"><img src="' + (PW.photo || avURL(PW.av)) + '" alt=""></button><b>' + esc(PW.n) + ' <i class="emo">' + flagOf(PW.fl) + '</i></b></div>';
+        msgs = '<div class="pmHead"><button class="chBack" data-pm="">‹</button><button class="chAv" data-pc="' + pmWith + '"><img src="' + (PW.photo || avURL(PW.av)) + '" alt=""></button><b>' + esc(PW.n) + ' <i class="emo">' + flagOf(PW.fl) + '</i>' + (PW.net ? dotH(isOnP(PW)) : '') + '</b></div>';
         list = NET.ok === true ? curList() : (chPM[pmWith] || (chPM[pmWith] = [])); canW = TEST_MODE || NET.ok === true;
       }
       if (list) {
@@ -4026,7 +4097,7 @@
           var mine = !!m.me, P = mine ? null : (PILOTS[m.f] || { n: '\u2026', av: 'd0', fl: '' }), nm = mine ? (profile.nick || tr('profile')) : P.n, fl = mine ? cfg.country : P.fl, avs = mine ? avSrc(profile) : (P.photo || avURL(P.av));
           var trT = !mine && m.lg !== cfg.lang && m.tr ? (m.id ? m.tr[cfg.lang] : (m.tr[cfg.lang] || m.tr.en)) : null, canTr = !!trT || (!!m.id && !mine && m.lg !== cfg.lang), dk = (m.dk | 0) + (m.dis ? 1 : 0), sel = chSel === i, lk = (m.lk | 0) + (m.liked ? 1 : 0);
           var av = '<button class="chAv" data-pc="' + (mine ? 'me' : m.f) + '"><img src="' + avs + '" alt=""></button>';
-          msgs += '<div class="chMsg' + (mine ? ' me' : '') + (m.pend ? ' pend' : '') + (m.err ? ' err' : '') + (sel ? ' sel' : '') + (m.rep ? ' rep' : '') + '">' + (mine ? '' : av) + '<div class="chB" data-msg="' + i + '"><b>' + esc(nm) + ' <i class="emo">' + flagOf(fl) + '</i></b><p>' + esc(m.show && trT ? trT : m.t) + '</p>' +
+          msgs += '<div class="chMsg' + (mine ? ' me' : '') + (m.pend ? ' pend' : '') + (m.err ? ' err' : '') + (sel ? ' sel' : '') + (m.rep ? ' rep' : '') + '">' + (mine ? '' : av) + '<div class="chB" data-msg="' + i + '"><b>' + esc(nm) + ' <i class="emo">' + flagOf(fl) + '</i>' + (mine ? (NET.ok === true ? dotH(true) : '') : P.net ? dotH(isOnP(P)) : '') + '</b><p>' + esc(cleanChat(m.show && trT ? trT : m.t)) + '</p>' +
             (m.show && trT ? '<small class="chTr">' + esc(tr('translated')) + '</small>' : '') + (m.rep ? '<small class="chTr">' + esc(tr('reported')) + '</small>' : '') + ((lk || dk) ? '<span class="chLk">' + (lk ? '<em class="' + (m.liked ? 'on' : '') + '">\u2764 ' + lk + '</em>' : '') + (dk ? '<em class="dk' + (m.dis ? ' on' : '') + '">\uD83D\uDC4E ' + dk + '</em>' : '') + '</span>' : '') + '</div>' + (mine ? av : '') + '</div>';
           if (sel) msgs += '<div class="chActs' + (mine ? ' me' : '') + '"><button data-ma="like:' + i + '" class="' + (m.liked ? 'on' : '') + '">\u2764 ' + esc(tr('like')) + '</button><button data-ma="dis:' + i + '" class="' + (m.dis ? 'on' : '') + '" aria-label="' + esc(tr('dislike')) + '">\uD83D\uDC4E</button>' + (canTr ? '<button data-ma="tr:' + i + '">🌐 ' + esc(m.show ? tr('original') : tr('translate')) + '</button>' : '') + (!mine && !m.rep ? '<button data-ma="rep:' + i + '">⚑ ' + esc(tr('reportMsg')) + '</button>' : '') + '</div>';
         });
@@ -4042,37 +4113,7 @@
       }
       h += '</div>';
     } else if (frMode === 'ally') {
-      var tabs = me ? [['mine', 'allyMine'], ['rank', 'allyRank'], ['list', 'allyJoin']] : [['list', 'allyJoin'], ['new', 'allyCreate'], ['rank', 'allyRank']];
-      if (!tabs.some(function (t) { return t[0] === allyTab; })) allyTab = tabs[0][0];
-      h = '<div class="alWrap"><div class="alTop"><b>' + svgI('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>') + esc(tr('ally')) + '</b><div class="seg alTabs">';
-      tabs.forEach(function (t) { h += '<button data-al="tab:' + t[0] + '" class="' + (allyTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
-      h += '</div></div>';
-      if (allyTab === 'mine' && me) {
-        h += '<div class="alMine" style="--fc:' + me.c + '">' + embHtml(me, 'alEmbBig') + '<div class="alInfo"><span class="frBadge">[' + esc(me.t) + ']</span><b>' + esc(me.n) + '</b><small>' + esc(tr('members', { n: me.m })) + ' · ' + esc(tr('power')) + ' ' + fmtN(me.p) + '</small><small>' + esc(tr('leader')) + ' : ' + esc(me.ld) + '</small></div>' +
-          '<div class="alAct"><button class="alLeave' + (alArm ? ' arm' : '') + '" data-al="leave">' + esc(alArm ? tr('confirmQ') : tr('allyLeave')) + '</button><button class="alGo" data-al="tab:list">' + esc(tr('allyJoin')) + ' ›</button></div></div>';
-        if (!me.mine) h += '<p class="alNote">' + esc(tr('allyDemo')) + '</p>';
-      } else if (allyTab === 'rank') {
-        h += '<div class="alRank">';
-        allyList().forEach(function (a, i) { h += '<div class="alRow' + (me && me.id === a.id ? ' me' : '') + '" style="--fc:' + a.c + '"><i>#' + (i + 1) + '</i>' + embHtml(a) + '<b>' + esc(a.n) + '</b><small>[' + esc(a.t) + ']</small><em>' + esc(tr('members', { n: a.m })) + '</em><strong>' + fmtN(a.p) + '</strong></div>'; });
-        h += '</div><p class="alNote">' + esc(tr('allyDemo')) + '</p>';
-      } else if (allyTab === 'list') {
-        h += '<div class="alGrid">';
-        ALLYS.forEach(function (a) {
-          var inA = me && me.id === a.id;
-          h += '<div class="alCardL" style="--fc:' + a.c + '">' + embHtml(a) + '<div><b>' + esc(a.n) + '</b><small>[' + esc(a.t) + '] · ' + esc(tr('members', { n: inA ? me.m : a.m })) + '</small></div>' + (inA ? '<span class="alIn">' + esc(tr('member')) + '</span>' : '<button class="alJoin" data-al="join:' + a.id + '">' + esc(tr('allyJoin')) + '</button>') + '</div>';
-        });
-        h += '</div><p class="alNote">' + esc(tr('allyDemo')) + '</p>';
-      } else {
-        var pv = { n: alDraft.n || tr('allyName'), t: (alDraft.t || '???').toUpperCase(), ic: alDraft.ic, c: alDraft.c };
-        h += '<div class="alNew"><div class="alForm"><label><span>' + esc(tr('allyName')) + '</span><input id="alName" maxlength="18" autocomplete="off" data-vk="text" value="' + esc(alDraft.n) + '"></label>' +
-          '<label class="tg"><span>' + esc(tr('allyTag')) + '</span><input id="alTag" maxlength="4" autocomplete="off" data-vk="text" value="' + esc(alDraft.t) + '"></label>' +
-          '<div class="alPick"><span>' + esc(tr('allyEmblem')) + '</span><div>';
-        Object.keys(EMB).forEach(function (k) { h += '<button data-al="ic:' + k + '" class="' + (alDraft.ic === k ? 'on' : '') + '">' + svgI(EMB[k]) + '</button>'; });
-        h += '</div><div>';
-        ALCOL.forEach(function (c) { h += '<button data-al="c:' + c + '" class="col' + (alDraft.c === c ? ' on' : '') + '" style="background:' + c + '" aria-label="' + c + '"></button>'; });
-        h += '</div></div>' + (alErr ? '<p class="alErr">' + esc(tr('allyErr')) + '</p>' : '') + '</div><div class="alPrev" style="--fc:' + pv.c + '">' + embHtml(pv, 'alEmbBig') + '<span class="frBadge">[' + esc(pv.t) + ']</span><b>' + esc(pv.n) + '</b><button class="frOk" data-al="create">' + esc(tr('createBtn')) + '</button></div></div>';
-      }
-      h += '</div>';
+      h = allyHtml(me);
     } else {
       var ac = me ? me.c : '#4fd8ff', TROPHY = '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM17 6h3v2a3 3 0 01-3 3M7 6H4v2a3 3 0 003 3"/>';
       var mode = function (k, c, ic, t, d) { return '<button class="dsMode" data-fr="' + k + '" style="--mc:' + c + '"><span class="dsOrb">' + svgI(ic) + '</span><b>' + esc(tr(t)) + '</b><small>' + esc(tr(d)) + '</small><i class="dsSoon">' + esc(tr('soonTag')) + '</i></button>'; };
@@ -4089,13 +4130,14 @@
     if (frMode === 'chat') h = h.replace('id="chIn" data-vk', 'id="chIn" value="' + esc(chDraft) + '" data-vk');
     var b = document.getElementById('frBody');
     if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; if (frMode === 'chat' && chSel < 0) { var cl = document.getElementById('chList'); if (cl) cl.scrollTop = cl.scrollHeight; } }
-    var pc = document.getElementById('pcard'), ph = frMode === 'chat' ? pcHtml(me) : '';
+    var pc = document.getElementById('pcard'), ph = (frMode === 'chat' || frMode === 'ally') ? pcHtml(me) : '';
     if (!ph) pcOpen = '';
     if (pc.getAttribute('data-sig') !== ph) { pc.innerHTML = ph; pc.setAttribute('data-sig', ph); }
     pc.hidden = !ph;
   }
   // --- Filtre des gros mots : chaque mot interdit est remplacé par des étoiles
-  var BAD_W = ('merde putain pute pd con conne connard connasse salope salaud encule enculer nique niquer ntm fdp batard couille couilles bite chier enfoire bordel ' +
+  var BAD_W = ('petasse pouffiasse gueule abruti cretin debile bouffon tapette pede gouine negre bougnoule youpin raton chienne branleur branleuse batarde couillon emmerde emmerder merdique foutre ducon trouduc ' +
+    'merde putain pute pd con conne connard connasse salope salaud encule enculer nique niquer ntm fdp batard couille couilles bite chier enfoire bordel ' +
     'fck fk fuk fking fcking sht btch biatch ptn ptain fuck fucking fucker shit bullshit bitch asshole bastard dick cunt motherfucker slut whore wanker ' +
     'mierda puta puto cabron joder cono pendejo gilipollas hijoputa ' +
     'cazzo stronzo vaffanculo puttana minchia ' +
@@ -4159,16 +4201,21 @@
   function netPilot(row) {
     var k = 'u:' + row.id, P = PILOTS[k] || (PILOTS[k] = { net: 1, rk: 0, lk: 0 });
     P.n = row.nick || '?'; P.av = /^d[0-7]$/.test(row.av) ? row.av : 'd0'; P.photo = row.photo || ''; P.fl = row.country || ''; P.al = row.ally || ''; P.bio = { en: row.bio || '' }; P.lg = row.lang || '';
+    if (row.updated_at) P.seen = Date.parse(row.updated_at) || 0; if (row.power != null) P.pw = row.power | 0;
     return P;
   }
   function netProfile() {
-    var al = myAlly(), ph = profile.photo && profile.photo.length <= 60000 ? profile.photo : null;
-    return { id: NET.me, nick: (profile.nick || 'Pilote').slice(0, 16), av: profile.av || 'd0', photo: ph, bio: (profile.bio || '').slice(0, 140) || null, country: cfg.country || null, ally: al ? String(al.id).slice(0, 16) : null, lang: cfg.lang, updated_at: new Date().toISOString() };
+    var ph = profile.photo && profile.photo.length <= 60000 ? profile.photo : null;
+    return { id: NET.me, nick: (profile.nick || 'Pilote').slice(0, 16), av: profile.av || 'd0', photo: ph, bio: (profile.bio || '').slice(0, 140) || null, country: cfg.country || null, lang: cfg.lang, power: oStats(online.lv, online.step).pow, updated_at: new Date().toISOString() };
   }
   function netPush(force) {
-    var p = netProfile(), sig = JSON.stringify([p.nick, p.av, p.photo && p.photo.length, p.bio, p.country, p.ally, p.lang]);
+    var p = netProfile(), sig = JSON.stringify([p.nick, p.av, p.photo && p.photo.length, p.bio, p.country, p.power, p.lang]);
     if (!force && sig === NET.pushed) return Promise.resolve();
-    return sb('players', { method: 'POST', prefer: 'resolution=merge-duplicates,return=minimal', body: p }).then(function () { NET.pushed = sig; });
+    if (NET.noPow) delete p.power;
+    return sb('players', { method: 'POST', prefer: 'resolution=merge-duplicates,return=minimal', body: p }).then(function () { NET.pushed = sig; }, function (e) {
+      if (!NET.noPow && /power/.test(String(e))) { NET.noPow = 1; AL.err = 2; delete p.power; return sb('players', { method: 'POST', prefer: 'resolution=merge-duplicates,return=minimal', body: p }).then(function () { NET.pushed = sig; }); }
+      throw e;
+    });
   }
   function netChan() {
     if (chatTab === 'srv') return 'srv';
@@ -4178,7 +4225,7 @@
   function netStart() {
     if (NET.busy || NET.ok === true || Date.now() < NET.fail) return;
     NET.busy = true;
-    netPush(true).then(function () { NET.ok = true; NET.busy = false; netMyLikes(); netTick(); }, function () { NET.ok = false; NET.busy = false; NET.fail = Date.now() + 30000; renderFront(); });
+    netPush(true).then(function () { NET.ok = true; NET.busy = false; netMyLikes(); netAllyLoad().then(netRender); netTick(); }, function () { NET.ok = false; NET.busy = false; NET.fail = Date.now() + 30000; renderFront(); });
   }
   function netMyLikes() { sb('player_likes?select=liker&target=eq.' + NET.me).then(function (r) { NET.myLk = r.length; }, function () { /* ignore */ }); }
   function netRender() {
@@ -4190,7 +4237,7 @@
     var miss = ids.filter(function (id, i) { return id !== NET.me && ids.indexOf(id) === i && !PILOTS['u:' + id] && !NET.want[id]; });
     if (!miss.length) return Promise.resolve();
     miss.forEach(function (id) { NET.want[id] = 1; });
-    return sb('players?select=id,nick,av,photo,bio,country,ally,lang&id=in.(' + miss.join(',') + ')').then(function (rows) { rows.forEach(netPilot); });
+    return sb('players?select=*&id=in.(' + miss.join(',') + ')').then(function (rows) { rows.forEach(netPilot); });
   }
   function netLoad(c) {
     var L = NET.ch[c] || (NET.ch[c] = []), last = NET.last[c] || 0;
@@ -4217,12 +4264,21 @@
     });
   }
   function netTick() {
-    if (NET.ok !== true || NET.tickBusy || view !== 'front' || frMode !== 'chat' || (typeof document !== 'undefined' && document.hidden)) return;
+    if (NET.ok !== true || NET.tickBusy || view !== 'front' || (typeof document !== 'undefined' && document.hidden)) return;
+    if (frMode === 'ally') {
+      if (Date.now() - AL.t < 6000 || AL.act) return;
+      AL.t = Date.now(); NET.tickBusy = true;
+      netAllyLoad().then(function () { return allyTab === 'hist' ? netAllyEvents() : null; }).then(function () { NET.tickBusy = false; netRender(); }, function () { NET.tickBusy = false; });
+      return;
+    }
+    if (frMode !== 'chat') return;
     NET.tickBusy = true;
+    if (Date.now() - (NET.presT || 0) > 30000) { NET.presT = Date.now(); var ids = Object.keys(PILOTS).filter(function (k) { return k.indexOf('u:') === 0; }).map(function (k) { return k.slice(2); }).slice(0, 80); if (ids.length) sb('players?select=id,updated_at,power&id=in.(' + ids.join(',') + ')').then(function (r) { r.forEach(function (x) { var P = PILOTS['u:' + x.id]; if (P) { P.seen = Date.parse(x.updated_at) || 0; if (x.power != null) P.pw = x.power | 0; } }); }, function () { /* ignore */ }); }
     var c = netChan(), job = netPush(false).then(function () { return c ? netLoad(c) : chatTab === 'pm' ? netThreads() : null; });
     job.then(function () { NET.tickBusy = false; netRender(); }, function () { NET.tickBusy = false; });
   }
   var netIv = setInterval(netTick, 3500); if (netIv && netIv.unref) netIv.unref();
+  var netHb = setInterval(function () { if (NET.ok !== true || (typeof document !== 'undefined' && document.hidden)) return; netPush(true).then(function () { if (!(view === 'front' && frMode === 'ally')) return netAllyLoad().then(function () { if (view === 'front') netRender(); }); }).catch(function () { /* ignore */ }); }, 60000); if (netHb && netHb.unref) netHb.unref();
   function netSend(text) {
     var c = netChan(); if (!c) return;
     var L = NET.ch[c] || (NET.ch[c] = []), tmp = { me: 1, f: 'me', lg: cfg.lang, t: text, tr: {}, lk: 0, dk: 0, pend: 1 };
@@ -4259,6 +4315,140 @@
       m.trBusy = 0; m.tr[cfg.lang] = (j[0] || []).map(function (x) { return x[0]; }).join(''); m.show = 1; netRender();
     }, function () { m.trBusy = 0; showToast(tr('trErr')); });
   }
+  // --- Alliances réelles (serveur) : chef, demandes d'adhésion, membres, historique, présence
+  var SV_POW = '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>';
+  var AL = { reqs: [], evs: [], myReq: {}, t: 0, busy: false, err: 0, arm: '', act: false };
+  function isOnP(P) { return !!(P && P.seen && Date.now() - P.seen < 150000); }
+  function dotH(on) { return '<i class="onDot' + (on ? ' on' : '') + '" title="' + esc(tr(on ? 'onlineNow' : 'offlineNow')) + '"></i>'; }
+  function netAllyLoad() {
+    if (NET.ok !== true) return Promise.resolve();
+    return Promise.all([sb('alliances?select=*&order=created_at.asc'), sb('players?select=*&ally=not.is.null'), sb('ally_requests?select=*')]).then(function (r) {
+      var A = r[0], P = r[1], RQ = r[2]; AL.err = 0;
+      P.forEach(netPilot);
+      var L = A.map(function (a) {
+        var mem = P.filter(function (x) { return x.ally === a.id; }), ld = mem.filter(function (x) { return x.id === a.leader; })[0];
+        return { id: a.id, n: a.name, t: a.tag, ic: a.ic || 'shield', c: a.c || '#4fd8ff', m: mem.length, p: mem.reduce(function (s, x) { return s + (x.power | 0); }, 0), ld: ld ? ld.nick : '—', leader: a.leader, srv: 1, mem: mem.map(function (x) { return x.id; }) };
+      });
+      ALLYS.length = 0; L.forEach(function (x) { ALLYS.push(x); });
+      var mine = P.filter(function (x) { return x.id === NET.me; })[0], was = online.al && online.al.id;
+      online.al = mine && L.some(function (a) { return a.id === mine.ally; }) ? { id: mine.ally } : null; saveOnline();
+      if (online.al && was !== online.al.id && AL.init && !AL.act) { var a0 = myAlly(); if (a0) showToast(tr('allyJoined', { a: a0.n })); }
+      AL.init = true; AL.myReq = {}; RQ.forEach(function (q) { if (q.player === NET.me) AL.myReq[q.ally] = 1; });
+      var me = myAlly(); AL.reqs = me && me.leader === NET.me ? RQ.filter(function (q) { return q.ally === me.id; }).map(function (q) { return q.player; }) : [];
+      return netWant(AL.reqs);
+    }, function (e) { AL.err = /alliances|ally_requests|power|42P01|PGRST/.test(String(e)) ? 2 : 1; });
+  }
+  function netAllyEvents() {
+    var me = myAlly(); if (NET.ok !== true || !me || !me.srv) { AL.evs = []; return Promise.resolve(); }
+    return sb('ally_events?select=*&ally=eq.' + me.id + '&order=id.desc&limit=40').then(function (r) { AL.evs = r; }, function () { /* ignore */ });
+  }
+  function alEvent(ally, nick, kind, by) { return sb('ally_events', { method: 'POST', prefer: 'return=minimal', body: { ally: ally, nick: String(nick || '?').slice(0, 16), kind: kind, by_nick: by ? String(by).slice(0, 16) : null } }).catch(function () { /* ignore */ }); }
+  function alDo(p, ok) {
+    AL.act = true; netRender();
+    p.then(function () { return netAllyLoad(); }).then(function () { return netAllyEvents(); }).then(function () { AL.act = false; if (ok) showToast(ok); netRender(); }, function () { AL.act = false; showToast(tr('netSendErr')); netRender(); });
+  }
+  function nickOf(id) { var P = PILOTS['u:' + id]; return id === NET.me ? (profile.nick || '?') : P ? P.n : '?'; }
+  function alCreate(nm, tg, ic, c) {
+    var id = Math.random().toString(36).slice(2, 10);
+    alDo(sb('alliances', { method: 'POST', prefer: 'return=minimal', body: { id: id, name: nm, tag: tg, ic: ic, c: c, leader: NET.me } })
+      .then(function () { return sb('players?id=eq.' + NET.me, { method: 'PATCH', prefer: 'return=minimal', body: { ally: id } }); })
+      .then(function () { return sb('ally_requests?player=eq.' + NET.me, { method: 'DELETE' }); })
+      .then(function () { allyTab = 'mine'; return alEvent(id, profile.nick, 'create'); }), tr('allyCreated', { a: nm }));
+  }
+  function alRequest(a) {
+    if (AL.myReq[a.id]) { alDo(sb('ally_requests?ally=eq.' + a.id + '&player=eq.' + NET.me, { method: 'DELETE' })); return; }
+    alDo(sb('ally_requests', { method: 'POST', prefer: 'resolution=ignore-duplicates,return=minimal', body: { ally: a.id, player: NET.me } }), tr('alReqToast', { a: a.n }));
+  }
+  function alAccept(pid, yes) {
+    var me = myAlly(); if (!me || me.leader !== NET.me) return;
+    if (!yes) { alDo(sb('ally_requests?ally=eq.' + me.id + '&player=eq.' + pid, { method: 'DELETE' })); return; }
+    alDo(sb('players?id=eq.' + pid, { method: 'PATCH', prefer: 'return=minimal', body: { ally: me.id } })
+      .then(function () { return sb('ally_requests?player=eq.' + pid, { method: 'DELETE' }); })
+      .then(function () { return alEvent(me.id, nickOf(pid), 'join', profile.nick); }), tr('alEvJoin', { n: nickOf(pid) }));
+  }
+  function alKick(pid) {
+    var me = myAlly(); if (!me || me.leader !== NET.me || pid === NET.me) return;
+    alDo(sb('players?id=eq.' + pid, { method: 'PATCH', prefer: 'return=minimal', body: { ally: null } }).then(function () { return alEvent(me.id, nickOf(pid), 'kick', profile.nick); }));
+  }
+  function alLeave() {
+    var me = myAlly(); if (!me) return;
+    if (!me.srv) { online.al = null; saveOnline(); allyTab = 'list'; showToast(tr('allyLeft')); renderAll(); return; }
+    var others = me.mem.filter(function (x) { return x !== NET.me; }).sort(function (x, y) { return ((PILOTS['u:' + y] || {}).pw | 0) - ((PILOTS['u:' + x] || {}).pw | 0); });
+    var p = sb('players?id=eq.' + NET.me, { method: 'PATCH', prefer: 'return=minimal', body: { ally: null } }).then(function () { return alEvent(me.id, profile.nick, 'leave'); });
+    if (me.leader === NET.me) p = p.then(function () {
+      return others.length ? sb('alliances?id=eq.' + me.id, { method: 'PATCH', prefer: 'return=minimal', body: { leader: others[0] } }).then(function () { return alEvent(me.id, nickOf(others[0]), 'lead'); }) : sb('alliances?id=eq.' + me.id, { method: 'DELETE' });
+    });
+    allyTab = 'list'; alDo(p, tr('allyLeft'));
+  }
+  function evTime(s) { var d = new Date(s); if (isNaN(d)) return ''; try { return d.toLocaleString(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang, { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }); } catch (err) { return d.toISOString().slice(5, 16).replace('T', ' '); } }
+  function allyHtml(me) {
+    var on = NET.ok === true, lead = !!(me && me.srv && me.leader === NET.me);
+    var tabs = me ? [['mine', 'allyMine'], ['mem', 'alMembers'], ['hist', 'alHist'], ['rank', 'allyRank']] : [['list', 'allyJoin'], ['new', 'allyCreate'], ['rank', 'allyRank']];
+    if (!tabs.some(function (t) { return t[0] === allyTab; })) allyTab = tabs[0][0];
+    var h = '<div class="alWrap"><div class="alTop"><b>' + svgI('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>') + esc(tr('ally')) + '</b><div class="seg alTabs">';
+    tabs.forEach(function (t) { h += '<button data-al="tab:' + t[0] + '" class="' + (allyTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + (t[0] === 'mem' && AL.reqs.length ? ' <i class="alCnt">' + AL.reqs.length + '</i>' : '') + '</button>'; });
+    h += '</div></div><div class="alScroll">';
+    if (on && AL.err === 2) h += '<p class="alErr">' + esc(tr('alSrvErr')) + '</p>';
+    if (allyTab === 'mine' && me) {
+      h += '<div class="alMine" style="--fc:' + me.c + '">' + embHtml(me, 'alEmbBig') + '<div class="alInfo"><span class="frBadge">[' + esc(me.t) + ']</span><b>' + esc(me.n) + '</b><small>' + esc(tr('members', { n: me.m })) + ' · ' + esc(tr('power')) + ' ' + fmtN(me.p) + '</small><small>' + esc(tr('leader')) + ' : ' + esc(me.ld) + '</small></div>' +
+        '<div class="alAct"><button class="alLeave" data-al="leave">' + esc(tr('allyLeave')) + '</button></div></div>';
+      if (!me.srv) h += '<p class="alNote">' + esc(tr('allyDemo')) + '</p>';
+    } else if (allyTab === 'mem' && me) {
+      if (!me.srv) h += '<p class="alNote">' + esc(tr('alOffOnly')) + '</p>';
+      else {
+        if (lead && AL.reqs.length) {
+          h += '<p class="onLbl">' + esc(tr('alRequests')) + '</p><div class="alMem">';
+          AL.reqs.forEach(function (pid) { var P = PILOTS['u:' + pid] || { n: '…', av: 'd0', fl: '' }; h += '<div class="alMr req"><button class="alMp" data-pc="u:' + pid + '"><img src="' + (P.photo || avURL(P.av)) + '" alt="">' + dotH(isOnP(P)) + '</button><b>' + esc(P.n) + ' <i class="emo">' + flagOf(P.fl) + '</i></b><em>' + fmtN(P.pw | 0) + '</em><span class="alBtns"><button class="ok" data-al="acc:' + pid + '">' + esc(tr('alAccept')) + '</button><button data-al="ref:' + pid + '">' + esc(tr('alRefuse')) + '</button></span></div>'; });
+          h += '</div>';
+        }
+        h += '<p class="onLbl">' + esc(tr('alMembers')) + ' · ' + me.m + '</p><div class="alMem">';
+        me.mem.slice().sort(function (x, y) { return (x === me.leader ? -1 : y === me.leader ? 1 : 0) || ((PILOTS['u:' + y] || {}).pw | 0) - ((PILOTS['u:' + x] || {}).pw | 0); }).forEach(function (pid) {
+          var isMe = pid === NET.me, P = PILOTS['u:' + pid] || { n: '?', av: 'd0', fl: '' }, k = isMe ? 'me' : 'u:' + pid, src = isMe ? avSrc(profile) : (P.photo || avURL(P.av));
+          h += '<div class="alMr' + (isMe ? ' me' : '') + '"><button class="alMp" data-pc="' + k + '"><img src="' + src + '" alt="">' + dotH(isMe || isOnP(P)) + '</button><button class="alMn" data-pc="' + k + '"><b>' + esc(isMe ? (profile.nick || P.n) : P.n) + ' <i class="emo">' + flagOf(isMe ? cfg.country : P.fl) + '</i></b><small>' + esc(pid === me.leader ? tr('leader') : tr('member')) + ' · ' + esc(tr(isMe || isOnP(P) ? 'onlineNow' : 'offlineNow')) + '</small></button><em>' + svgI(SV_POW) + fmtN(P.pw | 0) + '</em>' +
+            (lead && !isMe ? '<span class="alBtns"><button class="no" data-al="kick:' + pid + '">' + esc(tr('alKick')) + '</button></span>' : '') + '</div>';
+        });
+        h += '</div>';
+      }
+    } else if (allyTab === 'hist' && me) {
+      if (!me.srv) h += '<p class="alNote">' + esc(tr('alOffOnly')) + '</p>';
+      else if (!AL.evs.length) h += '<p class="alNote">' + esc(tr('alNoHist')) + '</p>';
+      else {
+        h += '<div class="alHist">';
+        AL.evs.forEach(function (ev) { var K = { create: 'alEvCreate', join: 'alEvJoin', leave: 'alEvLeave', kick: 'alEvKick', lead: 'alEvLead' }[ev.kind] || 'alEvJoin'; h += '<div class="alEv k-' + esc(ev.kind) + '"><i></i><span>' + esc(tr(K, { n: ev.nick, b: ev.by_nick || '' })) + '</span><small>' + esc(evTime(ev.created_at)) + '</small></div>'; });
+        h += '</div>';
+      }
+    } else if (allyTab === 'rank') {
+      var RL = allyList();
+      if (!RL.length) h += '<p class="alNote">' + esc(tr('alEmpty')) + '</p>';
+      h += '<div class="alRank">';
+      RL.forEach(function (a, i) { h += '<div class="alRow' + (me && me.id === a.id ? ' me' : '') + '" style="--fc:' + a.c + '"><i>#' + (i + 1) + '</i>' + embHtml(a) + '<b>' + esc(a.n) + '</b><small>[' + esc(a.t) + ']</small><em>' + esc(tr('members', { n: a.m })) + '</em><strong>' + fmtN(a.p) + '</strong></div>'; });
+      h += '</div>' + (on ? '' : '<p class="alNote">' + esc(tr('allyDemo')) + '</p>');
+    } else if (allyTab === 'list') {
+      if (!ALLYS.length) h += '<p class="alNote">' + esc(tr('alEmpty')) + '</p>';
+      h += '<div class="alGrid">';
+      ALLYS.forEach(function (a) {
+        var rq = !!AL.myReq[a.id], full = a.m >= 50;
+        h += '<div class="alCardL" style="--fc:' + a.c + '">' + embHtml(a) + '<div><b>' + esc(a.n) + '</b><small>[' + esc(a.t) + '] · ' + esc(tr('members', { n: a.m })) + '</small></div><button class="alJoin' + (rq ? ' sent' : '') + '" data-al="join:' + a.id + '"' + (full && !rq ? ' disabled' : '') + '>' + esc(rq ? tr('alReqSent') : tr('allyJoin')) + '</button></div>';
+      });
+      h += '</div>' + (on ? '' : '<p class="alNote">' + esc(tr('allyDemo')) + '</p>');
+    } else {
+      var pv = { n: alDraft.n || tr('allyName'), t: (alDraft.t || '???').toUpperCase(), ic: alDraft.ic, c: alDraft.c };
+      h += '<div class="alNew"><div class="alForm"><label><span>' + esc(tr('allyName')) + '</span><input id="alName" maxlength="18" autocomplete="off" data-vk="text" value="' + esc(alDraft.n) + '"></label>' +
+        '<label class="tg"><span>' + esc(tr('allyTag')) + '</span><input id="alTag" maxlength="4" autocomplete="off" data-vk="text" value="' + esc(alDraft.t) + '"></label>' +
+        '<div class="alPick"><span>' + esc(tr('allyEmblem')) + '</span><div>';
+      Object.keys(EMB).forEach(function (k) { h += '<button data-al="ic:' + k + '" class="' + (alDraft.ic === k ? 'on' : '') + '">' + svgI(EMB[k]) + '</button>'; });
+      h += '</div><div>';
+      ALCOL.forEach(function (c) { h += '<button data-al="c:' + c + '" class="col' + (alDraft.c === c ? ' on' : '') + '" style="background:' + c + '" aria-label="' + c + '"></button>'; });
+      h += '</div></div>' + (alErr ? '<p class="alErr">' + esc(tr(alErr === 2 ? 'alTagUsed' : 'allyErr')) + '</p>' : '') + '</div><div class="alPrev" style="--fc:' + pv.c + '">' + embHtml(pv, 'alEmbBig') + '<span class="frBadge">[' + esc(pv.t) + ']</span><b>' + esc(pv.n) + '</b><button class="frOk" data-al="create">' + esc(tr('createBtn')) + '</button></div></div>';
+    }
+    h += '</div>';
+    if (AL.arm) {
+      var kick = AL.arm.indexOf('kick:') === 0, nm = kick ? nickOf(AL.arm.slice(5)) : '';
+      h += '<div class="alModal"><div class="alMBox"><b>' + esc(kick ? tr('alKickQ', { n: nm }) : tr('alLeaveQ', { a: me ? me.n : '' })) + '</b>' + (kick ? '' : '<p>' + esc(tr(lead && me.m > 1 ? 'alLeaveLd' : 'alLeaveD')) + '</p>') +
+        '<div><button data-al="no">' + esc(tr('cancel')) + '</button><button class="danger" data-al="yes">' + esc(kick ? tr('alKick') : tr('allyLeave')) + '</button></div></div></div>';
+    }
+    return h + (AL.act ? '<div class="alBusy"></div>' : '') + '</div>';
+  }
   function chMsgs(tab) {
     if (NET.ok === true) { var c0 = tab === 'srv' ? 'srv' : (myAlly() ? 'ally:' + myAlly().id : null); return c0 ? (NET.ch[c0] || (NET.ch[c0] = [])) : []; }
     if (tab === 'srv') { if (!chSrv) chSrv = TEST_MODE ? DEMO_SRV.map(cloneO) : []; return chSrv; }
@@ -4287,8 +4477,8 @@
     var al = isMe ? me : ALLYS.filter(function (a) { return a.id === P.al; })[0], rk = isMe ? 0 : P.rk;
     var nm = isMe ? (profile.nick || tr('profile')) : P.n, fl = isMe ? cfg.country : P.fl, src = isMe ? avSrc(profile) : (P.photo || avURL(P.av));
     var bio = isMe ? (profile.bio || '') : (P.bio[cfg.lang] || P.bio.en), likes = isMe ? NET.myLk : P.lk + (pLiked[pcOpen] ? 1 : 0);
-    return '<div class="pcBack" data-pcx="1"></div><div class="pcBox"><button class="pcX" data-pcx="1" aria-label="×">×</button><div class="pcTop"><img class="pcAv" src="' + src + '" alt=""><div class="pcInfo"><b>' + esc(nm) + ' <i class="emo">' + flagOf(fl) + '</i></b>' +
-      (al ? '<span class="frBadge" style="background:' + al.c + '">[' + esc(al.t) + '] ' + esc(al.n) + '</span>' : '<small>' + esc(tr('noAlly')) + '</small>') + (fl ? '<small><i class="emo">' + flagOf(fl) + '</i> ' + esc(ctyName(fl)) + '</small>' : '') + '<small>' + esc(tr('rank')) + ' : ' + esc(tr(['rk0', 'rk1', 'rk2'][rk])) + '</small></div></div>' +
+    return '<div class="pcBack" data-pcx="1"></div><div class="pcBox"><button class="pcX" data-pcx="1" aria-label="×">×</button><div class="pcTop"><img class="pcAv" src="' + src + '" alt=""><div class="pcInfo"><b>' + esc(nm) + ' <i class="emo">' + flagOf(fl) + '</i>' + (isMe ? (NET.ok === true ? dotH(true) : '') : P.net ? dotH(isOnP(P)) : '') + '</b>' +
+      (al ? '<span class="frBadge" style="background:' + al.c + '">[' + esc(al.t) + '] ' + esc(al.n) + '</span>' : '<small>' + esc(tr('noAlly')) + '</small>') + (fl ? '<small><i class="emo">' + flagOf(fl) + '</i> ' + esc(ctyName(fl)) + '</small>' : '') + '<small>' + esc(tr('rank')) + ' : ' + esc(tr(['rk0', 'rk1', 'rk2'][rk])) + '</small>' + ((isMe && NET.ok === true) || (P && P.net) ? '<small>' + esc(tr('power')) + ' : ' + fmtN(isMe ? oStats(online.lv, online.step).pow : P.pw | 0) + '</small>' : '') + '</div></div>' +
       (bio ? '<p class="pcBio"><b>' + esc(tr('bio')) + '</b>' + esc(bio) + '</p>' : '') + '<div class="pcAct"><button class="pcLike' + (pLiked[pcOpen] ? ' on' : '') + '" data-pl="1"' + (isMe ? ' disabled' : '') + '>❤ ' + likes + '</button>' +
       (isMe ? '<button class="frOk" data-pedit="1">' + esc(tr('editProfile')) + '</button>' : '<button class="frOk" data-pchat="' + pcOpen + '">💬 ' + esc(tr('nav_chat')) + '</button>') + '</div></div>';
   }
@@ -4407,21 +4597,29 @@
     if (el.hasAttribute('data-ch')) { chatTab = el.getAttribute('data-ch'); chSel = -1; emoOpen = false; renderFront(); return; }
     if (el.hasAttribute('data-al')) {
       var q = el.getAttribute('data-al');
-      if (q.indexOf('tab:') === 0) { allyTab = q.slice(4); alArm = 0; alErr = 0; }
+      if (q.indexOf('tab:') === 0) { allyTab = q.slice(4); alArm = 0; alErr = 0; AL.arm = ''; AL.t = 0; if (allyTab === 'hist') netAllyEvents().then(netRender); }
+      else if (AL.act) return;
+      else if (q === 'leave') AL.arm = 'leave';
+      else if (q === 'no') AL.arm = '';
+      else if (q === 'yes') { var arm = AL.arm; AL.arm = ''; if (arm === 'leave') { alLeave(); return; } if (arm.indexOf('kick:') === 0) alKick(arm.slice(5)); }
+      else if (q.indexOf('kick:') === 0) AL.arm = q;
+      else if (q.indexOf('acc:') === 0) alAccept(q.slice(4), true);
+      else if (q.indexOf('ref:') === 0) alAccept(q.slice(4), false);
+      else if (q.indexOf('join:') === 0 && NET.ok === true) { var A1 = ALLYS.filter(function (x) { return x.id === q.slice(5); })[0]; if (A1 && A1.srv) alRequest(A1); }
       else if (q.indexOf('join:') === 0) { var A0 = ALLYS.filter(function (x) { return x.id === q.slice(5); })[0]; if (A0) { online.al = { id: A0.id }; saveOnline(); alArm = 0; allyTab = 'mine'; beep(660, 0.15, 'triangle', 0.06, 990); showToast(tr('allyJoined', { a: A0.n })); } }
-      else if (q === 'leave') { if (!alArm) alArm = 1; else { alArm = 0; online.al = null; saveOnline(); allyTab = 'list'; showToast(tr('allyLeft')); } }
       else if (q.indexOf('ic:') === 0) alDraft.ic = q.slice(3);
       else if (q.indexOf('c:') === 0) alDraft.c = q.slice(2);
       else if (q === 'create') {
         var nm = (alDraft.n || '').trim(), tg = (alDraft.t || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
         if (nm.length < 3 || tg.length < 3 || tg.length > 4) { alErr = 1; }
+        else if (NET.ok === true) { if (ALLYS.some(function (x) { return x.t === tg; })) alErr = 2; else { alErr = 0; alCreate(nm, tg, alDraft.ic, alDraft.c); alDraft = { n: '', t: '', ic: 'eagle', c: alDraft.c }; } }
         else { alErr = 0; online.al = { mine: 1, id: 'me', n: nm, t: tg, ic: alDraft.ic, c: alDraft.c }; saveOnline(); allyTab = 'mine'; beep(660, 0.15, 'triangle', 0.06, 990); showToast(tr('allyCreated', { a: nm })); alDraft = { n: '', t: '', ic: 'eagle', c: '#4fd8ff' }; }
       }
       renderAll(); return;
     }
     var a = el.getAttribute('data-fr');
     if (a === 'ghost' || a === 'rank') { showToast(tr('onlineSoon')); return; }
-    if (a === 'ally') { frMode = 'ally'; allyTab = ''; alArm = 0; renderAll(); return; }
+    if (a === 'ally') { frMode = 'ally'; allyTab = ''; alArm = 0; AL.arm = ''; AL.t = 0; renderAll(); setTimeout(netTick, 0); return; }
     if (a === 'hub') { frMode = 'hub'; renderAll(); return; }
     if (a.indexOf('sec:') === 0) { frMode = a; renderAll(); return; }
   });
