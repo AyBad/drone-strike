@@ -1,5 +1,5 @@
 // Service worker de la version web installable : réseau d'abord (mises à jour automatiques), cache en secours (jeu hors connexion)
-var CACHE = 'dsf-v2-2.0.1-4';
+var CACHE = 'dsf-v2-2.0.2-5';
 var FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 self.addEventListener('install', function (e) {
   self.skipWaiting();
