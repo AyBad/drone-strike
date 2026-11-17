@@ -623,7 +623,39 @@
   .chList { max-height: 210px; overflow-y: auto; }
   .chMsg.me { align-self: flex-end; } .chMsg.me div { background: #1d3b5c; border-color: #2a6f9c; border-radius: 14px 4px 14px 14px; } .chMsg.me div b { color: #5ef0ff; }
   .chIn input:not([disabled]) { color: #ffffff; border-color: #2a6f9c; } .chIn button.on { background: #4fd8ff; color: #04121f; cursor: pointer; }
-  .helpCard { display: flex; flex-direction: column; gap: 8px; }
+  .helpCard { display: flex; flex-direction: column; gap: 8px; } .helpCard.inCard { margin-top: 14px; } .helpCard.inCard .helpRow { padding: 10px 12px; font-size: 14px; }
+  .pfAvc img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; } .pfAvc { padding: 3px !important; overflow: hidden; }
+  #pfBig img, .onAv img, .frAv img, .pfAv img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pfBioL { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; text-align: start; font-size: 12px; letter-spacing: 1.5px; color: #8fa6c4; text-transform: uppercase; font-weight: 700; }
+  .pfBioL input { font: inherit; font-size: 15px; letter-spacing: 0; text-transform: none; font-weight: 400; padding: 10px 14px; border-radius: 12px; border: 1px solid #2a6f9c; background: #0a1220; color: #ffffff; }
+  #frontView { position: relative; }
+  .chAv { width: 36px; height: 36px; border-radius: 10px; overflow: hidden; padding: 0; border: 2px solid #2a6f9c; background: #0a1220; cursor: pointer; flex: none; } .chAv img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .chB { position: relative; cursor: pointer; } .chMsg.sel .chB { outline: 2px solid #4fd8ff; outline-offset: 1px; } .chMsg.rep .chB { opacity: 0.55; }
+  .chMsg .chB p { word-break: break-word; } .chTr { display: block; font-size: 10.5px; color: #8fa6c4; margin-top: 3px; font-style: italic; }
+  .chLk { position: absolute; bottom: -10px; inset-inline-end: 8px; font-size: 11px; font-weight: 800; padding: 1px 7px; border-radius: 999px; background: #1a2a44; color: #ff8fa3; border: 1px solid #ff4d6d; } .chLk.on { background: #ff4d6d; color: #ffffff; }
+  .chMsg .chB:has(.chLk) { margin-bottom: 8px; }
+  .chActs { display: flex; gap: 6px; padding-inline-start: 46px; margin-top: -2px; } .chActs.me { justify-content: flex-end; padding-inline-start: 0; padding-inline-end: 46px; }
+  .chActs button { font: inherit; font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid #2a6f9c; background: #0d1a2c; color: #cfe3ff; cursor: pointer; letter-spacing: 0; } .chActs button.on { background: #ff4d6d; border-color: #ff4d6d; color: #fff; }
+  .chMsg.sys .chB { cursor: default; }
+  .chEmos { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border-radius: 12px; background: #0d1a2c; border: 1px solid #2a3f5e; } .chEmos button { font-size: 20px; width: 38px; height: 34px; border: 0; background: transparent; cursor: pointer; border-radius: 8px; padding: 0; } .chEmos button:active { background: #1d3b5c; }
+  .chEmo { width: 46px; border-radius: 12px; border: 1px solid #2a6f9c; background: #0d1a2c; font-size: 20px; cursor: pointer; padding: 0; } .chEmo.on { background: #1d3b5c; }
+  .chTabs button { padding: 7px 13px; }
+  .pmRow { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border-radius: 12px; border: 1px solid #2a3f5e; background: rgba(10, 18, 32, 0.7); color: #e6f1ff; font: inherit; text-align: start; cursor: pointer; letter-spacing: 0; }
+  .pmRow img { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; } .pmRow > span { flex: 1; min-width: 0; display: flex; flex-direction: column; } .pmRow b { font-size: 14px; } .pmRow small { font-size: 12px; color: #9fb6d0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .pmRow > i { font-style: normal; font-size: 20px; color: #6f86a6; }
+  .pmHead { display: flex; align-items: center; gap: 10px; padding-bottom: 6px; border-bottom: 1px solid #1f3554; } .pmHead b { font-size: 15px; color: #fff; }
+  .chBack { width: 34px; height: 34px; border-radius: 10px; border: 1px solid #2a6f9c; background: transparent; color: #cfe3ff; font-size: 20px; cursor: pointer; padding: 0; }
+  .emo { font-style: normal; }
+  #pcard { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; } #pcard[hidden] { display: none; }
+  .pcBack { position: absolute; inset: 0; background: rgba(3, 7, 15, 0.7); border-radius: inherit; }
+  .pcBox { position: relative; width: min(460px, 86%); padding: 20px; border-radius: 18px; background: #0e1a2e; border: 1.5px solid #4fd8ff; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column; gap: 12px; text-align: start; animation: pcIn .22s ease-out; }
+  @keyframes pcIn { from { transform: scale(0.92); opacity: 0; } to { transform: none; opacity: 1; } }
+  .pcX { position: absolute; top: 10px; inset-inline-end: 10px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #2a6f9c; background: #0a1220; color: #cfe3ff; font-size: 20px; line-height: 1; cursor: pointer; padding: 0; }
+  .pcTop { display: flex; gap: 14px; align-items: center; } .pcAv { width: 84px; height: 84px; border-radius: 18px; object-fit: cover; border: 2px solid #4fd8ff; }
+  .pcInfo { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; } .pcInfo b { font-size: 20px; color: #fff; } .pcInfo small { font-size: 13px; color: #9fb6d0; }
+  .pcInfo .frBadge { color: #0a0f1a; }
+  .pcBio { margin: 0; font-size: 14px; color: #e6f1ff; line-height: 1.4; padding: 10px 12px; border-radius: 12px; background: #0a1220; border: 1px solid #1f3554; } .pcBio b { display: block; font-size: 11px; letter-spacing: 1.5px; color: #8fa6c4; text-transform: uppercase; margin-bottom: 3px; }
+  .pcAct { display: flex; gap: 10px; align-items: center; } .pcAct .frOk { flex: 1; font-size: 14px; padding: 11px; }
+  .pcLike { font: inherit; font-size: 15px; font-weight: 800; padding: 10px 16px; border-radius: 12px; border: 1.5px solid #ff4d6d; background: transparent; color: #ff8fa3; cursor: pointer; } .pcLike.on { background: #ff4d6d; color: #fff; } .pcLike[disabled] { opacity: 0.6; cursor: default; }
   .helpRow { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #2a3f5e; background: rgba(10, 18, 32, 0.6); color: #e6f1ff; font: inherit; font-size: 15px; text-align: start; cursor: pointer; letter-spacing: 0; }
   .helpRow svg { width: 20px; height: 20px; color: #4fd8ff; flex: none; } .helpRow i { margin-inline-start: auto; font-style: normal; font-size: 22px; color: #6f86a6; }
   .rpWrap { display: flex; flex-direction: column; gap: 10px; padding: 0 22px 18px; text-align: start; } .rpLead { margin: 0; text-align: start; }
@@ -636,7 +668,7 @@
   .abTxt dl { display: grid; grid-template-columns: auto 1fr; gap: 5px 16px; margin: 0 0 10px; font-size: 14px; } .abTxt dt { color: #8fa6c4; } .abTxt dd { margin: 0; color: #ffffff; font-weight: 600; }
   .abCopy { margin: 0; font-size: 12px; text-align: start; }
   body.light #overlay, body.light #gdFull { filter: invert(1) hue-rotate(180deg); }
-  body.light #overlay canvas, body.light #overlay img, body.light #gdFull .gdArt, body.light .onAv, body.light .frAv, body.light .pfAv, body.light .gem, body.light .langCur b, body.light #ctyList b { filter: invert(1) hue-rotate(180deg); }
+  body.light #overlay canvas, body.light #overlay img, body.light #overlay svg:not([stroke="currentColor"]), body.light #overlay .emo, body.light #gdFull svg:not([stroke="currentColor"]) { filter: invert(1) hue-rotate(180deg); }
   .onNb { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 12px; background: rgba(10, 18, 32, 0.88); border: 1px solid #2a6f9c; color: #cfe3ff; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: 1px; cursor: pointer; }
   .onNb svg { width: 24px; height: 24px; flex: none; }
   .onNb.on { background: #4fd8ff; border-color: #4fd8ff; color: #04121f; }
@@ -1041,6 +1073,7 @@
             <label><span data-i18n="pseudo"></span><input id="pfNick" maxlength="16" autocomplete="off" data-vk="text"></label>
             <label class="age"><span data-i18n="age"></span><input id="pfAge" maxlength="2" inputmode="numeric" data-vk="num"></label>
           </div>
+          <label class="pfBioL"><span data-i18n="bio"></span><input id="pfBio" maxlength="120" autocomplete="off" data-vk="text"></label>
           <div class="pfAct"><p class="stNote" data-i18n="profileNote"></p><button id="pfSave" data-i18n="saveProfile"></button></div>
         </div>
       </div>
@@ -1053,6 +1086,7 @@
         <button class="onTop pf" data-on="profile"><span class="onAv"></span><span><b class="onNick"></b><small class="onSub"></small></span></button>
       </div>
       <div id="frBody"></div>
+      <div id="pcard" hidden></div>
       <nav class="onNav">
         <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-i18n="nav_dash"></span></button>
         <button class="onNb chat" data-on="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span data-i18n="nav_chat"></span></button>
@@ -1158,6 +1192,10 @@
             <div class="langPop" id="ctyPop" hidden><div class="langList" id="ctyList"></div></div>
           </div>
           <p class="sub ctyNote" data-i18n="pfCountry"></p>
+          <div class="helpCard inCard">
+          <button class="helpRow" id="reportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h11l-1.5 4L15 12H4"/></svg><span data-i18n="report"></span><i>›</i></button>
+          <button class="helpRow" id="aboutBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg><span data-i18n="about"></span><i>›</i></button>
+          </div>
         </section>
         <section class="card">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="audio">Son et vibration</span></div>
@@ -1179,10 +1217,6 @@
             <p class="sub" id="bindHint" data-i18n="bindHint"></p>
             <button id="resetBtn" class="ghost smallBtn" data-i18n="resetCtrl">COMMANDES PAR DÉFAUT</button>
           </div>
-        </section>
-        <section class="card full helpCard">
-          <button class="helpRow" id="reportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h11l-1.5 4L15 12H4"/></svg><span data-i18n="report"></span><i>›</i></button>
-          <button class="helpRow" id="aboutBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg><span data-i18n="about"></span><i>›</i></button>
         </section>
       </div>
     </div>
@@ -1297,7 +1331,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '2.0.4';
+  var APP_VERSION = '2.0.5';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = true;
   var LS = (function () {
@@ -1656,6 +1690,22 @@
   var RTL = { ar: 1, fa: 1 };
   var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'], pt: ['Português', 'Portuguese portugais'], de: ['Deutsch', 'German allemand'], tr: ['Türkçe', 'Turkish turc'], id: ['Indonesia', 'Indonesian indonesien bahasa'], hi: ['हिन्दी', 'Hindi'] };
   var T = {
+    rk1: ["As", "Ace", "As", "Asso", "王牌", "Ас", "آس", "آس", "エース", "에이스", "Ás", "Ass", "As", "Jagoan", "इक्का"],
+    rk2: ["Légende", "Legend", "Leyenda", "Leggenda", "传奇", "Легенда", "أسطورة", "افسانه", "レジェンド", "전설", "Lenda", "Legende", "Efsane", "Legenda", "लीजेंड"],
+    like: ["J’aime", "Like", "Me gusta", "Mi piace", "赞", "Нравится", "إعجاب", "پسندیدن", "いいね", "좋아요", "Curtir", "Gefällt mir", "Beğen", "Suka", "पसंद"],
+    translate: ["Traduire", "Translate", "Traducir", "Traduci", "翻译", "Перевести", "ترجمة", "ترجمه", "翻訳", "번역", "Traduzir", "Übersetzen", "Çevir", "Terjemahkan", "अनुवाद"],
+    original: ["Original", "Original", "Original", "Originale", "原文", "Оригинал", "الأصل", "اصل", "原文", "원문", "Original", "Original", "Orijinal", "Asli", "मूल"],
+    translated: ["Traduit", "Translated", "Traducido", "Tradotto", "已翻译", "Переведено", "مترجم", "ترجمه‌شده", "翻訳済み", "번역됨", "Traduzido", "Übersetzt", "Çevrildi", "Diterjemahkan", "अनूदित"],
+    reportMsg: ["Signaler", "Report", "Denunciar", "Segnala", "举报", "Пожаловаться", "إبلاغ", "گزارش", "通報", "신고", "Denunciar", "Melden", "Bildir", "Laporkan", "रिपोर्ट"],
+    reported: ["Signalé", "Reported", "Denunciado", "Segnalato", "已举报", "Отмечено", "تم الإبلاغ", "گزارش شد", "通報済み", "신고됨", "Denunciado", "Gemeldet", "Bildirildi", "Dilaporkan", "रिपोर्ट किया"],
+    msgReported: ["Message signalé. Merci !", "Message reported. Thanks!", "Mensaje denunciado. ¡Gracias!", "Messaggio segnalato. Grazie!", "消息已举报，谢谢！", "Жалоба отправлена. Спасибо!", "تم الإبلاغ عن الرسالة. شكرًا!", "پیام گزارش شد. ممنون!", "メッセージを通報しました。ありがとう！", "메시지를 신고했습니다. 감사합니다!", "Mensagem denunciada. Obrigado!", "Nachricht gemeldet. Danke!", "Mesaj bildirildi. Teşekkürler!", "Pesan dilaporkan. Terima kasih!", "संदेश रिपोर्ट किया गया। धन्यवाद!"],
+    chatPM: ["Privé", "Private", "Privado", "Privato", "私聊", "Личные", "خاص", "خصوصی", "個別", "개인", "Privado", "Privat", "Özel", "Pribadi", "निजी"],
+    pmEmpty: ["Ouvre le profil d’un pilote et touche « Chat » pour lui écrire.", "Open a pilot’s profile and tap “Chat” to message them.", "Abre el perfil de un piloto y toca «Chat» para escribirle.", "Apri il profilo di un pilota e tocca «Chat» per scrivergli.", "打开飞行员的个人资料，点击“聊天”即可私信。", "Открой профиль пилота и нажми «Чат», чтобы написать ему.", "افتح ملف طيار واضغط «دردشة» لمراسلته.", "نمایه یک خلبان را باز کن و «گفتگو» را بزن تا به او پیام بدهی.", "パイロットのプロフィールを開き「チャット」をタップ。", "파일럿 프로필을 열고 «채팅»을 눌러 메시지를 보내세요.", "Abra o perfil de um piloto e toque em “Chat” para escrever.", "Öffne das Profil eines Piloten und tippe auf „Chat“.", "Bir pilotun profilini aç ve yazmak için “Sohbet”e dokun.", "Buka profil pilot lalu ketuk “Obrolan” untuk mengirim pesan.", "किसी पायलट की प्रोफ़ाइल खोलें और संदेश के लिए “चैट” दबाएँ।"],
+    editProfile: ["Modifier", "Edit", "Editar", "Modifica", "编辑", "Изменить", "تعديل", "ویرایش", "編集", "편집", "Editar", "Bearbeiten", "Düzenle", "Ubah", "संपादित करें"],
+    bio: ["Bio", "Bio", "Bio", "Bio", "简介", "О себе", "نبذة", "بیوگرافی", "自己紹介", "소개", "Bio", "Bio", "Biyografi", "Bio", "परिचय"],
+    bioPh: ["Présente-toi en quelques mots…", "Introduce yourself in a few words…", "Preséntate en pocas palabras…", "Presentati in poche parole…", "用几句话介绍自己…", "Расскажи о себе в двух словах…", "عرّف بنفسك في كلمات قليلة…", "خودت را در چند کلمه معرفی کن…", "ひとことで自己紹介…", "몇 마디로 자신을 소개하세요…", "Apresente-se em poucas palavras…", "Stell dich in ein paar Worten vor…", "Kendini birkaç kelimeyle tanıt…", "Perkenalkan dirimu singkat…", "कुछ शब्दों में अपना परिचय दें…"],
+    demoPilots: ["Pilotes d’exemple (version de test).", "Sample pilots (test version).", "Pilotos de ejemplo (versión de prueba).", "Piloti di esempio (versione di test).", "示例飞行员（测试版）。", "Примеры пилотов (тестовая версия).", "طيارون تجريبيون (نسخة اختبار).", "خلبانان نمونه (نسخه آزمایشی).", "サンプルのパイロット（テスト版）。", "예시 파일럿 (테스트 버전).", "Pilotos de exemplo (versão de teste).", "Beispiel-Piloten (Testversion).", "Örnek pilotlar (test sürümü).", "Pilot contoh (versi uji).", "उदाहरण पायलट (परीक्षण संस्करण)।"],
+    evoDesc3: ["Vaisseau spatial de combat lourdement blindé. Bonus : statistiques +75 %.", "Heavily armoured combat spaceship. Bonus: stats +75%.", "Nave espacial de combate muy blindada. Bonus: estadísticas +75 %.", "Astronave da combattimento pesantemente corazzata. Bonus: statistiche +75%.", "重装甲战斗太空飞船。加成：属性+75%。", "Тяжелобронированный боевой космический корабль. Бонус: характеристики +75 %.", "مركبة فضائية قتالية مدرعة بشدة. المكافأة: الإحصاءات +75٪.", "فضاپیمای جنگی با زره سنگین. پاداش: آمار +۷۵٪.", "重装甲の戦闘宇宙船。ボーナス：ステータス+75%。", "중장갑 전투 우주선. 보너스: 능력치 +75%.", "Nave espacial de combate fortemente blindada. Bônus: atributos +75%.", "Schwer gepanzertes Kampf-Raumschiff. Bonus: Werte +75 %.", "Ağır zırhlı savaş uzay gemisi. Bonus: değerler +%75.", "Pesawat luar angkasa tempur berlapis baja berat. Bonus: statistik +75%.", "भारी कवच वाला युद्धक अंतरिक्ष यान। बोनस: आँकड़े +75%।"],
     theme: ["Thème", "Theme", "Tema", "Tema", "主题", "Тема", "المظهر", "پوسته", "テーマ", "테마", "Tema", "Design", "Tema", "Tema", "थीम"],
     thDark: ["Sombre", "Dark", "Oscuro", "Scuro", "深色", "Тёмная", "داكن", "تیره", "ダーク", "다크", "Escuro", "Dunkel", "Koyu", "Gelap", "डार्क"],
     thLight: ["Clair", "Light", "Claro", "Chiaro", "浅色", "Светлая", "فاتح", "روشن", "ライト", "라이트", "Claro", "Hell", "Açık", "Terang", "लाइट"],
@@ -1886,7 +1936,6 @@
     evoDesc0: ['Le drone de départ, agile et polyvalent.', 'The starter drone, agile and versatile.', 'El dron inicial, ágil y versátil.', 'Il drone iniziale, agile e versatile.', '初始无人机，灵活全能。', 'Стартовый дрон, ловкий и универсальный.', "طائرة البداية، رشيقة ومتعددة الاستخدامات.", "پهپاد آغازین، چابک و همه‌کاره.", "機敏で万能な初期ドローン。", "민첩하고 다재다능한 시작 드론.", "O drone inicial, ágil e versátil.", "Die Startdrohne, wendig und vielseitig.", "Başlangıç dronu, çevik ve çok yönlü.", "Drone awal, lincah dan serbaguna.", "शुरुआती ड्रोन, फुर्तीला और बहुमुखी।"],
     evoDesc1: ['Bimoteur rapide à double dérive. Bonus : statistiques +25 %.', 'Fast twin-engine fighter. Bonus: stats +25%.', 'Bimotor rápido. Bonus: estadísticas +25 %.', 'Bimotore veloce. Bonus: statistiche +25%.', '高速双发战机。加成：属性 +25%。', 'Быстрый двухмоторный истребитель. Бонус: +25% к характеристикам.', "مقاتلة سريعة بمحركين. مكافأة: الإحصائيات +25%.", "جنگنده دوموتوره سریع. پاداش: آمار +۲۵٪.", "高速の双発戦闘機。ボーナス：能力値+25%。", "빠른 쌍발 전투기. 보너스: 능력치 +25%.", "Caça bimotor rápido. Bónus: atributos +25%.", "Schneller zweistrahliger Jäger. Bonus: Werte +25 %.", "Hızlı çift motorlu avcı. Bonus: değerler +%25.", "Jet tempur bermesin ganda yang cepat. Bonus: statistik +25%.", "तेज़ दो-इंजन लड़ाकू विमान। बोनस: आँकड़े +25%।"],
     evoDesc2: ['Aile volante furtive. Bonus : statistiques +50 %.', 'Stealth flying wing. Bonus: stats +50%.', 'Ala volante furtiva. Bonus: estadísticas +50 %.', 'Ala volante stealth. Bonus: statistiche +50%.', '隐身飞翼。加成：属性 +50%。', 'Малозаметное летающее крыло. Бонус: +50% к характеристикам.', "جناح طائر شبحي. مكافأة: الإحصائيات +50%.", "بال پرنده رادارگریز. پاداش: آمار +۵۰٪.", "ステルス全翼機。ボーナス：能力値+50%。", "스텔스 전익기. 보너스: 능력치 +50%.", "Asa voadora furtiva. Bónus: atributos +50%.", "Tarnkappen-Nurflügler. Bonus: Werte +50 %.", "Radara yakalanmayan uçan kanat. Bonus: değerler +%50.", "Sayap terbang siluman. Bonus: statistik +50%.", "स्टेल्थ उड़ता पंख। बोनस: आँकड़े +50%।"],
-    evoDesc3: ['Cuirassé lourd à quatre nacelles. Bonus : statistiques +75 %.', 'Heavy four-fan gunship. Bonus: stats +75%.', 'Acorazado pesado de cuatro rotores. Bonus: estadísticas +75 %.', 'Corazzata pesante a quattro rotori. Bonus: statistiche +75%.', '四涵道重型炮艇。加成：属性 +75%。', 'Тяжёлый четырёхвинтовой ганшип. Бонус: +75% к характеристикам.', "مدرعة ثقيلة بأربع مراوح. مكافأة: الإحصائيات +75%.", "ناو هوایی سنگین با چهار پروانه. پاداش: آمار +۷۵٪.", "4ファンの重武装ガンシップ。ボーナス：能力値+75%。", "4개의 팬을 단 중무장 건쉽. 보너스: 능력치 +75%.", "Canhoneira pesada de quatro rotores. Bónus: atributos +75%.", "Schweres Kampfschiff mit vier Rotoren. Bonus: Werte +75 %.", "Dört pervaneli ağır savaş gemisi. Bonus: değerler +%75.", "Kapal tempur berat empat rotor. Bonus: statistik +75%.", "चार रोटर वाला भारी गनशिप। बोनस: आँकड़े +75%।"],
     evoDone: ['ÉVOLUTION : {n} !', 'EVOLUTION: {n}!', '¡EVOLUCIÓN: {n}!', 'EVOLUZIONE: {n}!', '进化：{n}！', 'ЭВОЛЮЦИЯ: {n}!', "تطور: {n}!", "تکامل: {n}!", "進化：{n}！", "진화: {n}!", "EVOLUÇÃO: {n}!", "ENTWICKLUNG: {n}!", "EVRİM: {n}!", "EVOLUSI: {n}!", "विकास: {n}!"],
     newMissile: ["MISSILE ÉQUIPÉ ! ({n})", "MISSILE EQUIPPED! ({n})", "¡MISIL EQUIPADO! ({n})", "MISSILE EQUIPAGGIATO! ({n})", "导弹已装备！({n})", "РАКЕТА УСТАНОВЛЕНА! ({n})", "تم تجهيز صاروخ! ({n})", "موشک نصب شد! ({n})", "ミサイル装備！（{n}）", "미사일 장착! ({n})", "MÍSSIL EQUIPADO! ({n})", "RAKETE AUSGERÜSTET! ({n})", "FÜZE TAKILDI! ({n})", "RUDAL TERPASANG! ({n})", "मिसाइल लगाई गई! ({n})"],
     lvUp: ['NIVEAU {n} !', 'LEVEL {n}!', '¡NIVEL {n}!', 'LIVELLO {n}!', '等级 {n}！', 'УРОВЕНЬ {n}!', "المستوى {n}!", "سطح {n}!", "レベル{n}！", "레벨 {n}!", "NÍVEL {n}!", "LEVEL {n}!", "SEVİYE {n}!", "LEVEL {n}!", "स्तर {n}!"],
@@ -2159,11 +2208,11 @@
   }
   function renderCtyPick() {
     var cur = document.getElementById('ctyCur'); if (!cur) return;
-    var ch = '<b>' + flagOf(cfg.country) + '</b><span>' + esc(ctyName(cfg.country)) + '</span><i>\u25BE</i>';
+    var ch = '<b class="emo">' + flagOf(cfg.country) + '</b><span>' + esc(ctyName(cfg.country)) + '</span><i>\u25BE</i>';
     if (cur.getAttribute('data-sig') !== ch) { cur.innerHTML = ch; cur.setAttribute('data-sig', ch); }
     var pop = document.getElementById('ctyPop'); if (pop.hidden) return;
     var list = COUNTRIES.slice().sort(function (x, y) { return ctyName(x).localeCompare(ctyName(y)); }), h = '<button class="chip' + (!cfg.country ? ' on' : '') + '" data-opt="country" data-val="">' + esc(tr('noCountry')) + '</button>';
-    list.forEach(function (c) { h += '<button class="chip' + (c === cfg.country ? ' on' : '') + '" data-opt="country" data-val="' + c + '"><b>' + flagOf(c) + '</b>' + esc(ctyName(c)) + '</button>'; });
+    list.forEach(function (c) { h += '<button class="chip' + (c === cfg.country ? ' on' : '') + '" data-opt="country" data-val="' + c + '"><b class="emo">' + flagOf(c) + '</b>' + esc(ctyName(c)) + '</button>'; });
     var el = document.getElementById('ctyList'); if (el.getAttribute('data-sig') !== h) { el.innerHTML = h; el.setAttribute('data-sig', h); }
   }
   function tr(key, vars) {
@@ -3178,10 +3227,24 @@
     if (b) setTimeout(function () { document.getElementById('langPop').hidden = true; if (vkIn) closeVK(); renderAll(); }, 0);
   });
   // ---------- Profil ----------
-  var AVATARS = ['🦅', '🐺', '🦊', '🐯', '🤖', '👽', '🐉', '💀'];
-  var profile = { nick: '', age: 0, av: '🦅', photo: '' }, pfDraft = null;
+  var AV_DEFS = [['b', '#4fd8ff', '#14456b'], ['e', '#ff6b4a', '#57200f'], ['f', '#c77dff', '#3a1a63'], ['g', '#ffc94a', '#4d370a'], ['b', '#5dff9b', '#114a2c'], ['e', '#ffe14d', '#4a430b'], ['f', '#ff4d6d', '#5a1426'], ['g', '#5ef0ff', '#0d4552']];
+  var AVATARS = AV_DEFS.map(function (d, i) { return 'd' + i; }), avCache = {};
+  function avURL(id) {
+    var k = /^d[0-7]$/.test(id) ? +id.slice(1) : 0; if (avCache[k]) return avCache[k];
+    var mc = ctx;
+    try {
+      var D = AV_DEFS[k], c = document.createElement('canvas'); c.width = c.height = 128;
+      var g = c.getContext('2d'), gr = g.createRadialGradient(64, 54, 6, 64, 64, 80); gr.addColorStop(0, D[2]); gr.addColorStop(1, '#050a14'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+      ctx = g; draw3D(getModel(D[0], D[1], 1, 0), 64, 68, 40, 2.3, 0.72, 0, 0, 1, 0, false, false); ctx = mc;
+      return (avCache[k] = c.toDataURL('image/png'));
+    } catch (err) { ctx = mc; return ''; }
+  }
+  function avSrc(p) { return p.photo || avURL(p.av); }
+  var profile = { nick: '', age: 0, av: 'd0', photo: '', bio: '' }, pfDraft = null;
   try { var spf = JSON.parse(LS.getItem('droneStrikeProfile') || 'null'); if (spf && typeof spf === 'object') { profile.nick = String(spf.nick || '').slice(0, 16); profile.age = Math.max(0, Math.min(99, spf.age | 0)); if (AVATARS.indexOf(spf.av) >= 0) profile.av = spf.av; if (typeof spf.photo === 'string' && spf.photo.indexOf('data:image/') === 0) profile.photo = spf.photo; } } catch (err) { /* ignore */ }
-  function avHtml(p) { return p.photo ? '<img alt="" src="' + p.photo + '">' : '<span>' + p.av + '</span>'; }
+  try { var spf2 = JSON.parse(LS.getItem('droneStrikeProfile') || 'null'); if (spf2 && typeof spf2.bio === 'string') profile.bio = spf2.bio.replace(/[<>]/g, '').slice(0, 120); if (spf2 && typeof spf2.av === 'string') profile.av = spf2.av; } catch (err) { /* ignore */ }
+  if (!/^d[0-7]$/.test(profile.av)) profile.av = 'd0';
+  function avHtml(p) { return '<img alt="" src="' + avSrc(p) + '">'; }
   function renderProfile() {
     var ha = document.getElementById('homeAv'), hn = document.getElementById('homeNick');
     if (ha) ha.innerHTML = avHtml(profile);
@@ -3189,16 +3252,18 @@
     if (!profileView || profileView.hidden || !pfDraft) return;
     document.getElementById('pfBig').innerHTML = avHtml(pfDraft);
     var h = '';
-    AVATARS.forEach(function (a) { h += '<button class="pfAvc' + (!pfDraft.photo && pfDraft.av === a ? ' eq' : '') + '" data-av="' + a + '">' + a + '</button>'; });
+    AVATARS.forEach(function (a) { h += '<button class="pfAvc' + (!pfDraft.photo && pfDraft.av === a ? ' eq' : '') + '" data-av="' + a + '"><img alt="" src="' + avURL(a) + '"></button>'; });
     var g = document.getElementById('pfAvs'); if (g.getAttribute('data-sig') !== h) { g.innerHTML = h; g.setAttribute('data-sig', h); }
     var n = document.getElementById('pfNick'), a2 = document.getElementById('pfAge');
     if (document.activeElement !== n) n.value = pfDraft.nick; if (document.activeElement !== a2) a2.value = pfDraft.age || '';
     n.placeholder = tr('pseudoPh');
+    var bi = document.getElementById('pfBio'); if (document.activeElement !== bi && bi.value !== (pfDraft.bio || '')) bi.value = pfDraft.bio || ''; bi.placeholder = tr('bioPh');
   }
   profileView.addEventListener('click', function (e) {
     var el = e.target && e.target.closest ? e.target.closest('[data-av]') : null;
     if (el && pfDraft) { pfDraft.av = el.getAttribute('data-av'); pfDraft.photo = ''; renderProfile(); }
   });
+  document.getElementById('pfBio').addEventListener('input', function (e) { if (pfDraft) pfDraft.bio = e.target.value.replace(/[<>]/g, '').slice(0, 120); });
   document.getElementById('pfNick').addEventListener('input', function (e) { if (pfDraft) pfDraft.nick = e.target.value.replace(/[<>]/g, '').slice(0, 16); });
   document.getElementById('pfAge').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2); if (pfDraft) pfDraft.age = Math.max(0, Math.min(99, parseInt(e.target.value, 10) || 0)); });
   document.getElementById('pfFile').addEventListener('change', function (e) {
@@ -3221,10 +3286,10 @@
   });
   document.getElementById('pfSave').addEventListener('click', function () {
     if (!pfDraft) return;
-    profile = { nick: pfDraft.nick.trim().slice(0, 16), age: pfDraft.age | 0, av: pfDraft.av, photo: pfDraft.photo };
+    profile = { nick: pfDraft.nick.trim().slice(0, 16), age: pfDraft.age | 0, av: pfDraft.av, photo: pfDraft.photo, bio: (pfDraft.bio || '').trim().slice(0, 120) };
     try { LS.setItem('droneStrikeProfile', JSON.stringify(profile)); } catch (err) { /* ignore */ }
     initAudio(); beep(880, 0.12, 'triangle', 0.06, 1320); showToast(tr('profileSaved'));
-    showView('home');
+    showView(typeof profFrom === 'string' && profFrom !== 'profile' ? profFrom : 'home');
   });
   document.getElementById('evoBack').addEventListener('click', function () { showView('hangar'); });
   document.getElementById('hgFight').addEventListener('click', function () { frontFrom = 'hangar'; showView('front'); });
@@ -3395,7 +3460,7 @@
     if (!online.gd && gdFull.hidden) openGuide();
     document.getElementById('frSeason').textContent = '· ' + tr('preseason');
     var ni = document.getElementById('alName'), ti = document.getElementById('alTag');
-    if (ni) alDraft.n = ni.value; if (ti) alDraft.t = ti.value;
+    if (ni) alDraft.n = ni.value; if (ti) alDraft.t = ti.value; syncChDraft();
     var me = myAlly(), h = '';
     if (frMode.indexOf('sec:') === 0) {
       var sc0 = SECTORS.filter(function (q) { return 'sec:' + q.id === frMode; })[0] || SECTORS[0];
@@ -3403,14 +3468,42 @@
         '<div class="frBlks"><div class="frBlk hz"><b>' + esc(tr('secHazard')) + '</b><p>' + esc(tr('hz_' + sc0.id)) + '</p></div><div class="frBlk tp"><b>' + esc(tr('secTip')) + '</b><p>' + esc(tr('tip_' + sc0.id)) + '</p></div>' +
         '<div class="frBlk rw"><b>' + esc(tr('secRewardT')) + '</b><p>' + esc(tr('secReward2')) + '</p></div><p class="frNote" style="padding:2px 0 0;text-align:start">' + esc(tr('secPre')) + '</p></div></div>';
     } else if (frMode === 'chat') {
-      var SH = '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>', GL = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>', msgs;
-      h = '<div class="chWrap"><div class="seg chTabs"><button data-ch="ally" class="' + (chatTab === 'ally' ? 'on' : '') + '">' + svgI(SH) + esc(tr('ally')) + '</button><button data-ch="srv" class="' + (chatTab === 'srv' ? 'on' : '') + '">' + svgI(GL) + esc(tr('chatServer')) + '</button></div>';
-      if (chatTab === 'srv') msgs = '<div class="chMsg" style="--fc:#4fd8ff"><span class="frEmb">' + svgI(GL) + '</span><div><b>' + esc(tr('chatServer')) + '</b><p>' + esc(tr('chatSrvWelcome')) + '</p></div></div><div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
-      else if (!me) msgs = '<div class="chMsg info"><div><p>' + esc(tr('chatNoAlly')) + '</p></div></div><button class="frOk chGo" data-fr="ally">' + esc(tr('noAllyD')) + '</button>';
-      else msgs = '<div class="chMsg" style="--fc:' + me.c + '">' + embHtml(me, 'frEmb') + '<div><b>[' + esc(me.t) + '] ' + esc(me.n) + '</b><p>' + esc(tr('chatWelcome', { f: me.n })) + '</p></div></div><div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
-      var canW = TEST_MODE && (chatTab === 'srv' || me), SEND = svgI('<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>');
-      if (canW) { chatLog[chatTab].forEach(function (t) { msgs += '<div class="chMsg me"><div><b>' + esc(profile.nick || tr('profile')) + '</b><p>' + esc(t) + '</p></div></div>'; }); msgs += '<div class="chMsg info"><div><p>' + esc(tr('chatLocal')) + ' ' + esc(tr('chatFiltered')) + '</p></div></div>'; }
-      h += '<div class="chList" id="chList">' + msgs + '</div><div class="chIn">' + (canW ? '<input id="chIn" data-vk="text" maxlength="120" autocomplete="off" placeholder="' + esc(tr('chatPh2')) + '"><button class="on" data-chs="1" aria-label="' + esc(tr('nav_chat')) + '">' + SEND + '</button>' : '<input disabled placeholder="' + esc(tr('chatPh')) + '"><button disabled aria-label="' + esc(tr('nav_chat')) + '">' + SEND + '</button>') + '</div></div>';
+      var SH = '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>', GL = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>', LK = '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>', msgs = '', list = null, canW = false;
+      h = '<div class="chWrap"><div class="seg chTabs"><button data-ch="ally" class="' + (chatTab === 'ally' ? 'on' : '') + '">' + svgI(SH) + esc(tr('ally')) + '</button><button data-ch="srv" class="' + (chatTab === 'srv' ? 'on' : '') + '">' + svgI(GL) + esc(tr('chatServer')) + '</button><button data-ch="pm" class="' + (chatTab === 'pm' ? 'on' : '') + '">' + svgI(LK) + esc(tr('chatPM')) + '</button></div>';
+      if (chatTab === 'srv') {
+        msgs = '<div class="chMsg sys" style="--fc:#4fd8ff"><span class="frEmb">' + svgI(GL) + '</span><div class="chB"><b>' + esc(tr('chatServer')) + '</b><p>' + esc(tr('chatSrvWelcome')) + '</p></div></div>';
+        list = chMsgs('srv'); canW = TEST_MODE;
+      } else if (chatTab === 'ally') {
+        if (!me) msgs = '<div class="chMsg info"><div><p>' + esc(tr('chatNoAlly')) + '</p></div></div><button class="frOk chGo" data-fr="ally">' + esc(tr('noAllyD')) + '</button>';
+        else { msgs = '<div class="chMsg sys" style="--fc:' + me.c + '">' + embHtml(me, 'frEmb') + '<div class="chB"><b>[' + esc(me.t) + '] ' + esc(me.n) + '</b><p>' + esc(tr('chatWelcome', { f: me.n })) + '</p></div></div>'; list = chMsgs('ally'); canW = TEST_MODE; }
+      } else if (!pmWith) {
+        var th = Object.keys(chPM).filter(function (k) { return chPM[k].length && PILOTS[k]; });
+        th.forEach(function (k) { var P = PILOTS[k], last = chPM[k][chPM[k].length - 1]; msgs += '<button class="pmRow" data-pm="' + k + '"><img src="' + avURL(P.av) + '" alt=""><span><b>' + esc(P.n) + ' <i class="emo">' + flagOf(P.fl) + '</i></b><small>' + esc(last.t) + '</small></span><i>›</i></button>'; });
+        msgs += '<div class="chMsg info"><div><p>' + esc(tr('pmEmpty')) + '</p></div></div>';
+      } else {
+        var PW = PILOTS[pmWith];
+        msgs = '<div class="pmHead"><button class="chBack" data-pm="">‹</button><button class="chAv" data-pc="' + pmWith + '"><img src="' + avURL(PW.av) + '" alt=""></button><b>' + esc(PW.n) + ' <i class="emo">' + flagOf(PW.fl) + '</i></b></div>';
+        list = chPM[pmWith] || (chPM[pmWith] = []); canW = TEST_MODE;
+      }
+      if (list) {
+        list.forEach(function (m, i) {
+          var mine = !!m.me, P = mine ? null : PILOTS[m.f], nm = mine ? (profile.nick || tr('profile')) : P.n, fl = mine ? cfg.country : P.fl, avs = mine ? avSrc(profile) : avURL(P.av);
+          var trT = !mine && m.lg !== cfg.lang && m.tr ? (m.tr[cfg.lang] || m.tr.en) : null, sel = chSel === i, lk = (m.lk | 0) + (m.liked ? 1 : 0);
+          var av = '<button class="chAv" data-pc="' + (mine ? 'me' : m.f) + '"><img src="' + avs + '" alt=""></button>';
+          msgs += '<div class="chMsg' + (mine ? ' me' : '') + (sel ? ' sel' : '') + (m.rep ? ' rep' : '') + '">' + (mine ? '' : av) + '<div class="chB" data-msg="' + i + '"><b>' + esc(nm) + ' <i class="emo">' + flagOf(fl) + '</i></b><p>' + esc(m.show && trT ? trT : m.t) + '</p>' +
+            (m.show && trT ? '<small class="chTr">' + esc(tr('translated')) + '</small>' : '') + (m.rep ? '<small class="chTr">' + esc(tr('reported')) + '</small>' : '') + (lk ? '<span class="chLk' + (m.liked ? ' on' : '') + '">❤ ' + lk + '</span>' : '') + '</div>' + (mine ? av : '') + '</div>';
+          if (sel) msgs += '<div class="chActs' + (mine ? ' me' : '') + '"><button data-ma="like:' + i + '" class="' + (m.liked ? 'on' : '') + '">❤ ' + esc(tr('like')) + '</button>' + (trT ? '<button data-ma="tr:' + i + '">🌐 ' + esc(m.show ? tr('original') : tr('translate')) + '</button>' : '') + (!mine && !m.rep ? '<button data-ma="rep:' + i + '">⚑ ' + esc(tr('reportMsg')) + '</button>' : '') + '</div>';
+        });
+        if (TEST_MODE && chatTab !== 'pm') msgs += '<div class="chMsg info"><div><p>' + esc(tr('demoPilots')) + ' ' + esc(tr('chatLocal')) + ' ' + esc(tr('chatFiltered')) + '</p></div></div>';
+        else if (!TEST_MODE) msgs += '<div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
+      }
+      var SEND = svgI('<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>');
+      h += '<div class="chList" id="chList">' + msgs + '</div>';
+      if (list) {
+        if (canW && emoOpen) { h += '<div class="chEmos">'; EMOJIS.forEach(function (e) { h += '<button data-em="' + e + '">' + e + '</button>'; }); h += '</div>'; }
+        h += '<div class="chIn">' + (canW ? '<button class="chEmo' + (emoOpen ? ' on' : '') + '" data-emo="1" aria-label="Emoji">😊</button><input id="chIn" data-vk="text" maxlength="120" autocomplete="off" placeholder="' + esc(tr('chatPh2')) + '"><button class="on" data-chs="1" aria-label="' + esc(tr('nav_chat')) + '">' + SEND + '</button>' : '<input disabled placeholder="' + esc(tr('chatPh')) + '"><button disabled aria-label="' + esc(tr('nav_chat')) + '">' + SEND + '</button>') + '</div>';
+      }
+      h += '</div>';
     } else if (frMode === 'ally') {
       var tabs = me ? [['mine', 'allyMine'], ['rank', 'allyRank'], ['list', 'allyJoin']] : [['list', 'allyJoin'], ['new', 'allyCreate'], ['rank', 'allyRank']];
       if (!tabs.some(function (t) { return t[0] === allyTab; })) allyTab = tabs[0][0];
@@ -3452,8 +3545,13 @@
       SECTORS.forEach(function (sc) { h += '<button class="frSec" data-fr="sec:' + sc.id + '" style="--sc:#9fb6d0;--b1:' + sc.b[0] + ';--b2:' + sc.b[1] + '">' + svgI(sc.ic) + '<div><b>' + esc(tr('sec_' + sc.id)) + '</b><small>' + esc(tr('secFree')) + '</small></div></button>'; });
       h += '</div></div>';
     }
+    if (frMode === 'chat') h = h.replace('id="chIn" data-vk', 'id="chIn" value="' + esc(chDraft) + '" data-vk');
     var b = document.getElementById('frBody');
-    if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
+    if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; if (frMode === 'chat' && chSel < 0) { var cl = document.getElementById('chList'); if (cl) cl.scrollTop = cl.scrollHeight; } }
+    var pc = document.getElementById('pcard'), ph = frMode === 'chat' ? pcHtml(me) : '';
+    if (!ph) pcOpen = '';
+    if (pc.getAttribute('data-sig') !== ph) { pc.innerHTML = ph; pc.setAttribute('data-sig', ph); }
+    pc.hidden = !ph;
   }
   // --- Filtre des gros mots : chaque mot interdit est remplacé par des étoiles
   var BAD_W = ('merde putain pute pd con conne connard connasse salope salaud encule enculer nique niquer ntm fdp batard couille couilles bite chier enfoire bordel ' +
@@ -3473,14 +3571,86 @@
   function normW(w) { return w.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/0/g, 'o').replace(/1/g, 'i').replace(/3/g, 'e').replace(/4/g, 'a').replace(/5/g, 's').replace(/@/g, 'a').replace(/\$/g, 's').replace(/\*/g, '').replace(/(.)\1{2,}/g, '$1$1'); }
   function isBad(w) { if (!/[\p{L}\p{N}]/u.test(w)) return false; var n = normW(w), m = n.replace(/(.)\1+/g, '$1'); if (badSet[n] || badSet[m]) return true; for (var i = 0; i < BAD_P.length; i++) if (n.indexOf(BAD_P[i]) === 0 || m.indexOf(BAD_P[i]) === 0) return true; return false; }
   function cleanChat(t) { try { return t.replace(/[\p{L}\p{N}@$*]+/gu, function (w) { return isBad(w) ? new Array(w.length + 1).join('*') : w; }); } catch (err) { return t; } }
-  var chatLog = { ally: [], srv: [] };
-  function sendChat() {
-    var i = document.getElementById('chIn'); if (!i) return;
-    var t = (i.value || '').trim(); if (!t) return;
-    chatLog[chatTab].push(cleanChat(t)); if (chatLog[chatTab].length > 30) chatLog[chatTab].shift();
-    i.value = ''; beep(700, 0.06, 'triangle', 0.04, 900); renderFront();
-    var l = document.getElementById('chList'); if (l) l.scrollTop = l.scrollHeight;
+  // --- Chat : pilotes (exemples en version de test), messages, chat privé, fiches profil, émojis
+  var PILOTS = {
+    falco: { n: 'Falco', av: 'd3', fl: 'FR', al: 'ire', rk: 2, lk: 42, bio: { fr: 'Chef des Iron Eagles. Toujours partant pour un raid !', en: 'Iron Eagles leader. Always up for a raid!' } },
+    nyx: { n: 'Nyx', av: 'd2', fl: 'US', al: 'bsp', rk: 2, lk: 37, bio: { fr: 'Pilote de nuit. La furtivité avant tout.', en: 'Night flyer. Stealth first.' } },
+    orion: { n: 'Orion', av: 'd0', fl: 'ES', al: 'nova', rk: 1, lk: 18, bio: { fr: 'Je recrute des pilotes pour Nova Squad.', en: 'Recruiting pilots for Nova Squad.' } },
+    raiden: { n: 'Raiden', av: 'd5', fl: 'JP', al: 'strm', rk: 1, lk: 25, bio: { fr: 'Rapide comme l’orage.', en: 'Fast as the storm.' } },
+    magma: { n: 'Magma', av: 'd6', fl: 'MA', al: 'vlc', rk: 1, lk: 11, bio: { fr: 'Le volcan ne dort jamais.', en: 'The volcano never sleeps.' } },
+    frost: { n: 'Frost', av: 'd7', fl: 'CA', al: 'wolf', rk: 0, lk: 6, bio: { fr: 'Les loups chassent en meute.', en: 'Wolves hunt in packs.' } }
+  };
+  var DEMO_SRV = [
+    { f: 'nyx', lg: 'en', t: 'Who wants to raid the colossus tonight? 🔥', tr: { fr: 'Qui veut attaquer le colosse ce soir ? 🔥' }, lk: 5 },
+    { f: 'orion', lg: 'es', t: '¡Hola pilotos! Busco una alianza activa.', tr: { fr: 'Salut les pilotes ! Je cherche une alliance active.', en: 'Hi pilots! Looking for an active alliance.' }, lk: 2 },
+    { f: 'raiden', lg: 'ja', t: 'プレシーズンで練習しよう！', tr: { fr: 'Entraînons-nous pendant la présaison !', en: 'Let’s practise during the pre-season!' }, lk: 3 },
+    { f: 'falco', lg: 'fr', t: 'Bienvenue aux nouveaux pilotes 👋', tr: { en: 'Welcome to the new pilots 👋' }, lk: 7 }
+  ];
+  var DEMO_ALLY = {
+    falco: { f: 'falco', lg: 'fr', t: 'Bienvenue dans l’alliance ! Premier raid samedi soir.', tr: { en: 'Welcome to the alliance! First raid on Saturday night.' }, lk: 4 },
+    nyx: { f: 'nyx', lg: 'en', t: 'Welcome aboard! First raid on Saturday night.', tr: { fr: 'Bienvenue à bord ! Premier raid samedi soir.' }, lk: 3 },
+    orion: { f: 'orion', lg: 'es', t: '¡Bienvenido! Primer raid el sábado por la noche.', tr: { fr: 'Bienvenue ! Premier raid samedi soir.', en: 'Welcome! First raid on Saturday night.' }, lk: 2 },
+    raiden: { f: 'raiden', lg: 'ja', t: 'ようこそ！土曜の夜に最初のレイドだ。', tr: { fr: 'Bienvenue ! Premier raid samedi soir.', en: 'Welcome! First raid on Saturday night.' }, lk: 2 },
+    magma: { f: 'magma', lg: 'ar', t: 'أهلًا بك في التحالف! أول غارة مساء السبت.', tr: { fr: 'Bienvenue dans l’alliance ! Premier raid samedi soir.', en: 'Welcome to the alliance! First raid on Saturday night.' }, lk: 1 },
+    frost: { f: 'frost', lg: 'en', t: 'Welcome to the pack! First raid on Saturday night. 🐺', tr: { fr: 'Bienvenue dans la meute ! Premier raid samedi soir. 🐺' }, lk: 1 }
+  };
+  var EMOJIS = ['😀', '😂', '😍', '😎', '🤔', '😮', '😢', '😡', '👍', '👎', '👏', '🙏', '💪', '🔥', '💥', '⚡', '❤️', '💎', '🏆', '🎯', '🚀', '🛸', '⚔️', '🛡️', '👋', '🎉', '✅', '❌'];
+  var chSrv = null, chAlly = {}, chPM = {}, chSel = -1, emoOpen = false, pmWith = '', pcOpen = '', pLiked = {}, chDraft = '';
+  function cloneO(o) { return JSON.parse(JSON.stringify(o)); }
+  function chMsgs(tab) {
+    if (tab === 'srv') { if (!chSrv) chSrv = TEST_MODE ? DEMO_SRV.map(cloneO) : []; return chSrv; }
+    var me = myAlly(), k = me ? me.id : '-';
+    if (!chAlly[k]) { chAlly[k] = []; if (TEST_MODE && me && !me.mine) { var lid = String(me.ld).toLowerCase(); if (DEMO_ALLY[lid]) chAlly[k].push(cloneO(DEMO_ALLY[lid])); } }
+    return chAlly[k];
   }
+  function curList() { return chatTab === 'srv' ? chMsgs('srv') : chatTab === 'ally' ? (myAlly() ? chMsgs('ally') : null) : (pmWith ? (chPM[pmWith] || (chPM[pmWith] = [])) : null); }
+  function syncChDraft() { var ci = document.getElementById('chIn'); if (ci) chDraft = ci.value; }
+  function sendChat() {
+    syncChDraft();
+    var t = (chDraft || '').trim(), L = curList(); if (!t || !L) return;
+    L.push({ me: 1, t: cleanChat(t), lk: 0 }); if (L.length > 40) L.shift();
+    chDraft = ''; emoOpen = false; chSel = -1; beep(700, 0.06, 'triangle', 0.04, 900);
+    var ci0 = document.getElementById('chIn'); if (ci0) ci0.value = '';
+    if (chatTab === 'pm' && pmWith && PILOTS[pmWith]) {
+      var who = pmWith;
+      setTimeout(function () { (chPM[who] || (chPM[who] = [])).push({ f: who, lg: '-', t: '👍', lk: 0 }); if (view === 'front' && frMode === 'chat' && chatTab === 'pm' && pmWith === who) renderFront(); }, 1300);
+    }
+    renderFront();
+  }
+  function pcHtml(me) {
+    if (!pcOpen) return '';
+    var isMe = pcOpen === 'me', P = isMe ? null : PILOTS[pcOpen]; if (!isMe && !P) return '';
+    var al = isMe ? me : ALLYS.filter(function (a) { return a.id === P.al; })[0], rk = isMe ? 0 : P.rk;
+    var nm = isMe ? (profile.nick || tr('profile')) : P.n, fl = isMe ? cfg.country : P.fl, src = isMe ? avSrc(profile) : avURL(P.av);
+    var bio = isMe ? (profile.bio || '—') : (P.bio[cfg.lang] || P.bio.en), likes = isMe ? 0 : P.lk + (pLiked[pcOpen] ? 1 : 0);
+    return '<div class="pcBack" data-pcx="1"></div><div class="pcBox"><button class="pcX" data-pcx="1" aria-label="×">×</button><div class="pcTop"><img class="pcAv" src="' + src + '" alt=""><div class="pcInfo"><b>' + esc(nm) + ' <i class="emo">' + flagOf(fl) + '</i></b>' +
+      (al ? '<span class="frBadge" style="background:' + al.c + '">[' + esc(al.t) + '] ' + esc(al.n) + '</span>' : '<small>' + esc(tr('noAlly')) + '</small>') + '<small>' + esc(tr('rank')) + ' : ' + esc(tr(['rk0', 'rk1', 'rk2'][rk])) + '</small></div></div>' +
+      '<p class="pcBio"><b>' + esc(tr('bio')) + '</b>' + esc(bio) + '</p><div class="pcAct"><button class="pcLike' + (pLiked[pcOpen] ? ' on' : '') + '" data-pl="1"' + (isMe ? ' disabled' : '') + '>❤ ' + likes + '</button>' +
+      (isMe ? '<button class="frOk" data-pedit="1">' + esc(tr('editProfile')) + '</button>' : '<button class="frOk" data-pchat="' + pcOpen + '">💬 ' + esc(tr('nav_chat')) + '</button>') + '</div></div>';
+  }
+  frontView.addEventListener('click', function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    var el = t.closest('[data-pc],[data-pcx],[data-pl],[data-pchat],[data-pedit],[data-msg],[data-ma],[data-emo],[data-em],[data-pm]'); if (!el) return;
+    syncChDraft(); initAudio(); beep(520, 0.06, 'triangle', 0.04, 760); vib(8);
+    if (el.hasAttribute('data-pc')) { pcOpen = el.getAttribute('data-pc'); chSel = -1; }
+    else if (el.hasAttribute('data-pcx')) pcOpen = '';
+    else if (el.hasAttribute('data-pl')) { if (pcOpen && pcOpen !== 'me') { pLiked[pcOpen] = !pLiked[pcOpen]; if (pLiked[pcOpen]) beep(880, 0.1, 'triangle', 0.05, 1320); } }
+    else if (el.hasAttribute('data-pchat')) { pmWith = el.getAttribute('data-pchat'); chatTab = 'pm'; frMode = 'chat'; pcOpen = ''; chSel = -1; emoOpen = false; }
+    else if (el.hasAttribute('data-pedit')) { pcOpen = ''; pfDraft = JSON.parse(JSON.stringify(profile)); profFrom = 'front'; showView('profile'); return; }
+    else if (el.hasAttribute('data-msg')) { var i = +el.getAttribute('data-msg'); chSel = chSel === i ? -1 : i; }
+    else if (el.hasAttribute('data-ma')) {
+      var q = el.getAttribute('data-ma').split(':'), L = curList(), m = L && L[+q[1]];
+      if (m) {
+        if (q[0] === 'like') { m.liked = !m.liked; if (m.liked) beep(880, 0.1, 'triangle', 0.05, 1320); }
+        else if (q[0] === 'tr') m.show = !m.show;
+        else if (q[0] === 'rep') { m.rep = 1; chSel = -1; showToast(tr('msgReported')); }
+      }
+    }
+    else if (el.hasAttribute('data-emo')) emoOpen = !emoOpen;
+    else if (el.hasAttribute('data-em')) { chDraft = (chDraft + el.getAttribute('data-em')).slice(0, 120); }
+    else if (el.hasAttribute('data-pm')) { pmWith = el.getAttribute('data-pm'); chSel = -1; emoOpen = false; }
+    renderAll();
+  });
   // --- Thème sombre / clair / automatique
   var themeMQ = null; try { themeMQ = window.matchMedia('(prefers-color-scheme: light)'); themeMQ.addEventListener('change', function () { applyTheme(); }); } catch (err) { /* ignore */ }
   function applyTheme() { var l = cfg.theme === 'light' || (cfg.theme === 'auto' && themeMQ && themeMQ.matches); if (document.body) document.body.classList.toggle('light', !!l); }
@@ -3504,9 +3674,9 @@
   }
   function renderAbout() {
     if (!aboutView || aboutView.hidden) return;
-    var rows = [['abVersion', 'V' + APP_VERSION + (TEST_MODE ? ' · TEST' : '')], ['abDevice', devName()], ['abLangs', String(LANGS.length)], ['abDev', 'AyBad']], h = '<div class="abWrap"><img class="abIcon" src="apple-touch-icon.png" alt=""><div class="abTxt"><b>Drone Strike Field</b><p>' + esc(tr('aboutD')) + '</p><dl>';
+    var rows = [['abVersion', 'V' + APP_VERSION + (TEST_MODE ? ' · TEST' : '')], ['abDevice', devName()], ['abLangs', String(LANGS.length)], ['abDev', 'Syphax Apps']], h = '<div class="abWrap"><img class="abIcon" src="apple-touch-icon.png" alt=""><div class="abTxt"><b>Drone Strike Field</b><p>' + esc(tr('aboutD')) + '</p><dl>';
     rows.forEach(function (r) { h += '<dt>' + esc(tr(r[0])) + '</dt><dd>' + esc(r[1]) + '</dd>'; });
-    h += '</dl><p class="sub abCopy">© 2026 AyBad · Drone Strike Field</p></div></div>';
+    h += '</dl><p class="sub abCopy">© 2026 Syphax Apps · Drone Strike Field</p></div></div>';
     var b = document.getElementById('abBody'); if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
   }
   document.getElementById('reportBtn').addEventListener('click', function () { initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); rpErr = 0; showView('report'); });
@@ -3529,12 +3699,12 @@
   function renderOnline() {
     var key = view === 'hangar' ? 'drone' : view === 'front' ? (frMode === 'chat' ? 'chat' : 'fight') : '';
     var nb = document.querySelectorAll('.onNb'); for (var i = 0; i < nb.length; i++) nb[i].classList.toggle('on', nb[i].getAttribute('data-on') === key);
-    var me = myAlly(), gems = GEM + ' ' + bank.d, av = avHtml(profile), nick = profile.nick || tr('profile'), sub = flagOf(cfg.country) + ' ' + (me ? '[' + me.t + ']' : tr('rk0'));
+    var me = myAlly(), gems = GEM + ' ' + bank.d, av = avHtml(profile), nick = profile.nick || tr('profile'), sub = '<i class="emo">' + flagOf(cfg.country) + '</i> ' + esc(me ? '[' + me.t + ']' : tr('rk0'));
     var hs = document.querySelectorAll('.onHead');
     for (var k = 0; k < hs.length; k++) {
       var g = hs[k].querySelector('.onGems'); if (g.getAttribute('data-sig') !== gems) { g.innerHTML = gems; g.setAttribute('data-sig', gems); }
       var a = hs[k].querySelector('.onAv'); if (a.getAttribute('data-sig') !== av) { a.innerHTML = av; a.setAttribute('data-sig', av); }
-      hs[k].querySelector('.onNick').textContent = nick; hs[k].querySelector('.onSub').textContent = sub;
+      hs[k].querySelector('.onNick').textContent = nick; var sb = hs[k].querySelector('.onSub'); if (sb.getAttribute('data-sig') !== sub) { sb.innerHTML = sub; sb.setAttribute('data-sig', sub); }
     }
   }
   function onNavClick(e) {
@@ -3559,7 +3729,7 @@
     initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(12);
     var ni = document.getElementById('alName'), ti = document.getElementById('alTag');
     if (ni) alDraft.n = ni.value; if (ti) alDraft.t = ti.value;
-    if (el.hasAttribute('data-ch')) { chatTab = el.getAttribute('data-ch'); renderFront(); return; }
+    if (el.hasAttribute('data-ch')) { chatTab = el.getAttribute('data-ch'); chSel = -1; emoOpen = false; renderFront(); return; }
     if (el.hasAttribute('data-al')) {
       var q = el.getAttribute('data-al');
       if (q.indexOf('tab:') === 0) { allyTab = q.slice(4); alArm = 0; alErr = 0; }
@@ -4697,27 +4867,23 @@
       guns3(m, cannons, 0.55, 0.06, acc);
       m.top = [-0.05, 0, 0.27];
     } else if (skin === 'g') {
-      // LEVIATHAN : cuirassé volant à quatre nacelles carénées
-      var bg = [[0.9, 0], [0.65, 0.28], [-0.55, 0.3], [-0.8, 0.18], [-0.8, -0.18], [-0.55, -0.3], [0.65, -0.28]];
-      var dp = [[0.55, 0.66], [0.55, -0.66], [-0.55, 0.66], [-0.55, -0.66]];
-      for (i = 0; i < 4; i++) {
-        var dx = dp[i][0], dy = dp[i][1];
-        rbox(m, dx, dy * 0.66, 0.1, 0.12, Math.abs(dy) * 0.62, 0.06, 0, '#3a4152');
-        addPoly(m, ngon(dx, dy, 0.28, 10), 0.03, 0.17, 1, '#454d60');
-        addPoly(m, ngon(dx, dy, 0.07, 6), 0.17, 0.2, 1, acc, 1);
-        m.rot.push({ x: dx, y: dy, z: 0.185, r: 0.25 });
-      }
-      addPoly(m, bg, 0.03, 0.2, 1, '#4e5668'); addPoly(m, bg, 0.2, 0.34, 0.62, '#6c7690');
-      addPoly(m, [[0.6, 0], [0.48, 0.1], [0.38, 0.08], [0.38, -0.08], [0.48, -0.1]], 0.3, 0.36, 0.7, acc, 1);
+      // LEVIATHAN : vaisseau spatial de combat (coque en flèche, ponts étagés, tour de commandement, réacteurs)
+      addPoly(m, [[1.18, 0], [-0.68, 0.56], [-0.86, 0.5], [-0.86, -0.5], [-0.68, -0.56]], 0.03, 0.15, 1, '#565d72');
+      addPoly(m, [[0.9, 0], [-0.58, 0.4], [-0.82, 0.35], [-0.82, -0.35], [-0.58, -0.4]], 0.15, 0.25, 0.86, '#7b849d');
+      addPoly(m, [[0.42, 0], [-0.52, 0.17], [-0.78, 0.15], [-0.78, -0.15], [-0.52, -0.17]], 0.25, 0.33, 0.85, '#959fb8');
       for (s2 = -1; s2 <= 1; s2 += 2) {
-        rbox(m, 0.45, 0.36 * s2, 0.08, 0.72, 0.09, 0.09, 0, '#2f3542');
-        rbox(m, 0.83, 0.36 * s2, 0.085, 0.05, 0.08, 0.08, 0, '#ffb347', 1);
-        rbox(m, -0.25, 0.36 * s2, 0.2, 0.36, 0.13, 0.1, 0, '#3c4456');
-        rbox(m, -0.05, 0.36 * s2, 0.21, 0.04, 0.11, 0.08, 0, '#ff4d6d', 1);
+        addPoly(m, [[1.02, 0.025 * s2], [-0.6, 0.5 * s2], [-0.64, 0.46 * s2], [0.94, 0.025 * s2]], 0.15, 0.162, 1, acc, 1);
+        addPoly(m, [[-0.18, 0.5 * s2], [-0.5, 0.86 * s2], [-0.68, 0.86 * s2], [-0.62, 0.52 * s2]], 0.05, 0.1, 1, '#454b5d');
+        addPoly(m, [[-0.47, 0.8 * s2], [-0.5, 0.86 * s2], [-0.68, 0.86 * s2], [-0.66, 0.8 * s2]], 0.1, 0.11, 1, acc, 1);
+        rbox(m, 0.25, 0.28 * s2, 0.255, 0.08, 0.04, 0.02, 0, '#ff4d6d', 1);
+        rbox(m, -0.2, 0.3 * s2, 0.255, 0.5, 0.06, 0.03, 0.42 * s2, '#5f677e');
       }
-      addPoly(m, ngon(0.05, 0, 0.16, 8), 0.34, 0.43, 1, '#59627a');
-      rbox(m, 0.3, 0, 0.37, 0.42, 0.06, 0.05, 0, '#2f3542');
-      guns3(m, cannons, 0.8, 0.1, acc);
+      rbox(m, -0.62, 0, 0.33, 0.2, 0.34, 0.12, 0, '#a4aec6');
+      rbox(m, -0.62, 0, 0.45, 0.1, 0.42, 0.05, 0, '#b7c0d6');
+      rbox(m, -0.555, 0, 0.455, 0.02, 0.3, 0.035, 0, acc, 1);
+      addPoly(m, [[0.6, 0], [0.42, 0.07], [0.3, 0.06], [0.3, -0.06], [0.42, -0.07]], 0.25, 0.29, 0.7, acc, 1);
+      [-0.3, 0, 0.3].forEach(function (k) { rbox(m, -0.9, k, 0.05, 0.12, 0.17, 0.12, 0, '#363c4d'); rbox(m, -0.97, k, 0.06, 0.03, 0.13, 0.1, 0, '#5ef0ff', 1); });
+      guns3(m, cannons, 1.0, 0.1, acc);
       m.top = [-0.35, 0, 0.34];
     } else if (skin === 'x') {
       // TRAÎNEAU POLAIRE : drone de Noël
