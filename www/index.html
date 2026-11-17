@@ -1055,7 +1055,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.6';
+  var APP_VERSION = '1.7';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = false;
   var canvas = document.getElementById('game');
@@ -2251,7 +2251,7 @@
   function startAnim(a) {
     hg.anim = a; hg.idle = a.type === 'missile' ? -3 : 0;
     if (a.type === 'evo') { showBanner(tr('evoDone', { n: a.name }), true); vib([60, 40, 60, 40, 120]); beep(330, 0.5, 'sawtooth', 0.04, 90); }
-    else { beep(180, 0.5, 'sawtooth', 0.025, 260); }
+    else { beep(300, 0.4, 'triangle', 0.03, 420); }
   }
   // Nombre de missiles affichés sous le drone (le missile apparaît quand le bras le fixe)
   function shownMissiles() { return 0; }
@@ -2290,34 +2290,47 @@
       var a = i / 16 * TAU + t * 0.4, on = (i + Math.floor(t * 4)) % 4 === 0;
       ctx.fillStyle = on ? '#5ef0ff' : 'rgba(94, 240, 255, 0.25)'; ctx.beginPath(); ctx.arc(cx + Math.cos(a) * rx * 0.85, py + Math.sin(a) * ry * 0.85, 2.2, 0, TAU); ctx.fill();
     }
-    // bande de sécurité autour de la trappe
-    var hr = rx * 0.26, hry = ry * 0.26, hx0 = hp0.x, hy0 = hp0.y;
-    ctx.save(); ctx.beginPath(); ctx.ellipse(hx0, hy0, hr * 1.22, hry * 1.22, 0, 0, TAU); ctx.clip();
-    for (var s2 = -10; s2 < 10; s2++) {
-      ctx.fillStyle = s2 % 2 ? '#ffc94a' : '#1b1e28';
-      var x0 = hx0 + s2 * hr * 0.24;
-      ctx.beginPath(); ctx.moveTo(x0, hy0 - hry * 1.3); ctx.lineTo(x0 + hr * 0.12, hy0 - hry * 1.3); ctx.lineTo(x0 + hr * 0.52, hy0 + hry * 1.3); ctx.lineTo(x0 + hr * 0.4, hy0 + hry * 1.3); ctx.fill();
+    ctx.restore();
+  }
+  // Petit drone qui livre un missile par-dessous, ou drone kamikaze qui entre dans le drone par-dessous
+  function drawCourier(a, cx, dy, sc, w, t, cy0, front) {
+    var p = a.t / a.dur, k = function (x0, x1) { return ease((p - x0) / (x1 - x0)); };
+    if (!a.kz && front) return;
+    var fromX = cx + w * 0.62, toX = cx - w * 0.62, under = dy + sc * 0.62, close = dy + sc * 0.2;
+    var x, y, s = sc * 0.34, carry = true, yaw = Math.PI;
+    if (a.kz) {
+      var low = dy + sc * 0.5; s = sc * 0.5; fromX = cx - w * 0.62;
+      if (!!front !== p < 0.55) return;
+      if (p < 0.42) { var e = k(0, 0.42); x = fromX + (cx - fromX) * e; y = low - Math.sin(e * Math.PI) * sc * 0.1; }
+      else if (p < 0.55) { x = cx; y = low; }
+      else if (p < 0.82) { var e2 = k(0.55, 0.82); x = cx; y = low + (dy - low) * e2; s = sc * 0.42 * (1 - 0.7 * e2); }
+      else { fireLoad(a, cx, dy, cy0); return; }
+      if (p >= 0.42) { ctx.save(); ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 12); ctx.strokeStyle = '#ff4d6d'; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(cx, dy + sc * 0.08, sc * 0.3, sc * 0.12, 0, 0, TAU); ctx.stroke(); ctx.restore(); }
+      for (var q = 0; q < 2; q++) hg.parts.push({ x: x - cx + (Math.random() - 0.5) * 6, y: y - cy0 + s * 0.2, vx: (Math.random() - 0.5) * 30, vy: 40 + Math.random() * 30, life: 0.3, col: '#ff6b3d' });
+      draw3D(getModel('a', '#ff4d6d', 1), x, y + Math.sin(t * 9) * 1.5, s, (p < 0.55 ? 0 : (p - 0.55) * 10), 0.9, p < 0.42 ? 0.25 : 0, 0, 1, t, false, p < 0.55);
+      return;
     }
-    ctx.restore();
-    // puits et portes coulissantes
-    ctx.save(); ctx.beginPath(); ctx.ellipse(hx0, hy0, hr, hry, 0, 0, TAU); ctx.clip();
-    ctx.fillStyle = '#020407'; ctx.fillRect(hx0 - hr, hy0 - hry, hr * 2, hry * 2);
-    if (door > 0) {
-      var lg = ctx.createRadialGradient(hx0, hy0, 1, hx0, hy0, hr);
-      lg.addColorStop(0, 'rgba(94, 240, 255, ' + (0.5 * door).toFixed(2) + ')'); lg.addColorStop(1, 'rgba(94, 240, 255, 0)');
-      ctx.fillStyle = lg; ctx.fillRect(hx0 - hr, hy0 - hry, hr * 2, hry * 2);
-    }
-    var off = door * hr;
-    [-1, 1].forEach(function (sd) {
-      var dx = hx0 + sd * (hr / 2 + off);
-      var dg = ctx.createLinearGradient(dx - hr / 2, hy0, dx + hr / 2, hy0); dg.addColorStop(0, '#4f5e7a'); dg.addColorStop(1, '#2e3a50');
-      ctx.fillStyle = dg; ctx.fillRect(dx - hr / 2, hy0 - hry, hr, hry * 2);
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(dx - sd * hr / 2, hy0 - hry); ctx.lineTo(dx - sd * hr / 2, hy0 + hry); ctx.stroke();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.14)'; for (var r = -1; r <= 1; r++) ctx.fillRect(dx - hr * 0.3, hy0 + r * hry * 0.45 - 1, hr * 0.6, 2);
-    });
-    ctx.restore();
-    ctx.strokeStyle = '#5ef0ff'; ctx.globalAlpha = 0.45 + 0.55 * door; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(hx0, hy0, hr, hry, 0, 0, TAU); ctx.stroke();
-    ctx.restore();
+    if (p < 0.35) { var e3 = k(0, 0.35); x = fromX + (cx - fromX) * e3; y = under - Math.sin(e3 * Math.PI) * sc * 0.1; }
+    else if (p < 0.5) { x = cx; y = under + (close - under) * k(0.35, 0.5); }
+    else if (p < 0.62) { x = cx; y = close; }
+    else if (p < 0.72) { x = cx; y = close + (under - close) * k(0.62, 0.72); }
+    else { var e4 = k(0.72, 1); x = cx + (toX - cx) * e4; y = under - Math.sin(e4 * Math.PI) * sc * 0.1; }
+    var tl = p < 0.35 ? -0.25 : p > 0.72 ? -0.25 : 0;
+    draw3D(getModel('a', '#ffd166', 1), x, y + Math.sin(t * 9) * 1.5, s, yaw, 0.9, tl, 0, 1, t, false, true);
+    // missile porté sur le dos du petit drone, puis transféré dans le drone
+    var mp = p < 0.5 ? 0 : clamp((p - 0.5) / 0.1, 0, 1);
+    if (mp < 1) {
+      ctx.save(); ctx.globalAlpha = 1 - mp;
+      drawMissile2D(x, y - s * 0.35 + (dy - (y - s * 0.35)) * mp, 0, sc * 0.42 * (1 - mp * 0.6));
+      ctx.restore();
+    } else fireLoad(a, cx, dy, cy0);
+  }
+  function fireLoad(a, cx, dy, cy0) {
+    if (a.fired) return;
+    a.fired = true; hg.flash = 0.3; hg.ring = 1;
+    for (var i = 0; i < 34; i++) { var an = Math.random() * TAU, v = 50 + Math.random() * 170; hg.parts.push({ x: 0, y: dy - cy0, vx: Math.cos(an) * v, vy: Math.sin(an) * v - 40, life: 0.5 + Math.random() * 0.4, col: a.kz ? (i % 2 ? '#ff4d6d' : '#ffd166') : (i % 2 ? '#ffd166' : '#ffffff') }); }
+    showBanner(tr(a.kz ? 'newKamikaze' : 'newMissile', { n: a.n }), false);
+    initAudio(); beep(1200, 0.06, 'square', 0.05, 900); setTimeout(function () { beep(520, 0.25, 'triangle', 0.06, 1240); }, 90); vib([30, 30, 60]);
   }
   function rrect(x, y, w, h, r) { ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h); }
   function seg3D(x0, y0, x1, y1, wd, c0, c1, c2) {
@@ -2481,9 +2494,9 @@
           if (e3 > 0.96 && !an.fired) { an.fired = true; hg.ring = 1; burstHg(70, '#5ef0ff'); beep(660, 0.3, 'triangle', 0.06, 1320); }
         }
       } else {
-        var lift = an && an.type === 'missile' ? -sc * 0.2 * armPhase(an).rise : 0; bob += lift;
+        if (an && an.type === 'missile') drawCourier(an, cx, cy + bob, sc, w, t, cy);
         draw3D(getModel(mdl, acc, cn, 0), cx, cy + bob, sc, hg.yaw, hg.tilt, 0, 0, 1, t, hg.flash > 0.55, false, { wrap: wr });
-        if (an && an.type === 'missile') drawArm(an, cx, ppy, pry, cx, cy + bob, sc, t, cy);
+        if (an && an.type === 'missile') drawCourier(an, cx, cy + bob, sc, w, t, cy, true);
       }
       if (an && an.t >= an.dur) { hg.anim = null; if (hg.q && hg.q.length) startAnim(hg.q.shift()); else renderHangar(); }
       for (var i = hg.parts.length - 1; i >= 0; i--) {
@@ -2799,7 +2812,7 @@
     if (lvUp) {
       hg.ring = 1; burstHg(40, '#5dff9b');
       setTimeout(function () { beep(660, 0.16, 'triangle', 0.07, 1320); }, 90);
-      var kz = online.lv >= 150, load = missile ? { type: 'missile', dur: 4.2, kz: kz, n: kz ? Math.floor((online.lv - 140) / 10) : Math.floor(online.lv / 10) } : null;
+      var kz = online.lv >= 150, load = missile ? { type: 'missile', dur: kz ? 4 : 4.2, kz: kz, n: kz ? Math.floor((online.lv - 140) / 10) : Math.floor(online.lv / 10) } : null;
       if (evo) {
         var prevM = EVO[EVO.indexOf(evo) - 1].m;
         hgQueue({ type: 'evo', dur: 2.8, from: prevM, to: evo.m, name: evo.name });
@@ -4051,6 +4064,20 @@
     return cv;
   }
   var PATC = {};
+  var WMAIN = {};
+  // Couleur dominante d'un revêtement (utilisée sur les flancs pour éviter l'effet de couches)
+  function wrapMain(id) {
+    if (WMAIN[id]) return WMAIN[id];
+    var t = wrapTex(id), best = [120, 120, 120];
+    try {
+      var d = t.getContext('2d').getImageData(0, 0, t.width, t.height).data, cnt = {}, top = 0;
+      for (var y = 5; y < t.height; y += 10) for (var x = 5; x < t.width; x += 10) {
+        var o = (y * t.width + x) * 4, key = (d[o] >> 4) + ',' + (d[o + 1] >> 4) + ',' + (d[o + 2] >> 4);
+        cnt[key] = (cnt[key] || 0) + 1; if (cnt[key] > top) { top = cnt[key]; best = [d[o], d[o + 1], d[o + 2]]; }
+      }
+    } catch (err) { /* ignore */ }
+    return (WMAIN[id] = best);
+  }
   function wrapPattern(id, b, m) {
     if (typeof DOMMatrix === 'undefined') return null;
     var lv = Math.max(0, Math.min(12, Math.round((b - 0.3) / 0.85 * 12))), key = id + ':' + lv, src = PATC[key];
@@ -4091,8 +4118,7 @@
         for (j = 0; j < f.v.length; j++) { q = tf(f.v[j]); pts.push(cx + q[0] * sc, cy + (q[1] * ct - q[2] * st) * sc); }
         var lam = Math.max(0, n[0] * L3[0] + n[1] * L3[1] + n[2] * L3[2]), b = f.e ? 1 : 0.3 + 0.850 * lam, c = f.c;
         if (fin && !f.e) c = [c[0] + (fin[0][0] - c[0]) * fin[1], c[1] + (fin[0][1] - c[1]) * fin[1], c[2] + (fin[0][2] - c[2]) * fin[1]];
-        var zf = 0; for (j = 0; j < f.v.length; j++) zf += f.v[j][2];
-        items.push({ p: pts, b: b, e: f.e, zf: zf / f.v.length, col: flash ? '#ffffff' : 'rgb(' + Math.min(255, c[0] * b | 0) + ',' + Math.min(255, c[1] * b | 0) + ',' + Math.min(255, c[2] * b | 0) + ')' });
+        items.push({ p: pts, b: b, e: f.e, nz: f.n[2], col: flash ? '#ffffff' : 'rgb(' + Math.min(255, c[0] * b | 0) + ',' + Math.min(255, c[1] * b | 0) + ',' + Math.min(255, c[2] * b | 0) + ')' });
       }
       walk(front ? node.f : node.b);
     }
@@ -4114,7 +4140,11 @@
         ctx.beginPath(); ctx.moveTo(it.p[0], it.p[1]);
         for (j = 2; j < it.p.length; j += 2) ctx.lineTo(it.p[j], it.p[j + 1]);
         ctx.closePath();
-        var pat = wtex && !it.e && !flash ? wrapPattern(opt.wrap, it.b, [sc * cyw, sc * ct * syw, -sc * syw, sc * ct * cyw, cx, cy - sc * st * it.zf]) : null;
+        var pat = null;
+        if (wtex && !it.e && !flash) {
+          if (it.nz > 0.6) pat = wrapPattern(opt.wrap, it.b, [sc * cyw, sc * ct * syw, -sc * syw, sc * ct * cyw, cx, cy - sc * st * 0.22]);
+          else { var dc = wrapMain(opt.wrap); pat = 'rgb(' + Math.min(255, dc[0] * it.b * 0.8 | 0) + ',' + Math.min(255, dc[1] * it.b * 0.8 | 0) + ',' + Math.min(255, dc[2] * it.b * 0.8 | 0) + ')'; }
+        }
         if (pat) { ctx.fillStyle = pat; ctx.strokeStyle = pat; }
         ctx.fill(); ctx.stroke();
       } else {
