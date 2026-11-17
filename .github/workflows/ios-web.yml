@@ -1,0 +1,38 @@
+name: Version iPhone (web installable)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ios]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Préparer le site (version de test DSF Test)
+        run: |
+          VER=$(grep -oP "APP_VERSION = '\K[0-9.]+" www/index.html)
+          mkdir site
+          cp -r www/. site/
+          sed -i 's/var TEST_MODE = false;/var TEST_MODE = true;/' site/index.html
+          sed -i 's|<title>Drone Strike Field</title>|<title>DSF Test</title>|; s|content="Drone Strike Field">|content="DSF Test">|' site/index.html
+          sed -i 's/"name": "Drone Strike Field"/"name": "DSF Test"/; s/"short_name": "Drone Strike Field"/"short_name": "DSF Test"/' site/manifest.webmanifest
+          sed -i "s/var CACHE = 'dsf-v1';/var CACHE = 'dsf-test-$VER-${{ github.run_number }}';/" site/sw.js
+          touch site/.nojekyll
+          grep -q 'var TEST_MODE = true;' site/index.html
+          grep -q '"DSF Test"' site/manifest.webmanifest
+
+      - name: Publier sur la branche gh-pages
+        run: |
+          cd site
+          git init -q -b gh-pages
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "DSF Test (iPhone) depuis ${{ github.sha }}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
