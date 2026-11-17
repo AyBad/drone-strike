@@ -561,6 +561,33 @@
   .hgGems { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; background: #0a1220; border: 1px solid #1f3554; border-radius: 10px; padding: 6px 12px; font-size: 18px; font-weight: 800; }
   .hgGems .gem { width: 20px; height: 20px; }
   #hangarView .setHead .spacer { display: none; }
+  .frSeason { font-size: 13px; letter-spacing: 1px; color: #9fb6d0; font-weight: 600; }
+  .frWrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px; padding: 0 22px 16px; align-items: stretch; }
+  .frLeft { display: flex; flex-direction: column; gap: 10px; }
+  .frCard { display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 14px; background: rgba(10, 18, 32, 0.78); border: 1px solid var(--fc); }
+  .frAv { width: 58px; height: 58px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; font-size: 30px; background: #0d1a2c; border: 2px solid var(--fc); flex: none; }
+  .frAv img { width: 100%; height: 100%; object-fit: cover; }
+  .frInfo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .frInfo b { font-size: 16px; color: #ffffff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .frInfo small { font-size: 12px; color: #9fb6d0; }
+  .frBadge { align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 2px 9px; border-radius: 999px; background: var(--fc); color: #0a0f1a; }
+  .frAct { position: relative; display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-radius: 12px; background: rgba(10, 18, 32, 0.78); border: 1px solid #2a6f9c; color: #e6f1ff; text-align: left; font: inherit; cursor: pointer; }
+  .frAct svg { width: 24px; height: 24px; flex: none; color: #5ef0ff; }
+  .frAct > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .frAct b { font-size: 13px; letter-spacing: 1px; } .frAct small { font-size: 11.5px; color: #9fb6d0; }
+  .frAct .soonTag { position: absolute; top: -7px; right: 8px; font-size: 9px; padding: 2px 7px; }
+  .frTest { display: flex; gap: 8px; } .frTest button { flex: 1; font: inherit; font-size: 11.5px; padding: 8px; border-radius: 10px; background: rgba(255, 77, 109, 0.12); border: 1px dashed #ff4d6d; color: #ffb3c1; cursor: pointer; }
+  .frTest button.arm { background: #ff4d6d; color: #1a0610; }
+  .frMap { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 8px; }
+  .frSec { border-radius: 12px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; min-height: 84px; border: 1.5px solid var(--sc); background: linear-gradient(155deg, var(--b1), var(--b2)); }
+  .frSec.c { border-style: dashed; }
+  .frSec svg { width: 22px; height: 22px; color: rgba(255, 255, 255, 0.75); }
+  .frSec b { font-size: 13.5px; color: #ffffff; } .frSec small { display: block; font-size: 11px; color: var(--sc); font-weight: 700; letter-spacing: 0.5px; }
+  .frLead { text-align: center; margin: 0 0 12px; color: #cfe3ff; font-size: 16px; letter-spacing: 1px; }
+  .frFacs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 22px; }
+  .frFac { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 14px; border-radius: 16px; border: 2px solid var(--fc); background: rgba(10, 18, 32, 0.82); color: #ffffff; font: inherit; cursor: pointer; }
+  .frFac svg { width: 56px; height: 56px; color: var(--fc); } .frFac b { font-size: 20px; letter-spacing: 2px; } .frFac small { color: #9fb6d0; font-size: 13px; }
+  .frNote { text-align: center; padding: 12px 22px 16px; margin: 0; color: #9fb6d0; font-size: 13px; }
   .hgWrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; padding: 0 22px; align-items: stretch; }
   .hgStage { position: relative; border-radius: 18px; border: 1px solid #1f3554; background: radial-gradient(ellipse at 50% 60%, #12304c 0%, #0a1527 55%, #070d18 100%); overflow: hidden; min-height: 280px; }
   .hgStage canvas { display: block; width: 100%; height: 100%; min-height: 280px; touch-action: none; cursor: grab; }
@@ -695,7 +722,7 @@
   .htile > span { min-width: 0; line-height: 1.2; }
   .htile svg { width: 22px; height: 22px; flex: none; }
   .htile.on1 { border-color: #3fb8d8; } .htile.on1 svg { color: #5ef0ff; }
-  .htile.on2 { border-style: dashed; border-color: #6b4fa0; } .htile.on2 svg { color: #c77dff; }
+  .htile.on2 { border-color: #9b6bd6; } .htile.on2 svg { color: #c77dff; }
   .htile.on2 .soonTag { position: absolute; top: -7px; right: 8px; font-size: 9px; padding: 2px 7px; }
   .htile.st { border-color: #2b8a7a; } .htile.st svg { color: #5dff9b; }
   .htile .gemTag { font-size: 12.5px; } .htile .gemTag .gem { width: 15px; height: 15px; }
@@ -823,7 +850,7 @@
         <button id="contBtn" class="hbtn sec" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg><span><span data-i18n="resume"></span><small id="contName"></small></span></button>
         <div class="hGrid">
           <button id="onlineBtn" class="htile on1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-6 4 12 3-6h4"/></svg><span data-i18n="onlineDrone"></span></button>
-          <button id="fightBtn" class="htile on2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span><i class="soonTag" data-i18n="soonTag"></i></button>
+          <button id="fightBtn" class="htile on2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span></button>
           <button id="storeBtn" class="htile st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.500 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span data-i18n="store"></span><b class="gemTag" id="homeGems"></b></button>
           <button id="profileBtn" class="htile pf"><span class="pfAv" id="homeAv"></span><span id="homeNick" data-i18n="profile"></span></button>
         </div>
@@ -864,6 +891,14 @@
         </div>
       </div>
     </div>
+    <div id="frontView" hidden>
+      <div class="setHead">
+        <button id="frontBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <h2><span data-i18n="front"></span> <small class="frSeason" id="frSeason"></small></h2>
+        <span class="spacer"></span>
+      </div>
+      <div id="frBody"></div>
+    </div>
     <div id="hangarView" hidden>
       <div class="setHead">
         <button id="hangarBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -877,7 +912,7 @@
           <div class="hgFx" id="hgFx"></div>
           <div class="hgBanner" id="hgBanner" hidden></div>
           <p class="hgHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg><span data-i18n="dragHint"></span></p>
-          <button id="hgFight" class="hgFight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span><i class="soonTag" data-i18n="soonTag"></i></button>
+          <button id="hgFight" class="hgFight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span></button>
         </div>
         <div class="hgSide">
           <div class="seg" id="hgTabs"></div>
@@ -1062,9 +1097,13 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.8';
+  var APP_VERSION = '2.0.0';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = false;
+  var LS = (function () {
+    var px = ''; try { if (/\/v2\//.test(location.pathname)) px = 'v2:'; } catch (err) { /* ignore */ }
+    return { getItem: function (k) { return localStorage.getItem(px + k); }, setItem: function (k, v) { localStorage.setItem(px + k, v); } };
+  })();
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -1417,6 +1456,31 @@
   var RTL = { ar: 1, fa: 1 };
   var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'], pt: ['Português', 'Portuguese portugais'], de: ['Deutsch', 'German allemand'], tr: ['Türkçe', 'Turkish turc'], id: ['Indonesia', 'Indonesian indonesien bahasa'], hi: ['हिन्दी', 'Hindi'] };
   var T = {
+    front: ["LE FRONT", "THE FRONT", "EL FRENTE", "IL FRONTE", "前线", "ФРОНТ", "الجبهة", "جبهه", "前線", "전선", "A FRENTE", "DIE FRONT", "CEPHE", "GARIS DEPAN", "मोर्चा"],
+    season: ["Saison {n}", "Season {n}", "Temporada {n}", "Stagione {n}", "第{n}赛季", "Сезон {n}", "الموسم {n}", "فصل {n}", "シーズン{n}", "시즌 {n}", "Temporada {n}", "Saison {n}", "Sezon {n}", "Musim {n}", "सीज़न {n}"],
+    chooseFac: ["Choisis ton camp", "Choose your side", "Elige tu bando", "Scegli la tua fazione", "选择你的阵营", "Выбери свою сторону", "اختر معسكرك", "جناح خود را انتخاب کن", "陣営を選ぼう", "진영을 선택하세요", "Escolha seu lado", "Wähle deine Seite", "Tarafını seç", "Pilih pihakmu", "अपना पक्ष चुनें"],
+    fac_h: ["Faucons", "Hawks", "Halcones", "Falchi", "猎鹰", "Соколы", "الصقور", "شاهین‌ها", "ホーク", "호크", "Falcões", "Falken", "Şahinler", "Elang", "बाज़"],
+    fac_s: ["Spectres", "Specters", "Espectros", "Spettri", "幽灵", "Призраки", "الأشباح", "شبح‌ها", "スペクター", "스펙터", "Espectros", "Gespenster", "Hayaletler", "Bayangan", "प्रेत"],
+    facD_h: ["Vitesse et contrôle du ciel", "Speed and air control", "Velocidad y control del cielo", "Velocità e controllo del cielo", "速度与制空", "Скорость и господство в небе", "السرعة والسيطرة على السماء", "سرعت و کنترل آسمان", "スピードと制空権", "속도와 제공권", "Velocidade e controle do céu", "Tempo und Luftherrschaft", "Hız ve hava hâkimiyeti", "Kecepatan dan kendali udara", "गति और आसमान पर नियंत्रण"],
+    facD_s: ["Furtivité et embuscades", "Stealth and ambushes", "Sigilo y emboscadas", "Furtività e imboscate", "隐身与伏击", "Скрытность и засады", "التخفي والكمائن", "پنهان‌کاری و کمین", "ステルスと待ち伏せ", "스텔스와 매복", "Furtividade e emboscadas", "Tarnung und Hinterhalte", "Gizlilik ve pusular", "Siluman dan penyergapan", "छिपाव और घात"],
+    facNote: ["Tes victoires en ligne feront gagner des secteurs à ton camp.", "Your online wins will capture sectors for your side.", "Tus victorias en línea conquistarán sectores para tu bando.", "Le tue vittorie online conquisteranno settori per la tua fazione.", "你的在线胜利将为阵营夺取区域。", "Твои онлайн-победы захватят секторы для твоей стороны.", "انتصاراتك عبر الإنترنت ستكسب قطاعات لمعسكرك.", "پیروزی‌های آنلاین تو برای جناحت منطقه می‌گیرد.", "オンラインでの勝利が陣営のセクターを獲得します。", "온라인 승리로 진영의 구역을 차지합니다.", "Suas vitórias online conquistarão setores para seu lado.", "Deine Online-Siege erobern Sektoren für deine Seite.", "Çevrimiçi zaferlerin tarafına bölge kazandırır.", "Kemenangan online-mu merebut sektor untuk pihakmu.", "आपकी ऑनलाइन जीत आपके पक्ष के लिए क्षेत्र जीतेगी।"],
+    rank: ["Rang", "Rank", "Rango", "Grado", "段位", "Ранг", "الرتبة", "رتبه", "ランク", "랭크", "Patente", "Rang", "Rütbe", "Peringkat", "रैंक"],
+    rk0: ["Recrue", "Recruit", "Recluta", "Recluta", "新兵", "Новобранец", "مجنّد", "تازه‌کار", "新兵", "신병", "Recruta", "Rekrut", "Acemi", "Rekrut", "रंगरूट"],
+    pts: ["{n} pts", "{n} pts", "{n} pts", "{n} pts", "{n} 分", "{n} очк.", "{n} نقطة", "{n} امتیاز", "{n} pt", "{n}점", "{n} pts", "{n} Pkt.", "{n} puan", "{n} poin", "{n} अंक"],
+    sec_desert: ["Désert", "Desert", "Desierto", "Deserto", "沙漠", "Пустыня", "الصحراء", "صحرا", "砂漠", "사막", "Deserto", "Wüste", "Çöl", "Gurun", "रेगिस्तान"],
+    sec_arctic: ["Arctique", "Arctic", "Ártico", "Artico", "北极", "Арктика", "القطب الشمالي", "قطب شمال", "北極", "북극", "Ártico", "Arktis", "Kutup", "Arktik", "आर्कटिक"],
+    sec_jungle: ["Jungle", "Jungle", "Jungla", "Giungla", "丛林", "Джунгли", "الأدغال", "جنگل", "ジャングル", "정글", "Selva", "Dschungel", "Orman", "Hutan", "जंगल"],
+    sec_city: ["Ville", "City", "Ciudad", "Città", "城市", "Город", "المدينة", "شهر", "都市", "도시", "Cidade", "Stadt", "Şehir", "Kota", "शहर"],
+    sec_ocean: ["Océan", "Ocean", "Océano", "Oceano", "海洋", "Океан", "المحيط", "اقیانوس", "海洋", "바다", "Oceano", "Ozean", "Okyanus", "Samudra", "महासागर"],
+    sec_volcano: ["Volcan", "Volcano", "Volcán", "Vulcano", "火山", "Вулкан", "البركان", "آتشفشان", "火山", "화산", "Vulcão", "Vulkan", "Volkan", "Gunung api", "ज्वालामुखी"],
+    contested: ["Disputé", "Contested", "En disputa", "Conteso", "争夺中", "Спорный", "متنازع عليه", "مورد نزاع", "争奪中", "분쟁 중", "Disputado", "Umkämpft", "Çekişmeli", "Diperebutkan", "विवादित"],
+    ghost: ["DÉFI FANTÔME", "GHOST CHALLENGE", "DESAFÍO FANTASMA", "SFIDA FANTASMA", "幽灵挑战", "ВЫЗОВ ПРИЗРАКА", "تحدي الشبح", "چالش شبح", "ゴースト対戦", "고스트 대결", "DESAFIO FANTASMA", "GEISTER-DUELL", "HAYALET DÜELLOSU", "TANTANGAN HANTU", "घोस्ट चुनौती"],
+    ghostD: ["Affronte l'enregistrement d'un pilote", "Face another pilot's recording", "Enfréntate a la grabación de un piloto", "Sfida la registrazione di un pilota", "挑战其他飞行员的录像", "Сразись с записью другого пилота", "واجه تسجيل طيار آخر", "با ضبط یک خلبان دیگر بجنگ", "他のパイロットの記録と対戦", "다른 파일럿의 기록과 대결", "Enfrente a gravação de um piloto", "Tritt gegen die Aufzeichnung eines Piloten an", "Bir pilotun kaydıyla savaş", "Lawan rekaman pilot lain", "किसी पायलट की रिकॉर्डिंग से लड़ें"],
+    ranking: ["CLASSEMENT", "LEADERBOARD", "CLASIFICACIÓN", "CLASSIFICA", "排行榜", "РЕЙТИНГ", "الترتيب", "رده‌بندی", "ランキング", "순위표", "CLASSIFICAÇÃO", "RANGLISTE", "SIRALAMA", "PERINGKAT", "लीडरबोर्ड"],
+    rankingD: ["Mondial et par pays", "Global and by country", "Mundial y por país", "Mondiale e per paese", "全球与国家排名", "Мировой и по странам", "عالمي وحسب البلد", "جهانی و کشوری", "世界と国別", "전 세계 및 국가별", "Mundial e por país", "Weltweit und nach Land", "Dünya ve ülke", "Global dan per negara", "वैश्विक और देश के अनुसार"],
+    resetOn: ["Réinitialiser le drone en ligne", "Reset online drone", "Reiniciar el dron en línea", "Azzera il drone online", "重置在线无人机", "Сбросить онлайн-дрон", "إعادة ضبط الطائرة", "بازنشانی پهپاد آنلاین", "オンライン機をリセット", "온라인 드론 초기화", "Reiniciar o drone online", "Online-Drohne zurücksetzen", "Çevrimiçi dronu sıfırla", "Atur ulang drone online", "ऑनलाइन ड्रोन रीसेट करें"],
+    resetDone: ["Drone en ligne réinitialisé (niveau 1).", "Online drone reset (level 1).", "Dron en línea reiniciado (nivel 1).", "Drone online azzerato (livello 1).", "在线无人机已重置（1级）。", "Онлайн-дрон сброшен (уровень 1).", "تمت إعادة ضبط الطائرة (المستوى 1).", "پهپاد آنلاین بازنشانی شد (سطح ۱).", "オンライン機をリセットしました（Lv.1）。", "온라인 드론 초기화됨 (레벨 1).", "Drone online reiniciado (nível 1).", "Online-Drohne zurückgesetzt (Level 1).", "Çevrimiçi dron sıfırlandı (seviye 1).", "Drone online diatur ulang (level 1).", "ऑनलाइन ड्रोन रीसेट हुआ (स्तर 1)।"],
+    changeFac: ["Changer de camp", "Change side", "Cambiar de bando", "Cambia fazione", "更换阵营", "Сменить сторону", "تغيير المعسكر", "تغییر جناح", "陣営を変更", "진영 변경", "Mudar de lado", "Seite wechseln", "Taraf değiştir", "Ganti pihak", "पक्ष बदलें"],
     play: ['JOUER', 'PLAY', 'JUGAR', 'GIOCA', '开始游戏', 'ИГРАТЬ', "العب", "بازی", "プレイ", "플레이", "JOGAR", "SPIELEN", "OYNA", "MAIN", "खेलें"],
     restart: ['RECOMMENCER', 'RESTART', 'REINICIAR', 'RICOMINCIA', '重新开始', 'ЗАНОВО', "إعادة البدء", "شروع دوباره", "やり直す", "다시 시작", "RECOMEÇAR", "NEUSTART", "YENİDEN BAŞLAT", "ULANGI", "फिर से शुरू"],
     replay: ['REJOUER', 'PLAY AGAIN', 'VOLVER A JUGAR', 'RIGIOCA', '再玩一次', 'ЕЩЁ РАЗ', "العب مجددًا", "بازی دوباره", "もう一度", "다시 하기", "JOGAR DE NOVO", "NOCHMAL", "TEKRAR OYNA", "MAIN LAGI", "दोबारा खेलें"],
@@ -1786,8 +1850,8 @@
   var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, notif: true, comfort: false, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
   var WAVES = 50, CHAPTERS = 50, TOTAL = WAVES * CHAPTERS, CREDIT_RATE = 0.3;
   var camp = {};
-  try { camp = JSON.parse(localStorage.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
-  function saveCamp() { try { localStorage.setItem('droneStrikeCamp', JSON.stringify(camp)); } catch (err) { /* ignore */ } }
+  try { camp = JSON.parse(LS.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
+  function saveCamp() { try { LS.setItem('droneStrikeCamp', JSON.stringify(camp)); } catch (err) { /* ignore */ } }
   // Un « jeu » = une sauvegarde nommée (difficulté + drone choisis à la création). Le jeu en cours est cfg.game.
   var MAX_GAMES = 6, NOGAME = null;
   function cGet() { var c = camp[cfg.game]; return c && typeof c === 'object' && c.s ? c : null; }
@@ -1823,11 +1887,11 @@
   var ITEMS = [['heal', 120], ['rapid', 180], ['shield', 250], ['gun', 300]], ITEM_MAX = 3;
   var bank = { c: 0, inv: { heal: 0, rapid: 0, shield: 0, gun: 0 } };
   try {
-    var sb0 = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null');
+    var sb0 = JSON.parse(LS.getItem('droneStrikeBank') || 'null');
     if (sb0 && sb0.c >= 0) { bank.c = Math.floor(sb0.c); for (var bi = 0; bi < ITEMS.length; bi++) bank.inv[ITEMS[bi][0]] = Math.max(0, Math.min(ITEM_MAX, Math.floor((sb0.inv || {})[ITEMS[bi][0]] || 0))); }
   } catch (err) { /* banque vide */ }
   bank.d = 0;
-  try { var sbd = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null'); if (sbd && sbd.d > 0) bank.d = Math.floor(sbd.d); } catch (err) { /* ignore */ }
+  try { var sbd = JSON.parse(LS.getItem('droneStrikeBank') || 'null'); if (sbd && sbd.d > 0) bank.d = Math.floor(sbd.d); } catch (err) { /* ignore */ }
   // Drone du mode en ligne : acheté en diamants, commun à tous les jeux
   var OPARTS = [['hull', '#5dff9b'], ['turbo', '#4fd8ff'], ['cannon', '#ffd166'], ['shield', '#6fa8ff'], ['missile', '#ff6b3d'], ['radar', '#c77dff']], OP_PRICE = [5, 12, 25];
   var OMODELS = [['a', 0], ['d', 10], ['b', 20], ['c', 30]];
@@ -1842,11 +1906,11 @@
   // Évolutions du drone en ligne (une nouvelle forme tous les 50 niveaux) et skins spéciaux
   var EVO = [{ lv: 1, m: 'b', name: 'RAPTOR' }, { lv: 50, m: 'e', name: 'TEMPEST' }, { lv: 100, m: 'f', name: 'NIGHTWING' }, { lv: 150, m: 'g', name: 'LEVIATHAN' }], MAXLV = 200, STEPS = 5;
   var OSKINS = [{ id: 'x', price: 60, atk: 0.08 }];
-  var online = { v: 3, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {} };
+  var online = { v: 4, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {}, fac: '' };
   bank.g = 0;
-  try { var sbg = JSON.parse(localStorage.getItem('droneStrikeBank') || 'null'); if (sbg && sbg.g > 0) bank.g = Math.floor(sbg.g); } catch (err) { /* ignore */ }
+  try { var sbg = JSON.parse(LS.getItem('droneStrikeBank') || 'null'); if (sbg && sbg.g > 0) bank.g = Math.floor(sbg.g); } catch (err) { /* ignore */ }
   try {
-    var so = JSON.parse(localStorage.getItem('droneStrikeOnline') || 'null');
+    var so = JSON.parse(LS.getItem('droneStrikeOnline') || 'null');
     if (so && typeof so === 'object') {
       if (so.v >= 2) {
         if (typeof so.wrap === 'string' && (!so.wrap || WRAP_BY[so.wrap])) online.wrap = so.wrap;
@@ -1856,6 +1920,8 @@
           if (so.skins && typeof so.skins === 'object') online.skins = so.skins;
           if (so.skin && online.skins[so.skin]) online.skin = so.skin;
         }
+        if (so.v < 4) { online.lv = 1; online.step = 0; } // V2.0 : le drone en ligne repart du niveau 1
+        if (so.fac === 'h' || so.fac === 's') online.fac = so.fac;
       } else {
         // V0.8 : les pièces, modèles, finitions et décors sont retirés ; les diamants dépensés sont rendus
         var back = 0, k1;
@@ -1863,7 +1929,7 @@
         OMODELS.forEach(function (mo) { if (so.models && so.models[mo[0]]) back += mo[1]; });
         OFIN.forEach(function (fo) { if (so.finishes && so.finishes[fo[0]]) back += fo[1]; });
         for (k1 in (so.decals || {})) back += DECAL_PRICE;
-        if (back > 0) { bank.d += back; try { localStorage.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ } }
+        if (back > 0) { bank.d += back; try { LS.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ } }
       }
     }
   } catch (err) { /* ignore */ }
@@ -1879,7 +1945,8 @@
     for (i = 0; i < n * 2; i++) { var a = i / (n * 2) * Math.PI * 2, r = i % 2 ? 7.2 : 10.4, a2 = a + Math.PI / (n * 2); d += (i ? 'L' : 'M') + (12 + Math.cos(a) * r).toFixed(2) + ' ' + (12 + Math.sin(a) * r).toFixed(2) + 'L' + (12 + Math.cos(a2) * r).toFixed(2) + ' ' + (12 + Math.sin(a2) * r).toFixed(2); }
     return '<svg class="gear" viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + 'Z" fill="#ffc94a"/><circle cx="12" cy="12" r="3.4" fill="#7a5410"/></svg>';
   })();
-  function saveOnline() { try { localStorage.setItem('droneStrikeOnline', JSON.stringify(online)); } catch (err) { /* ignore */ } }
+  function saveOnline() { try { LS.setItem('droneStrikeOnline', JSON.stringify(online)); } catch (err) { /* ignore */ } }
+  saveOnline();
   var COIN = '<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="cg" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#ffc83d"/><stop offset="1" stop-color="#c47f0a"/></radialGradient></defs><circle cx="12" cy="12" r="10.5" fill="#a8650a"/><circle cx="12" cy="11.2" r="10" fill="url(#cg)"/><circle cx="12" cy="11.2" r="6.8" fill="none" stroke="#d99a1e" stroke-width="1.4"/><path d="M12 7.2l1.2 2.5 2.7.4-2 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-2-1.9 2.7-.4z" fill="#fff6c8" stroke="#c98a12" stroke-width=".6"/></svg>';
   var GEM = '<svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z" fill="#5ef0ff"/><path d="M2 9h20M7 3l5 18 5-18M7 3 9.5 9 12 3l2.5 6L17 3" fill="none" stroke="#0a6b8a" stroke-width="1.3" stroke-linejoin="round"/></svg>';
   // Achats par jeu (drone + difficulté) : améliorations, bonus en stock, designs
@@ -1918,14 +1985,14 @@
     if (any) { var inv = INV(); for (i = 0; i < ITEMS.length; i++) inv[ITEMS[i][0]] = Math.min(ITEM_MAX, (inv[ITEMS[i][0]] | 0) + (bank.inv[ITEMS[i][0]] | 0)); saveCamp(); }
     delete bank.inv; saveBank();
   }
-  function saveBank() { try { localStorage.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ } }
+  function saveBank() { try { LS.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ } }
   var POOL_MAX = 3, POOL_MS = 3600000, LIFE_BONUS = 300;
   var pool = { n: POOL_MAX, t: 0 };
   try {
-    var sp0 = JSON.parse(localStorage.getItem('droneStrikeLives') || 'null');
+    var sp0 = JSON.parse(LS.getItem('droneStrikeLives') || 'null');
     if (sp0 && sp0.n >= 0 && sp0.n <= POOL_MAX && sp0.t >= 0) pool = { n: Math.floor(sp0.n), t: +sp0.t || 0 };
   } catch (err) { /* réserve pleine */ }
-  function savePool() { try { localStorage.setItem('droneStrikeLives', JSON.stringify(pool)); } catch (err) { /* ignore */ } }
+  function savePool() { try { LS.setItem('droneStrikeLives', JSON.stringify(pool)); } catch (err) { /* ignore */ } }
   function poolLives() {
     if (pool.n >= POOL_MAX) pool.t = 0;
     else if (!pool.t || Date.now() - pool.t >= POOL_MS || Date.now() < pool.t) { if (pool.t && pool.n < POOL_MAX) livesBack = true; pool = { n: POOL_MAX, t: 0 }; savePool(); }
@@ -1970,7 +2037,7 @@
       ln.requestPermissions().then(function (r) {
         notifGranted = permState(r);
         cfg.notif = notifGranted === true; saveCfg();
-        try { localStorage.setItem('droneStrikeNotifAsked', '1'); } catch (err) { /* ignore */ }
+        try { LS.setItem('droneStrikeNotifAsked', '1'); } catch (err) { /* ignore */ }
         renderAll(); scheduleLivesNotif(); if (cb) cb();
       }).catch(function () {});
     } catch (err) { /* ignore */ }
@@ -1978,7 +2045,7 @@
   function firstLaunchNotif() {
     var ln = nativeNotif(), asked = false;
     if (!ln) return;
-    try { asked = localStorage.getItem('droneStrikeNotifAsked') === '1'; } catch (err) { asked = false; }
+    try { asked = LS.getItem('droneStrikeNotifAsked') === '1'; } catch (err) { asked = false; }
     if (asked) { refreshNotifState(); return; }
     setTimeout(function () { askNotifPermission(); }, 1200);
   }
@@ -2013,7 +2080,7 @@
   function resetCfg() { cfg.bind = {}; for (var k in DEFAULTS) cfg.bind[k] = DEFAULTS[k]; cfg.labels = {}; cfg.aim = 'mouse'; }
   resetCfg();
   try {
-    var saved = JSON.parse(localStorage.getItem('droneStrikeKeys') || 'null');
+    var saved = JSON.parse(LS.getItem('droneStrikeKeys') || 'null');
     if (saved && saved.bind) {
       for (var sk in DEFAULTS) if (typeof saved.bind[sk] === 'string') cfg.bind[sk] = saved.bind[sk];
       if (saved.labels && typeof saved.labels === 'object') cfg.labels = saved.labels;
@@ -2031,7 +2098,7 @@
       if (saved.map && MAPS[saved.map]) cfg.map = saved.map;
     }
   } catch (err) { /* réglages par défaut */ }
-  function saveCfg() { try { localStorage.setItem('droneStrikeKeys', JSON.stringify(cfg)); } catch (err) { /* ignore */ } }
+  function saveCfg() { try { LS.setItem('droneStrikeKeys', JSON.stringify(cfg)); } catch (err) { /* ignore */ } }
 
   var layout = null; // disposition réelle du clavier, si le navigateur la fournit
   try {
@@ -2272,16 +2339,16 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION + (TEST_MODE ? ' \u00b7 TEST' : ''); vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION + (TEST_MODE ? ' \u00b7 TEST' : ''); vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); renderFront(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0, setFrom = 'home', delArm = '', delTimer = 0;
-  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView'), storeView = document.getElementById('storeView'), profileView = document.getElementById('profileView');
+  var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView'), storeView = document.getElementById('storeView'), profileView = document.getElementById('profileView'), frontView = document.getElementById('frontView');
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
   var pathView = document.getElementById('pathView'), shopView = document.getElementById('shopView'), itemBar = document.getElementById('itemBar');
   var scoreView = document.getElementById('scoreView'), scoresBtn = document.getElementById('scoresBtn'), scoreReset = document.getElementById('scoreReset');
   function showView(v) {
     if (typeof closeVK === 'function' && vkIn) closeVK();
     view = v; setOpen = v !== 'main'; listening = null; resetArmed = 0;
-    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; evoView.hidden = v !== 'evo'; storeView.hidden = v !== 'store'; profileView.hidden = v !== 'profile'; delArm = ''; if (v !== 'hangar' && v !== 'evo') hg.try = null;
+    homeView.hidden = v !== 'home'; gamesView.hidden = v !== 'games'; hangarView.hidden = v !== 'hangar'; evoView.hidden = v !== 'evo'; storeView.hidden = v !== 'store'; profileView.hidden = v !== 'profile'; frontView.hidden = v !== 'front'; delArm = ''; if (v !== 'hangar' && v !== 'evo') hg.try = null;
     mainView.hidden = v !== 'main'; setView.hidden = v !== 'set'; scoreView.hidden = v !== 'score'; gameView.hidden = v !== 'game'; pathView.hidden = v !== 'path'; shopView.hidden = v !== 'shop';
     panelEl.classList.toggle('wide', v !== 'main');
     overlay.scrollTop = 0;
@@ -2623,7 +2690,7 @@
   document.getElementById('homeSet').addEventListener('click', function () { showSettings(true); });
   document.getElementById('onlineBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); showView('hangar'); });
   document.getElementById('hangarBack').addEventListener('click', function () { showView('home'); });
-  document.getElementById('fightBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); showToast(tr('onlineSoon')); });
+  document.getElementById('fightBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); frontFrom = 'home'; showView('front'); });
   var storeFrom = 'home', stTab = 'gems';
   function openStore(tab) { storeFrom = view === 'hangar' ? 'hangar' : 'home'; if (tab) stTab = tab; showView('store'); }
   document.getElementById('storeBtn').addEventListener('click', function () { openStore('gems'); });
@@ -2746,7 +2813,7 @@
   // ---------- Profil ----------
   var AVATARS = ['🦅', '🐺', '🦊', '🐯', '🤖', '👽', '🐉', '💀'];
   var profile = { nick: '', age: 0, av: '🦅', photo: '' }, pfDraft = null;
-  try { var spf = JSON.parse(localStorage.getItem('droneStrikeProfile') || 'null'); if (spf && typeof spf === 'object') { profile.nick = String(spf.nick || '').slice(0, 16); profile.age = Math.max(0, Math.min(99, spf.age | 0)); if (AVATARS.indexOf(spf.av) >= 0) profile.av = spf.av; if (typeof spf.photo === 'string' && spf.photo.indexOf('data:image/') === 0) profile.photo = spf.photo; } } catch (err) { /* ignore */ }
+  try { var spf = JSON.parse(LS.getItem('droneStrikeProfile') || 'null'); if (spf && typeof spf === 'object') { profile.nick = String(spf.nick || '').slice(0, 16); profile.age = Math.max(0, Math.min(99, spf.age | 0)); if (AVATARS.indexOf(spf.av) >= 0) profile.av = spf.av; if (typeof spf.photo === 'string' && spf.photo.indexOf('data:image/') === 0) profile.photo = spf.photo; } } catch (err) { /* ignore */ }
   function avHtml(p) { return p.photo ? '<img alt="" src="' + p.photo + '">' : '<span>' + p.av + '</span>'; }
   function renderProfile() {
     var ha = document.getElementById('homeAv'), hn = document.getElementById('homeNick');
@@ -2788,12 +2855,62 @@
   document.getElementById('pfSave').addEventListener('click', function () {
     if (!pfDraft) return;
     profile = { nick: pfDraft.nick.trim().slice(0, 16), age: pfDraft.age | 0, av: pfDraft.av, photo: pfDraft.photo };
-    try { localStorage.setItem('droneStrikeProfile', JSON.stringify(profile)); } catch (err) { /* ignore */ }
+    try { LS.setItem('droneStrikeProfile', JSON.stringify(profile)); } catch (err) { /* ignore */ }
     initAudio(); beep(880, 0.12, 'triangle', 0.06, 1320); showToast(tr('profileSaved'));
     showView('home');
   });
   document.getElementById('evoBack').addEventListener('click', function () { showView('hangar'); });
-  document.getElementById('hgFight').addEventListener('click', function () { showToast(tr('onlineSoon')); });
+  document.getElementById('hgFight').addEventListener('click', function () { frontFrom = 'hangar'; showView('front'); });
+  // ===== Le Front (V2) : camps, carte des secteurs, carte de pilote =====
+  var frontFrom = 'home', frArm = 0;
+  var FAC = { h: { c: '#ffb547', ic: '<path d="M2 7l7 3 3-5 3 5 7-3-4 10H6z"/>' }, s: { c: '#c77dff', ic: '<path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z"/><circle cx="9.5" cy="11" r="1"/><circle cx="14.5" cy="11" r="1"/>' } };
+  var SECTORS = [
+    { id: 'desert', own: 'h', b: ['#8a6430', '#3a2812'], ic: '<path d="M3 18c3-4 5-6 9-6s6 2 9 6M12 4v3M5.6 6.6l2 2M18.4 6.6l-2 2"/>' },
+    { id: 'arctic', own: '', b: ['#4f7590', '#1a2a38'], ic: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 4l3 2 3-2M9 20l3-2 3 2"/>' },
+    { id: 'jungle', own: 's', b: ['#2a6a40', '#0f2a1a'], ic: '<path d="M12 21v-7M12 14c-4 0-7-3-7-7 4 0 7 3 7 7zM12 14c4 0 7-3 7-7-4 0-7 3-7 7z"/>' },
+    { id: 'city', own: 's', b: ['#3e4a68', '#141a2a'], ic: '<path d="M3 21h18M5 21V9h5v12M10 21V4h6v17M16 21v-8h3v8"/>' },
+    { id: 'ocean', own: 'h', b: ['#21558a', '#0b1d33'], ic: '<path d="M3 10c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>' },
+    { id: 'volcano', own: '', b: ['#8a2e1a', '#2a0e0a'], ic: '<path d="M3 20l6-10h6l6 10zM10 6l2-3 2 3M12 10V7"/>' }
+  ];
+  function svgI(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
+  function renderFront() {
+    if (!frontView || frontView.hidden) return;
+    document.getElementById('frSeason').textContent = '· ' + tr('season', { n: 1 });
+    var h = '';
+    if (!online.fac) {
+      h = '<p class="frLead">' + esc(tr('chooseFac')) + '</p><div class="frFacs">';
+      ['h', 's'].forEach(function (f) { h += '<button class="frFac" data-fac="' + f + '" style="--fc:' + FAC[f].c + '">' + svgI(FAC[f].ic) + '<b>' + esc(tr('fac_' + f)) + '</b><small>' + esc(tr('facD_' + f)) + '</small></button>'; });
+      h += '</div><p class="frNote">' + esc(tr('facNote')) + '</p>';
+    } else {
+      var F = FAC[online.fac], st = oStats(online.lv, online.step), ev = EVO[evoIndex(online.lv)];
+      h = '<div class="frWrap"><div class="frLeft"><div class="frCard" style="--fc:' + F.c + '"><div class="frAv">' + avHtml(profile) + '</div><div class="frInfo"><b>' + esc(profile.nick || tr('profile')) + '</b>' +
+        '<span class="frBadge">' + esc(tr('fac_' + online.fac)) + '</span><small>' + esc(tr('rank')) + ' : ' + esc(tr('rk0')) + ' · ' + esc(tr('pts', { n: 0 })) + '</small>' +
+        '<small>' + esc(ev.name) + ' · ' + esc(tr('lvShort', { n: online.lv })) + ' · ' + esc(tr('power')) + ' ' + st.pow + '</small></div></div>' +
+        '<button class="frAct" data-fr="ghost">' + svgI(FAC.s.ic) + '<span><b>' + esc(tr('ghost')) + '</b><small>' + esc(tr('ghostD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
+        '<button class="frAct" data-fr="rank">' + svgI('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM17 6h3v2a3 3 0 01-3 3M7 6H4v2a3 3 0 003 3"/>') + '<span><b>' + esc(tr('ranking')) + '</b><small>' + esc(tr('rankingD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
+        (TEST_MODE ? '<div class="frTest"><button data-fr="reset"' + (frArm ? ' class="arm"' : '') + '>' + esc(frArm ? tr('sc_confirm') : tr('resetOn')) + '</button><button data-fr="fac">' + esc(tr('changeFac')) + '</button></div>' : '') +
+        '</div><div class="frMap">';
+      SECTORS.forEach(function (sc) {
+        var c = sc.own ? FAC[sc.own].c : '#9fb6d0';
+        h += '<div class="frSec' + (sc.own ? '' : ' c') + '" style="--sc:' + c + ';--b1:' + sc.b[0] + ';--b2:' + sc.b[1] + '">' + svgI(sc.ic) + '<div><b>' + esc(tr('sec_' + sc.id)) + '</b><small>' + esc(sc.own ? tr('fac_' + sc.own) : tr('contested')) + '</small></div></div>';
+      });
+      h += '</div></div>';
+    }
+    var b = document.getElementById('frBody'); if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
+  }
+  document.getElementById('frontBack').addEventListener('click', function () { frArm = 0; showView(frontFrom); });
+  document.getElementById('frBody').addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-fac],[data-fr]'); if (!el) return;
+    initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(12);
+    if (el.hasAttribute('data-fac')) { online.fac = el.getAttribute('data-fac'); saveOnline(); frArm = 0; renderFront(); return; }
+    var a = el.getAttribute('data-fr');
+    if (a === 'ghost' || a === 'rank') { showToast(tr('onlineSoon')); return; }
+    if (a === 'fac') { online.fac = ''; frArm = 0; saveOnline(); renderFront(); return; }
+    if (a === 'reset') {
+      if (!frArm) { frArm = 1; renderFront(); return; }
+      frArm = 0; online.lv = 1; online.step = 0; saveOnline(); hg.try = null; showToast(tr('resetDone')); renderAll(); return;
+    }
+  });
   hangarView.addEventListener('click', function (e) {
     var el = e.target && e.target.closest ? e.target.closest('[data-hgtab],[data-wrap],[data-oskin],[data-hgact]') : null;
     if (!el || el.disabled) return;
@@ -3288,7 +3405,7 @@
   if (TEST_MODE) {
     // Version de test : ressources quasi illimitées, rechargées à chaque lancement
     bank.c = Math.max(bank.c, 999999); bank.d = Math.max(bank.d, 99999); bank.g = Math.max(bank.g, 999999);
-    try { localStorage.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ }
+    try { LS.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ }
   }
   // Version web installable (iPhone) : mises à jour automatiques et jeu disponible hors connexion
   try { if ('serviceWorker' in navigator && location.protocol === 'https:' && !window.Capacitor) navigator.serviceWorker.register('sw.js'); } catch (err) { /* ignore */ }
