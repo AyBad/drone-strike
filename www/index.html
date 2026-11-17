@@ -1041,7 +1041,9 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.3';
+  var APP_VERSION = '1.4';
+  // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
+  var TEST_MODE = false;
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
   var overlay = document.getElementById('overlay');
@@ -2168,7 +2170,7 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION; vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION + (TEST_MODE ? ' \u00b7 TEST' : ''); vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0, setFrom = 'home', delArm = '', delTimer = 0;
   var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView'), storeView = document.getElementById('storeView'), profileView = document.getElementById('profileView');
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
@@ -2982,6 +2984,11 @@
   }
   quitBtn.addEventListener('click', goHome);
   startBtn.addEventListener('click', startGame);
+  if (TEST_MODE) {
+    // Version de test : ressources quasi illimitées, rechargées à chaque lancement
+    bank.c = Math.max(bank.c, 999999); bank.d = Math.max(bank.d, 99999); bank.g = Math.max(bank.g, 999999);
+    try { localStorage.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ }
+  }
   migrateGames();
   migrateBank();
   showView('home');

@@ -3,7 +3,7 @@ name: Build APK
 on:
   workflow_dispatch:
   push:
-    branches: [main, master]
+    branches: [main, master, test]
 
 permissions:
   contents: write
@@ -22,6 +22,15 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+
+      - name: Version de test (branche test)
+        if: github.ref_name == 'test'
+        run: |
+          sed -i 's/"appId": "com.dronestrike.game"/"appId": "com.dronestrike.game.test"/; s/"appName": "[^"]*"/"appName": "DSF Test"/' capacitor.config.json
+          sed -i 's/var TEST_MODE = false;/var TEST_MODE = true;/' www/index.html
+          grep -q '"com.dronestrike.game.test"' capacitor.config.json
+          grep -q 'var TEST_MODE = true;' www/index.html
+          cat capacitor.config.json
 
       - name: Installer les dépendances
         run: npm install
@@ -126,7 +135,21 @@ jobs:
           name: drone-strike-field-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
+      - name: Publier l'APK de test (lien fixe de la branche test)
+        if: github.ref_name == 'test'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk "dsf-test-v$APP_VERSION.apk"
+          cp android/app/build/outputs/apk/debug/app-debug.apk dsf-test.apk
+          gh release delete test --yes --cleanup-tag 2>/dev/null || true
+          gh release create test "dsf-test-v$APP_VERSION.apk" dsf-test.apk \
+            --target "${{ github.sha }}" --prerelease --latest=false \
+            --title "DSF Test V$APP_VERSION ($(TZ=Europe/Paris date '+%d/%m/%Y %H:%M'))" \
+            --notes "Version de test (application séparée « DSF Test », ressources illimitées). $(git log -1 --pretty=%s)"
+
       - name: Publier l'APK (lien de téléchargement fixe)
+        if: github.ref_name != 'test'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -139,5 +162,5 @@ jobs:
             --title "Drone Strike Field V$APP_VERSION ($(TZ=Europe/Paris date '+%d/%m/%Y %H:%M'))" \
             --notes "$(git log -1 --pretty=%B | sed '/^Co-Authored-By/d;/^Claude-Session/d')"
           # garder les 10 dernières versions
-          gh release list --limit 100 --json tagName,createdAt -q 'sort_by(.createdAt) | reverse | .[10:] | .[].tagName' |
+          gh release list --limit 100 --json tagName,createdAt -q '[.[] | select(.tagName != "test")] | sort_by(.createdAt) | reverse | .[10:] | .[].tagName' |
             while read -r t; do gh release delete "$t" --yes --cleanup-tag; done
