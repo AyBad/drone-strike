@@ -44,9 +44,9 @@
     font: inherit; font-size: 17px; font-weight: 700; letter-spacing: 2px; cursor: pointer;
     padding: 13px 38px; border-radius: 8px; border: 0; color: #04121c; background: #4fd8ff;
   }
-  button:hover { background: #8ae6ff; }
+  @media (hover: hover) and (pointer: fine) { button:hover { background: #8ae6ff; } }
   button.ghost { background: transparent; color: #4fd8ff; border: 1px solid #2a6f9c; }
-  button.ghost:hover { background: #12233a; }
+  @media (hover: hover) and (pointer: fine) { button.ghost:hover { background: #12233a; } }
   .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   h2 { margin: 0 0 14px; font-size: 26px; letter-spacing: 4px; color: #4fd8ff; }
   .aim { display: flex; gap: 8px; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 14px; color: #c6d4e8; }
@@ -74,7 +74,7 @@
   .setHead .spacer { width: 44px; }
   .iconBtn { width: 44px; height: 44px; padding: 0; border-radius: 50%; display: grid; place-items: center; letter-spacing: 0;
     background: #12233a; color: #4fd8ff; border: 1px solid #2a6f9c; }
-  .iconBtn:hover { background: #1a3150; }
+  @media (hover: hover) and (pointer: fine) { .iconBtn:hover { background: #1a3150; } }
   .iconBtn svg { width: 22px; height: 22px; }
   .setGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; padding: 4px 22px 0; }
   .card { background: linear-gradient(160deg, #112038, #0a1324); border: 1px solid #1f3554; border-radius: 16px; padding: 16px 16px 18px;
@@ -88,7 +88,7 @@
   .chip { display: flex; align-items: center; gap: 8px; padding: 9px 10px; font-size: 14px; font-weight: 600; letter-spacing: 0;
     background: #0a1220; color: #c6d4e8; border: 1px solid #1f3554; border-radius: 10px; text-align: left; white-space: nowrap; }
   .chip b { font-size: 10.5px; padding: 2px 6px; border-radius: 5px; background: #1b2538; color: #8fa6c4; letter-spacing: 0.5px; }
-  .chip:hover { background: #12233a; }
+  @media (hover: hover) and (pointer: fine) { .chip:hover { background: #12233a; } }
   .chip.on { border-color: #4fd8ff; background: rgba(79, 216, 255, 0.12); color: #ffffff; }
   .chip.on b { background: #4fd8ff; color: #04121c; }
   .toggleRow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 2px; font-size: 15px; color: #e6f1ff; }
@@ -99,9 +99,9 @@
     position: relative; letter-spacing: 0; flex: none; transition: background .2s, border-color .2s; }
   .switch::after { content: ''; position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%;
     background: #8fa6c4; transition: transform .2s, background .2s; }
-  .switch:hover { background: #243250; }
+  @media (hover: hover) and (pointer: fine) { .switch:hover { background: #243250; } }
   .switch.on { background: #4fd8ff; border-color: #4fd8ff; }
-  .switch.on:hover { background: #8ae6ff; }
+  @media (hover: hover) and (pointer: fine) { .switch.on:hover { background: #8ae6ff; } }
   .switch.on::after { transform: translateX(24px); background: #04121c; }
   .optGrid { display: grid; gap: 10px; }
   .diffGrid { grid-template-columns: repeat(3, 1fr); }
@@ -110,7 +110,7 @@
     letter-spacing: 0; font-weight: 700; font-size: 15px; display: flex; flex-direction: column; align-items: center; gap: 7px;
     text-align: center; transition: transform .15s, border-color .15s, box-shadow .15s, background .15s; }
   .optCard > * { pointer-events: none; }
-  .optCard:hover { background: #0f1a2e; transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) { .optCard:hover { background: #0f1a2e; transform: translateY(-2px); } }
   .optCard.on { border-color: var(--c); background: #0f1b30; color: #ffffff;
     box-shadow: 0 0 0 1px var(--c), 0 8px 28px -10px var(--c); }
   .optCard small { font-size: 11.5px; font-weight: 500; color: #8fa6c4; line-height: 1.35; }
@@ -127,14 +127,14 @@
   .rowLine { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; color: #e6f1ff; font-size: 15px; flex-wrap: wrap; }
   .seg { display: inline-flex; background: #0a1220; border: 1px solid #1f3554; border-radius: 10px; padding: 3px; }
   .seg button { padding: 7px 18px; font-size: 13.5px; font-weight: 600; letter-spacing: 0; background: transparent; color: #8fa6c4; border: 0; border-radius: 7px; }
-  .seg button:hover { background: #12233a; color: #e6f1ff; }
+  @media (hover: hover) and (pointer: fine) { .seg button:hover { background: #12233a; color: #e6f1ff; } }
   .seg button.on { background: #4fd8ff; color: #04121c; }
   #bindList.binds { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; margin: 0; padding: 0; }
   .bindRow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 8px 7px 12px;
     border-radius: 10px; background: #0a1220; border: 1px solid #16243b; font-size: 13.5px; color: #c6d4e8; }
   .binds .keycap { min-width: 70px; padding: 6px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0; color: #e6f1ff;
     background: linear-gradient(#22324d, #16233a); border: 1px solid #2e4466; border-bottom-width: 3px; border-radius: 8px; }
-  .binds .keycap:hover { background: linear-gradient(#2a3d5e, #1b2a45); }
+  @media (hover: hover) and (pointer: fine) { .binds .keycap:hover { background: linear-gradient(#2a3d5e, #1b2a45); } }
   .binds .keycap.listen { background: #ffd166; color: #04121c; border-color: #c9a043; animation: pulse 1s ease-in-out infinite; }
   @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.25); } }
   .ctrlFoot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
@@ -164,7 +164,7 @@
   .scoreCard.top .badge { display: inline-flex; }
   .scoreCard .badge svg { width: 12px; height: 12px; }
   .ctrlFoot .danger { border-color: #ff4d6d; color: #ff4d6d; background: rgba(255, 77, 109, 0.12); }
-  .ctrlFoot .danger:hover { background: rgba(255, 77, 109, 0.22); }
+  @media (hover: hover) and (pointer: fine) { .ctrlFoot .danger:hover { background: rgba(255, 77, 109, 0.22); } }
   #scoreHint { margin: 0; font-size: 12px; color: #8fa6c4; text-align: left; flex: 1; min-width: 200px; }
   @media (max-width: 520px) { .tile strong { font-size: 20px; } .tile span { font-size: 9.5px; letter-spacing: 0.5px; } .scoreCard .big { font-size: 24px; } }
   /* ---------- Options de jeu ---------- */
@@ -191,11 +191,11 @@
   .bub svg { width: 20px; height: 20px; }
   .bub.boss { border-radius: 16px; }
   .bub.done { background: var(--c); color: #04121c; border-color: var(--c); }
-  .bub.done:hover { filter: brightness(1.15); background: var(--c); }
+  @media (hover: hover) and (pointer: fine) { .bub.done:hover { filter: brightness(1.15); background: var(--c); } }
   .bub.cur { background: #0f1b30; color: #ffffff; border-color: var(--c); box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 22px -2px var(--c); animation: bubPulse 1.4s ease-in-out infinite; }
-  .bub.cur:hover { background: #16263f; }
+  @media (hover: hover) and (pointer: fine) { .bub.cur:hover { background: #16263f; } }
   .bub.lock { cursor: default; }
-  .bub.lock:hover { background: #0a1220; }
+  @media (hover: hover) and (pointer: fine) { .bub.lock:hover { background: #0a1220; } }
   .bub.boss.lock, .bub.boss.cur { border-color: #ff3b6b; }
   @keyframes bubPulse { 50% { transform: scale(1.08); } }
   .shopGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
@@ -235,7 +235,7 @@
   .node { animation: nodeIn .45s cubic-bezier(.2, .9, .3, 1.3) both; animation-delay: calc(var(--i) * 14ms); }
   @keyframes nodeIn { from { opacity: 0; transform: translateY(14px) scale(0.6); } }
   .bub { position: relative; transition: transform .15s; }
-  .bub.done:hover, .bub.cur:hover { transform: scale(1.12); }
+  @media (hover: hover) and (pointer: fine) { .bub.done:hover, .bub.cur:hover { transform: scale(1.12); } }
   .bub.cur::before, .bub.cur::after { content: ''; position: absolute; inset: -4px; border-radius: inherit; border: 2px solid var(--c); opacity: 0; animation: ring 1.8s ease-out infinite; pointer-events: none; }
   .bub.cur::after { animation-delay: .9s; }
   @keyframes ring { from { opacity: 0.8; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }
@@ -358,18 +358,18 @@
     animation: nodeIn .5s cubic-bezier(.2, .9, .3, 1.2) both, flow 3s linear infinite, playPulse 1.8s ease-out infinite; }
   @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(79, 216, 255, 0.55); } 100% { box-shadow: 0 0 0 16px rgba(79, 216, 255, 0); } }
   #mainView.isMenu .ghost { padding: 12px 10px; font-size: 14px; letter-spacing: 1.5px; background: rgba(10, 18, 32, 0.7); }
-  #mainView.isMenu .ghost:hover { background: #12233a; transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) { #mainView.isMenu .ghost:hover { background: #12233a; transform: translateY(-2px); } }
   #mainView.isMenu #optBtn { grid-column: 1 / -1; border-color: #1f3554; color: #8fa6c4; }
   /* ---------- Chapitres en fin de chemin ---------- */
   .chTitle { text-align: center; font-size: 13px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; color: #4fd8ff; margin: 2px 0 8px; }
   .chFrame { display: flex; align-items: center; justify-content: center; gap: 14px; width: 100%; padding: 16px; margin: 4px 0 10px; border-radius: 16px; text-align: left;
     background: #0a1220; border: 2px dashed #2a3a55; color: #8fa6c4; font-size: 16px; font-weight: 800; letter-spacing: 2px; }
-  .chFrame:hover { background: #0a1220; }
+  @media (hover: hover) and (pointer: fine) { .chFrame:hover { background: #0a1220; } }
   .chFrame:disabled { cursor: default; }
   .chFrame svg { width: 26px; height: 26px; flex: none; }
   .chFrame small { display: block; font-size: 12px; font-weight: 500; letter-spacing: 0; margin-top: 3px; color: #8fa6c4; }
   .chFrame.open { border-style: solid; border-color: #4fd8ff; color: #ffffff; background: #0f1b30; box-shadow: 0 0 24px -6px #4fd8ff; animation: bubPulse 1.6s ease-in-out infinite; }
-  .chFrame.open:hover { background: #16263f; }
+  @media (hover: hover) and (pointer: fine) { .chFrame.open:hover { background: #16263f; } }
   .chFrame.soonF { border-color: #6b4fa0; color: #ffd166; }
   .chFrame.back { padding: 10px; font-size: 13px; border-style: solid; border-color: #1f3554; }
   @media (max-height: 520px) and (orientation: landscape) {
@@ -453,7 +453,7 @@
   .hbtn.pri { background: linear-gradient(90deg, #4fd8ff, #8ae6ff, #4fd8ff); background-size: 200% 100%; box-shadow: 0 10px 30px -12px #4fd8ff; padding: 20px 18px; font-size: 18px; }
   .hbtn.sec { background: rgba(10, 18, 32, 0.75); color: #e6f1ff; border: 1px solid #2a6f9c; }
   .hbtn.sec svg { color: #4fd8ff; }
-  .hbtn.sec:hover { background: #12233a; }
+  @media (hover: hover) and (pointer: fine) { .hbtn.sec:hover { background: #12233a; } }
   .hbtn.online { position: relative; border-style: dashed; border-color: #6b4fa0; }
   .hbtn.online svg { color: #c77dff; }
   .soonTag { margin-left: auto; font-style: normal; font-size: 10.5px; letter-spacing: 1.2px; font-weight: 800; color: #170b2a; background: #c77dff; border-radius: 999px; padding: 4px 9px; flex: none; }
@@ -474,7 +474,7 @@
   .gCard { position: relative; border-radius: 14px; background: radial-gradient(circle at 30% 30%, #16263f, #0a1220 75%); border: 1px solid #1f3554; min-width: 0; }
   .gCard.on { border-color: var(--c); box-shadow: 0 0 0 1px var(--c), 0 8px 26px -12px var(--c); }
   .gMain { display: flex; align-items: center; gap: 8px; width: 100%; padding: 10px 40px 10px 8px; background: transparent; color: #e6f1ff; text-align: left; border-radius: 14px; letter-spacing: 0; }
-  .gMain:hover { background: rgba(79, 216, 255, 0.06); transform: none; }
+  @media (hover: hover) and (pointer: fine) { .gMain:hover { background: rgba(79, 216, 255, 0.06); transform: none; } }
   .gMain canvas { width: 84px; height: 70px; flex: none; }
   .gMain .gi { min-width: 0; display: block; }
   .gMain b { display: block; font-size: 14.5px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -768,12 +768,14 @@
   @media (max-height: 400px) { .vkK { height: 27px; font-size: 14px; } .vkKeys { gap: 3px; } .vkRow { gap: 3px; } .vkVal { height: 26px; font-size: 14px; } .vkTop { margin-bottom: 3px; } #vk { padding: 4px 6px 4px; } }
   .coin { width: 16px; height: 16px; vertical-align: -3px; display: inline-block; flex: none; }
   .coinTxt { color: #ffd166 !important; }
+  .upCard button.upLock { background: #1b2538; color: #8fa6c4; font-size: 11.5px; gap: 4px; } .upCard button.upLock svg { width: 12px; height: 12px; }
   .coin circle:nth-of-type(1) { fill: #a8650a !important; stroke: none !important; } .coin circle:nth-of-type(2) { fill: #ffc83d !important; stroke: none !important; } .coin circle:nth-of-type(3) { fill: none !important; stroke: #d99a1e !important; } .coin path { fill: #fff6c8 !important; stroke: #c98a12 !important; }
   .hchip.coinc { display: inline-flex; align-items: center; gap: 4px; }
   .coinV { display: inline-flex; align-items: center; justify-content: center; gap: 5px; } .coinV .coin { width: 20px; height: 20px; }
   .shopTop .credit { display: inline-flex; align-items: center; gap: 6px; } .shopTop .credit .coin { width: 22px; height: 22px; } .shopTop .credit strong { margin-left: 0; }
   .shopCard button, .upCard button, .skinCard button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
   .shopCard button .coin, .upCard button .coin, .skinCard button .coin { width: 15px; height: 15px; }
+  button, .htile, .hbtn { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
   button:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }
 </style>
 </head>
@@ -1041,7 +1043,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '1.4';
+  var APP_VERSION = '1.5';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = false;
   var canvas = document.getElementById('game');
@@ -1394,6 +1396,7 @@
     profileSaved: ['Profil enregistré.', 'Profile saved.', 'Perfil guardado.', 'Profilo salvato.', '资料已保存。', 'Профиль сохранён.'],
     profileNote: ['Votre profil sera visible par les autres pilotes en mode en ligne.', 'Your profile will be visible to other pilots online.', 'Tu perfil será visible para otros pilotos en línea.', 'Il tuo profilo sarà visibile agli altri piloti online.', '在线模式中其他玩家可以看到你的资料。', 'Профиль будет виден другим пилотам онлайн.'],
     loading: ['Chargement', 'Loading', 'Cargando', 'Caricamento', '加载中', 'Загрузка'],
+    chShort: ['Ch. {n}', 'Ch. {n}', 'Cap. {n}', 'Cap. {n}', '第 {n} 章', 'Гл. {n}'],
     tabUp: ['Amélioration', 'Upgrade', 'Mejora', 'Potenziamento', '升级', 'Улучшение'],
     tabSkins: ['Skins', 'Skins', 'Skins', 'Skin', '皮肤', 'Скины'],
     tabThemes2: ['Revêtements', 'Wraps', 'Revestimientos', 'Rivestimenti', '涂装', 'Покрытия'],
@@ -1462,23 +1465,23 @@
     renameGame: ['Renommer ce jeu', 'Rename this game', 'Renombrar esta partida', 'Rinomina questa partita', '重命名存档', 'Переименовать игру'],
     shopGameOnly: ['Les achats sont valables uniquement pour ce jeu.', 'Purchases apply to this game only.', 'Las compras solo valen para esta partida.', 'Gli acquisti valgono solo per questa partita.', '购买内容仅对当前存档有效。', 'Покупки действуют только для этой игры.'],
     u_cannon: ['Canons', 'Cannons', 'Cañones', 'Cannoni', '机炮', 'Пушки'],
-    ud_cannon: ['+1 canon (3 max)', '+1 cannon (max 3)', '+1 cañón (máx. 3)', '+1 cannone (max 3)', '+1 门机炮（最多 3）', '+1 пушка (макс. 3)'],
+    ud_cannon: ['+1 canon latéral (3 max)', '+1 side cannon (max 3)', '+1 cañón lateral (máx. 3)', '+1 cannone laterale (max 3)', '+1 门侧炮（最多 3）', '+1 боковая пушка (макс. 3)'],
     u_armor: ['Blindage', 'Armor', 'Blindaje', 'Corazza', '装甲', 'Броня'],
-    ud_armor: ['+20 blindage', '+20 armor', '+20 blindaje', '+20 corazza', '装甲 +20', '+20 брони'],
+    ud_armor: ['+12 blindage', '+12 armor', '+12 blindaje', '+12 corazza', '装甲 +12', '+12 брони'],
     u_rate: ['Cadence', 'Fire rate', 'Cadencia', 'Cadenza', '射速', 'Скорострельность'],
-    ud_rate: ['Tir 10 % plus rapide', '10% faster fire', 'Disparo 10 % más rápido', 'Fuoco 10% più rapido', '射速 +10%', 'Стрельба на 10% быстрее'],
+    ud_rate: ['Tir 7 % plus rapide', '7% faster fire', 'Disparo 7 % más rápido', 'Fuoco 7% più rapido', '射速 +7%', 'Стрельба на 7% быстрее'],
     u_power: ['Puissance', 'Power', 'Potencia', 'Potenza', '威力', 'Мощность'],
-    ud_power: ['Dégâts +25 %', 'Damage +25%', 'Daño +25 %', 'Danno +25%', '伤害 +25%', 'Урон +25%'],
+    ud_power: ['Dégâts +15 %', 'Damage +15%', 'Daño +15 %', 'Danno +15%', '伤害 +15%', 'Урон +15%'],
     u_engine: ['Moteur', 'Engine', 'Motor', 'Motore', '引擎', 'Двигатель'],
-    ud_engine: ['Vitesse +8 %', 'Speed +8%', 'Velocidad +8 %', 'Velocità +8%', '速度 +8%', 'Скорость +8%'],
+    ud_engine: ['Vitesse +6 %', 'Speed +6%', 'Velocidad +6 %', 'Velocità +6%', '速度 +6%', 'Скорость +6%'],
     u_dash: ['Esquive', 'Dodge', 'Esquiva', 'Schivata', '闪避', 'Рывок'],
-    ud_dash: ['Recharge 15 % plus courte', '15% shorter cooldown', 'Recarga 15 % más corta', 'Ricarica 15% più breve', '冷却缩短 15%', 'Перезарядка на 15% короче'],
+    ud_dash: ['Recharge 12 % plus courte', '12% shorter cooldown', 'Recarga 12 % más corta', 'Ricarica 12% più breve', '冷却缩短 12%', 'Перезарядка на 12% короче'],
     u_magnet: ['Aimant', 'Magnet', 'Imán', 'Magnete', '磁铁', 'Магнит'],
     ud_magnet: ['Attire les bonus proches', 'Pulls nearby power-ups', 'Atrae los bonus cercanos', 'Attira i bonus vicini', '吸引附近道具', 'Притягивает бонусы'],
     u_dur: ['Durée des bonus', 'Bonus duration', 'Duración de bonus', 'Durata bonus', '道具时长', 'Длительность бонусов'],
-    ud_dur: ['Bonus 25 % plus longs', 'Power-ups last 25% longer', 'Bonus 25 % más largos', 'Bonus 25% più lunghi', '道具持续 +25%', 'Бонусы на 25% дольше'],
+    ud_dur: ['Bonus 20 % plus longs', 'Power-ups last 20% longer', 'Bonus 20 % más largos', 'Bonus 20% più lunghi', '道具持续 +20%', 'Бонусы на 20% дольше'],
     u_regen: ['Réparation auto', 'Auto-repair', 'Autorreparación', 'Autoriparazione', '自动修复', 'Авторемонт'],
-    ud_regen: ['Répare le blindage hors combat', 'Repairs armor out of combat', 'Repara el blindaje fuera de combate', 'Ripara la corazza fuori dal combattimento', '脱战时修复装甲', 'Чинит броню вне боя'],
+    ud_regen: ['Répare jusqu\'à 50 % hors combat', 'Repairs up to 50% out of combat', 'Repara hasta el 50 % fuera de combate', 'Ripara fino al 50% fuori combattimento', '脱战时修复至 50%', 'Чинит до 50% вне боя'],
     notifs: ['Notifications', 'Notifications', 'Notificaciones', 'Notifiche', '通知', 'Уведомления'],
     notifBody: ['Vos 3 vies sont restituées. Reprenez le combat !', 'Your 3 lives are back. Return to the fight!', 'Tus 3 vidas están de vuelta. ¡Vuelve al combate!', 'Le tue 3 vite sono tornate. Riprendi a combattere!', '你的 3 条生命已恢复，继续战斗吧！', 'Ваши 3 жизни восстановлены. Возвращайтесь в бой!'],
     livesBack: ['\u2665 Vies restituées !', '\u2665 Lives restored!', '\u2665 ¡Vidas restauradas!', '\u2665 Vite ripristinate!', '\u2665 生命已恢复！', '\u2665 Жизни восстановлены!'],
@@ -1787,9 +1790,14 @@
   var COIN = '<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="cg" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#ffc83d"/><stop offset="1" stop-color="#c47f0a"/></radialGradient></defs><circle cx="12" cy="12" r="10.5" fill="#a8650a"/><circle cx="12" cy="11.2" r="10" fill="url(#cg)"/><circle cx="12" cy="11.2" r="6.8" fill="none" stroke="#d99a1e" stroke-width="1.4"/><path d="M12 7.2l1.2 2.5 2.7.4-2 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-2-1.9 2.7-.4z" fill="#fff6c8" stroke="#c98a12" stroke-width=".6"/></svg>';
   var GEM = '<svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z" fill="#5ef0ff"/><path d="M2 9h20M7 3l5 18 5-18M7 3 9.5 9 12 3l2.5 6L17 3" fill="none" stroke="#0a6b8a" stroke-width="1.3" stroke-linejoin="round"/></svg>';
   // Achats par jeu (drone + difficulté) : améliorations, bonus en stock, designs
-  var UPG = [['cannon', [800, 2500], '#f5f7ff'], ['armor', [150, 300, 500, 800, 1200], '#5dff9b'], ['rate', [200, 400, 650, 950, 1300], '#ffd166'],
-             ['power', [600, 1400, 2600], '#ff4d6d'], ['engine', [150, 300, 500, 750], '#4fd8ff'], ['dash', [200, 450, 800], '#7df0e0'],
-             ['magnet', [150, 350, 600], '#c77dff'], ['dur', [200, 450, 800], '#6fa8ff'], ['regen', [400, 900, 1600], '#ff6b9d']];
+  // Atelier : prix plus élevés, effets plus modestes et niveaux débloqués au fil des chapitres
+  var UPG = [['cannon', [2500, 7000], '#f5f7ff'], ['armor', [300, 600, 1000, 1600, 2400], '#5dff9b'], ['rate', [400, 800, 1300, 1900, 2600], '#ffd166'],
+             ['power', [1200, 2600, 4800], '#ff4d6d'], ['engine', [300, 600, 1000, 1500], '#4fd8ff'], ['dash', [400, 900, 1600], '#7df0e0'],
+             ['magnet', [300, 700, 1200], '#c77dff'], ['dur', [400, 900, 1600], '#6fa8ff'], ['regen', [2000, 4500, 8000], '#ff6b9d']];
+  // Chapitre requis pour acheter chaque niveau (index = niveau visé - 1)
+  var UPG_REQ = { cannon: [2, 4], regen: [2, 4, 6], power: [1, 3, 5] };
+  function upReqCh(id, lv) { var r = UPG_REQ[id]; return r ? r[lv] : lv + 1; }
+  function curChapter(c) { return Math.floor((c.p || 0) / WAVES) + 1; }
   var SKINS = [{ id: 'a', name: 'VANGUARD', req: 0, price: 0 }, { id: 'd', name: 'HORNET', req: 0, price: 600 }, { id: 'b', name: 'RAPTOR', req: 50, price: 1500 }, { id: 'c', name: 'SERAPH', req: 100, price: 3000 }];
   function G(d, dr) {
     var c = cEnsure(d || cfg.diff, dr || cfg.drone);
@@ -1806,9 +1814,9 @@
   function gName() { var c = cGet(); return c ? gLabel(c) : tr('d_' + cfg.drone) + ' · ' + tr(cfg.diff); }
   function buildSpec(d, dr) {
     var b = DRONES[dr], c = G(d, dr), u = function (id) { return upLv(c, id); };
-    return { hp: b.hp + 20 * u('armor'), accel: b.accel * (1 + 0.08 * u('engine')), fire: b.fire / (1 + 0.1 * u('rate')), dmg: b.dmg * (1 + 0.25 * u('power')),
-             dash: b.dash * (1 - 0.15 * u('dash')), color: b.color, cannons: 1 + u('cannon'), magnet: [0, 90, 150, 220][u('magnet')],
-             durMul: 1 + 0.25 * u('dur'), regen: [0, 1, 2, 3.5][u('regen')], skin: c.skin };
+    return { hp: b.hp + 12 * u('armor'), accel: b.accel * (1 + 0.06 * u('engine')), fire: b.fire / (1 + 0.07 * u('rate')), dmg: b.dmg * (1 + 0.15 * u('power')),
+             dash: b.dash * (1 - 0.12 * u('dash')), color: b.color, cannons: 1 + u('cannon'), magnet: [0, 80, 130, 180][u('magnet')],
+             durMul: 1 + 0.2 * u('dur'), regen: [0, 0.4, 0.8, 1.2][u('regen')], skin: c.skin };
   }
   function migrateBank() {
     var any = false, i;
@@ -2206,6 +2214,53 @@
   }
   var TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
   var hgTab = 'up', hg = { yaw: 2.4, tilt: 0.75, idle: 3, spin: 0, last: 0, parts: [], ring: 0, flash: 0, try: null, stepPop: 0 };
+  function hgQueue(a) { a.t = 0; a.fired = false; hg.q = hg.q || []; if (!hg.anim) startAnim(a); else hg.q.push(a); }
+  function startAnim(a) {
+    hg.anim = a; hg.idle = a.type === 'missile' ? -1.5 : 0;
+    if (a.type === 'evo') { showBanner(tr('evoDone', { n: a.name }), true); vib([60, 40, 60, 40, 120]); beep(330, 0.5, 'sawtooth', 0.04, 90); }
+    else { showBanner(tr('newMissile', { n: a.n }), false); beep(520, 0.2, 'triangle', 0.05, 700); }
+  }
+  // Nombre de missiles affichés sous le drone (le missile apparaît quand le bras le fixe)
+  function shownMissiles() { var ms = Math.floor(online.lv / 10), a = hg.anim; if (a && a.type === 'missile' && !a.fired) ms--; (hg.q || []).forEach(function (q) { if (q.type === 'missile') ms--; }); return Math.max(0, ms); }
+  function ease(x) { return x < 0 ? 0 : x > 1 ? 1 : 1 - Math.pow(1 - x, 3); }
+  function drawMissile2D(x, y, ang, L) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+    ctx.fillStyle = '#e4e9f2'; ctx.fillRect(-L / 2, -L * 0.09, L, L * 0.18);
+    ctx.fillStyle = '#ff4d4d'; ctx.beginPath(); ctx.moveTo(L / 2, -L * 0.09); ctx.lineTo(L / 2 + L * 0.18, 0); ctx.lineTo(L / 2, L * 0.09); ctx.fill();
+    ctx.fillStyle = '#8a94a8'; ctx.beginPath(); ctx.moveTo(-L / 2, -L * 0.09); ctx.lineTo(-L / 2 - L * 0.08, -L * 0.22); ctx.lineTo(-L / 2 + L * 0.12, -L * 0.09); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-L / 2, L * 0.09); ctx.lineTo(-L / 2 - L * 0.08, L * 0.22); ctx.lineTo(-L / 2 + L * 0.12, L * 0.09); ctx.fill();
+    ctx.restore();
+  }
+  // Petit drone assistant avec bras robotique qui vient fixer le missile sous le drone
+  function drawMissileAnim(a, cx, cy, sc, w, h, t) {
+    var p = a.t / a.dur, hx, hy, mp = missilePos(Math.min(5, a.n - 1)), cyw = Math.cos(hg.yaw), syw = Math.sin(hg.yaw), ct = Math.cos(hg.tilt), st = Math.sin(hg.tilt);
+    var px = mp[0] * cyw - mp[1] * syw, py = mp[0] * syw + mp[1] * cyw, tx = cx + px * sc, ty = cy + (py * ct - mp[2] * st) * sc;
+    var dl = Math.hypot(tx - cx, ty - cy) || 1, parkX = clamp(tx + (tx - cx) / dl * sc * 0.55, 40, w - 40), parkY = clamp(ty + (ty - cy) / dl * sc * 0.35 + sc * 0.25, 40, h - 30);
+    var fromX = parkX > cx ? w + 60 : -60;
+    if (p < 0.28) { var e = ease(p / 0.28); hx = fromX + (parkX - fromX) * e; hy = parkY - 40 * (1 - e); }
+    else if (p < 0.8) { hx = parkX; hy = parkY + Math.sin(t * 6) * 2; }
+    else { var e2 = ease((p - 0.8) / 0.2); hx = parkX + (fromX - parkX) * e2; hy = parkY + 60 * e2; }
+    var ext = p < 0.3 ? 0 : p < 0.58 ? ease((p - 0.3) / 0.28) : p < 0.66 ? 1 : p < 0.8 ? 1 - ease((p - 0.66) / 0.14) : 0;
+    var bx = hx - sc * 0.08, by = hy - sc * 0.06, ex = bx + (tx - bx) * ext, ey = by + (ty - by) * ext;
+    var mx = (bx + ex) / 2, my = Math.min(by, ey) - sc * 0.22 * ext - 6;
+    ctx.save();
+    ctx.lineCap = 'round'; ctx.strokeStyle = '#2b3446'; ctx.lineWidth = Math.max(5, sc * 0.07);
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(mx, my); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.strokeStyle = '#ffc94a'; ctx.lineWidth = Math.max(3, sc * 0.04);
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(mx, my); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.fillStyle = '#2b3446'; [[bx, by], [mx, my]].forEach(function (j) { ctx.beginPath(); ctx.arc(j[0], j[1], Math.max(4, sc * 0.045), 0, TAU); ctx.fill(); });
+    var ang = Math.atan2(ey - my, ex - mx);
+    ctx.strokeStyle = '#c6ccd8'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex + Math.cos(ang + 0.6) * 10, ey + Math.sin(ang + 0.6) * 10); ctx.moveTo(ex, ey); ctx.lineTo(ex + Math.cos(ang - 0.6) * 10, ey + Math.sin(ang - 0.6) * 10); ctx.stroke();
+    if (!a.fired && p < 0.62) drawMissile2D(ex, ey, hg.yaw, Math.max(24, sc * 0.36));
+    ctx.restore();
+    draw3D(getModel('a', '#ffd166', 1), hx, hy, sc * 0.3, Math.PI + Math.sin(t * 2) * 0.2, 0.9, 0, 0, 1, t, false, true);
+    if (!a.fired && p >= 0.62) {
+      a.fired = true;
+      for (var i = 0; i < 26; i++) { var an = Math.random() * TAU, v = 40 + Math.random() * 140; hg.parts.push({ x: tx - cx + Math.cos(an) * 4, y: ty - cy, vx: Math.cos(an) * v, vy: Math.sin(an) * v - 30, life: 0.4 + Math.random() * 0.4, col: i % 2 ? '#ffd166' : '#ffffff' }); }
+      initAudio(); beep(1200, 0.06, 'square', 0.05, 900); setTimeout(function () { beep(700, 0.12, 'triangle', 0.05, 1400); }, 90); vib([20, 30, 40]);
+    }
+  }
   function curModel() {
     var sk = hg.try && hg.try.kind === 'skin' ? hg.try.id : (hg.try && hg.try.kind === 'wrap' ? '' : online.skin);
     if (hg.try && hg.try.kind === 'wrap') sk = '';
@@ -2284,7 +2339,25 @@
       ctx.strokeStyle = 'rgba(94, 240, 255, 0.18)'; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.ellipse(cx, h * 0.66, w * 0.36, w * 0.36 * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke();
       if (hg.ring > 0) { ctx.strokeStyle = 'rgba(93, 255, 155, ' + hg.ring.toFixed(2) + ')'; ctx.lineWidth = 4; ctx.beginPath(); var rr = (1 - hg.ring) * w * 0.5 + 20; ctx.ellipse(cx, h * 0.62, rr, rr * Math.cos(hg.tilt) * 0.9, 0, 0, TAU); ctx.stroke(); hg.ring = Math.max(0, hg.ring - dt * 1.4); }
-      draw3D(getModel(mdl, wr ? '#121a26' : '#5ef0ff', 1 + Math.min(2, Math.floor(online.lv / 50))), cx, cy + Math.sin(t * 1.8) * 3, sc, hg.yaw, hg.tilt, 0, 0, 1, t, hg.flash > 0.55, true, { wrap: wr });
+      var an = hg.anim, cn = 1 + Math.min(2, Math.floor(online.lv / 50)), acc = wr ? '#121a26' : '#5ef0ff', bob = Math.sin(t * 1.8) * 3;
+      if (an) an.t += dt;
+      if (an && an.type === 'evo' && !online.skin) {
+        var p = an.t / an.dur, oldCn = Math.max(1, cn - 1);
+        if (p < 0.42) {
+          var e = p < 0.1 ? 0 : Math.pow((p - 0.1) / 0.32, 2.2);
+          for (var k = 0; k < 2; k++) hg.parts.push({ x: -e * w * 0.7 - sc * 0.5, y: -e * h * 0.55 + sc * 0.1, vx: 60 + Math.random() * 60, vy: 40 + Math.random() * 40, life: 0.35, col: '#ffb347' });
+          draw3D(getModel(an.from, acc, oldCn, shownMissiles()), cx - e * w * 0.7, cy - e * h * 0.55 + bob, sc * (1 - 0.55 * e), hg.yaw + e * 1.2, hg.tilt, -0.3 * e, 0, 1, t, false, e < 0.3, { wrap: wr });
+        } else if (p >= 0.55) {
+          var e3 = ease((p - 0.55) / 0.45);
+          if (p < 0.85) for (var k2 = 0; k2 < 2; k2++) hg.parts.push({ x: (1 - e3) * w * 0.75 + sc * 0.5, y: (1 - e3) * h * 0.2, vx: 80 + Math.random() * 60, vy: (Math.random() - 0.5) * 40, life: 0.35, col: '#5ef0ff' });
+          draw3D(getModel(an.to, acc, cn, shownMissiles()), cx + (1 - e3) * w * 0.75, cy + (1 - e3) * h * 0.2 + bob, sc * (0.6 + 0.4 * e3), hg.yaw - (1 - e3) * 1.5, hg.tilt, 0.35 * (1 - e3), 0, 1, t, false, true, { wrap: wr });
+          if (e3 > 0.96 && !an.fired) { an.fired = true; hg.ring = 1; burstHg(70, '#5ef0ff'); beep(660, 0.3, 'triangle', 0.06, 1320); }
+        }
+      } else {
+        draw3D(getModel(mdl, acc, cn, online.skin ? 0 : shownMissiles()), cx, cy + bob, sc, hg.yaw, hg.tilt, 0, 0, 1, t, hg.flash > 0.55, true, { wrap: wr });
+        if (an && an.type === 'missile') drawMissileAnim(an, cx, cy, sc, w, h, t);
+      }
+      if (an && an.t >= an.dur) { hg.anim = null; if (hg.q && hg.q.length) startAnim(hg.q.shift()); else renderHangar(); }
       for (var i = hg.parts.length - 1; i >= 0; i--) {
         var p = hg.parts[i]; p.life -= dt; if (p.life <= 0) { hg.parts.splice(i, 1); continue; }
         p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 120 * dt;
@@ -2572,10 +2645,10 @@
       hg.ring = 1; burstHg(40, '#5dff9b');
       setTimeout(function () { beep(660, 0.16, 'triangle', 0.07, 1320); }, 90);
       if (evo) {
-        hg.flash = 1; hg.spin = 2.5; burstHg(110, '#ffffff');
-        showBanner(tr('evoDone', { n: evo.name }), true);
-        setTimeout(function () { beep(440, 0.4, 'sawtooth', 0.05, 1760); }, 200); vib([60, 40, 60, 40, 120]);
-      } else if (missile) { showBanner(tr('newMissile', { n: Math.floor(online.lv / 10) }), false); vib([40, 30, 40]); }
+        var prevM = EVO[EVO.indexOf(evo) - 1].m;
+        hgQueue({ type: 'evo', dur: 2.8, from: prevM, to: evo.m, name: evo.name });
+        if (missile) hgQueue({ type: 'missile', dur: 3.4, n: Math.floor(online.lv / 10) });
+      } else if (missile) hgQueue({ type: 'missile', dur: 3.4, n: Math.floor(online.lv / 10) });
       else showBanner(tr('lvUp', { n: online.lv }), false);
     }
     renderAll();
@@ -2717,7 +2790,8 @@
         for (var q = 0; q < mx; q++) pips += '<i class="' + (q < lv ? 'f' : '') + '"></i>';
         h += '<div class="upCard' + (full ? ' maxed' : '') + '" style="--c:' + UPG[i][2] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + UICON[uid] + '</svg>' +
           '<span class="nm">' + esc(tr('u_' + uid)) + '</span><small>' + esc(tr('ud_' + uid)) + '</small><span class="pp">' + pips + '</span>' +
-          '<button data-up="' + uid + '"' + (full || bank.c < pr[lv] ? ' disabled' : '') + '>' + (full ? esc(tr('maxed')) : pr[lv] + ' ' + COIN) + '</button></div>';
+          (full ? '<button disabled>' + esc(tr('maxed')) + '</button>' : curChapter(c) < upReqCh(uid, lv) ? '<button disabled class="upLock">' + LOCK + esc(tr('chShort', { n: upReqCh(uid, lv) })) + '</button>' :
+          '<button data-up="' + uid + '"' + (bank.c < pr[lv] ? ' disabled' : '') + '>' + pr[lv] + ' ' + COIN + '</button>') + '</div>';
       }
       h += '</div>';
     } else {
@@ -2761,7 +2835,7 @@
       id = el.getAttribute('data-up');
       var lv = upLv(c, id);
       for (i = 0; i < UPG.length; i++) if (UPG[i][0] === id && lv < UPG[i][1].length) price = UPG[i][1][lv];
-      if (price && bank.c >= price) { c.up[id] = lv + 1; ok = true; }
+      if (price && bank.c >= price && curChapter(c) >= upReqCh(id, lv)) { c.up[id] = lv + 1; ok = true; }
     } else if (el.hasAttribute('data-skin-buy')) {
       id = el.getAttribute('data-skin-buy');
       for (i = 0; i < SKINS.length; i++) if (SKINS[i].id === id && c.p >= SKINS[i].req && !c.skins[id]) price = SKINS[i].price;
@@ -2897,7 +2971,7 @@
     var p = player;
     p.x = WORLD_W / 2; p.y = WORLD_H / 2; p.vx = p.vy = 0; p.inv = Math.max(p.inv, 1.2);
     wave = n; curPal = mapInfo(n).pal; obstacles = getWaveMap(n);
-    enemies = []; bullets = []; particles = []; pickups = [];
+    enemies = []; bullets = []; particles = []; pickups = []; wipeWave = false;
     score = 0; kills = 0; usedLife = false; shake = 0; clearT = 0; lastRes = null; hpGhost = p.hp / p.maxHp;
     best = ((cGet(gameDiff, gameDrone) || { s: {} }).s[n]) || 0;
     buildQueue(); waveTimer = 1.1;
@@ -3226,6 +3300,7 @@
     }
   }
 
+  var wipeWave = false;
   function killEnemy(e) {
     var t = TYPES[e.type];
     score += t.pts; kills++;
@@ -3235,14 +3310,13 @@
       burst(e.x, e.y, '#ffffff', 40, 480); burst(e.x, e.y, t.color, 50, 380);
       beep(90, 0.9, 'sawtooth', 0.09, 30); vib([100, 50, 200]);
       banner = tr('b_bossDown'); bannerT = 2;
-      pickups.push({ x: e.x - 26, y: e.y, kind: lives < MAX_LIVES ? 'life' : 'shield', life: 20, r: 13 });
-      pickups.push({ x: e.x + 26, y: e.y, kind: 'heal', life: 20, r: 13 });
+      wipeWave = true; waveQueue.length = 0; bossPending = false;
       return;
     }
     beep(e.type === 'heavy' ? 110 : 220, 0.3, 'square', 0.06, 50);
     if (e.type === 'heavy') vib(30);
-    var chance = (e.type === 'heavy' ? 0.7 : 0.16) * D.drop;
-    if (Math.random() < chance) {
+    var chance = (e.type === 'heavy' ? 0.7 : 0.16) * D.drop, lastOne = !waveQueue.length && !bossPending && enemies.length <= 1;
+    if (!lastOne && Math.random() < chance) {
       var roll = Math.random(), kind = roll < 0.35 ? 'heal' : roll < 0.58 ? 'rapid' : roll < 0.79 ? 'shield' : 'gun';
       if (lives < MAX_LIVES && Math.random() < 0.07) kind = 'life';
       pickups.push({ x: e.x, y: e.y, kind: kind, life: 12, r: 13 });
@@ -3286,17 +3360,22 @@
 
     p.fireCd -= dt; p.dashCd -= dt; p.inv -= dt; p.rapid -= dt; p.shield -= dt; p.gun -= dt; p.hitFlash -= dt;
     p.sinceHit = (p.sinceHit || 0) + dt;
-    if (p.spec.regen && p.sinceHit > 4 && p.hp < p.maxHp) p.hp = Math.min(p.maxHp, p.hp + p.spec.regen * dt);
+    if (p.spec.regen && p.sinceHit > 6 && p.hp < p.maxHp * 0.5) p.hp = Math.min(p.maxHp * 0.5, p.hp + p.spec.regen * dt);
     if ((isDown('fire') || touchFire) && p.fireCd <= 0) {
       p.fireCd = p.spec.fire * (p.rapid > 0 ? 0.47 : 1);
       var spread = rand(-0.03, 0.03), shots = p.gun > 0 ? [-0.15, 0, 0.15] : [0], lat = [[0], [-7, 7], [-11, 0, 11]][(p.spec.cannons || 1) - 1];
       var fc = Math.cos(p.angle), fs = Math.sin(p.angle);
       for (var li = 0; li < lat.length; li++) for (var si = 0; si < shots.length; si++)
-        fire(p.x + fc * 22 - fs * lat[li], p.y + fs * 22 + fc * lat[li], p.angle + spread + shots[si], 950, true, p.spec.dmg);
+        fire(p.x + fc * 22 - fs * lat[li], p.y + fs * 22 + fc * lat[li], p.angle + spread + shots[si], 950, true, p.spec.dmg * (lat[li] ? 0.55 : 1));
       p.sinceHit = (p.sinceHit || 0);
       beep(p.rapid > 0 ? 760 : 620, 0.06, 'square', 0.025, 300);
     }
 
+    // Colosse abattu : les autres drones explosent et la vague se termine
+    if (wipeWave) {
+      for (i = 0; i < enemies.length; i++) { burst(enemies[i].x, enemies[i].y, TYPES[enemies[i].type].color, 16, 300); kills++; }
+      enemies.length = 0; bullets = bullets.filter(function (q) { return q.friendly; }); pickups.length = 0; wipeWave = false;
+    }
     // Waves
     waveTimer -= dt;
     if (waveTimer <= 0) {
@@ -3520,8 +3599,11 @@
     for (var i = 0; i < offs.length; i++) { rbox(m, x0 + 0.2, offs[i], z, 0.460, 0.05, 0.05, 0, '#c8d0de'); rbox(m, x0 + 0.440, offs[i], z - 0.005, 0.05, 0.07, 0.06, 0, acc, 1); }
   }
   var modelCache = {};
-  function getModel(skin, acc, cannons) {
-    var key = skin + acc + cannons, m = modelCache[key], i, a, s2;
+  // Emplacement du i-ème missile (posé sur les ailes, visible depuis le dessus)
+  function missilePos(i) { var side = i % 2 ? -1 : 1, row = Math.floor(i / 2); return [-0.05 - row * 0.08, side * (0.42 + row * 0.14), 0.14]; }
+  function getModel(skin, acc, cannons, ms) {
+    ms = Math.min(6, ms | 0);
+    var key = skin + acc + cannons + ':' + ms, m = modelCache[key], i, a, s2;
     if (m) return m;
     m = { f: [], rot: [] };
     if (skin === 'b') {
@@ -3669,6 +3751,13 @@
       addPoly(m, ngon(0.05, 0, 0.130, 6), 0.260, 0.310, 0.6, acc, 1);
       guns3(m, cannons, 0.450, 0.1, acc);
       m.top = [-0.260, 0, 0.260];
+    }
+    for (i = 0; i < ms; i++) {
+      var mp = missilePos(i), mx = mp[0], my = mp[1], mz = mp[2];
+      rbox(m, mx, my, mz, 0.36, 0.06, 0.06, 0, '#e4e9f2');
+      rbox(m, mx + 0.2, my, mz + 0.005, 0.05, 0.05, 0.05, 0, '#ff4d4d', 1);
+      rbox(m, mx - 0.16, my, mz + 0.02, 0.06, 0.13, 0.02, 0, '#8a94a8');
+      rbox(m, mx, my, mz + 0.06, 0.12, 0.025, 0.03, 0, '#3a4152');
     }
     m.bsp = buildBSP(m.f.map(function (f) { return { v: f.v, n: f.n, c: f.c, e: f.e }; }), 0);
     m.pc = {};
