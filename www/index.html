@@ -561,6 +561,74 @@
   .hgGems { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; background: #0a1220; border: 1px solid #1f3554; border-radius: 10px; padding: 6px 12px; font-size: 18px; font-weight: 800; }
   .hgGems .gem { width: 20px; height: 20px; }
   #hangarView .setHead .spacer { display: none; }
+  .onHead { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 14px 18px 10px; }
+  .onHead h2 { margin: 0; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; white-space: nowrap; }
+  .onTop { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; border-radius: 12px; background: rgba(10, 18, 32, 0.85); border: 1px solid #2a6f9c; color: #e6f1ff; font: inherit; letter-spacing: 0; cursor: pointer; min-width: 0; }
+  .onTop > svg { width: 24px; height: 24px; color: #5dff9b; flex: none; }
+  .onTop > span:last-child { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; min-width: 0; }
+  .onTop b { font-size: 12.5px; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+  .onTop small { font-size: 11.5px; color: #9fb6d0; white-space: nowrap; } .onTop .gem { width: 13px; height: 13px; vertical-align: -2px; }
+  .onTop.pf { border-color: #b8913a; flex-direction: row-reverse; padding: 6px 8px 6px 12px; } .onTop.pf > span:last-child { align-items: flex-end; }
+  .onAv { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; font-size: 19px; background: #0d1a2c; border: 2px solid #ffc94a; flex: none; }
+  .onAv img { width: 100%; height: 100%; object-fit: cover; }
+  .frHelp { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #4fd8ff; background: transparent; color: #4fd8ff; font: inherit; font-weight: 800; font-size: 15px; padding: 0; letter-spacing: 0; cursor: pointer; flex: none; }
+  .onNav { display: grid; grid-template-columns: 54px 1fr 1.25fr 1fr; gap: 8px; padding: 12px 18px 14px; }
+  .onNb { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 12px; background: rgba(10, 18, 32, 0.88); border: 1px solid #2a6f9c; color: #cfe3ff; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: 1px; cursor: pointer; }
+  .onNb svg { width: 22px; height: 22px; flex: none; }
+  .onNb.on { background: #4fd8ff; border-color: #4fd8ff; color: #04121f; }
+  .onNb.chat { border-color: #8a5bc4; } .onNb.chat.on { background: #c77dff; border-color: #c77dff; color: #1a0630; }
+  .frEmb { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: #0d1a2c; border: 2px solid var(--fc); flex: none; color: var(--fc); }
+  .frEmb svg { width: 32px; height: 32px; }
+  .frBar { height: 6px; border-radius: 3px; background: #1a2a44; overflow: hidden; margin-top: 3px; } .frBar i { display: block; height: 100%; background: var(--fc); }
+  .frFac.sel { box-shadow: 0 0 0 3px var(--fc), 0 0 24px var(--fc); transform: translateY(-2px); } .frFac { transition: transform .2s, box-shadow .2s; }
+  .frFac.dim { opacity: 0.45; }
+  .frWarn { text-align: center; margin: 12px 22px 0; color: #ffb3c1; font-size: 13.5px; font-weight: 700; }
+  .frGo .frOk[disabled] { opacity: 0.35; cursor: default; }
+  .frBackMap { align-self: flex-start; font: inherit; font-size: 12.5px; padding: 7px 14px; border-radius: 10px; border: 1px solid #2a6f9c; background: transparent; color: #cfe3ff; cursor: pointer; letter-spacing: 0; }
+  .chWrap { display: flex; flex-direction: column; gap: 10px; padding: 0 22px; min-height: 230px; }
+  .chHead { display: flex; align-items: center; gap: 10px; } .chHead svg { width: 22px; height: 22px; color: #c77dff; } .chHead b { font-size: 15px; color: #fff; letter-spacing: 1px; }
+  .chList { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(6, 12, 22, 0.8); border: 1px solid #2a3f5e; min-height: 140px; }
+  .chMsg { display: flex; gap: 10px; align-items: flex-start; max-width: 92%; }
+  .chMsg .frEmb { width: 34px; height: 34px; } .chMsg .frEmb svg { width: 20px; height: 20px; }
+  .chMsg div { padding: 8px 12px; border-radius: 4px 14px 14px 14px; background: #13233d; border: 1px solid #2a3f5e; }
+  .chMsg div b { display: block; font-size: 12px; color: var(--fc); letter-spacing: 1px; margin-bottom: 2px; } .chMsg div p { margin: 0; font-size: 13.5px; color: #e6f1ff; line-height: 1.35; }
+  .chMsg.info div { background: transparent; border-style: dashed; } .chMsg.info div p { color: #9fb6d0; font-size: 12.5px; }
+  .chIn { display: flex; gap: 8px; } .chIn input { flex: 1; font: inherit; font-size: 14px; padding: 10px 14px; border-radius: 12px; border: 1px solid #2a3f5e; background: #0a1220; color: #6f86a6; }
+  .chIn button { width: 46px; border-radius: 12px; border: 0; background: #2a3f5e; color: #6f86a6; display: grid; place-items: center; } .chIn button svg { width: 20px; height: 20px; }
+  .gd { margin: 0 22px; overflow: hidden; border-radius: 16px; border: 1px solid #2a6f9c; background: rgba(8, 14, 26, 0.88); touch-action: pan-y; direction: ltr; user-select: none; -webkit-user-select: none; }
+  .gdTrack { display: flex; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+  .gdPage { flex: 0 0 100%; box-sizing: border-box; display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; padding: 14px; align-items: center; }
+  .gdArt svg { display: block; width: 100%; height: auto; border-radius: 12px; }
+  .gdTxt { display: flex; flex-direction: column; gap: 6px; } body.rtl .gdTxt { direction: rtl; }
+  .gdTxt > * { opacity: 0; transform: translateY(10px); transition: opacity .45s, transform .45s; }
+  .gdPage.on .gdTxt > * { opacity: 1; transform: none; }
+  .gdPage.on .gdTxt > :nth-child(2) { transition-delay: .08s; } .gdPage.on .gdTxt > :nth-child(3) { transition-delay: .16s; } .gdPage.on .gdTxt > :nth-child(4) { transition-delay: .24s; }
+  .gdNum { font-style: normal; font-size: 11px; letter-spacing: 2px; color: #4fd8ff; font-weight: 800; }
+  .gdTxt b { font-size: 21px; color: #ffffff; letter-spacing: 0.5px; } .gdTxt p { margin: 0; font-size: 13.5px; color: #cfe3ff; line-height: 1.4; }
+  .gdTxt ul { margin: 2px 0 0; padding-inline-start: 18px; } .gdTxt li { font-size: 13px; color: #b8cbe2; margin: 4px 0; line-height: 1.35; } .gdTxt li::marker { color: #ffc94a; }
+  .gdNav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 22px 4px; }
+  .gdDots { display: flex; gap: 8px; align-items: center; }
+  .gdDots button { width: 10px; height: 10px; border-radius: 5px; padding: 0; border: 0; background: #2a4566; cursor: pointer; transition: width .3s, background .3s; }
+  .gdDots button.on { width: 28px; background: #4fd8ff; }
+  .gdArrow { width: 46px; height: 44px; border-radius: 12px; border: 1px solid #2a6f9c; background: transparent; color: #cfe3ff; font-size: 22px; cursor: pointer; padding: 0; }
+  .gdArrow[disabled] { opacity: 0.3; cursor: default; }
+  .gdNav .frOk { min-width: 170px; }
+  @keyframes gdFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  @keyframes gdPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+  @keyframes gdSpin { to { transform: rotate(360deg); } }
+  @keyframes gdBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+  @keyframes gdWave { 0%, 100% { transform: skewY(0); } 50% { transform: skewY(-8deg); } }
+  @keyframes gdDash { to { stroke-dashoffset: -24; } }
+  .gdArt .fl { animation: gdFloat 2.2s ease-in-out infinite; } .gdArt .pu { animation: gdPulse 1.4s ease-in-out infinite; } .gdArt .sp { animation: gdSpin 6s linear infinite; }
+  .gdArt .bl { animation: gdBlink 1.6s ease-in-out infinite; } .gdArt .wv { animation: gdWave 1.2s ease-in-out infinite; } .gdArt .da { animation: gdDash 1s linear infinite; }
+  .gdArt .fl, .gdArt .pu, .gdArt .sp, .gdArt .wv { transform-box: fill-box; transform-origin: center; } .gdArt .wv { transform-origin: left center; }
+  .hgLock { margin-top: 10px; } .hgLock p { margin: 0 0 6px; font-size: 11px; letter-spacing: 1.5px; color: #8fa6c4; text-transform: uppercase; }
+  .hgLock > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .hgLock button { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 9px 4px 8px; border-radius: 10px; border: 1px dashed #3a4f6e; background: rgba(10, 18, 32, 0.6); color: #6f86a6; font: inherit; font-size: 11px; letter-spacing: 0; line-height: 1.15; text-align: center; cursor: pointer; }
+  .hgLock button > svg { width: 20px; height: 20px; } .hgLock i { position: absolute; top: 3px; right: 4px; } .hgLock i svg { width: 12px; height: 12px; color: #ffc94a; }
+  .ctyHead { display: flex; align-items: center; gap: 8px; margin: 14px 0 8px; font-size: 14px; color: #cfe3ff; font-weight: 600; } .ctyHead svg { width: 18px; height: 18px; color: #8fa6c4; }
+  .ctyNote { margin: 6px 0 0; font-size: 12px; text-align: start; }
+  #ctyList { max-height: 160px; overflow-y: auto; grid-template-columns: repeat(2, 1fr); } #ctyList .chip { justify-content: flex-start; text-align: start; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0; } #ctyList .chip b { margin-inline-end: 8px; }
   .frSeason { font-size: 13px; letter-spacing: 1px; color: #9fb6d0; font-weight: 600; }
   .frWrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px; padding: 0 22px 16px; align-items: stretch; }
   .frLeft { display: flex; flex-direction: column; gap: 10px; }
@@ -735,7 +803,9 @@
   .homeSet { position: absolute; top: 10px; left: 10px; width: 40px; height: 40px; padding: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(10, 18, 32, 0.7); border: 1px solid #1f3554; color: #8fa6c4; }
   .homeSet svg { width: 20px; height: 20px; }
   .homeR { gap: 10px; }
-  .hGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hGrid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .homeSet[hidden], .hgFight[hidden], .htile[hidden] { display: none !important; }
+  .htile.set { border-color: #3d5f86; } .htile.set svg { color: #8fd3ff; }
   .htile { position: relative; display: flex; align-items: center; gap: 9px; padding: 12px 12px; border-radius: 14px; background: rgba(10, 18, 32, 0.75); border: 1px solid #2a6f9c; color: #e6f1ff; font-size: 12.5px; letter-spacing: 1px; text-align: left; min-width: 0; animation: nodeIn .5s cubic-bezier(.2, .9, .3, 1.2) both; }
   .htile > span { min-width: 0; line-height: 1.2; }
   .htile svg { width: 22px; height: 22px; flex: none; }
@@ -869,11 +939,12 @@
         <div class="hGrid">
           <button id="onlineBtn" class="htile on1" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-6 4 12 3-6h4"/></svg><span data-i18n="onlineDrone"></span></button>
           <button id="fightBtn" class="htile on2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span></button>
+          <button id="setTile" class="htile set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span data-i18n="settings"></span></button>
           <button id="storeBtn" class="htile st" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.500 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span data-i18n="store"></span><b class="gemTag" id="homeGems"></b></button>
-          <button id="profileBtn" class="htile pf"><span class="pfAv" id="homeAv"></span><span id="homeNick" data-i18n="profile"></span></button>
+          <button id="profileBtn" class="htile pf" hidden><span class="pfAv" id="homeAv"></span><span id="homeNick" data-i18n="profile"></span></button>
         </div>
       </div>
-      <button id="homeSet" class="homeSet" data-i18n-aria="settings" aria-label="Paramètres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></button>
+      <button id="homeSet" class="homeSet" hidden data-i18n-aria="settings" aria-label="Paramètres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></button>
     </div>
     <div id="storeView" hidden>
       <div class="setHead">
@@ -910,18 +981,25 @@
       </div>
     </div>
     <div id="frontView" hidden>
-      <div class="setHead">
-        <button id="frontBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <h2><span data-i18n="front"></span> <small class="frSeason" id="frSeason"></small></h2>
-        <button id="frHelp" class="iconBtn" data-i18n-aria="guideTitle" aria-label="?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5V14M12 17.5v.01"/></svg></button>
+      <div class="onHead">
+        <button class="onTop" data-on="store"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.5 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span><b data-i18n="store"></b><small class="onGems"></small></span></button>
+        <h2><span data-i18n="front"></span> <small class="frSeason" id="frSeason"></small><button id="frHelp" class="frHelp" data-i18n-aria="guideTitle" aria-label="?">?</button></h2>
+        <button class="onTop pf" data-on="profile"><span class="onAv"></span><span><b class="onNick"></b><small class="onSub"></small></span></button>
       </div>
       <div id="frBody"></div>
+      <nav class="onNav">
+        <button class="onNb back" data-on="home" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="nav_fight"></span></button>
+        <button class="onNb chat" data-on="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span data-i18n="nav_chat"></span></button>
+        <button class="onNb" data-on="drone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/><path d="M8 8l1.5 1.5M16 8l-1.5 1.5M8 16l1.5-1.5M16 16l-1.5-1.5"/></svg><span data-i18n="drone"></span></button>
+      </nav>
     </div>
     <div id="hangarView" hidden>
-      <div class="setHead">
-        <button id="hangarBack" class="iconBtn" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <h2 data-i18n="online"></h2>
+      <div class="onHead">
+        <button class="onTop" data-on="store"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.5 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span><b data-i18n="store"></b><small class="onGems"></small></span></button>
+        <h2><span data-i18n="drone"></span></h2>
         <span class="hgCur" id="hgCur"></span>
+        <button class="onTop pf" data-on="profile"><span class="onAv"></span><span><b class="onNick"></b><small class="onSub"></small></span></button>
       </div>
       <div class="hgWrap">
         <div class="hgStage" id="hgStage">
@@ -930,14 +1008,25 @@
           <div class="hgFx" id="hgFx"></div>
           <div class="hgBanner" id="hgBanner" hidden></div>
           <p class="hgHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg><span data-i18n="dragHint"></span></p>
-          <button id="hgFight" class="hgFight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span></button>
+          <button id="hgFight" class="hgFight" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 17.500 3 6V3h3l11.500 11.500M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="fightOnline"></span></button>
         </div>
         <div class="hgSide">
           <div class="seg" id="hgTabs"></div>
           <div id="hgGrid"></div>
           <div id="hgBuy" hidden></div>
+          <div class="hgLock"><p data-i18n="lkTitle"></p><div>
+            <button data-lk="comp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3H5a2 2 0 0 0-2 2v5h2a2 2 0 1 1 0 4H3v5a2 2 0 0 0 2 2h5v-2a2 2 0 1 1 4 0v2h5a2 2 0 0 0 2-2v-5"/></svg><span data-i18n="lk_comp"></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i></button>
+            <button data-lk="boost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span data-i18n="lk_boost"></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i></button>
+            <button data-lk="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><span data-i18n="lk_chip"></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></i></button>
+          </div></div>
         </div>
       </div>
+      <nav class="onNav">
+        <button class="onNb back" data-on="home" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="nav_fight"></span></button>
+        <button class="onNb chat" data-on="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span data-i18n="nav_chat"></span></button>
+        <button class="onNb" data-on="drone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/><path d="M8 8l1.5 1.5M16 8l-1.5 1.5M8 16l1.5-1.5M16 16l-1.5-1.5"/></svg><span data-i18n="drone"></span></button>
+      </nav>
     </div>
     <div id="evoView" hidden>
       <div class="setHead">
@@ -998,6 +1087,12 @@
               <div class="langList" id="langList"></div>
             </div>
           </div>
+          <div class="ctyHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-i18n="country"></span></div>
+          <div class="langPick">
+            <button class="langCur" id="ctyCur"></button>
+            <div class="langPop" id="ctyPop" hidden><div class="langList" id="ctyList"></div></div>
+          </div>
+          <p class="sub ctyNote" data-i18n="pfCountry"></p>
         </section>
         <section class="card">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span data-i18n="audio">Son et vibration</span></div>
@@ -1006,6 +1101,8 @@
           <div class="toggleRow" id="notifRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg><span data-i18n="notifs">Notifications</span></span><button class="switch" role="switch" data-opt="notif" data-toggle data-i18n-aria="notifs" aria-label="Notifications"></button></div>
           <p class="sub" id="notifNote" style="margin:4px 0 0;font-size:12px;text-align:left"></p>
           <div class="toggleRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span data-i18n="comfort"></span></span><button class="switch" role="switch" data-opt="comfort" data-toggle data-i18n-aria="comfort" aria-label="Confort visuel"></button></div>
+          <div class="toggleRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><span data-i18n="gfx"></span></span><div class="seg"><button data-opt="gfx" data-val="high" data-i18n="gfxHigh"></button><button data-opt="gfx" data-val="eco" data-i18n="gfxEco"></button></div></div>
+          <div class="toggleRow"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></svg><span data-i18n="chatTitle"></span></span><button class="switch" role="switch" data-opt="chat" data-toggle data-i18n-aria="chatTitle" aria-label="Chat"></button></div>
         </section>
         <section class="card full" id="ctrlSec">
           <div class="cardHead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3M15.5 12h.01M18 13.5h.01"/></svg><span data-i18n="controls">Commandes</span></div>
@@ -1115,7 +1212,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '2.0.1';
+  var APP_VERSION = '2.0.2';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = false;
   var LS = (function () {
@@ -1135,7 +1232,7 @@
 
   var W = 0, H = 0, DPR = 1, zoom = 1, VW = 0, VH = 0;
   function resize() {
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    DPR = Math.min(window.devicePixelRatio || 1, typeof cfg !== 'undefined' && cfg && cfg.gfx === 'eco' ? 1 : 2);
     W = window.innerWidth; H = window.innerHeight;
     canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
     zoom = Math.max(0.5, Math.min(1, Math.min(W, H) / 640));
@@ -1474,6 +1571,37 @@
   var RTL = { ar: 1, fa: 1 };
   var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'], pt: ['Português', 'Portuguese portugais'], de: ['Deutsch', 'German allemand'], tr: ['Türkçe', 'Turkish turc'], id: ['Indonesia', 'Indonesian indonesien bahasa'], hi: ['हिन्दी', 'Hindi'] };
   var T = {
+    next: ["SUIVANT", "NEXT", "SIGUIENTE", "AVANTI", "下一页", "ДАЛЕЕ", "التالي", "بعدی", "次へ", "다음", "PRÓXIMO", "WEITER", "İLERİ", "LANJUT", "आगे"],
+    join: ["REJOINDRE", "JOIN", "UNIRSE A", "UNISCITI A", "加入", "ВСТУПИТЬ:", "انضم إلى", "پیوستن به", "参加", "합류", "ENTRAR", "BEITRETEN:", "KATIL:", "GABUNG", "शामिल हों"],
+    facFinal: ["Attention : ce choix est définitif.", "Careful: this choice is final.", "Atención: esta elección es definitiva.", "Attenzione: questa scelta è definitiva.", "注意：此选择不可更改。", "Внимание: этот выбор окончательный.", "انتبه: هذا الاختيار نهائي.", "توجه: این انتخاب قطعی است.", "注意：この選択は変更できません。", "주의: 이 선택은 변경할 수 없습니다.", "Atenção: esta escolha é definitiva.", "Achtung: Diese Wahl ist endgültig.", "Dikkat: bu seçim kesindir.", "Perhatian: pilihan ini permanen.", "ध्यान दें: यह चुनाव अंतिम है।"],
+    b1a: ["Ton camp est définitif : impossible d’en changer ensuite.", "Your side is final: you cannot change it later.", "Tu bando es definitivo: no podrás cambiarlo después.", "La tua fazione è definitiva: non potrai cambiarla.", "阵营一旦选定便无法更改。", "Сторону нельзя будет сменить.", "معسكرك نهائي: لا يمكن تغييره لاحقًا.", "جناح تو قطعی است و بعدًا قابل تغییر نیست.", "陣営は後から変更できません。", "진영은 나중에 바꿀 수 없습니다.", "Seu lado é definitivo: não dá para mudar depois.", "Deine Seite ist endgültig und nicht mehr änderbar.", "Tarafın kesindir: sonradan değiştiremezsin.", "Pihakmu permanen: tidak bisa diganti nanti.", "आपका पक्ष अंतिम है: बाद में बदला नहीं जा सकता।"],
+    b1b: ["Tu rejoins l’alliance de ton camp et ses pilotes.", "You join your side’s alliance and its pilots.", "Te unes a la alianza de tu bando y a sus pilotos.", "Entri nell’alleanza della tua fazione e dei suoi piloti.", "你将加入阵营联盟，与其飞行员并肩作战。", "Ты вступаешь в альянс своей стороны.", "تنضم إلى تحالف معسكرك وطياريه.", "به اتحاد جناحت و خلبانانش می‌پیوندی.", "陣営の同盟とパイロットに加わります。", "진영의 동맹과 파일럿들과 함께합니다.", "Você entra na aliança do seu lado e de seus pilotos.", "Du trittst der Allianz deiner Seite bei.", "Tarafının ittifakına ve pilotlarına katılırsın.", "Kamu bergabung dengan aliansi pihakmu.", "आप अपने पक्ष के गठबंधन से जुड़ते हैं।"],
+    b2a: ["Colosse vaincu hors ligne = diamants gratuits.", "Colossus beaten offline = free diamonds.", "Coloso vencido sin conexión = diamantes gratis.", "Colosso battuto offline = diamanti gratis.", "离线击败巨像 = 免费钻石。", "Колосс побеждён офлайн = бесплатные алмазы.", "عملاق مهزوم دون اتصال = ماس مجاني.", "غول شکست‌خورده در آفلاین = الماس رایگان.", "オフラインで巨像撃破＝無料ダイヤ。", "오프라인 거신 격파 = 무료 다이아몬드.", "Colosso vencido offline = diamantes grátis.", "Koloss offline besiegt = Gratis-Diamanten.", "Çevrimdışı yenilen dev = ücretsiz elmas.", "Raksasa dikalahkan offline = berlian gratis.", "ऑफ़लाइन विशालकाय हराएँ = मुफ़्त हीरे।"],
+    b2b: ["Diamants → roues dentées → niveaux, missiles et évolutions.", "Diamonds → gears → levels, missiles and evolutions.", "Diamantes → engranajes → niveles, misiles y evoluciones.", "Diamanti → ingranaggi → livelli, missili ed evoluzioni.", "钻石 → 齿轮 → 等级、导弹和进化。", "Алмазы → шестерёнки → уровни, ракеты и эволюции.", "الماس ← تروس ← مستويات وصواريخ وتطورات.", "الماس ← چرخ‌دنده ← سطح، موشک و تکامل.", "ダイヤ → ギア → レベル・ミサイル・進化。", "다이아몬드 → 톱니바퀴 → 레벨, 미사일, 진화.", "Diamantes → engrenagens → níveis, mísseis e evoluções.", "Diamanten → Zahnräder → Level, Raketen, Entwicklungen.", "Elmas → dişli → seviye, füze ve evrim.", "Berlian → roda gigi → level, rudal, dan evolusi.", "हीरे → गियर → स्तर, मिसाइलें और विकास।"],
+    b3a: ["Commence par le défi fantôme : pas besoin d’attendre un adversaire.", "Start with the ghost challenge: no need to wait for an opponent.", "Empieza por el desafío fantasma: no hace falta esperar rival.", "Inizia con la sfida fantasma: nessun avversario da aspettare.", "先从幽灵挑战开始：无需等待对手。", "Начни с вызова призрака: ждать соперника не нужно.", "ابدأ بتحدي الشبح: لا حاجة لانتظار خصم.", "با چالش شبح شروع کن: لازم نیست منتظر حریف بمانی.", "まずはゴースト対戦から：相手を待つ必要なし。", "고스트 대결부터 시작하세요: 상대를 기다릴 필요가 없습니다.", "Comece pelo desafio fantasma: sem esperar adversário.", "Starte mit dem Geister-Duell: kein Warten auf Gegner.", "Hayalet düellosuyla başla: rakip beklemene gerek yok.", "Mulai dari tantangan hantu: tak perlu menunggu lawan.", "घोस्ट चुनौती से शुरू करें: विरोधी का इंतज़ार नहीं।"],
+    b3b: ["Chaque secteur a son danger : lis sa fiche avant de combattre.", "Each sector has its hazard: read its sheet before fighting.", "Cada sector tiene su peligro: lee su ficha antes de luchar.", "Ogni settore ha il suo pericolo: leggi la scheda prima.", "每个区域都有危险：战斗前先看说明。", "У каждого сектора своя опасность: прочти карточку.", "لكل قطاع خطره: اقرأ بطاقته قبل القتال.", "هر منطقه خطر خودش را دارد: قبل از نبرد معرفی‌اش را بخوان.", "各セクターには危険あり：戦う前に確認を。", "구역마다 위험이 있습니다: 전투 전에 확인하세요.", "Cada setor tem seu perigo: leia a ficha antes.", "Jeder Sektor hat seine Gefahr: lies vorher die Karte.", "Her bölgenin tehlikesi var: savaşmadan önce oku.", "Tiap sektor punya bahaya: baca infonya dulu.", "हर क्षेत्र का ख़तरा अलग है: लड़ने से पहले पढ़ें।"],
+    b4a: ["Une victoire fait gagner des points, une défaite en fait perdre un peu.", "A win earns points, a loss costs a few.", "Una victoria da puntos, una derrota resta algunos.", "Una vittoria dà punti, una sconfitta ne toglie un po’.", "胜利得分，失败扣少量分。", "Победа приносит очки, поражение немного отнимает.", "الفوز يمنح نقاطًا والخسارة تُفقد القليل.", "پیروزی امتیاز می‌دهد و شکست کمی کم می‌کند.", "勝てばポイント獲得、負けると少し減少。", "승리하면 점수 획득, 패배하면 조금 잃습니다.", "Vitória dá pontos, derrota tira alguns.", "Siege bringen Punkte, Niederlagen kosten ein paar.", "Zafer puan kazandırır, yenilgi biraz kaybettirir.", "Menang menambah poin, kalah mengurangi sedikit.", "जीत से अंक मिलते हैं, हार से थोड़े घटते हैं।"],
+    b4b: ["Les meilleurs pilotes entrent au classement mondial et de leur pays.", "Top pilots enter the global and country leaderboards.", "Los mejores pilotos entran en la clasificación mundial y de su país.", "I migliori piloti entrano nella classifica mondiale e del loro paese.", "顶尖飞行员登上全球和国家排行榜。", "Лучшие пилоты попадают в мировой рейтинг и рейтинг страны.", "أفضل الطيارين يدخلون الترتيب العالمي وترتيب بلدهم.", "بهترین خلبانان وارد رده‌بندی جهانی و کشوری می‌شوند.", "トップパイロットは世界と国別ランキングに登場。", "최고의 파일럿은 전 세계 및 국가 순위표에 오릅니다.", "Os melhores pilotos entram na classificação mundial e do país.", "Die besten Piloten kommen in die Welt- und Landesrangliste.", "En iyi pilotlar dünya ve ülke sıralamasına girer.", "Pilot terbaik masuk peringkat global dan negara.", "सर्वश्रेष्ठ पायलट वैश्विक और देश की सूची में आते हैं।"],
+    b5a: ["Touche un secteur de la carte pour voir son danger et sa récompense.", "Tap a sector on the map to see its hazard and reward.", "Toca un sector del mapa para ver su peligro y recompensa.", "Tocca un settore sulla mappa per vedere pericolo e premio.", "点击地图上的区域，查看危险与奖励。", "Нажми на сектор карты, чтобы увидеть опасность и награду.", "المس قطاعًا على الخريطة لترى خطره ومكافأته.", "روی منطقه‌ای در نقشه بزن تا خطر و جایزه‌اش را ببینی.", "マップのセクターをタップして危険と報酬を確認。", "지도의 구역을 눌러 위험과 보상을 확인하세요.", "Toque num setor do mapa para ver perigo e recompensa.", "Tippe auf einen Sektor, um Gefahr und Belohnung zu sehen.", "Tehlike ve ödülü görmek için haritada bir bölgeye dokun.", "Ketuk sektor di peta untuk melihat bahaya dan hadiahnya.", "ख़तरा और इनाम देखने के लिए नक्शे पर क्षेत्र छुएँ।"],
+    b5b: ["Parle à ton alliance dans le chat pour attaquer ensemble.", "Talk to your alliance in the chat to attack together.", "Habla con tu alianza en el chat para atacar juntos.", "Parla con la tua alleanza in chat per attaccare insieme.", "在聊天中与联盟沟通，一起进攻。", "Общайся с альянсом в чате, чтобы атаковать вместе.", "تحدث مع تحالفك في الدردشة لتهاجموا معًا.", "در گفتگو با اتحادت هماهنگ کن تا با هم حمله کنید.", "チャットで同盟と話して一緒に攻めよう。", "채팅으로 동맹과 소통해 함께 공격하세요.", "Fale com sua aliança no chat para atacarem juntos.", "Sprich im Chat mit deiner Allianz, um gemeinsam anzugreifen.", "Birlikte saldırmak için sohbette ittifakınla konuş.", "Bicara dengan aliansimu di obrolan untuk menyerang bersama.", "साथ हमला करने के लिए चैट में गठबंधन से बात करें।"],
+    nav_fight: ["Combats", "Battles", "Combates", "Battaglie", "战斗", "Бои", "المعارك", "نبردها", "バトル", "전투", "Combates", "Kämpfe", "Savaşlar", "Pertempuran", "लड़ाइयाँ"],
+    nav_chat: ["Chat", "Chat", "Chat", "Chat", "聊天", "Чат", "الدردشة", "گفتگو", "チャット", "채팅", "Chat", "Chat", "Sohbet", "Obrolan", "चैट"],
+    chatTitle: ["Chat de l’alliance", "Alliance chat", "Chat de la alianza", "Chat dell’alleanza", "联盟聊天", "Чат альянса", "دردشة التحالف", "گفتگوی اتحاد", "同盟チャット", "동맹 채팅", "Chat da aliança", "Allianz-Chat", "İttifak sohbeti", "Obrolan aliansi", "गठबंधन चैट"],
+    chatWelcome: ["Bienvenue chez les {f} ! Ici, tu discuteras avec les pilotes de ton alliance pour organiser vos attaques.", "Welcome to the {f}! Here you will chat with your alliance pilots to plan your attacks.", "¡Bienvenido a los {f}! Aquí hablarás con los pilotos de tu alianza para organizar ataques.", "Benvenuto tra i {f}! Qui parlerai con i piloti dell’alleanza per organizzare gli attacchi.", "欢迎加入{f}！你可以在这里与联盟飞行员交流并策划进攻。", "Добро пожаловать к {f}! Здесь ты будешь общаться с пилотами альянса и планировать атаки.", "مرحبًا بك في {f}! هنا ستتحدث مع طياري تحالفك لتنظيم هجماتكم.", "به {f} خوش آمدی! اینجا با خلبانان اتحادت برای حمله‌ها هماهنگ می‌کنی.", "{f}へようこそ！ここで同盟のパイロットと作戦を立てます。", "{f}에 오신 것을 환영합니다! 이곳에서 동맹 파일럿과 공격을 계획합니다.", "Bem-vindo aos {f}! Aqui você conversará com os pilotos da aliança para organizar ataques.", "Willkommen bei den {f}! Hier planst du mit deinen Allianzpiloten eure Angriffe.", "{f} saflarına hoş geldin! Burada ittifak pilotlarıyla saldırıları planlarsın.", "Selamat datang di {f}! Di sini kamu mengobrol dengan pilot aliansi untuk mengatur serangan.", "{f} में स्वागत है! यहाँ आप गठबंधन के पायलटों से हमलों की योजना बनाएँगे।"],
+    chatSoon: ["Le chat s’activera avec les comptes en ligne.", "The chat will turn on with online accounts.", "El chat se activará con las cuentas en línea.", "La chat si attiverà con gli account online.", "聊天将在在线账号上线后开放。", "Чат заработает вместе с онлайн-аккаунтами.", "ستُفعّل الدردشة مع الحسابات عبر الإنترنت.", "گفتگو با حساب‌های آنلاین فعال می‌شود.", "チャットはオンラインアカウント導入後に有効になります。", "채팅은 온라인 계정과 함께 활성화됩니다.", "O chat será ativado com as contas online.", "Der Chat startet mit den Online-Konten.", "Sohbet çevrimiçi hesaplarla etkinleşecek.", "Obrolan aktif bersama akun online.", "चैट ऑनलाइन खातों के साथ चालू होगी।"],
+    chatPh: ["Bientôt disponible", "Coming soon", "Disponible pronto", "Disponibile a breve", "即将开放", "Скоро", "قريبًا", "به‌زودی", "近日公開", "곧 제공", "Em breve", "Bald verfügbar", "Yakında", "Segera hadir", "जल्द उपलब्ध"],
+    chatOff: ["Chat désactivé dans les paramètres.", "Chat turned off in settings.", "Chat desactivado en los ajustes.", "Chat disattivata nelle impostazioni.", "聊天已在设置中关闭。", "Чат отключён в настройках.", "الدردشة معطلة في الإعدادات.", "گفتگو در تنظیمات خاموش است.", "設定でチャットがオフです。", "설정에서 채팅이 꺼져 있습니다.", "Chat desativado nas configurações.", "Chat in den Einstellungen deaktiviert.", "Sohbet ayarlardan kapatıldı.", "Obrolan dimatikan di pengaturan.", "सेटिंग्स में चैट बंद है।"],
+    lkTitle: ["Prochaines améliorations", "Upcoming upgrades", "Próximas mejoras", "Prossimi potenziamenti", "后续升级", "Будущие улучшения", "ترقيات قادمة", "ارتقاهای آینده", "今後の強化", "다음 강화", "Próximas melhorias", "Kommende Upgrades", "Gelecek geliştirmeler", "Peningkatan mendatang", "आगामी अपग्रेड"],
+    lk_comp: ["Composants", "Components", "Componentes", "Componenti", "组件", "Компоненты", "المكونات", "قطعات", "コンポーネント", "부품", "Componentes", "Komponenten", "Bileşenler", "Komponen", "पुर्ज़े"],
+    lk_boost: ["Boost de combat", "Combat boost", "Impulso de combate", "Boost di combattimento", "战斗强化", "Боевой буст", "تعزيز قتالي", "تقویت نبرد", "戦闘ブースト", "전투 부스트", "Impulso de combate", "Kampfboost", "Savaş takviyesi", "Penguat tempur", "युद्ध बूस्ट"],
+    lk_chip: ["Puce de compétence", "Skill chip", "Chip de habilidad", "Chip abilità", "技能芯片", "Чип навыка", "شريحة المهارة", "تراشه مهارت", "スキルチップ", "스킬 칩", "Chip de habilidade", "Fähigkeitschip", "Yetenek çipi", "Chip keahlian", "कौशल चिप"],
+    lkMsg: ["Se débloque lors d’une prochaine saison.", "Unlocks in a future season.", "Se desbloquea en una próxima temporada.", "Si sblocca in una prossima stagione.", "将在之后的赛季解锁。", "Откроется в одном из следующих сезонов.", "يُفتح في موسم قادم.", "در یکی از فصل‌های آینده باز می‌شود.", "今後のシーズンで解放されます。", "다음 시즌 중 하나에서 잠금 해제됩니다.", "Desbloqueia em uma próxima temporada.", "Wird in einer kommenden Saison freigeschaltet.", "Gelecek bir sezonda açılır.", "Terbuka di musim mendatang.", "किसी आगामी सीज़न में खुलेगा।"],
+    country: ["Pays", "Country", "País", "Paese", "国家/地区", "Страна", "البلد", "کشور", "国・地域", "국가", "País", "Land", "Ülke", "Negara", "देश"],
+    noCountry: ["Non précisé", "Not set", "Sin indicar", "Non indicato", "未设置", "Не указано", "غير محدد", "تعیین نشده", "未設定", "설정 안 함", "Não informado", "Nicht angegeben", "Belirtilmedi", "Belum diatur", "तय नहीं"],
+    gfx: ["Qualité graphique", "Graphics quality", "Calidad gráfica", "Qualità grafica", "画质", "Качество графики", "جودة الرسوميات", "کیفیت گرافیک", "画質", "그래픽 품질", "Qualidade gráfica", "Grafikqualität", "Grafik kalitesi", "Kualitas grafis", "ग्राफ़िक्स गुणवत्ता"],
+    gfxHigh: ["Haute", "High", "Alta", "Alta", "高", "Высокое", "عالية", "بالا", "高", "높음", "Alta", "Hoch", "Yüksek", "Tinggi", "उच्च"],
+    gfxEco: ["Économie batterie", "Battery saver", "Ahorro de batería", "Risparmio batteria", "省电", "Экономия батареи", "توفير البطارية", "صرفه‌جویی باتری", "省電力", "배터리 절약", "Economia de bateria", "Akkusparen", "Pil tasarrufu", "Hemat baterai", "बैटरी बचत"],
+    pfCountry: ["Pays affiché dans ton profil et au classement.", "Country shown on your profile and leaderboards.", "País mostrado en tu perfil y en la clasificación.", "Paese mostrato nel profilo e in classifica.", "显示在个人资料和排行榜中。", "Страна в профиле и рейтинге.", "البلد الظاهر في ملفك وفي الترتيب.", "کشوری که در نمایه و رده‌بندی نشان داده می‌شود.", "プロフィールとランキングに表示。", "프로필과 순위표에 표시됩니다.", "País exibido no perfil e na classificação.", "Land in Profil und Rangliste.", "Profilinde ve sıralamada görünen ülke.", "Negara di profil dan peringkat.", "प्रोफ़ाइल और लीडरबोर्ड में दिखने वाला देश।"],
     guideTitle: ["COMMENT ÇA MARCHE", "HOW IT WORKS", "CÓMO FUNCIONA", "COME FUNZIONA", "玩法说明", "КАК ЭТО РАБОТАЕТ", "كيف تعمل اللعبة", "چگونه کار می‌کند", "遊び方", "플레이 방법", "COMO FUNCIONA", "SO FUNKTIONIERT ES", "NASIL ÇALIŞIR", "CARA BERMAIN", "कैसे खेलें"],
     g1d: ["Faucons ou Spectres : tu combats pour ce camp pendant toute la saison.", "Hawks or Specters: you fight for this side all season long.", "Halcones o Espectros: luchas por este bando toda la temporada.", "Falchi o Spettri: combatti per questa fazione per tutta la stagione.", "猎鹰或幽灵：整个赛季你都为该阵营而战。", "Соколы или Призраки: ты сражаешься за эту сторону весь сезон.", "الصقور أو الأشباح: تقاتل لهذا المعسكر طوال الموسم.", "شاهین‌ها یا شبح‌ها: در تمام فصل برای این جناح می‌جنگی.", "ホークかスペクター：シーズン中はその陣営のために戦います。", "호크 또는 스펙터: 시즌 내내 그 진영을 위해 싸웁니다.", "Falcões ou Espectros: você luta por esse lado a temporada toda.", "Falken oder Gespenster: Du kämpfst die ganze Saison für diese Seite.", "Şahinler mi Hayaletler mi: tüm sezon bu taraf için savaşırsın.", "Elang atau Bayangan: kamu bertarung untuk pihak ini sepanjang musim.", "बाज़ या प्रेत: पूरे सीज़न आप इसी पक्ष के लिए लड़ते हैं।"],
     g2t: ["Prépare ton drone", "Prepare your drone", "Prepara tu dron", "Prepara il tuo drone", "准备你的无人机", "Подготовь дрон", "جهّز طائرتك", "پهپادت را آماده کن", "ドローンを準備", "드론 준비", "Prepare seu drone", "Bereite deine Drohne vor", "Dronunu hazırla", "Siapkan dronemu", "अपना ड्रोन तैयार करें"],
@@ -1863,6 +1991,25 @@
     });
     var list = document.getElementById('langList'), body = h || '<p class="langNone">' + esc(tr('noLang')) + '</p>';
     if (list.getAttribute('data-sig') !== body) { list.innerHTML = body; list.setAttribute('data-sig', body); }
+    renderCtyPick();
+  }
+  var COUNTRIES = 'FR BE CH LU MC CA US GB IE DE AT NL ES PT IT SE NO DK FI PL RO GR UA RU TR MA DZ TN LY EG SN CI CM ML NG ZA SA AE QA KW JO LB IQ SY PS IR PK IN BD ID MY PH VN TH CN JP KR AU NZ BR MX AR CO CL PE'.split(' ');
+  function flagOf(c) { if (!c) return '\uD83C\uDFF3\uFE0F'; var r = ''; for (var i = 0; i < 2; i++) r += String.fromCodePoint(0x1F1E6 + c.charCodeAt(i) - 65); return r; }
+  var ctyNames = {};
+  function ctyName(c) {
+    if (!c) return tr('noCountry');
+    var k = cfg.lang + c; if (ctyNames[k]) return ctyNames[k];
+    var n = c; try { n = new Intl.DisplayNames([cfg.lang === 'zh' ? 'zh-CN' : cfg.lang], { type: 'region' }).of(c) || c; } catch (err) { /* ignore */ }
+    return (ctyNames[k] = n);
+  }
+  function renderCtyPick() {
+    var cur = document.getElementById('ctyCur'); if (!cur) return;
+    var ch = '<b>' + flagOf(cfg.country) + '</b><span>' + esc(ctyName(cfg.country)) + '</span><i>\u25BE</i>';
+    if (cur.getAttribute('data-sig') !== ch) { cur.innerHTML = ch; cur.setAttribute('data-sig', ch); }
+    var pop = document.getElementById('ctyPop'); if (pop.hidden) return;
+    var list = COUNTRIES.slice().sort(function (x, y) { return ctyName(x).localeCompare(ctyName(y)); }), h = '<button class="chip' + (!cfg.country ? ' on' : '') + '" data-opt="country" data-val="">' + esc(tr('noCountry')) + '</button>';
+    list.forEach(function (c) { h += '<button class="chip' + (c === cfg.country ? ' on' : '') + '" data-opt="country" data-val="' + c + '"><b>' + flagOf(c) + '</b>' + esc(ctyName(c)) + '</button>'; });
+    var el = document.getElementById('ctyList'); if (el.getAttribute('data-sig') !== h) { el.innerHTML = h; el.setAttribute('data-sig', h); }
   }
   function tr(key, vars) {
     var row = T[key];
@@ -1893,7 +2040,7 @@
   };
   var PCOL = { heal: '#5dff9b', rapid: '#ffd166', shield: '#6fa8ff', gun: '#f5f7ff', life: '#ff6b9d' };
   var D = DIFFS.normal, gameDiff = 'normal', gameDrone = 'poly';
-  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, notif: true, comfort: false, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
+  var cfg = { bind: {}, labels: {}, aim: 'mouse', sound: true, vib: true, notif: true, comfort: false, country: '', gfx: 'high', chat: true, diff: 'normal', drone: 'poly', map: 'plain', lang: detectLang() };
   var WAVES = 50, CHAPTERS = 50, TOTAL = WAVES * CHAPTERS, CREDIT_RATE = 0.3;
   var camp = {};
   try { camp = JSON.parse(LS.getItem('droneStrikeCamp') || '{}') || {}; } catch (err) { camp = {}; }
@@ -2138,6 +2285,9 @@
       if (saved.vib === false) cfg.vib = false;
       if (saved.notif === false) cfg.notif = false;
       if (saved.comfort === true) cfg.comfort = true;
+      if (typeof saved.country === 'string' && /^[A-Z]{2}$|^$/.test(saved.country)) cfg.country = saved.country;
+      if (saved.gfx === 'eco') cfg.gfx = 'eco';
+      if (saved.chat === false) cfg.chat = false;
       if (DIFFS[saved.diff]) cfg.diff = saved.diff;
       if (DRONES[saved.drone]) cfg.drone = saved.drone;
       if (typeof saved.game === 'string') cfg.game = saved.game;
@@ -2386,7 +2536,7 @@
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
-  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION + (TEST_MODE ? ' \u00b7 TEST' : ''); vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); renderFront(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
+  function renderAll() { fitDirty = true; if (document.body && document.body.classList) document.body.classList.toggle('comfort', !!cfg.comfort); var vt = document.getElementById('verTag'); vt.textContent = 'V' + APP_VERSION + (TEST_MODE ? ' \u00b7 TEST' : ''); vt.hidden = state === 'play'; renderHelp(); renderBinds(); renderHome(); renderHangar(); renderEvo(); renderStore(); renderProfile(); renderFront(); renderOnline(); if (typeof renderScores === 'function' && scoreView) { renderScores(); renderPath(); renderShop(); updateItemBar(); } }
   var view = 'main', scoreDiff = 'normal', resetArmed = 0, setFrom = 'home', delArm = '', delTimer = 0;
   var homeView = document.getElementById('homeView'), gamesView = document.getElementById('gamesView'), hangarView = document.getElementById('hangarView'), evoView = document.getElementById('evoView'), storeView = document.getElementById('storeView'), profileView = document.getElementById('profileView'), frontView = document.getElementById('frontView');
   var gameView = document.getElementById('gameView'), optPlay = document.getElementById('optPlay');
@@ -2735,16 +2885,17 @@
   document.getElementById('newBtn').addEventListener('click', function () { document.getElementById('newName').value = ''; showView('game'); });
   document.getElementById('contBtn').addEventListener('click', function () { if (cGet()) goMenu(); });
   document.getElementById('homeSet').addEventListener('click', function () { showSettings(true); });
+  document.getElementById('setTile').addEventListener('click', function () { initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); showSettings(true); });
   document.getElementById('onlineBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); hangarFrom = 'home'; showView('hangar'); });
   var hangarFrom = 'home';
-  document.getElementById('hangarBack').addEventListener('click', function () { showView(hangarFrom); });
   document.getElementById('fightBtn').addEventListener('click', function () { initAudio(); beep(520, 0.1, 'triangle', 0.05, 780); frontFrom = 'home'; showView('front'); });
   var storeFrom = 'home', stTab = 'gems';
   function openStore(tab) { storeFrom = view === 'hangar' || view === 'front' ? view : 'home'; if (tab) stTab = tab; showView('store'); }
   document.getElementById('storeBtn').addEventListener('click', function () { openStore('gems'); });
   document.getElementById('storeBack').addEventListener('click', function () { showView(storeFrom); });
   document.getElementById('profileBtn').addEventListener('click', function () { pfDraft = JSON.parse(JSON.stringify(profile)); showView('profile'); });
-  document.getElementById('profileBack').addEventListener('click', function () { showView('home'); });
+  var profFrom = 'home';
+  document.getElementById('profileBack').addEventListener('click', function () { showView(profFrom); });
   var DPACKS = [[80, 0.99, 0], [450, 4.99, 10], [1000, 9.99, 20], [2200, 19.99, 30]], GPACKS = [[200, 10], [1200, 50], [3000, 110]];
   function eur(v) { try { return new Intl.NumberFormat(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang, { style: 'currency', currency: 'EUR' }).format(v); } catch (err) { return v.toFixed(2) + ' €'; } }
   function renderStore() {
@@ -2849,6 +3000,10 @@
     vkRender();
   });
   // ---------- Sélecteur de langue ----------
+  document.getElementById('ctyCur').addEventListener('click', function () {
+    var pop = document.getElementById('ctyPop'); pop.hidden = !pop.hidden;
+    renderCtyPick(); fitDirty = true;
+  });
   document.getElementById('langCur').addEventListener('click', function () {
     var pop = document.getElementById('langPop'); pop.hidden = !pop.hidden;
     if (!pop.hidden) renderLangPick();
@@ -2909,9 +3064,9 @@
   });
   document.getElementById('evoBack').addEventListener('click', function () { showView('hangar'); });
   document.getElementById('hgFight').addEventListener('click', function () { frontFrom = 'hangar'; showView('front'); });
-  // ===== Le Front (V2) : camps, carte des secteurs, carte de pilote =====
-  var frontFrom = 'home', frArm = 0, frMode = 'hub';
-  var FAC = { h: { c: '#ffb547', ic: '<path d="M2 7l7 3 3-5 3 5 7-3-4 10H6z"/>' }, s: { c: '#c77dff', ic: '<path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z"/><circle cx="9.5" cy="11" r="1"/><circle cx="14.5" cy="11" r="1"/>' } };
+  // ===== Le Front (V2) : camps, carte des secteurs, guide illustré, chat d'alliance =====
+  var frontFrom = 'home', frMode = 'hub', frPick = '', gdPage = 0, gdArts = null;
+  var FAC = { h: { c: '#ffb547', ic: '<path d="M12 4l1.6 3.2 8.4-1.7-5 5 3 1-5 1.5-2 6.5-1-2-1 2-2-6.5-5-1.5 3-1-5-5 8.4 1.7z"/>' }, s: { c: '#c77dff', ic: '<path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z"/><circle cx="9.5" cy="11" r="1"/><circle cx="14.5" cy="11" r="1"/>' } };
   var SECTORS = [
     { id: 'desert', own: 'h', b: ['#8a6430', '#3a2812'], ic: '<path d="M3 18c3-4 5-6 9-6s6 2 9 6M12 4v3M5.6 6.6l2 2M18.4 6.6l-2 2"/>' },
     { id: 'arctic', own: '', b: ['#4f7590', '#1a2a38'], ic: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 4l3 2 3-2M9 20l3-2 3 2"/>' },
@@ -2921,36 +3076,111 @@
     { id: 'volcano', own: '', b: ['#8a2e1a', '#2a0e0a'], ic: '<path d="M3 20l6-10h6l6 10zM10 6l2-3 2 3M12 10V7"/>' }
   ];
   function svgI(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
+  // --- Illustrations du guide (style manga : contours épais, trames, lignes de vitesse)
+  var INK = '#0b0f1a';
+  function gStar(cx, cy, n, r1, r2) { var p = []; for (var i = 0; i < n * 2; i++) { var a = Math.PI * i / n - Math.PI / 2, r = i % 2 ? r2 : r1; p.push((cx + Math.cos(a) * r).toFixed(1) + ',' + (cy + Math.sin(a) * r).toFixed(1)); } return p.join(' '); }
+  function gHex(cx, cy, r) { var p = []; for (var i = 0; i < 6; i++) { var a = Math.PI / 3 * i; p.push((cx + Math.cos(a) * r).toFixed(1) + ',' + (cy + Math.sin(a) * r).toFixed(1)); } return p.join(' '); }
+  function gBurst(cx, cy, n, r1, r2, col, op, w) { var h = ''; for (var i = 0; i < n; i++) { var a = Math.PI * 2 * i / n + (i % 2 ? 0.06 : 0), rr = r1 + (i % 3) * 8; h += '<line x1="' + (cx + Math.cos(a) * rr).toFixed(1) + '" y1="' + (cy + Math.sin(a) * rr).toFixed(1) + '" x2="' + (cx + Math.cos(a) * r2).toFixed(1) + '" y2="' + (cy + Math.sin(a) * r2).toFixed(1) + '" stroke="' + col + '" stroke-width="' + w + '" opacity="' + op + '"/>'; } return h; }
+  function gTone(id, col, op) { return '<pattern id="' + id + '" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="1.4" fill="' + col + '" opacity="' + op + '"/></pattern>'; }
+  function gArrow(x1, x2, y) { return '<path d="M' + x1 + ' ' + (y - 6) + 'H' + (x2 - 11) + 'V' + (y - 14) + 'L' + x2 + ' ' + y + 'L' + (x2 - 11) + ' ' + (y + 14) + 'V' + (y + 6) + 'H' + x1 + 'Z" fill="#ffffff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>'; }
+  function gDrone(x, y, s, cls, op) {
+    var h = '<g' + (cls ? ' class="' + cls + '"' : '') + (op ? ' opacity="' + op + '"' : '') + '><g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><path d="M-14 -10L14 10M14 -10L-14 10" stroke="' + INK + '" stroke-width="6" stroke-linecap="round"/><path d="M-14 -10L14 10M14 -10L-14 10" stroke="#cfd8e6" stroke-width="2.6" stroke-linecap="round"/>';
+    [[-14, -10], [14, -10], [-14, 10], [14, 10]].forEach(function (q) { h += '<ellipse cx="' + q[0] + '" cy="' + q[1] + '" rx="9.5" ry="3.6" fill="#e6f1ff" stroke="' + INK + '" stroke-width="2"/>'; });
+    return h + '<rect x="-8" y="-6.5" width="16" height="13" rx="3.5" fill="#ffffff" stroke="' + INK + '" stroke-width="2.6"/><circle cx="0" cy="0" r="2.8" fill="#4fd8ff" stroke="' + INK + '" stroke-width="1.2"/></g></g>';
+  }
+  function gColossus(x, y, s) {
+    return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><polygon points="-30,40 -22,-20 0,-38 22,-20 30,40" fill="#b23a48" stroke="' + INK + '" stroke-width="4" stroke-linejoin="round"/><polygon points="-30,40 -22,-20 -8,-30 -12,40" fill="#7d2030"/><circle cx="0" cy="-10" r="9" fill="#ffe14d" stroke="' + INK + '" stroke-width="3"/><circle cx="0" cy="-10" r="3" fill="' + INK + '"/><path d="M-36 0 L-22 4 M36 0 L22 4" stroke="' + INK + '" stroke-width="6" stroke-linecap="round"/></g>';
+  }
+  function gFrame() { return '<rect x="2.5" y="2.5" width="315" height="195" rx="10" fill="none" stroke="' + INK + '" stroke-width="5"/>'; }
+  function guideArts() {
+    if (gdArts) return gdArts;
+    var V = '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">', A = [];
+    // 1. Choisis ton camp : Faucons contre Spectres
+    A.push(V + '<defs>' + gTone('t1a', INK, 0.18) + gTone('t1b', '#ffffff', 0.16) + '</defs><rect width="320" height="200" fill="#1a1030"/>' +
+      '<polygon points="0,0 186,0 134,200 0,200" fill="#ffb547"/><polygon points="0,0 186,0 134,200 0,200" fill="url(#t1a)"/>' +
+      '<polygon points="186,0 320,0 320,200 134,200" fill="#8f4fd6"/><polygon points="186,0 320,0 320,200 134,200" fill="url(#t1b)"/>' +
+      gBurst(160, 100, 40, 48, 260, '#ffffff', 0.32, 2) +
+      '<g class="fl"><circle cx="78" cy="100" r="50" fill="#fff4dc" stroke="' + INK + '" stroke-width="5"/><g transform="translate(40 63) scale(3.2)"><path d="M12 4l1.6 3.2 8.4-1.7-5 5 3 1-5 1.5-2 6.5-1-2-1 2-2-6.5-5-1.5 3-1-5-5 8.4 1.7z" fill="#ffb547" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/></g></g>' +
+      '<g class="fl" style="animation-delay:.7s"><circle cx="242" cy="100" r="50" fill="#f1e4ff" stroke="' + INK + '" stroke-width="5"/><g transform="translate(204 63) scale(3.2)"><path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z" fill="#c77dff" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9.5" cy="11" r="1.4" fill="' + INK + '"/><circle cx="14.5" cy="11" r="1.4" fill="' + INK + '"/></g></g>' +
+      '<g class="pu"><polygon points="' + gStar(160, 100, 12, 40, 25) + '" fill="#ffe14d" stroke="' + INK + '" stroke-width="4" stroke-linejoin="round"/><text x="160" y="111" text-anchor="middle" font-size="29" font-weight="900" font-style="italic" fill="' + INK + '" font-family="Arial Black, Arial, sans-serif">VS</text></g>' + gFrame() + '</svg>');
+    // 2. Prépare ton drone : colosse → diamant → roue dentée → drone
+    var sl = ''; [24, 46, 150, 172, 186].forEach(function (y, i) { sl += '<line x1="' + (10 + i * 37) + '" y1="' + y + '" x2="' + (120 + i * 37) + '" y2="' + y + '" stroke="#4fd8ff" stroke-width="2" opacity=".25"/>'; });
+    A.push(V + '<defs>' + gTone('t2', '#4fd8ff', 0.12) + '</defs><rect width="320" height="200" fill="#0f1d36"/><rect width="320" height="200" fill="url(#t2)"/>' + sl +
+      '<polygon class="pu" points="' + gStar(48, 104, 10, 50, 32) + '" fill="#ff8a3d" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' + gColossus(48, 104, 0.95) +
+      '<path d="M36 72 L48 96 L42 110 L54 128" stroke="#ffffff" stroke-width="3" fill="none"/>' + gArrow(82, 104, 104) +
+      '<g class="fl"><polygon points="113,94 126,80 139,94 126,124" fill="#5ef0ff" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><path d="M113 94h26M120 94l6 30M132 94l-6 30M120 94l6-14 6 14" stroke="' + INK + '" stroke-width="1.5" fill="none"/></g>' +
+      '<polygon class="bl" points="' + gStar(146, 78, 4, 7, 2.5) + '" fill="#ffffff"/><polygon class="bl" style="animation-delay:.5s" points="' + gStar(108, 122, 4, 6, 2) + '" fill="#ffffff"/>' +
+      gArrow(148, 170, 104) +
+      '<g class="sp"><polygon points="' + gStar(198, 104, 12, 26, 20) + '" fill="#ffc94a" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><circle cx="198" cy="104" r="8" fill="#0f1d36" stroke="' + INK + '" stroke-width="3"/></g>' +
+      gArrow(229, 248, 104) + gDrone(281, 112, 1.25, 'fl') +
+      '<path class="pu" d="M281 54 l13 15 h-7 v13 h-12 v-13 h-7z" fill="#5dff9b" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' + gFrame() + '</svg>');
+    // 3. Combats : 4 cases de manga
+    function panel(x, y, rot, fill, inner) { return '<g transform="rotate(' + rot + ' ' + (x + 74) + ' ' + (y + 44) + ')"><rect x="' + x + '" y="' + y + '" width="148" height="88" fill="' + fill + '" stroke="#ffffff" stroke-width="3"/>' + inner + '</g>'; }
+    A.push(V + '<rect width="320" height="200" fill="' + INK + '"/>' +
+      panel(8, 8, -1.2, '#1d2b4f', gBurst(44, 52, 16, 22, 70, '#4fd8ff', 0.18, 2) + gDrone(44, 54, 1, '') + gDrone(118, 50, 1, 'fl', 0.45) + '<circle cx="118" cy="50" r="22" fill="none" stroke="#9fd8ff" stroke-width="2" stroke-dasharray="4 4"/><path class="da" d="M60 52 Q 82 24 98 46" stroke="#9fd8ff" stroke-width="2.5" stroke-dasharray="5 4" fill="none"/>') +
+      panel(164, 8, 1.2, '#4a1d3a', gBurst(238, 52, 18, 16, 80, '#ff4d6d', 0.2, 2) + gDrone(192, 58, 1, '') + gDrone(284, 58, 1, '') + '<polygon class="pu" points="242,18 230,52 242,52 234,86 256,44 244,44 252,18" fill="#ffe14d" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/><text x="176" y="32" font-size="17" font-weight="900" font-style="italic" fill="#ffffff" stroke="' + INK + '" stroke-width="3" paint-order="stroke" font-family="Arial Black, Arial, sans-serif">1v1</text>') +
+      panel(8, 104, 1, '#3a2a14', gColossus(82, 152, 0.82) + gDrone(30, 128, 0.75, '') + gDrone(134, 128, 0.75, '') + gDrone(82, 182, 0.7, '') + '<path class="da" d="M40 132 L64 146 M124 132 L100 146 M82 172 L82 160" stroke="#ffe14d" stroke-width="3" stroke-dasharray="5 4"/>') +
+      panel(164, 104, -1, '#14352a', '<polygon points="' + gHex(196, 150, 18) + '" fill="#ffb547" stroke="' + INK + '" stroke-width="3"/><polygon points="' + gHex(224, 134, 18) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3"/><polygon points="' + gHex(224, 166, 18) + '" fill="#6f86a6" stroke="' + INK + '" stroke-width="3" stroke-dasharray="4 3"/><polygon points="' + gHex(252, 150, 18) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3"/><line x1="252" y1="150" x2="252" y2="114" stroke="' + INK + '" stroke-width="3.5"/><path class="wv" d="M252 116 h26 l-6 8 6 8 h-26z" fill="#c77dff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>') + '</svg>');
+    // 4. Monte en rang : podium Recrue → As → Légende
+    A.push(V + '<rect width="320" height="200" fill="#1b1640"/>' + gBurst(240, 40, 34, 24, 280, '#ffc94a', 0.16, 3) +
+      '<rect x="48" y="142" width="62" height="58" fill="#c98b4a" stroke="' + INK + '" stroke-width="4"/><rect x="128" y="112" width="62" height="88" fill="#cfd8e6" stroke="' + INK + '" stroke-width="4"/><rect x="208" y="82" width="62" height="118" fill="#ffc94a" stroke="' + INK + '" stroke-width="4"/>' +
+      '<path d="M66 124 l13 9 l13 -9" fill="none" stroke="' + INK + '" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 124 l13 9 l13 -9" fill="none" stroke="#c98b4a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M146 84 l13 9 l13 -9 M146 96 l13 9 l13 -9" fill="none" stroke="' + INK + '" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M146 84 l13 9 l13 -9 M146 96 l13 9 l13 -9" fill="none" stroke="#e6edf7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M216 54 q-18 -2 -26 -14 q14 2 24 8 M262 54 q18 -2 26 -14 q-14 2 -24 8" fill="#ffe9a8" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
+      '<polygon class="pu" points="' + gStar(239, 52, 5, 20, 9) + '" fill="#ffe14d" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/>' +
+      '<line x1="18" y1="112" x2="44" y2="92" stroke="#ffffff" stroke-width="2.5" opacity=".5"/><line x1="12" y1="98" x2="34" y2="82" stroke="#ffffff" stroke-width="2" opacity=".35"/>' + gDrone(62, 66, 1.1, 'fl') +
+      '<polygon class="bl" points="' + gStar(120, 34, 4, 7, 2.5) + '" fill="#ffffff"/><polygon class="bl" style="animation-delay:.6s" points="' + gStar(298, 104, 4, 7, 2.5) + '" fill="#ffffff"/><polygon class="bl" style="animation-delay:1.1s" points="' + gStar(176, 46, 4, 5, 2) + '" fill="#ffffff"/>' + gFrame() + '</svg>');
+    // 5. Conquiers le Front : carte, drapeau, chat, coffre
+    A.push(V + '<defs>' + gTone('t5', '#5dff9b', 0.1) + '</defs><rect width="320" height="200" fill="#0f2530"/><rect width="320" height="200" fill="url(#t5)"/>' +
+      '<polygon points="' + gHex(64, 74, 27) + '" fill="#ffb547" stroke="' + INK + '" stroke-width="3.5"/><polygon points="' + gHex(105, 50, 27) + '" fill="#6f86a6" stroke="' + INK + '" stroke-width="3.5" stroke-dasharray="5 4"/><polygon points="' + gHex(105, 98, 27) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/>' +
+      '<polygon points="' + gHex(146, 74, 27) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/><polygon points="' + gHex(64, 122, 27) + '" fill="#6f86a6" stroke="' + INK + '" stroke-width="3.5" stroke-dasharray="5 4"/><polygon points="' + gHex(105, 146, 27) + '" fill="#ffb547" stroke="' + INK + '" stroke-width="3.5"/><polygon points="' + gHex(146, 122, 27) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/>' +
+      '<polygon class="pu" points="' + gStar(146, 76, 8, 16, 9) + '" fill="#ffe14d" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/><line x1="146" y1="76" x2="146" y2="26" stroke="' + INK + '" stroke-width="4"/><path class="wv" d="M146 28 h32 l-7 10 7 10 h-32z" fill="#c77dff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
+      '<g class="fl"><rect x="204" y="22" width="92" height="36" rx="12" fill="#ffffff" stroke="' + INK + '" stroke-width="3.5"/><path d="M222 57 l-8 12 l18 -11" fill="#ffffff" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><circle class="bl" cx="232" cy="40" r="4" fill="' + INK + '"/><circle class="bl" style="animation-delay:.3s" cx="250" cy="40" r="4" fill="' + INK + '"/><circle class="bl" style="animation-delay:.6s" cx="268" cy="40" r="4" fill="' + INK + '"/></g>' +
+      '<g class="fl" style="animation-delay:.8s"><rect x="226" y="74" width="72" height="28" rx="10" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/><path d="M280 101 l8 10 l-2 -11" fill="#c77dff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/><path d="M240 88 h44" stroke="' + INK + '" stroke-width="3" stroke-linecap="round"/></g>' +
+      '<rect x="222" y="146" width="70" height="40" rx="4" fill="#b5651d" stroke="' + INK + '" stroke-width="3.5"/><path d="M222 146 q35 -26 70 0 z" fill="#d17a2a" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><rect x="250" y="146" width="14" height="40" fill="#ffc94a" stroke="' + INK + '" stroke-width="2.5"/>' +
+      '<g class="fl"><polygon points="232,130 240,120 248,130 240,144" fill="#5ef0ff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/><polygon points="262,124 271,113 280,124 271,140" fill="#5ef0ff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/></g>' + gFrame() + '</svg>');
+    gdArts = A; return A;
+  }
+  function frState() {
+    if (!online.gd) { if (frMode !== 'guide') { frMode = 'guide'; gdPage = 0; } }
+    else if (!online.fac) { if (frMode !== 'guide') frMode = 'pick'; }
+    else if (frMode === 'pick') frMode = 'hub';
+  }
   function renderFront() {
     if (!frontView || frontView.hidden) return;
+    frState();
     document.getElementById('frSeason').textContent = '· ' + tr('season', { n: 1 });
     var h = '';
-    if (!online.gd) frMode = 'guide';
     if (frMode === 'guide') {
-      var GI = [FAC.h.ic, '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', '<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>', '<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>', '<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14"/>'];
-      var GT = ['chooseFac', 'g2t', 'g3t', 'g4t', 'g5t'], GD = ['g1d', 'g2d', 'g3d', 'g4d', 'g5d'];
-      h = '<p class="frLead">' + esc(tr('guideTitle')) + '</p><div class="frGuide">';
-      GT.forEach(function (k, i) { h += '<div class="frStep"><i>' + (i + 1) + '</i><div><b>' + esc(tr(k)) + '</b><p>' + esc(tr(GD[i])) + '</p></div></div>'; });
-      h += '</div><div class="frGo"><button class="frOk" data-fr="ok">' + esc(tr('gotIt')) + '</button></div>';
+      var GT = ['chooseFac', 'g2t', 'g3t', 'g4t', 'g5t'], GD = ['g1d', 'g2d', 'g3d', 'g4d', 'g5d'], GB = [['b1a', 'b1b'], ['b2a', 'b2b'], ['b3a', 'b3b'], ['b4a', 'b4b'], ['b5a', 'b5b']], ART = guideArts();
+      h = '<div class="gd" id="gd"><div class="gdTrack" id="gdTrack">';
+      GT.forEach(function (k, i) {
+        h += '<div class="gdPage"><div class="gdArt">' + ART[i] + '</div><div class="gdTxt"><i class="gdNum">' + (i + 1) + ' / 5</i><b>' + esc(tr(k)) + '</b><p>' + esc(tr(GD[i])) + '</p><ul><li>' + esc(tr(GB[i][0])) + '</li><li>' + esc(tr(GB[i][1])) + '</li></ul></div></div>';
+      });
+      h += '</div></div><div class="gdNav"><button class="gdArrow" data-fr="gprev" data-i18n-aria="back" aria-label="&lt;">‹</button><div class="gdDots">';
+      for (var d = 0; d < 5; d++) h += '<button data-fr="g:' + d + '" aria-label="' + (d + 1) + '"></button>';
+      h += '</div><button class="frOk" data-fr="gnext" id="gdNext"></button></div>';
+    } else if (frMode === 'pick') {
+      h = '<p class="frLead">' + esc(tr('chooseFac')) + '</p><div class="frFacs">';
+      ['h', 's'].forEach(function (f) { h += '<button class="frFac' + (frPick === f ? ' sel' : frPick ? ' dim' : '') + '" data-fac="' + f + '" style="--fc:' + FAC[f].c + '">' + svgI(FAC[f].ic) + '<b>' + esc(tr('fac_' + f)) + '</b><small>' + esc(tr('facD_' + f)) + '</small></button>'; });
+      h += '</div><p class="frWarn">⚠ ' + esc(tr('facFinal')) + '</p><div class="frGo"><button class="frOk" data-fr="join"' + (frPick ? '' : ' disabled') + '>' + esc(tr('join') + (frPick ? ' · ' + tr('fac_' + frPick).toUpperCase() : '')) + '</button></div>';
     } else if (frMode.indexOf('sec:') === 0) {
       var sc0 = SECTORS.filter(function (q) { return 'sec:' + q.id === frMode; })[0] || SECTORS[0], c0 = sc0.own ? FAC[sc0.own].c : '#9fb6d0';
       h = '<div class="frSecD"><div class="frSec' + (sc0.own ? '' : ' c') + '" style="--sc:' + c0 + ';--b1:' + sc0.b[0] + ';--b2:' + sc0.b[1] + '">' + svgI(sc0.ic) + '<div><b>' + esc(tr('sec_' + sc0.id)) + '</b><small>' + esc(sc0.own ? tr('fac_' + sc0.own) : tr('contested')) + '</small></div></div>' +
-        '<div class="frBlks"><div class="frBlk hz"><b>' + esc(tr('secHazard')) + '</b><p>' + esc(tr('hz_' + sc0.id)) + '</p></div><div class="frBlk tp"><b>' + esc(tr('secTip')) + '</b><p>' + esc(tr('tip_' + sc0.id)) + '</p></div>' +
+        '<div class="frBlks"><button class="frBackMap" data-fr="hub">‹ ' + esc(tr('nav_fight')) + '</button><div class="frBlk hz"><b>' + esc(tr('secHazard')) + '</b><p>' + esc(tr('hz_' + sc0.id)) + '</p></div><div class="frBlk tp"><b>' + esc(tr('secTip')) + '</b><p>' + esc(tr('tip_' + sc0.id)) + '</p></div>' +
         '<div class="frBlk rw"><b>' + esc(tr('secRewardT')) + '</b><p>' + esc(tr('secReward')) + '</p></div><p class="frNote" style="padding:2px 0 0;text-align:start">' + esc(tr('secSoon')) + '</p></div></div>';
-    } else if (!online.fac) {
-      h = '<p class="frLead">' + esc(tr('chooseFac')) + '</p><div class="frFacs">';
-      ['h', 's'].forEach(function (f) { h += '<button class="frFac" data-fac="' + f + '" style="--fc:' + FAC[f].c + '">' + svgI(FAC[f].ic) + '<b>' + esc(tr('fac_' + f)) + '</b><small>' + esc(tr('facD_' + f)) + '</small></button>'; });
-      h += '</div><p class="frNote">' + esc(tr('facNote')) + '</p>';
+    } else if (frMode === 'chat') {
+      var Fc = FAC[online.fac], fn = tr('fac_' + online.fac), msgs;
+      if (cfg.chat === false) msgs = '<div class="chMsg info"><div><p>' + esc(tr('chatOff')) + '</p></div></div>';
+      else msgs = '<div class="chMsg"><span class="frEmb">' + svgI(Fc.ic) + '</span><div><b>' + esc(fn) + '</b><p>' + esc(tr('chatWelcome', { f: fn })) + '</p></div></div><div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
+      h = '<div class="chWrap" style="--fc:' + Fc.c + '"><div class="chHead">' + svgI('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/>') + '<b>' + esc(tr('chatTitle')) + '</b><span class="frBadge">' + esc(fn) + '</span></div><div class="chList">' + msgs + '</div>' +
+        '<div class="chIn"><input disabled placeholder="' + esc(tr('chatPh')) + '"><button disabled aria-label="' + esc(tr('nav_chat')) + '">' + svgI('<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>') + '</button></div></div>';
     } else {
-      var F = FAC[online.fac], st = oStats(online.lv, online.step), ev = EVO[evoIndex(online.lv)];
-      h = '<div class="frWrap"><div class="frLeft"><div class="frCard" style="--fc:' + F.c + '"><div class="frAv">' + avHtml(profile) + '</div><div class="frInfo"><b>' + esc(profile.nick || tr('profile')) + '</b>' +
-        '<span class="frBadge">' + esc(tr('fac_' + online.fac)) + '</span><small>' + esc(tr('rank')) + ' : ' + esc(tr('rk0')) + ' · ' + esc(tr('pts', { n: 0 })) + '</small>' +
-        '<small>' + esc(ev.name) + ' · ' + esc(tr('lvShort', { n: online.lv })) + ' · ' + esc(tr('power')) + ' ' + st.pow + '</small></div></div>' +
+      var F = FAC[online.fac];
+      h = '<div class="frWrap"><div class="frLeft"><div class="frCard" style="--fc:' + F.c + '"><div class="frEmb">' + svgI(F.ic) + '</div><div class="frInfo"><span class="frBadge">' + esc(tr('fac_' + online.fac)) + '</span>' +
+        '<b>' + esc(tr('rank')) + ' : ' + esc(tr('rk0')) + '</b><small>' + esc(tr('pts', { n: 0 })) + ' · ' + esc(tr('season', { n: 1 })) + '</small><div class="frBar"><i style="width:4%"></i></div></div></div>' +
         '<button class="frAct" data-fr="ghost">' + svgI(FAC.s.ic) + '<span><b>' + esc(tr('ghost')) + '</b><small>' + esc(tr('ghostD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
         '<button class="frAct" data-fr="rank">' + svgI('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM17 6h3v2a3 3 0 01-3 3M7 6H4v2a3 3 0 003 3"/>') + '<span><b>' + esc(tr('ranking')) + '</b><small>' + esc(tr('rankingD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
-        '<div class="frRow2"><button class="frAct gr" data-fr="hangar">' + GEAR + '<span><b>' + esc(tr('drone')) + '</b><small>' + esc(ev.name) + ' \u00b7 ' + esc(tr('lvShort', { n: online.lv })) + '</small></span></button>' +
-        '<button class="frAct gm" data-fr="store">' + svgI('<path d="M4 7h16l-1.5 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/>') + '<span><b>' + esc(tr('store')) + '</b><small>' + GEM + ' ' + bank.d + '</small></span></button></div>' +
-        (TEST_MODE ? '<div class="frTest"><button data-fr="reset"' + (frArm ? ' class="arm"' : '') + '>' + esc(frArm ? tr('sc_confirm') : tr('resetOn')) + '</button><button data-fr="fac">' + esc(tr('changeFac')) + '</button></div>' : '') +
         '</div><div class="frMap">';
       SECTORS.forEach(function (sc) {
         var c = sc.own ? FAC[sc.own].c : '#9fb6d0';
@@ -2958,26 +3188,79 @@
       });
       h += '</div></div>';
     }
-    var b = document.getElementById('frBody'); if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
+    var b = document.getElementById('frBody');
+    if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
+    if (frMode === 'guide') gdApply(false);
   }
-  document.getElementById('frontBack').addEventListener('click', function () { frArm = 0; if (frMode !== 'hub' && online.gd) { frMode = 'hub'; renderFront(); return; } showView(frontFrom); });
-  document.getElementById('frHelp').addEventListener('click', function () { initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); frMode = 'guide'; renderFront(); });
-  document.getElementById('frBody').addEventListener('click', function (ev) {
+  function gdApply(anim) {
+    var tk = document.getElementById('gdTrack'); if (!tk) return;
+    tk.style.transition = anim ? '' : 'none';
+    tk.style.transform = 'translateX(' + (-gdPage * 100) + '%)';
+    if (!anim) { void tk.offsetWidth; tk.style.transition = ''; }
+    var pg = tk.children; for (var i = 0; i < pg.length; i++) pg[i].classList.toggle('on', i === gdPage);
+    var dots = document.querySelectorAll('.gdDots button'); for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('on', j === gdPage);
+    var pv = document.querySelector('[data-fr="gprev"]'); if (pv) pv.disabled = gdPage === 0;
+    var nx = document.getElementById('gdNext'); if (nx) nx.textContent = gdPage === 4 ? tr('gotIt') : tr('next') + ' ›';
+  }
+  function gdStep(d) {
+    var n = gdPage + d;
+    if (n > 4) { online.gd = 1; saveOnline(); frMode = online.fac ? 'hub' : 'pick'; renderAll(); return; }
+    if (n < 0) { gdApply(true); return; }
+    gdPage = n; gdApply(true);
+  }
+  function renderOnline() {
+    var key = view === 'hangar' ? 'drone' : view === 'front' ? (frMode === 'chat' ? 'chat' : 'fight') : '';
+    var nb = document.querySelectorAll('.onNb'); for (var i = 0; i < nb.length; i++) nb[i].classList.toggle('on', nb[i].getAttribute('data-on') === key);
+    var gems = GEM + ' ' + bank.d, av = avHtml(profile), nick = profile.nick || tr('profile'), sub = flagOf(cfg.country) + ' ' + (online.fac ? tr('fac_' + online.fac) : tr('rk0'));
+    var hs = document.querySelectorAll('.onHead');
+    for (var k = 0; k < hs.length; k++) {
+      var g = hs[k].querySelector('.onGems'); if (g.getAttribute('data-sig') !== gems) { g.innerHTML = gems; g.setAttribute('data-sig', gems); }
+      var a = hs[k].querySelector('.onAv'); if (a.getAttribute('data-sig') !== av) { a.innerHTML = av; a.setAttribute('data-sig', av); }
+      hs[k].querySelector('.onNick').textContent = nick; hs[k].querySelector('.onSub').textContent = sub;
+    }
+  }
+  function onNavClick(e) {
+    var lk = e.target.closest ? e.target.closest('[data-lk]') : null;
+    if (lk) { vib(10); showToast(tr('lkMsg')); return; }
+    var el = e.target.closest ? e.target.closest('[data-on]') : null; if (!el) return;
+    var a = el.getAttribute('data-on'); initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(10);
+    if (a === 'home') { showView('home'); return; }
+    if (a === 'fight') { if (online.gd && online.fac) frMode = 'hub'; showView('front'); renderAll(); return; }
+    if (a === 'chat') { if (online.gd && online.fac) frMode = 'chat'; showView('front'); renderAll(); return; }
+    if (a === 'drone') { hangarFrom = 'front'; showView('hangar'); renderAll(); return; }
+    if (a === 'store') { openStore('gems'); return; }
+    if (a === 'profile') { pfDraft = JSON.parse(JSON.stringify(profile)); profFrom = view; showView('profile'); }
+  }
+  frontView.addEventListener('click', onNavClick);
+  document.getElementById('hangarView').addEventListener('click', onNavClick);
+  document.getElementById('frHelp').addEventListener('click', function (ev) { ev.stopPropagation(); initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); frMode = 'guide'; gdPage = 0; renderFront(); });
+  var frBody = document.getElementById('frBody'), gdSw = null;
+  frBody.addEventListener('click', function (ev) {
     var el = ev.target.closest('[data-fac],[data-fr]'); if (!el) return;
     initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(12);
-    if (el.hasAttribute('data-fac')) { online.fac = el.getAttribute('data-fac'); saveOnline(); frArm = 0; renderFront(); return; }
+    if (el.hasAttribute('data-fac')) { frPick = el.getAttribute('data-fac'); renderFront(); return; }
     var a = el.getAttribute('data-fr');
     if (a === 'ghost' || a === 'rank') { showToast(tr('onlineSoon')); return; }
-    if (a === 'ok') { online.gd = 1; saveOnline(); frMode = 'hub'; renderFront(); return; }
-    if (a.indexOf('sec:') === 0) { frMode = a; renderFront(); return; }
-    if (a === 'hangar') { hangarFrom = 'front'; showView('hangar'); return; }
-    if (a === 'store') { openStore('gems'); return; }
-    if (a === 'fac') { online.fac = ''; frArm = 0; saveOnline(); renderFront(); return; }
-    if (a === 'reset') {
-      if (!frArm) { frArm = 1; renderFront(); return; }
-      frArm = 0; online.lv = 1; online.step = 0; saveOnline(); hg.try = null; showToast(tr('resetDone')); renderAll(); return;
-    }
+    if (a === 'gnext') { gdStep(1); return; }
+    if (a === 'gprev') { gdStep(-1); return; }
+    if (a.indexOf('g:') === 0) { gdPage = +a.slice(2); gdApply(true); return; }
+    if (a === 'join') { if (!frPick) return; online.fac = frPick; frPick = ''; saveOnline(); frMode = 'hub'; beep(660, 0.15, 'triangle', 0.06, 990); renderAll(); return; }
+    if (a === 'hub') { frMode = 'hub'; renderAll(); return; }
+    if (a.indexOf('sec:') === 0) { frMode = a; renderAll(); return; }
   });
+  function gdScale() { var pn = document.getElementById('panel'); return pn && pn.offsetWidth ? pn.getBoundingClientRect().width / pn.offsetWidth : 1; }
+  frBody.addEventListener('pointerdown', function (ev) { if (ev.target.closest && ev.target.closest('#gd')) gdSw = { x: ev.clientX, y: ev.clientY, s: gdScale() }; });
+  frBody.addEventListener('pointermove', function (ev) {
+    if (!gdSw) return; var dx = ev.clientX - gdSw.x, tk = document.getElementById('gdTrack'); if (!tk || Math.abs(dx) < 6) return;
+    tk.style.transition = 'none'; tk.style.transform = 'translateX(calc(' + (-gdPage * 100) + '% + ' + (dx / gdSw.s).toFixed(1) + 'px))';
+  });
+  function gdEnd(ev) {
+    if (!gdSw) return; var dx = ev.clientX - gdSw.x, dy = ev.clientY - gdSw.y; gdSw = null;
+    var tk = document.getElementById('gdTrack'); if (tk) tk.style.transition = '';
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { beep(520, 0.06, 'triangle', 0.04, 700); gdStep(dx < 0 ? 1 : -1); } else gdApply(true);
+  }
+  frBody.addEventListener('pointerup', gdEnd);
+  frBody.addEventListener('pointercancel', function () { gdSw = null; gdApply(true); });
   hangarView.addEventListener('click', function (e) {
     var el = e.target && e.target.closest ? e.target.closest('[data-hgtab],[data-wrap],[data-oskin],[data-hgact]') : null;
     if (!el || el.disabled) return;
@@ -3314,6 +3597,8 @@
       saveCfg(); renderAll();
       if (o === 'sound' && cfg.sound) { initAudio(); beep(660, 0.15, 'triangle', 0.06, 990); }
       if (o === 'vib') vib(40);
+      if (o === 'gfx') resize();
+      if (o === 'country') document.getElementById('ctyPop').hidden = true;
       if (o === 'notif' || o === 'lang') scheduleLivesNotif();
       return;
     }
