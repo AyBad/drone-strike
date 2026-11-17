@@ -572,7 +572,54 @@
   .onAv { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; font-size: 19px; background: #0d1a2c; border: 2px solid #ffc94a; flex: none; }
   .onAv img { width: 100%; height: 100%; object-fit: cover; }
   .frHelp { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #4fd8ff; background: transparent; color: #4fd8ff; font: inherit; font-weight: 800; font-size: 15px; padding: 0; letter-spacing: 0; cursor: pointer; flex: none; }
-  .onNav { display: grid; grid-template-columns: 54px 1fr 1.25fr 1fr; gap: 8px; padding: 12px 18px 14px; }
+  .onNav { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 8px; padding: 12px 18px 14px; }
+  .onTop.home { padding: 0; width: 48px; height: 48px; justify-content: center; border-color: #3d5f86; flex: none; } .onTop.home > svg { color: #cfe3ff; width: 22px; height: 22px; }
+  #gdFull { position: fixed; inset: 0; z-index: 90; display: flex; padding: max(10px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); background: radial-gradient(ellipse at 50% 30%, #12284a 0%, #070d1a 70%); animation: gfIn .35s ease-out; }
+  #gdFull[hidden] { display: none; }
+  @keyframes gfIn { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: none; } }
+  .gfBox { flex: 1; display: flex; flex-direction: column; gap: 1.6vh; width: 100%; max-width: 1280px; margin: 0 auto; min-height: 0; }
+  .gfTop { display: flex; align-items: center; justify-content: space-between; } .gfTop b { color: #4fd8ff; font-size: calc(11px + 1.6vh); letter-spacing: 3px; } .gfTop b span { color: #9fb6d0; letter-spacing: 1px; font-weight: 600; }
+  .gfSkip { font: inherit; font-size: calc(10px + 1.2vh); padding: 6px 14px; border-radius: 10px; border: 1px solid #2a6f9c; background: transparent; color: #9fb6d0; cursor: pointer; }
+  #gdFull .gd { flex: 1; margin: 0; min-height: 0; display: flex; } #gdFull .gdTrack { flex: 1; min-width: 0; height: 100%; }
+  #gdFull .gdPage { height: 100%; grid-template-columns: 1.3fr 1fr; gap: 3vw; padding: 2.5vh 2.5vw; }
+  #gdFull .gdArt { height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; } #gdFull .gdArt svg { width: 100%; height: 100%; max-height: 100%; }
+  #gdFull .gdTxt b { font-size: calc(12px + 3.2vh); } #gdFull .gdTxt p { font-size: calc(9px + 1.8vh); } #gdFull .gdTxt li { font-size: calc(8.5px + 1.6vh); } #gdFull .gdNum { font-size: calc(8px + 1vh); }
+  #gdFull .gdNav { padding: 0 2px; } #gdFull .gdArrow { width: calc(30px + 4vh); height: calc(28px + 4vh); } #gdFull .frOk { font-size: calc(10px + 1.6vh); padding: 1.6vh 4vw; min-width: 22vw; }
+  @media (orientation: portrait) { #gdFull .gdPage { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-content: center; } #gdFull .gdArt { height: auto; } }
+  button.frCard { font: inherit; color: inherit; text-align: start; cursor: pointer; width: 100%; position: relative; letter-spacing: 0; }
+  .alCard.none { border-style: dashed; animation: alGlow 2s ease-in-out infinite; } @keyframes alGlow { 50% { box-shadow: 0 0 18px rgba(79, 216, 255, 0.45); } }
+  .alChev { margin-inline-start: auto; font-style: normal; font-size: 26px; color: var(--fc); }
+  .frEmb, .alEmb, .alEmbBig { color: var(--fc); }
+  .alEmb { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #0d1a2c; border: 2px solid var(--fc); flex: none; } .alEmb svg { width: 17px; height: 17px; }
+  .alEmbBig { width: 88px; height: 88px; border-radius: 22px; display: grid; place-items: center; background: #0d1a2c; border: 3px solid var(--fc); flex: none; box-shadow: 0 0 22px color-mix(in srgb, var(--fc) 45%, transparent); } .alEmbBig svg { width: 50px; height: 50px; }
+  .alWrap { display: flex; flex-direction: column; gap: 10px; padding: 0 22px; min-height: 250px; }
+  .alTop { display: flex; align-items: center; justify-content: space-between; gap: 10px; } .alTop > b { display: flex; align-items: center; gap: 8px; font-size: 16px; letter-spacing: 1.5px; color: #ffffff; } .alTop > b svg { width: 22px; height: 22px; color: #4fd8ff; }
+  .alTabs button { padding: 7px 14px; }
+  .alMine { display: flex; align-items: center; gap: 18px; padding: 16px; border-radius: 16px; background: rgba(10, 18, 32, 0.8); border: 1.5px solid var(--fc); }
+  .alInfo { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; } .alInfo b { font-size: 22px; color: #ffffff; } .alInfo small { font-size: 13px; color: #9fb6d0; }
+  .alAct { display: flex; flex-direction: column; gap: 8px; }
+  .alAct button { font: inherit; font-size: 13px; padding: 10px 14px; border-radius: 11px; cursor: pointer; letter-spacing: 0; white-space: nowrap; }
+  .alLeave { border: 1px solid #ff4d6d; background: rgba(255, 77, 109, 0.1); color: #ffb3c1; } .alLeave.arm { background: #ff4d6d; color: #1a0610; font-weight: 800; }
+  .alGo { border: 1px solid #2a6f9c; background: transparent; color: #cfe3ff; }
+  .alNote { margin: 0; font-size: 12px; color: #7f97b6; text-align: start; }
+  .alRank { display: flex; flex-direction: column; gap: 5px; }
+  .alRow { display: grid; grid-template-columns: 34px 30px 1fr auto auto auto; align-items: center; gap: 10px; padding: 6px 12px; border-radius: 10px; background: rgba(10, 18, 32, 0.7); border: 1px solid #1f3554; }
+  .alRow.me { border-color: var(--fc); background: color-mix(in srgb, var(--fc) 14%, #0a1220); }
+  .alRow i { font-style: normal; font-weight: 800; color: #ffc94a; font-size: 13px; } .alRow b { font-size: 14px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .alRow small { color: var(--fc); font-weight: 700; font-size: 12px; } .alRow em { font-style: normal; font-size: 12px; color: #9fb6d0; } .alRow strong { font-size: 13px; color: #ffe9a8; min-width: 70px; text-align: end; }
+  .alGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .alCardL { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(10, 18, 32, 0.78); border: 1px solid color-mix(in srgb, var(--fc) 55%, #1f3554); }
+  .alCardL > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; } .alCardL b { font-size: 14px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .alCardL small { font-size: 11.5px; color: #9fb6d0; white-space: nowrap; }
+  .alJoin { font: inherit; font-size: 12px; font-weight: 800; letter-spacing: 1px; padding: 8px 12px; border-radius: 10px; border: 0; background: var(--fc); color: #0a0f1a; cursor: pointer; } .alIn { font-size: 12px; font-weight: 700; color: var(--fc); }
+  .alNew { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
+  .alForm { display: flex; flex-direction: column; gap: 9px; } .alForm label { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #9fb6d0; text-align: start; }
+  .alForm input { font: inherit; font-size: 15px; padding: 9px 12px; border-radius: 10px; border: 1px solid #2a6f9c; background: #0a1220; color: #ffffff; } .alForm .tg input { text-transform: uppercase; letter-spacing: 3px; width: 130px; }
+  .alPick { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: #9fb6d0; text-align: start; } .alPick > div { display: flex; gap: 6px; flex-wrap: wrap; }
+  .alPick button { width: 38px; height: 38px; border-radius: 10px; border: 1px solid #2a3f5e; background: #0a1220; color: #cfe3ff; display: grid; place-items: center; cursor: pointer; padding: 0; } .alPick button svg { width: 20px; height: 20px; }
+  .alPick button.on { border: 2px solid #4fd8ff; color: #4fd8ff; } .alPick button.col { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; } .alPick button.col.on { border-color: #ffffff; box-shadow: 0 0 0 2px #0a1220 inset; }
+  .alErr { margin: 0; color: #ff8fa3; font-size: 12.5px; text-align: start; }
+  .alPrev { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 16px; background: rgba(10, 18, 32, 0.8); border: 1.5px dashed var(--fc); } .alPrev b { font-size: 17px; color: #ffffff; } .alPrev .frOk { margin-top: 6px; font-size: 13px; padding: 11px 16px; }
+  .chTabs { align-self: flex-start; } .chTabs button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; } .chTabs button svg { width: 16px; height: 16px; }
+  .chGo { align-self: flex-start; font-size: 13px; padding: 10px 18px; }
   .onNb { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; border-radius: 12px; background: rgba(10, 18, 32, 0.88); border: 1px solid #2a6f9c; color: #cfe3ff; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: 1px; cursor: pointer; }
   .onNb svg { width: 22px; height: 22px; flex: none; }
   .onNb.on { background: #4fd8ff; border-color: #4fd8ff; color: #04121f; }
@@ -676,7 +723,7 @@
   .frNote { text-align: center; padding: 12px 22px 16px; margin: 0; color: #9fb6d0; font-size: 13px; }
   .hgWrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; padding: 0 22px; align-items: stretch; }
   .hgStage { position: relative; border-radius: 18px; border: 1px solid #1f3554; background: radial-gradient(ellipse at 50% 60%, #12304c 0%, #0a1527 55%, #070d18 100%); overflow: hidden; min-height: 280px; }
-  .hgStage canvas { display: block; width: 100%; height: 100%; min-height: 280px; touch-action: none; cursor: grab; }
+  .hgStage canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
   .hgStage canvas:active { cursor: grabbing; }
   .hgTag { position: absolute; left: 14px; top: 10px; pointer-events: none; }
   .hgTag b { display: block; font-size: 20px; letter-spacing: 5px; color: #ffffff; }
@@ -701,7 +748,7 @@
   @media (max-width: 700px) and (orientation: portrait) { .hgWrap { grid-template-columns: 1fr; } }
   @media (max-height: 520px) and (orientation: landscape) {
     .hgWrap { padding: 0 14px; gap: 10px; grid-template-columns: 1.2fr 1fr; }
-    .hgStage, .hgStage canvas { min-height: 0; height: calc(100vh - 86px); max-height: 300px; }
+    .hgStage { min-height: 230px; height: auto; max-height: none; } .hgStage canvas { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; max-height: none; }
     .hgWrap { grid-template-columns: 1.05fr 1fr; }
     .hgTag b { font-size: 16px; letter-spacing: 4px; } .hgTag small { font-size: 10.5px; }
     .hgSide { gap: 6px; } .hgSide .seg button { padding: 5px 6px; font-size: 12px; }
@@ -917,6 +964,7 @@
 </head>
 <body>
 <div id="boot"><div class="bootIn"><h1 class="homeTitle">DRONE STRIKE<span>FIELD</span></h1><canvas id="bootCv" width="260" height="150"></canvas><div class="bootBar"><i id="bootFill"></i></div><p id="bootTxt">0 %</p></div></div>
+<div id="gdFull" hidden></div>
 <canvas id="game" tabindex="0"></canvas>
 <div id="touchUI" hidden>
   <button id="pauseBtn" aria-label="Pause" data-i18n-aria="pause">II</button>
@@ -984,12 +1032,12 @@
       <div class="onHead">
         <button class="onTop" data-on="store"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.5 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span><b data-i18n="store"></b><small class="onGems"></small></span></button>
         <h2><span data-i18n="front"></span> <small class="frSeason" id="frSeason"></small><button id="frHelp" class="frHelp" data-i18n-aria="guideTitle" aria-label="?">?</button></h2>
+        <button class="onTop home" data-on="home" data-i18n-aria="mainMenu" aria-label="Accueil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button>
         <button class="onTop pf" data-on="profile"><span class="onAv"></span><span><b class="onNick"></b><small class="onSub"></small></span></button>
       </div>
       <div id="frBody"></div>
       <nav class="onNav">
-        <button class="onNb back" data-on="home" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="nav_fight"></span></button>
+        <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-i18n="nav_dash"></span></button>
         <button class="onNb chat" data-on="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span data-i18n="nav_chat"></span></button>
         <button class="onNb" data-on="drone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/><path d="M8 8l1.5 1.5M16 8l-1.5 1.5M8 16l1.5-1.5M16 16l-1.5-1.5"/></svg><span data-i18n="drone"></span></button>
       </nav>
@@ -999,6 +1047,7 @@
         <button class="onTop" data-on="store"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16l-1.5 12h-13z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg><span><b data-i18n="store"></b><small class="onGems"></small></span></button>
         <h2><span data-i18n="drone"></span></h2>
         <span class="hgCur" id="hgCur"></span>
+        <button class="onTop home" data-on="home" data-i18n-aria="mainMenu" aria-label="Accueil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button>
         <button class="onTop pf" data-on="profile"><span class="onAv"></span><span><b class="onNick"></b><small class="onSub"></small></span></button>
       </div>
       <div class="hgWrap">
@@ -1022,8 +1071,7 @@
         </div>
       </div>
       <nav class="onNav">
-        <button class="onNb back" data-on="home" data-i18n-aria="back" aria-label="Retour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/></svg><span data-i18n="nav_fight"></span></button>
+        <button class="onNb" data-on="fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-i18n="nav_dash"></span></button>
         <button class="onNb chat" data-on="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg><span data-i18n="nav_chat"></span></button>
         <button class="onNb" data-on="drone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/><path d="M8 8l1.5 1.5M16 8l-1.5 1.5M8 16l1.5-1.5M16 16l-1.5-1.5"/></svg><span data-i18n="drone"></span></button>
       </nav>
@@ -1212,7 +1260,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '2.0.2';
+  var APP_VERSION = '2.0.3';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = true;
   var LS = (function () {
@@ -1571,6 +1619,51 @@
   var RTL = { ar: 1, fa: 1 };
   var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'], pt: ['Português', 'Portuguese portugais'], de: ['Deutsch', 'German allemand'], tr: ['Türkçe', 'Turkish turc'], id: ['Indonesia', 'Indonesian indonesien bahasa'], hi: ['हिन्दी', 'Hindi'] };
   var T = {
+    nav_dash: ["Tableau de bord", "Dashboard", "Panel", "Pannello", "控制台", "Панель", "لوحة القيادة", "داشبورد", "ダッシュボード", "대시보드", "Painel", "Übersicht", "Kontrol paneli", "Dasbor", "डैशबोर्ड"],
+    preseason: ["Présaison", "Pre-season", "Pretemporada", "Pre-stagione", "季前赛", "Предсезон", "ما قبل الموسم", "پیش‌فصل", "プレシーズン", "프리시즌", "Pré-temporada", "Vorsaison", "Sezon öncesi", "Pramusim", "प्री-सीज़न"],
+    ally: ["Alliance", "Alliance", "Alianza", "Alleanza", "联盟", "Альянс", "التحالف", "اتحاد", "同盟", "동맹", "Aliança", "Allianz", "İttifak", "Aliansi", "गठबंधन"],
+    noAlly: ["Sans alliance", "No alliance", "Sin alianza", "Senza alleanza", "无联盟", "Без альянса", "بلا تحالف", "بدون اتحاد", "同盟なし", "동맹 없음", "Sem aliança", "Keine Allianz", "İttifaksız", "Tanpa aliansi", "कोई गठबंधन नहीं"],
+    noAllyD: ["Rejoins ou crée une alliance", "Join or create an alliance", "Únete o crea una alianza", "Unisciti o crea un’alleanza", "加入或创建联盟", "Вступи в альянс или создай свой", "انضم إلى تحالف أو أنشئ واحدًا", "به اتحادی بپیوند یا بساز", "同盟に参加または作成", "동맹에 가입하거나 만드세요", "Entre ou crie uma aliança", "Tritt einer Allianz bei oder gründe eine", "Bir ittifaka katıl ya da kur", "Gabung atau buat aliansi", "गठबंधन से जुड़ें या बनाएँ"],
+    allyJoin: ["Rejoindre", "Join", "Unirse", "Unisciti", "加入", "Вступить", "انضمام", "پیوستن", "参加", "가입", "Entrar", "Beitreten", "Katıl", "Gabung", "जुड़ें"],
+    allyCreate: ["Créer", "Create", "Crear", "Crea", "创建", "Создать", "إنشاء", "ساختن", "作成", "만들기", "Criar", "Gründen", "Kur", "Buat", "बनाएँ"],
+    allyRank: ["Classement", "Ranking", "Clasificación", "Classifica", "排行", "Рейтинг", "الترتيب", "رده‌بندی", "ランキング", "순위", "Classificação", "Rangliste", "Sıralama", "Peringkat", "रैंकिंग"],
+    allyMine: ["Mon alliance", "My alliance", "Mi alianza", "La mia alleanza", "我的联盟", "Мой альянс", "تحالفي", "اتحاد من", "自分の同盟", "내 동맹", "Minha aliança", "Meine Allianz", "İttifakım", "Aliansku", "मेरा गठबंधन"],
+    allyLeave: ["Quitter l’alliance", "Leave alliance", "Abandonar la alianza", "Lascia l’alleanza", "退出联盟", "Покинуть альянс", "مغادرة التحالف", "ترک اتحاد", "同盟を脱退", "동맹 탈퇴", "Sair da aliança", "Allianz verlassen", "İttifaktan ayrıl", "Keluar aliansi", "गठबंधन छोड़ें"],
+    confirmQ: ["Confirmer ?", "Confirm?", "¿Confirmar?", "Confermi?", "确认？", "Подтвердить?", "تأكيد؟", "تأیید؟", "確認しますか？", "확인할까요?", "Confirmar?", "Bestätigen?", "Onaylıyor musun?", "Konfirmasi?", "पुष्टि करें?"],
+    members: ["{n}/50 membres", "{n}/50 members", "{n}/50 miembros", "{n}/50 membri", "{n}/50 名成员", "{n}/50 участников", "{n}/50 عضوًا", "{n}/50 عضو", "{n}/50 人", "{n}/50 명", "{n}/50 membros", "{n}/50 Mitglieder", "{n}/50 üye", "{n}/50 anggota", "{n}/50 सदस्य"],
+    member: ["Membre", "Member", "Miembro", "Membro", "成员", "Участник", "عضو", "عضو", "メンバー", "멤버", "Membro", "Mitglied", "Üye", "Anggota", "सदस्य"],
+    allyName: ["Nom de l’alliance", "Alliance name", "Nombre de la alianza", "Nome dell’alleanza", "联盟名称", "Название альянса", "اسم التحالف", "نام اتحاد", "同盟名", "동맹 이름", "Nome da aliança", "Allianzname", "İttifak adı", "Nama aliansi", "गठबंधन का नाम"],
+    allyTag: ["Sigle (3–4)", "Tag (3–4)", "Siglas (3–4)", "Sigla (3–4)", "标签（3–4）", "Тег (3–4)", "الرمز (3–4)", "نشان (۳–۴)", "タグ（3–4）", "태그 (3–4)", "Sigla (3–4)", "Kürzel (3–4)", "Kısaltma (3–4)", "Tag (3–4)", "टैग (3–4)"],
+    allyEmblem: ["Emblème", "Emblem", "Emblema", "Emblema", "徽章", "Эмблема", "الشعار", "نشان", "紋章", "엠블럼", "Emblema", "Wappen", "Amblem", "Lambang", "प्रतीक"],
+    createBtn: ["CRÉER L’ALLIANCE", "CREATE ALLIANCE", "CREAR ALIANZA", "CREA ALLEANZA", "创建联盟", "СОЗДАТЬ АЛЬЯНС", "إنشاء التحالف", "ساخت اتحاد", "同盟を作成", "동맹 만들기", "CRIAR ALIANÇA", "ALLIANZ GRÜNDEN", "İTTİFAKI KUR", "BUAT ALIANSI", "गठबंधन बनाएँ"],
+    allyErr: ["Nom : 3 caractères minimum. Sigle : 3 à 4 lettres.", "Name: at least 3 characters. Tag: 3 to 4 letters.", "Nombre: mínimo 3 caracteres. Siglas: 3 a 4 letras.", "Nome: almeno 3 caratteri. Sigla: da 3 a 4 lettere.", "名称至少3个字符，标签3–4个字母。", "Название: от 3 символов. Тег: 3–4 буквы.", "الاسم: 3 أحرف على الأقل. الرمز: من 3 إلى 4 أحرف.", "نام: حداقل ۳ نویسه. نشان: ۳ تا ۴ حرف.", "名前は3文字以上、タグは3〜4文字。", "이름은 3자 이상, 태그는 3~4자.", "Nome: mínimo 3 caracteres. Sigla: 3 a 4 letras.", "Name: mind. 3 Zeichen. Kürzel: 3–4 Buchstaben.", "Ad: en az 3 karakter. Kısaltma: 3–4 harf.", "Nama: minimal 3 karakter. Tag: 3–4 huruf.", "नाम: कम से कम 3 अक्षर। टैग: 3–4 अक्षर।"],
+    allyDemo: ["Alliances d’exemple : les vraies alliances du serveur arriveront avec les comptes en ligne.", "Sample alliances: the server’s real alliances will arrive with online accounts.", "Alianzas de ejemplo: las reales llegarán con las cuentas en línea.", "Alleanze di esempio: quelle reali arriveranno con gli account online.", "示例联盟：真实联盟将随在线账号上线。", "Пример альянсов: настоящие появятся с онлайн-аккаунтами.", "تحالفات تجريبية: ستصل التحالفات الحقيقية مع الحسابات عبر الإنترنت.", "اتحادهای نمونه: اتحادهای واقعی با حساب‌های آنلاین می‌آیند.", "サンプルの同盟です。本物はオンラインアカウント導入後に登場。", "예시 동맹입니다. 실제 동맹은 온라인 계정과 함께 제공됩니다.", "Alianças de exemplo: as reais chegarão com as contas online.", "Beispiel-Allianzen: Die echten kommen mit den Online-Konten.", "Örnek ittifaklar: gerçekleri çevrimiçi hesaplarla gelecek.", "Aliansi contoh: aliansi asli hadir bersama akun online.", "उदाहरण गठबंधन: असली गठबंधन ऑनलाइन खातों के साथ आएँगे।"],
+    leader: ["Chef", "Leader", "Líder", "Capo", "盟主", "Лидер", "القائد", "رهبر", "リーダー", "리더", "Líder", "Anführer", "Lider", "Pemimpin", "नेता"],
+    allyJoined: ["Tu as rejoint {a} !", "You joined {a}!", "¡Te has unido a {a}!", "Ti sei unito a {a}!", "你已加入{a}！", "Ты вступил в {a}!", "انضممت إلى {a}!", "به {a} پیوستی!", "{a}に参加しました！", "{a}에 가입했습니다!", "Você entrou em {a}!", "Du bist {a} beigetreten!", "{a} ittifakına katıldın!", "Kamu bergabung dengan {a}!", "आप {a} से जुड़ गए!"],
+    allyCreated: ["Alliance {a} créée !", "Alliance {a} created!", "¡Alianza {a} creada!", "Alleanza {a} creata!", "联盟{a}已创建！", "Альянс {a} создан!", "تم إنشاء تحالف {a}!", "اتحاد {a} ساخته شد!", "同盟{a}を作成しました！", "동맹 {a} 생성!", "Aliança {a} criada!", "Allianz {a} gegründet!", "{a} ittifakı kuruldu!", "Aliansi {a} dibuat!", "गठबंधन {a} बन गया!"],
+    allyLeft: ["Tu as quitté l’alliance.", "You left the alliance.", "Has abandonado la alianza.", "Hai lasciato l’alleanza.", "你已退出联盟。", "Ты покинул альянс.", "غادرت التحالف.", "از اتحاد خارج شدی.", "同盟を脱退しました。", "동맹을 탈퇴했습니다.", "Você saiu da aliança.", "Du hast die Allianz verlassen.", "İttifaktan ayrıldın.", "Kamu keluar dari aliansi.", "आपने गठबंधन छोड़ दिया।"],
+    chatServer: ["Serveur", "Server", "Servidor", "Server", "服务器", "Сервер", "الخادم", "سرور", "サーバー", "서버", "Servidor", "Server", "Sunucu", "Server", "सर्वर"],
+    chatNoAlly: ["Rejoins une alliance pour accéder à son chat.", "Join an alliance to access its chat.", "Únete a una alianza para usar su chat.", "Unisciti a un’alleanza per accedere alla sua chat.", "加入联盟后即可使用联盟聊天。", "Вступи в альянс, чтобы открыть его чат.", "انضم إلى تحالف للوصول إلى دردشته.", "برای دسترسی به گفتگوی اتحاد به آن بپیوند.", "同盟に参加するとチャットを使えます。", "동맹에 가입하면 채팅을 이용할 수 있습니다.", "Entre numa aliança para acessar o chat dela.", "Tritt einer Allianz bei, um ihren Chat zu nutzen.", "Sohbete erişmek için bir ittifaka katıl.", "Gabung aliansi untuk mengakses obrolannya.", "इसकी चैट के लिए गठबंधन से जुड़ें।"],
+    chatSrvWelcome: ["Bienvenue sur le serveur ! C’est la présaison : présente-toi et recrute des pilotes pour ton alliance.", "Welcome to the server! It’s pre-season: introduce yourself and recruit pilots for your alliance.", "¡Bienvenido al servidor! Es la pretemporada: preséntate y recluta pilotos para tu alianza.", "Benvenuto sul server! È la pre-stagione: presentati e recluta piloti per la tua alleanza.", "欢迎来到服务器！现在是季前赛：介绍自己，为联盟招募飞行员。", "Добро пожаловать на сервер! Сейчас предсезон: представься и набери пилотов в альянс.", "مرحبًا بك في الخادم! إنها فترة ما قبل الموسم: عرّف بنفسك وجنّد طيارين لتحالفك.", "به سرور خوش آمدی! پیش‌فصل است: خودت را معرفی کن و برای اتحادت خلبان جذب کن.", "サーバーへようこそ！今はプレシーズン：自己紹介して同盟のパイロットを集めよう。", "서버에 오신 것을 환영합니다! 프리시즌입니다: 자신을 소개하고 동맹 파일럿을 모으세요.", "Bem-vindo ao servidor! É a pré-temporada: apresente-se e recrute pilotos para sua aliança.", "Willkommen auf dem Server! Es ist Vorsaison: Stell dich vor und wirb Piloten für deine Allianz an.", "Sunucuya hoş geldin! Sezon öncesi: kendini tanıt ve ittifakına pilot topla.", "Selamat datang di server! Ini pramusim: perkenalkan dirimu dan rekrut pilot untuk aliansimu.", "सर्वर पर स्वागत है! यह प्री-सीज़न है: अपना परिचय दें और गठबंधन के लिए पायलट जोड़ें।"],
+    secFree: ["Libre", "Free", "Libre", "Libero", "空闲", "Свободен", "حر", "آزاد", "空き", "비어 있음", "Livre", "Frei", "Serbest", "Bebas", "खाली"],
+    secPre: ["Les secteurs seront disputés dès la saison 1.", "Sectors will be fought over from season 1.", "Los sectores se disputarán desde la temporada 1.", "I settori saranno contesi dalla stagione 1.", "区域争夺将从第1赛季开始。", "Битва за секторы начнётся с 1-го сезона.", "ستبدأ المنافسة على القطاعات من الموسم 1.", "رقابت بر سر مناطق از فصل ۱ آغاز می‌شود.", "セクター争奪はシーズン1から。", "구역 쟁탈전은 시즌 1부터 시작됩니다.", "Os setores serão disputados a partir da temporada 1.", "Ab Saison 1 wird um die Sektoren gekämpft.", "Bölgeler 1. sezondan itibaren çekişmeli olacak.", "Sektor diperebutkan mulai musim 1.", "क्षेत्रों के लिए लड़ाई सीज़न 1 से शुरू होगी।"],
+    secReward2: ["L’alliance qui tient ce secteur en fin de saison gagne son revêtement exclusif et des diamants.", "The alliance holding this sector at season’s end wins its exclusive wrap and diamonds.", "La alianza que controle este sector al final de la temporada gana su revestimiento exclusivo y diamantes.", "L’alleanza che controlla questo settore a fine stagione vince la sua livrea esclusiva e diamanti.", "赛季结束时占领该区域的联盟将获得专属涂装和钻石。", "Альянс, удерживающий этот сектор в конце сезона, получает его эксклюзивное покрытие и алмазы.", "التحالف المسيطر على هذا القطاع في نهاية الموسم يربح طلاءه الحصري والماس.", "اتحادی که این منطقه را در پایان فصل در دست دارد پوشش ویژه آن و الماس می‌برد.", "シーズン終了時にこのセクターを支配する同盟が限定ラッピングとダイヤを獲得。", "시즌 종료 시 이 구역을 지킨 동맹이 전용 래핑과 다이아몬드를 얻습니다.", "A aliança que controlar este setor no fim da temporada ganha seu revestimento exclusivo e diamantes.", "Die Allianz, die diesen Sektor am Saisonende hält, gewinnt dessen exklusive Folierung und Diamanten.", "Sezon sonunda bu bölgeyi elinde tutan ittifak özel kaplamasını ve elmas kazanır.", "Aliansi yang menguasai sektor ini di akhir musim memenangkan pembungkus eksklusif dan berlian.", "सीज़न के अंत में इस क्षेत्र पर क़ाबिज़ गठबंधन इसका ख़ास रैप और हीरे जीतता है।"],
+    skip: ["Passer", "Skip", "Saltar", "Salta", "跳过", "Пропустить", "تخطٍّ", "رد شدن", "スキップ", "건너뛰기", "Pular", "Überspringen", "Geç", "Lewati", "छोड़ें"],
+    n1t: ["Bienvenue sur le Front", "Welcome to the Front", "Bienvenido al Frente", "Benvenuto al Fronte", "欢迎来到前线", "Добро пожаловать на Фронт", "مرحبًا بك في الجبهة", "به جبهه خوش آمدی", "前線へようこそ", "전선에 오신 것을 환영합니다", "Bem-vindo à Frente", "Willkommen an der Front", "Cepheye hoş geldin", "Selamat datang di Garis Depan", "मोर्चे पर स्वागत है"],
+    n1d: ["Le jeu en ligne commence par une présaison : apprends le jeu, prépare ton drone et forme ton alliance. Ensuite, les saisons commencent.", "Online play starts with a pre-season: learn the game, prepare your drone and build your alliance. Then the seasons begin.", "El juego en línea empieza con una pretemporada: aprende, prepara tu dron y forma tu alianza. Después empiezan las temporadas.", "Il gioco online inizia con una pre-stagione: impara, prepara il drone e forma la tua alleanza. Poi iniziano le stagioni.", "在线模式从季前赛开始：熟悉玩法、准备无人机、组建联盟。之后正式赛季开启。", "Онлайн-игра начинается с предсезона: изучи игру, подготовь дрон и собери альянс. Затем начнутся сезоны.", "يبدأ اللعب عبر الإنترنت بفترة ما قبل الموسم: تعلّم اللعبة وجهّز طائرتك وكوّن تحالفك. ثم تبدأ المواسم.", "بازی آنلاین با پیش‌فصل شروع می‌شود: بازی را یاد بگیر، پهپادت را آماده کن و اتحادت را بساز. سپس فصل‌ها آغاز می‌شوند.", "オンラインはプレシーズンから：ゲームを覚え、ドローンを準備し、同盟を作ろう。その後シーズンが始まります。", "온라인은 프리시즌으로 시작합니다: 게임을 익히고 드론을 준비하고 동맹을 만드세요. 그다음 시즌이 시작됩니다.", "O jogo online começa com uma pré-temporada: aprenda, prepare seu drone e forme sua aliança. Depois começam as temporadas.", "Online beginnt mit einer Vorsaison: Lerne das Spiel, bereite deine Drohne vor und gründe deine Allianz. Danach starten die Saisons.", "Çevrimiçi oyun sezon öncesiyle başlar: oyunu öğren, dronunu hazırla, ittifakını kur. Ardından sezonlar başlar.", "Mode online dimulai dengan pramusim: pelajari game, siapkan drone, dan bentuk aliansimu. Lalu musim dimulai.", "ऑनलाइन खेल प्री-सीज़न से शुरू होता है: खेल सीखें, ड्रोन तैयार करें और गठबंधन बनाएँ। फिर सीज़न शुरू होते हैं।"],
+    n1a: ["Présaison : idéale pour s’entraîner sans pression.", "Pre-season: perfect to practise without pressure.", "Pretemporada: ideal para entrenar sin presión.", "Pre-stagione: ideale per allenarsi senza pressione.", "季前赛：轻松练习的最佳时机。", "Предсезон: тренируйся без давления.", "ما قبل الموسم: مثالية للتدرب دون ضغط.", "پیش‌فصل: مناسب برای تمرین بدون فشار.", "プレシーズン：気軽に練習できる期間。", "프리시즌: 부담 없이 연습하기 좋습니다.", "Pré-temporada: ideal para treinar sem pressão.", "Vorsaison: ideal zum Üben ohne Druck.", "Sezon öncesi: baskısız antrenman için ideal.", "Pramusim: cocok untuk berlatih tanpa tekanan.", "प्री-सीज़न: बिना दबाव अभ्यास के लिए बढ़िया।"],
+    n1b: ["Saison : les alliances se disputent les secteurs du Front.", "Season: alliances fight over the Front’s sectors.", "Temporada: las alianzas se disputan los sectores.", "Stagione: le alleanze si contendono i settori.", "赛季：各联盟争夺前线区域。", "Сезон: альянсы сражаются за секторы Фронта.", "الموسم: تتنافس التحالفات على قطاعات الجبهة.", "فصل: اتحادها بر سر مناطق جبهه می‌جنگند.", "シーズン：同盟同士で前線のセクターを奪い合う。", "시즌: 동맹들이 전선의 구역을 두고 싸웁니다.", "Temporada: as alianças disputam os setores da Frente.", "Saison: Allianzen kämpfen um die Sektoren der Front.", "Sezon: ittifaklar cephe bölgeleri için savaşır.", "Musim: aliansi memperebutkan sektor Garis Depan.", "सीज़न: गठबंधन मोर्चे के क्षेत्रों के लिए लड़ते हैं।"],
+    n2d: ["Plusieurs alliances s’affrontent sur le serveur. Rejoins-en une ou crée la tienne avec son nom, son sigle et son emblème.", "Several alliances compete on the server. Join one or create yours with its own name, tag and emblem.", "Varias alianzas compiten en el servidor. Únete a una o crea la tuya con su nombre, siglas y emblema.", "Più alleanze si sfidano sul server. Unisciti a una o crea la tua con nome, sigla ed emblema.", "服务器上有多个联盟相互竞争。加入一个，或用自己的名称、标签和徽章创建联盟。", "На сервере соперничают несколько альянсов. Вступи в один или создай свой с названием, тегом и эмблемой.", "تتنافس عدة تحالفات على الخادم. انضم إلى أحدها أو أنشئ تحالفك باسمه ورمزه وشعاره.", "چند اتحاد در سرور رقابت می‌کنند. به یکی بپیوند یا اتحاد خودت را با نام، نشان اختصاری و نشان بساز.", "サーバーでは複数の同盟が競います。参加するか、名前・タグ・紋章を決めて自分の同盟を作ろう。", "서버에서는 여러 동맹이 경쟁합니다. 하나에 가입하거나 이름, 태그, 엠블럼으로 직접 만드세요.", "Várias alianças disputam o servidor. Entre numa ou crie a sua com nome, sigla e emblema.", "Mehrere Allianzen treten auf dem Server an. Tritt einer bei oder gründe deine eigene mit Name, Kürzel und Wappen.", "Sunucuda birçok ittifak yarışır. Birine katıl ya da adı, kısaltması ve amblemiyle kendininkini kur.", "Beberapa aliansi bersaing di server. Gabung salah satu atau buat milikmu dengan nama, tag, dan lambang.", "सर्वर पर कई गठबंधन मुकाबला करते हैं। किसी से जुड़ें या नाम, टैग और प्रतीक के साथ अपना बनाएँ।"],
+    n2a: ["Tu peux quitter ton alliance et en rejoindre une autre.", "You can leave your alliance and join another.", "Puedes dejar tu alianza y unirte a otra.", "Puoi lasciare l’alleanza e unirti a un’altra.", "你可以退出联盟并加入其他联盟。", "Можно покинуть альянс и вступить в другой.", "يمكنك مغادرة تحالفك والانضمام إلى آخر.", "می‌توانی اتحادت را ترک کنی و به دیگری بپیوندی.", "同盟を抜けて別の同盟に入ることもできます。", "동맹을 탈퇴하고 다른 동맹에 가입할 수 있습니다.", "Você pode sair da aliança e entrar em outra.", "Du kannst deine Allianz verlassen und einer anderen beitreten.", "İttifakından ayrılıp başka birine katılabilirsin.", "Kamu bisa keluar dan bergabung dengan aliansi lain.", "आप गठबंधन छोड़कर दूसरे से जुड़ सकते हैं।"],
+    n2b: ["Le classement des alliances se trouve dans le bouton Alliance.", "The alliance ranking is in the Alliance button.", "La clasificación de alianzas está en el botón Alianza.", "La classifica delle alleanze è nel pulsante Alleanza.", "联盟排行在“联盟”按钮中。", "Рейтинг альянсов — в кнопке «Альянс».", "ترتيب التحالفات موجود في زر التحالف.", "رده‌بندی اتحادها در دکمه اتحاد است.", "同盟ランキングは「同盟」ボタンにあります。", "동맹 순위는 동맹 버튼에 있습니다.", "A classificação das alianças fica no botão Aliança.", "Die Allianz-Rangliste findest du unter „Allianz“.", "İttifak sıralaması İttifak düğmesinde.", "Peringkat aliansi ada di tombol Aliansi.", "गठबंधन रैंकिंग गठबंधन बटन में है।"],
+    n3t: ["Ton tableau de bord", "Your dashboard", "Tu panel", "Il tuo pannello", "你的控制台", "Твоя панель", "لوحة قيادتك", "داشبورد تو", "あなたのダッシュボード", "나의 대시보드", "Seu painel", "Deine Übersicht", "Kontrol panelin", "Dasbormu", "आपका डैशबोर्ड"],
+    n3d: ["Ton QG : ton alliance, les modes de combat et la carte des secteurs du Front.", "Your HQ: your alliance, battle modes and the map of the Front’s sectors.", "Tu cuartel: tu alianza, los modos de combate y el mapa de sectores.", "Il tuo QG: alleanza, modalità di combattimento e mappa dei settori.", "你的总部：联盟、战斗模式和前线区域地图。", "Твой штаб: альянс, режимы боя и карта секторов Фронта.", "مقرك: تحالفك وأنماط القتال وخريطة قطاعات الجبهة.", "مقر تو: اتحادت، حالت‌های نبرد و نقشه مناطق جبهه.", "拠点：同盟、バトルモード、前線のセクターマップ。", "본부: 동맹, 전투 모드, 전선 구역 지도.", "Seu QG: sua aliança, os modos de combate e o mapa dos setores.", "Dein HQ: deine Allianz, die Kampfmodi und die Sektorkarte der Front.", "Karargâhın: ittifakın, savaş modları ve cephe haritası.", "Markasmu: aliansi, mode tempur, dan peta sektor.", "आपका मुख्यालय: गठबंधन, युद्ध मोड और मोर्चे का नक्शा।"],
+    n3b: ["Défi fantôme et classement arrivent bientôt.", "Ghost challenge and leaderboard are coming soon.", "El desafío fantasma y la clasificación llegan pronto.", "Sfida fantasma e classifica in arrivo.", "幽灵挑战和排行榜即将推出。", "Вызов призрака и рейтинг скоро появятся.", "تحدي الشبح والترتيب قريبًا.", "چالش شبح و رده‌بندی به‌زودی می‌آیند.", "ゴースト対戦とランキングは近日公開。", "고스트 대결과 순위표가 곧 추가됩니다.", "Desafio fantasma e classificação em breve.", "Geister-Duell und Rangliste kommen bald.", "Hayalet düellosu ve sıralama yakında.", "Tantangan hantu dan peringkat segera hadir.", "घोस्ट चुनौती और लीडरबोर्ड जल्द आ रहे हैं।"],
+    n4t: ["Deux chats", "Two chats", "Dos chats", "Due chat", "两个聊天频道", "Два чата", "دردشتان", "دو گفتگو", "2つのチャット", "두 개의 채팅", "Dois chats", "Zwei Chats", "İki sohbet", "Dua obrolan", "दो चैट"],
+    n4d: ["Le chat d’alliance pour organiser vos attaques, le chat serveur pour parler avec tous les pilotes.", "Alliance chat to plan your attacks, server chat to talk with every pilot.", "Chat de alianza para organizar ataques, chat del servidor para hablar con todos.", "Chat d’alleanza per organizzare gli attacchi, chat del server per parlare con tutti.", "联盟聊天用于策划进攻，服务器聊天与所有飞行员交流。", "Чат альянса — для планирования атак, чат сервера — для общения со всеми.", "دردشة التحالف لتنظيم الهجمات، ودردشة الخادم للتحدث مع جميع الطيارين.", "گفتگوی اتحاد برای برنامه‌ریزی حمله و گفتگوی سرور برای صحبت با همه خلبانان.", "同盟チャットで作戦会議、サーバーチャットで全員と交流。", "동맹 채팅으로 공격을 계획하고, 서버 채팅으로 모든 파일럿과 대화하세요.", "Chat da aliança para planejar ataques, chat do servidor para falar com todos.", "Allianz-Chat für eure Angriffe, Server-Chat für alle Piloten.", "Saldırıları planlamak için ittifak sohbeti, herkesle konuşmak için sunucu sohbeti.", "Obrolan aliansi untuk merencanakan serangan, obrolan server untuk semua pilot.", "हमलों की योजना के लिए गठबंधन चैट, सभी पायलटों से बात के लिए सर्वर चैट।"],
+    n4a: ["Reste respectueux : le chat serveur est vu par tous.", "Be respectful: everyone sees the server chat.", "Sé respetuoso: todos ven el chat del servidor.", "Sii rispettoso: tutti vedono la chat del server.", "请文明交流：服务器聊天所有人可见。", "Будь вежлив: чат сервера видят все.", "كن محترمًا: الجميع يرى دردشة الخادم.", "محترم باش: همه گفتگوی سرور را می‌بینند.", "マナーを守ろう：サーバーチャットは全員が見ます。", "예의를 지키세요: 서버 채팅은 모두가 봅니다.", "Seja respeitoso: todos veem o chat do servidor.", "Bleib respektvoll: Alle sehen den Server-Chat.", "Saygılı ol: sunucu sohbetini herkes görür.", "Tetap sopan: semua orang melihat obrolan server.", "सम्मान बनाए रखें: सर्वर चैट सब देखते हैं।"],
+    n5d: ["Le bouton Drone ouvre ton hangar : améliore-le avec des roues dentées achetées en diamants.", "The Drone button opens your hangar: upgrade it with gears bought with diamonds.", "El botón Dron abre tu hangar: mejóralo con engranajes comprados con diamantes.", "Il pulsante Drone apre l’hangar: potenzialo con ingranaggi comprati con diamanti.", "“无人机”按钮打开机库：用钻石购买的齿轮升级。", "Кнопка «Дрон» открывает ангар: улучшай шестерёнками за алмазы.", "زر الطائرة يفتح حظيرتك: طوّرها بتروس تشتريها بالماس.", "دکمه پهپاد آشیانه‌ات را باز می‌کند: با چرخ‌دنده‌هایی که با الماس می‌خری ارتقایش بده.", "ドローンボタンで格納庫へ：ダイヤで買ったギアで強化。", "드론 버튼으로 격납고를 열고 다이아몬드로 산 톱니바퀴로 강화하세요.", "O botão Drone abre seu hangar: melhore-o com engrenagens compradas com diamantes.", "Der Drohnen-Button öffnet deinen Hangar: Verbessere sie mit Zahnrädern für Diamanten.", "Dron düğmesi hangarını açar: elmasla alınan dişlilerle geliştir.", "Tombol Drone membuka hangar: tingkatkan dengan roda gigi yang dibeli dengan berlian.", "ड्रोन बटन आपका हैंगर खोलता है: हीरों से ख़रीदे गियर से अपग्रेड करें।"],
+    n5b: ["Store en haut à gauche ; accueil et profil en haut à droite.", "Store top left; home and profile top right.", "Tienda arriba a la izquierda; inicio y perfil arriba a la derecha.", "Store in alto a sinistra; home e profilo in alto a destra.", "左上角是商店；右上角是主页和个人资料。", "Магазин — слева вверху; главная и профиль — справа вверху.", "المتجر أعلى اليسار؛ الرئيسية والملف الشخصي أعلى اليمين.", "فروشگاه بالا چپ؛ خانه و نمایه بالا راست.", "ストアは左上、ホームとプロフィールは右上。", "스토어는 왼쪽 위, 홈과 프로필은 오른쪽 위.", "Loja no canto superior esquerdo; início e perfil no direito.", "Store oben links; Start und Profil oben rechts.", "Mağaza sol üstte; ana sayfa ve profil sağ üstte.", "Toko di kiri atas; beranda dan profil di kanan atas.", "स्टोर ऊपर बाएँ; होम और प्रोफ़ाइल ऊपर दाएँ।"],
     next: ["SUIVANT", "NEXT", "SIGUIENTE", "AVANTI", "下一页", "ДАЛЕЕ", "التالي", "بعدی", "次へ", "다음", "PRÓXIMO", "WEITER", "İLERİ", "LANJUT", "आगे"],
     join: ["REJOINDRE", "JOIN", "UNIRSE A", "UNISCITI A", "加入", "ВСТУПИТЬ:", "انضم إلى", "پیوستن به", "参加", "합류", "ENTRAR", "BEITRETEN:", "KATIL:", "GABUNG", "शामिल हों"],
     facFinal: ["Attention : ce choix est définitif.", "Careful: this choice is final.", "Atención: esta elección es definitiva.", "Attenzione: questa scelta è definitiva.", "注意：此选择不可更改。", "Внимание: этот выбор окончательный.", "انتبه: هذا الاختيار نهائي.", "توجه: این انتخاب قطعی است.", "注意：この選択は変更できません。", "주의: 이 선택은 변경할 수 없습니다.", "Atenção: esta escolha é definitiva.", "Achtung: Diese Wahl ist endgültig.", "Dikkat: bu seçim kesindir.", "Perhatian: pilihan ini permanen.", "ध्यान दें: यह चुनाव अंतिम है।"],
@@ -2099,7 +2192,7 @@
   // Évolutions du drone en ligne (une nouvelle forme tous les 50 niveaux) et skins spéciaux
   var EVO = [{ lv: 1, m: 'b', name: 'RAPTOR' }, { lv: 50, m: 'e', name: 'TEMPEST' }, { lv: 100, m: 'f', name: 'NIGHTWING' }, { lv: 150, m: 'g', name: 'LEVIATHAN' }], MAXLV = 200, STEPS = 5;
   var OSKINS = [{ id: 'x', price: 60, atk: 0.08 }];
-  var online = { v: 4, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {}, fac: '' };
+  var online = { v: 5, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {}, fac: '', al: null };
   bank.g = 0;
   try { var sbg = JSON.parse(LS.getItem('droneStrikeBank') || 'null'); if (sbg && sbg.g > 0) bank.g = Math.floor(sbg.g); } catch (err) { /* ignore */ }
   try {
@@ -2116,6 +2209,8 @@
         if (so.v < 4) { online.lv = 1; online.step = 0; } // V2.0 : le drone en ligne repart du niveau 1
         if (so.fac === 'h' || so.fac === 's') online.fac = so.fac;
         if (so.gd) online.gd = 1;
+        if (so.al && typeof so.al === 'object' && (so.al.mine ? typeof so.al.n === 'string' && typeof so.al.t === 'string' : typeof so.al.id === 'string')) online.al = so.al;
+        if (so.v < 5) { online.gd = 0; online.al = null; online.lv = 1; online.step = 0; } // V2.0.3 : comme une première ouverture du jeu en ligne
       } else {
         // V0.8 : les pièces, modèles, finitions et décors sont retirés ; les diamants dépensés sont rendus
         var back = 0, k1;
@@ -2527,12 +2622,19 @@
   }
   var fitDirty = true;
   function fitPanel() {
-    panelEl.style.transform = '';
+    panelEl.style.transform = ''; panelEl.style.width = ''; panelEl.style.minWidth = '';
     var fit = view !== 'path' && view !== 'evo' && (isTouch || window.innerHeight <= 560);
     overlay.classList.toggle('fit', fit);
     if (!fit) return;
     overlay.scrollTop = 0;
     var h = panelEl.offsetHeight, avail = window.innerHeight - 6, w = panelEl.offsetWidth, sc = Math.min(1, avail / h, window.innerWidth / w);
+    if (view === 'hangar' || view === 'front') { // espace en ligne : occuper toute la largeur de l'écran
+      for (var it = 0; it < 2; it++) {
+        var tw = (window.innerWidth - 10) / Math.max(sc, 0.3);
+        if (tw <= w + 4) break;
+        panelEl.style.width = panelEl.style.minWidth = Math.round(tw) + 'px'; h = panelEl.offsetHeight; w = panelEl.offsetWidth; sc = Math.min(1, avail / h, (window.innerWidth - 10) / w);
+      }
+    }
     if (h > 0 && sc < 1) panelEl.style.transform = 'scale(' + sc.toFixed(4) + ')';
   }
   window.addEventListener('resize', function () { fitDirty = true; });
@@ -3064,19 +3166,48 @@
   });
   document.getElementById('evoBack').addEventListener('click', function () { showView('hangar'); });
   document.getElementById('hgFight').addEventListener('click', function () { frontFrom = 'hangar'; showView('front'); });
-  // ===== Le Front (V2) : camps, carte des secteurs, guide illustré, chat d'alliance =====
-  var frontFrom = 'home', frMode = 'hub', frPick = '', gdPage = 0, gdArts = null;
-  var FAC = { h: { c: '#ffb547', ic: '<path d="M12 4l1.6 3.2 8.4-1.7-5 5 3 1-5 1.5-2 6.5-1-2-1 2-2-6.5-5-1.5 3-1-5-5 8.4 1.7z"/>' }, s: { c: '#c77dff', ic: '<path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z"/><circle cx="9.5" cy="11" r="1"/><circle cx="14.5" cy="11" r="1"/>' } };
+  // ===== Le Front (V2) : présaison, alliances, tableau de bord, chats, guide plein écran =====
+  var frontFrom = 'home', frMode = 'hub', gdPage = 0, gdArts = null, allyTab = '', chatTab = 'ally', alArm = 0, alErr = 0;
+  var alDraft = { n: '', t: '', ic: 'eagle', c: '#4fd8ff' };
+  var EMB = {
+    eagle: '<path d="M12 4l1.6 3.2 8.4-1.7-5 5 3 1-5 1.5-2 6.5-1-2-1 2-2-6.5-5-1.5 3-1-5-5 8.4 1.7z"/>',
+    ghost: '<path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z"/><circle cx="9.5" cy="11" r="1"/><circle cx="14.5" cy="11" r="1"/>',
+    star: '<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/>',
+    bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+    flame: '<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 3 7 7 7z"/>',
+    shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>'
+  };
+  var ALCOL = ['#ffb547', '#c77dff', '#4fd8ff', '#ffe14d', '#ff6b4a', '#5dff9b'];
+  var ALLYS = [
+    { id: 'ire', n: 'Iron Eagles', t: 'IRE', ic: 'eagle', c: '#ffb547', m: 48, p: 412000, ld: 'Falco' },
+    { id: 'bsp', n: 'Black Specters', t: 'BSP', ic: 'ghost', c: '#c77dff', m: 45, p: 389500, ld: 'Nyx' },
+    { id: 'nova', n: 'Nova Squad', t: 'NOVA', ic: 'star', c: '#4fd8ff', m: 37, p: 301200, ld: 'Orion' },
+    { id: 'strm', n: 'Storm Riders', t: 'STRM', ic: 'bolt', c: '#ffe14d', m: 29, p: 244800, ld: 'Raiden' },
+    { id: 'vlc', n: 'Volcano Order', t: 'VLC', ic: 'flame', c: '#ff6b4a', m: 22, p: 187300, ld: 'Magma' },
+    { id: 'wolf', n: 'Arctic Wolves', t: 'WOLF', ic: 'shield', c: '#5dff9b', m: 14, p: 96400, ld: 'Frost' }
+  ];
   var SECTORS = [
-    { id: 'desert', own: 'h', b: ['#8a6430', '#3a2812'], ic: '<path d="M3 18c3-4 5-6 9-6s6 2 9 6M12 4v3M5.6 6.6l2 2M18.4 6.6l-2 2"/>' },
-    { id: 'arctic', own: '', b: ['#4f7590', '#1a2a38'], ic: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 4l3 2 3-2M9 20l3-2 3 2"/>' },
-    { id: 'jungle', own: 's', b: ['#2a6a40', '#0f2a1a'], ic: '<path d="M12 21v-7M12 14c-4 0-7-3-7-7 4 0 7 3 7 7zM12 14c4 0 7-3 7-7-4 0-7 3-7 7z"/>' },
-    { id: 'city', own: 's', b: ['#3e4a68', '#141a2a'], ic: '<path d="M3 21h18M5 21V9h5v12M10 21V4h6v17M16 21v-8h3v8"/>' },
-    { id: 'ocean', own: 'h', b: ['#21558a', '#0b1d33'], ic: '<path d="M3 10c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>' },
-    { id: 'volcano', own: '', b: ['#8a2e1a', '#2a0e0a'], ic: '<path d="M3 20l6-10h6l6 10zM10 6l2-3 2 3M12 10V7"/>' }
+    { id: 'desert', b: ['#8a6430', '#3a2812'], ic: '<path d="M3 18c3-4 5-6 9-6s6 2 9 6M12 4v3M5.6 6.6l2 2M18.4 6.6l-2 2"/>' },
+    { id: 'arctic', b: ['#4f7590', '#1a2a38'], ic: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 4l3 2 3-2M9 20l3-2 3 2"/>' },
+    { id: 'jungle', b: ['#2a6a40', '#0f2a1a'], ic: '<path d="M12 21v-7M12 14c-4 0-7-3-7-7 4 0 7 3 7 7zM12 14c4 0 7-3 7-7-4 0-7 3-7 7z"/>' },
+    { id: 'city', b: ['#3e4a68', '#141a2a'], ic: '<path d="M3 21h18M5 21V9h5v12M10 21V4h6v17M16 21v-8h3v8"/>' },
+    { id: 'ocean', b: ['#21558a', '#0b1d33'], ic: '<path d="M3 10c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>' },
+    { id: 'volcano', b: ['#8a2e1a', '#2a0e0a'], ic: '<path d="M3 20l6-10h6l6 10zM10 6l2-3 2 3M12 10V7"/>' }
   ];
   function svgI(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; }
-  // --- Illustrations du guide (style manga : contours épais, trames, lignes de vitesse)
+  function myAlly() {
+    if (!online.al) return null;
+    if (online.al.mine) return { id: 'me', n: online.al.n, t: online.al.t, ic: online.al.ic, c: online.al.c, m: 1, p: oStats(online.lv, online.step).pow, ld: profile.nick || tr('profile'), mine: 1 };
+    var a = ALLYS.filter(function (q) { return q.id === online.al.id; })[0]; if (!a) return null;
+    return { id: a.id, n: a.n, t: a.t, ic: a.ic, c: a.c, m: Math.min(50, a.m + 1), p: a.p + oStats(online.lv, online.step).pow, ld: a.ld };
+  }
+  function allyList() {
+    var me = myAlly(), L = ALLYS.map(function (a) { return me && me.id === a.id ? me : a; });
+    if (me && me.mine) L.push(me);
+    return L.sort(function (x, y) { return y.p - x.p; });
+  }
+  function embHtml(a, cls) { return '<span class="' + (cls || 'alEmb') + '" style="--fc:' + a.c + '">' + svgI(EMB[a.ic] || EMB.shield) + '</span>'; }
+  function fmtN(n) { try { return n.toLocaleString(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang); } catch (err) { return String(n); } }
   var INK = '#0b0f1a';
   function gStar(cx, cy, n, r1, r2) { var p = []; for (var i = 0; i < n * 2; i++) { var a = Math.PI * i / n - Math.PI / 2, r = i % 2 ? r2 : r1; p.push((cx + Math.cos(a) * r).toFixed(1) + ',' + (cy + Math.sin(a) * r).toFixed(1)); } return p.join(' '); }
   function gHex(cx, cy, r) { var p = []; for (var i = 0; i < 6; i++) { var a = Math.PI / 3 * i; p.push((cx + Math.cos(a) * r).toFixed(1) + ',' + (cy + Math.sin(a) * r).toFixed(1)); } return p.join(' '); }
@@ -3092,17 +3223,46 @@
     return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><polygon points="-30,40 -22,-20 0,-38 22,-20 30,40" fill="#b23a48" stroke="' + INK + '" stroke-width="4" stroke-linejoin="round"/><polygon points="-30,40 -22,-20 -8,-30 -12,40" fill="#7d2030"/><circle cx="0" cy="-10" r="9" fill="#ffe14d" stroke="' + INK + '" stroke-width="3"/><circle cx="0" cy="-10" r="3" fill="' + INK + '"/><path d="M-36 0 L-22 4 M36 0 L22 4" stroke="' + INK + '" stroke-width="6" stroke-linecap="round"/></g>';
   }
   function gFrame() { return '<rect x="2.5" y="2.5" width="315" height="195" rx="10" fill="none" stroke="' + INK + '" stroke-width="5"/>'; }
+  function gShield(cx, cy, s, col, icon) {
+    return '<g transform="translate(' + cx + ' ' + cy + ') scale(' + s + ')"><path d="M0 -24 L19 -16 V0 C19 13 10 21 0 25 C-10 21 -19 13 -19 0 V-16 Z" fill="' + col + '" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/>' +
+      '<g transform="translate(-9 -11) scale(0.75)" fill="' + INK + '" stroke="' + INK + '" stroke-width="1" stroke-linejoin="round">' + icon + '</g></g>';
+  }
   function guideArts() {
     if (gdArts) return gdArts;
     var V = '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">', A = [];
-    // 1. Choisis ton camp : Faucons contre Spectres
-    A.push(V + '<defs>' + gTone('t1a', INK, 0.18) + gTone('t1b', '#ffffff', 0.16) + '</defs><rect width="320" height="200" fill="#1a1030"/>' +
-      '<polygon points="0,0 186,0 134,200 0,200" fill="#ffb547"/><polygon points="0,0 186,0 134,200 0,200" fill="url(#t1a)"/>' +
-      '<polygon points="186,0 320,0 320,200 134,200" fill="#8f4fd6"/><polygon points="186,0 320,0 320,200 134,200" fill="url(#t1b)"/>' +
-      gBurst(160, 100, 40, 48, 260, '#ffffff', 0.32, 2) +
-      '<g class="fl"><circle cx="78" cy="100" r="50" fill="#fff4dc" stroke="' + INK + '" stroke-width="5"/><g transform="translate(40 63) scale(3.2)"><path d="M12 4l1.6 3.2 8.4-1.7-5 5 3 1-5 1.5-2 6.5-1-2-1 2-2-6.5-5-1.5 3-1-5-5 8.4 1.7z" fill="#ffb547" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/></g></g>' +
-      '<g class="fl" style="animation-delay:.7s"><circle cx="242" cy="100" r="50" fill="#f1e4ff" stroke="' + INK + '" stroke-width="5"/><g transform="translate(204 63) scale(3.2)"><path d="M5 20V10a7 7 0 0114 0v10l-2.5-2-2.3 2-2.2-2-2.2 2-2.3-2z" fill="#c77dff" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9.5" cy="11" r="1.4" fill="' + INK + '"/><circle cx="14.5" cy="11" r="1.4" fill="' + INK + '"/></g></g>' +
-      '<g class="pu"><polygon points="' + gStar(160, 100, 12, 40, 25) + '" fill="#ffe14d" stroke="' + INK + '" stroke-width="4" stroke-linejoin="round"/><text x="160" y="111" text-anchor="middle" font-size="29" font-weight="900" font-style="italic" fill="' + INK + '" font-family="Arial Black, Arial, sans-serif">VS</text></g>' + gFrame() + '</svg>');
+    // 1. Présaison puis saison
+    A.push(V + '<defs>' + gTone('n1a', '#4fd8ff', 0.14) + gTone('n1b', '#ffffff', 0.12) + '</defs><rect width="320" height="200" fill="#10213a"/><rect width="320" height="200" fill="url(#n1a)"/>' +
+      '<polygon points="176,0 320,0 320,200 150,200" fill="#4a1d3a"/><polygon points="176,0 320,0 320,200 150,200" fill="url(#n1b)"/>' + gBurst(250, 86, 26, 30, 200, '#ffb547', 0.22, 2.5) +
+      '<g class="pu"><circle cx="70" cy="84" r="32" fill="#ffffff" stroke="' + INK + '" stroke-width="4"/><circle cx="70" cy="84" r="21" fill="#ff4d6d" stroke="' + INK + '" stroke-width="3"/><circle cx="70" cy="84" r="10" fill="#ffffff" stroke="' + INK + '" stroke-width="3"/><circle cx="70" cy="84" r="3.5" fill="' + INK + '"/></g>' +
+      gDrone(128, 40, 0.9, 'fl') + '<path class="da" d="M118 50 L82 76" stroke="#ffe14d" stroke-width="3" stroke-dasharray="5 4"/>' +
+      '<path d="M206 140 Q 246 70 296 140 Z" fill="#2a6a40" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><line x1="250" y1="104" x2="250" y2="52" stroke="' + INK + '" stroke-width="4"/>' +
+      '<path class="wv" d="M250 54 h32 l-7 10 7 10 h-32z" fill="#ffb547" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
+      '<g class="pu"><circle cx="210" cy="40" r="19" fill="#ffc94a" stroke="' + INK + '" stroke-width="3.5"/><text x="210" y="47" text-anchor="middle" font-size="19" font-weight="900" fill="' + INK + '" font-family="Arial Black, Arial, sans-serif">S1</text></g>' +
+      '<line x1="24" y1="172" x2="296" y2="172" stroke="' + INK + '" stroke-width="12" stroke-linecap="round"/><line x1="24" y1="172" x2="160" y2="172" stroke="#4fd8ff" stroke-width="6" stroke-linecap="round"/><line x1="160" y1="172" x2="296" y2="172" stroke="#ffb547" stroke-width="6" stroke-linecap="round"/>' +
+      '<circle cx="24" cy="172" r="8" fill="#4fd8ff" stroke="' + INK + '" stroke-width="3"/><circle class="pu" cx="160" cy="172" r="10" fill="#ffffff" stroke="' + INK + '" stroke-width="3"/><circle cx="296" cy="172" r="8" fill="#ffb547" stroke="' + INK + '" stroke-width="3"/>' + gFrame() + '</svg>');
+    // 2. Plusieurs alliances : rejoindre ou créer
+    var ring = [[60, 52, '#ffb547', 'eagle'], [262, 52, '#c77dff', 'ghost'], [42, 136, '#ffe14d', 'bolt'], [280, 136, '#ff6b4a', 'flame'], [160, 172, '#5dff9b', 'shield']], r2 = '';
+    ring.forEach(function (q, i) { r2 += '<path class="da" d="M160 92 L' + q[0] + ' ' + q[1] + '" stroke="#9fd8ff" stroke-width="2.5" stroke-dasharray="5 5" opacity=".7"/>'; });
+    ring.forEach(function (q, i) { r2 += '<g class="fl" style="animation-delay:' + (i * 0.35).toFixed(2) + 's">' + gShield(q[0], q[1], 0.9, q[2], EMB[q[3]]) + '</g>'; });
+    A.push(V + '<rect width="320" height="200" fill="#1b1640"/>' + gBurst(160, 92, 36, 40, 230, '#ffffff', 0.12, 2) + r2 +
+      '<g class="pu">' + gShield(160, 92, 1.7, '#4fd8ff', EMB.star) + '</g><circle cx="192" cy="62" r="13" fill="#5dff9b" stroke="' + INK + '" stroke-width="3.5"/><path d="M192 55v14M185 62h14" stroke="' + INK + '" stroke-width="3.5" stroke-linecap="round"/>' + gFrame() + '</svg>');
+    // 3. Tableau de bord
+    var tiles = '', tc = ['#8a6430', '#4f7590', '#2a6a40', '#3e4a68', '#21558a', '#8a2e1a'];
+    tc.forEach(function (c, i) { tiles += '<rect x="' + (162 + (i % 3) * 48) + '" y="' + (46 + Math.floor(i / 3) * 62) + '" width="42" height="56" rx="7" fill="' + c + '" stroke="' + INK + '" stroke-width="3"/>'; });
+    A.push(V + '<rect width="320" height="200" fill="#0d1626"/><rect x="14" y="12" width="292" height="24" rx="7" fill="#13233d" stroke="' + INK + '" stroke-width="3"/><rect x="22" y="18" width="44" height="12" rx="4" fill="#5dff9b"/><rect x="254" y="18" width="44" height="12" rx="4" fill="#ffc94a"/>' +
+      '<rect x="14" y="46" width="140" height="52" rx="9" fill="#13233d" stroke="#4fd8ff" stroke-width="3"/><circle cx="40" cy="72" r="16" fill="#4fd8ff" stroke="' + INK + '" stroke-width="3"/><rect x="64" y="60" width="74" height="9" rx="4" fill="#ffffff"/><rect x="64" y="76" width="50" height="7" rx="3" fill="#6f86a6"/>' +
+      '<rect x="14" y="106" width="140" height="28" rx="8" fill="#13233d" stroke="' + INK + '" stroke-width="3"/><rect x="14" y="140" width="140" height="28" rx="8" fill="#13233d" stroke="' + INK + '" stroke-width="3"/><rect x="26" y="115" width="80" height="9" rx="4" fill="#9fb6d0"/><rect x="26" y="149" width="66" height="9" rx="4" fill="#9fb6d0"/>' +
+      tiles + '<rect x="14" y="174" width="292" height="18" rx="6" fill="#13233d" stroke="' + INK + '" stroke-width="2.5"/><rect x="18" y="177" width="96" height="12" rx="4" fill="#4fd8ff"/>' +
+      '<circle class="pu" cx="234" cy="138" r="16" fill="none" stroke="#ffffff" stroke-width="3" opacity=".8"/><path d="M236 140 l0 -16 a4 4 0 0 1 8 0 v10 l6 1 a4 4 0 0 1 3 5 l-3 12 h-14 l-6 -8 a3 3 0 0 1 5 -4z" fill="#ffe9c4" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>' + gFrame() + '</svg>');
+    // 4. Deux chats
+    A.push(V + '<defs>' + gTone('n4', '#c77dff', 0.12) + '</defs><rect width="320" height="200" fill="#120f2a"/><rect width="320" height="200" fill="url(#n4)"/>' +
+      '<rect x="20" y="16" width="134" height="30" rx="9" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/><rect x="166" y="16" width="134" height="30" rx="9" fill="#4fd8ff" stroke="' + INK + '" stroke-width="3.5"/>' +
+      gShield(44, 31, 0.5, '#ffffff', EMB.shield) + '<circle cx="190" cy="31" r="9" fill="#ffffff" stroke="' + INK + '" stroke-width="2.5"/><path d="M181 31h18M190 22c4 5 4 13 0 18M190 22c-4 5-4 13 0 18" stroke="' + INK + '" stroke-width="1.8" fill="none"/>' +
+      '<rect x="64" y="26" width="70" height="9" rx="4" fill="' + INK + '" opacity=".5"/><rect x="210" y="26" width="70" height="9" rx="4" fill="' + INK + '" opacity=".5"/>' +
+      '<circle cx="36" cy="80" r="13" fill="#ffb547" stroke="' + INK + '" stroke-width="3"/><g class="fl"><rect x="56" y="64" width="104" height="32" rx="11" fill="#ffffff" stroke="' + INK + '" stroke-width="3"/><rect x="68" y="76" width="70" height="8" rx="4" fill="#6f86a6"/></g>' +
+      '<circle cx="284" cy="122" r="13" fill="#5dff9b" stroke="' + INK + '" stroke-width="3"/><g class="fl" style="animation-delay:.6s"><rect x="150" y="106" width="116" height="32" rx="11" fill="#c77dff" stroke="' + INK + '" stroke-width="3"/><rect x="164" y="118" width="84" height="8" rx="4" fill="' + INK + '" opacity=".55"/></g>' +
+      '<circle cx="36" cy="164" r="13" fill="#4fd8ff" stroke="' + INK + '" stroke-width="3"/><g class="fl" style="animation-delay:1.1s"><rect x="56" y="148" width="86" height="32" rx="11" fill="#ffffff" stroke="' + INK + '" stroke-width="3"/><circle class="bl" cx="78" cy="164" r="4" fill="' + INK + '"/><circle class="bl" style="animation-delay:.3s" cx="98" cy="164" r="4" fill="' + INK + '"/><circle class="bl" style="animation-delay:.6s" cx="118" cy="164" r="4" fill="' + INK + '"/></g>' + gFrame() + '</svg>');
+    // 5. Ton drone
     // 2. Prépare ton drone : colosse → diamant → roue dentée → drone
     var sl = ''; [24, 46, 150, 172, 186].forEach(function (y, i) { sl += '<line x1="' + (10 + i * 37) + '" y1="' + y + '" x2="' + (120 + i * 37) + '" y2="' + y + '" stroke="#4fd8ff" stroke-width="2" opacity=".25"/>'; });
     A.push(V + '<defs>' + gTone('t2', '#4fd8ff', 0.12) + '</defs><rect width="320" height="200" fill="#0f1d36"/><rect width="320" height="200" fill="url(#t2)"/>' + sl +
@@ -3114,104 +3274,128 @@
       '<g class="sp"><polygon points="' + gStar(198, 104, 12, 26, 20) + '" fill="#ffc94a" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><circle cx="198" cy="104" r="8" fill="#0f1d36" stroke="' + INK + '" stroke-width="3"/></g>' +
       gArrow(229, 248, 104) + gDrone(281, 112, 1.25, 'fl') +
       '<path class="pu" d="M281 54 l13 15 h-7 v13 h-12 v-13 h-7z" fill="#5dff9b" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' + gFrame() + '</svg>');
-    // 3. Combats : 4 cases de manga
-    function panel(x, y, rot, fill, inner) { return '<g transform="rotate(' + rot + ' ' + (x + 74) + ' ' + (y + 44) + ')"><rect x="' + x + '" y="' + y + '" width="148" height="88" fill="' + fill + '" stroke="#ffffff" stroke-width="3"/>' + inner + '</g>'; }
-    A.push(V + '<rect width="320" height="200" fill="' + INK + '"/>' +
-      panel(8, 8, -1.2, '#1d2b4f', gBurst(44, 52, 16, 22, 70, '#4fd8ff', 0.18, 2) + gDrone(44, 54, 1, '') + gDrone(118, 50, 1, 'fl', 0.45) + '<circle cx="118" cy="50" r="22" fill="none" stroke="#9fd8ff" stroke-width="2" stroke-dasharray="4 4"/><path class="da" d="M60 52 Q 82 24 98 46" stroke="#9fd8ff" stroke-width="2.5" stroke-dasharray="5 4" fill="none"/>') +
-      panel(164, 8, 1.2, '#4a1d3a', gBurst(238, 52, 18, 16, 80, '#ff4d6d', 0.2, 2) + gDrone(192, 58, 1, '') + gDrone(284, 58, 1, '') + '<polygon class="pu" points="242,18 230,52 242,52 234,86 256,44 244,44 252,18" fill="#ffe14d" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/><text x="176" y="32" font-size="17" font-weight="900" font-style="italic" fill="#ffffff" stroke="' + INK + '" stroke-width="3" paint-order="stroke" font-family="Arial Black, Arial, sans-serif">1v1</text>') +
-      panel(8, 104, 1, '#3a2a14', gColossus(82, 152, 0.82) + gDrone(30, 128, 0.75, '') + gDrone(134, 128, 0.75, '') + gDrone(82, 182, 0.7, '') + '<path class="da" d="M40 132 L64 146 M124 132 L100 146 M82 172 L82 160" stroke="#ffe14d" stroke-width="3" stroke-dasharray="5 4"/>') +
-      panel(164, 104, -1, '#14352a', '<polygon points="' + gHex(196, 150, 18) + '" fill="#ffb547" stroke="' + INK + '" stroke-width="3"/><polygon points="' + gHex(224, 134, 18) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3"/><polygon points="' + gHex(224, 166, 18) + '" fill="#6f86a6" stroke="' + INK + '" stroke-width="3" stroke-dasharray="4 3"/><polygon points="' + gHex(252, 150, 18) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3"/><line x1="252" y1="150" x2="252" y2="114" stroke="' + INK + '" stroke-width="3.5"/><path class="wv" d="M252 116 h26 l-6 8 6 8 h-26z" fill="#c77dff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/>') + '</svg>');
-    // 4. Monte en rang : podium Recrue → As → Légende
-    A.push(V + '<rect width="320" height="200" fill="#1b1640"/>' + gBurst(240, 40, 34, 24, 280, '#ffc94a', 0.16, 3) +
-      '<rect x="48" y="142" width="62" height="58" fill="#c98b4a" stroke="' + INK + '" stroke-width="4"/><rect x="128" y="112" width="62" height="88" fill="#cfd8e6" stroke="' + INK + '" stroke-width="4"/><rect x="208" y="82" width="62" height="118" fill="#ffc94a" stroke="' + INK + '" stroke-width="4"/>' +
-      '<path d="M66 124 l13 9 l13 -9" fill="none" stroke="' + INK + '" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 124 l13 9 l13 -9" fill="none" stroke="#c98b4a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M146 84 l13 9 l13 -9 M146 96 l13 9 l13 -9" fill="none" stroke="' + INK + '" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M146 84 l13 9 l13 -9 M146 96 l13 9 l13 -9" fill="none" stroke="#e6edf7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M216 54 q-18 -2 -26 -14 q14 2 24 8 M262 54 q18 -2 26 -14 q-14 2 -24 8" fill="#ffe9a8" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
-      '<polygon class="pu" points="' + gStar(239, 52, 5, 20, 9) + '" fill="#ffe14d" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/>' +
-      '<line x1="18" y1="112" x2="44" y2="92" stroke="#ffffff" stroke-width="2.5" opacity=".5"/><line x1="12" y1="98" x2="34" y2="82" stroke="#ffffff" stroke-width="2" opacity=".35"/>' + gDrone(62, 66, 1.1, 'fl') +
-      '<polygon class="bl" points="' + gStar(120, 34, 4, 7, 2.5) + '" fill="#ffffff"/><polygon class="bl" style="animation-delay:.6s" points="' + gStar(298, 104, 4, 7, 2.5) + '" fill="#ffffff"/><polygon class="bl" style="animation-delay:1.1s" points="' + gStar(176, 46, 4, 5, 2) + '" fill="#ffffff"/>' + gFrame() + '</svg>');
-    // 5. Conquiers le Front : carte, drapeau, chat, coffre
-    A.push(V + '<defs>' + gTone('t5', '#5dff9b', 0.1) + '</defs><rect width="320" height="200" fill="#0f2530"/><rect width="320" height="200" fill="url(#t5)"/>' +
-      '<polygon points="' + gHex(64, 74, 27) + '" fill="#ffb547" stroke="' + INK + '" stroke-width="3.5"/><polygon points="' + gHex(105, 50, 27) + '" fill="#6f86a6" stroke="' + INK + '" stroke-width="3.5" stroke-dasharray="5 4"/><polygon points="' + gHex(105, 98, 27) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/>' +
-      '<polygon points="' + gHex(146, 74, 27) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/><polygon points="' + gHex(64, 122, 27) + '" fill="#6f86a6" stroke="' + INK + '" stroke-width="3.5" stroke-dasharray="5 4"/><polygon points="' + gHex(105, 146, 27) + '" fill="#ffb547" stroke="' + INK + '" stroke-width="3.5"/><polygon points="' + gHex(146, 122, 27) + '" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/>' +
-      '<polygon class="pu" points="' + gStar(146, 76, 8, 16, 9) + '" fill="#ffe14d" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/><line x1="146" y1="76" x2="146" y2="26" stroke="' + INK + '" stroke-width="4"/><path class="wv" d="M146 28 h32 l-7 10 7 10 h-32z" fill="#c77dff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/>' +
-      '<g class="fl"><rect x="204" y="22" width="92" height="36" rx="12" fill="#ffffff" stroke="' + INK + '" stroke-width="3.5"/><path d="M222 57 l-8 12 l18 -11" fill="#ffffff" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><circle class="bl" cx="232" cy="40" r="4" fill="' + INK + '"/><circle class="bl" style="animation-delay:.3s" cx="250" cy="40" r="4" fill="' + INK + '"/><circle class="bl" style="animation-delay:.6s" cx="268" cy="40" r="4" fill="' + INK + '"/></g>' +
-      '<g class="fl" style="animation-delay:.8s"><rect x="226" y="74" width="72" height="28" rx="10" fill="#c77dff" stroke="' + INK + '" stroke-width="3.5"/><path d="M280 101 l8 10 l-2 -11" fill="#c77dff" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/><path d="M240 88 h44" stroke="' + INK + '" stroke-width="3" stroke-linecap="round"/></g>' +
-      '<rect x="222" y="146" width="70" height="40" rx="4" fill="#b5651d" stroke="' + INK + '" stroke-width="3.5"/><path d="M222 146 q35 -26 70 0 z" fill="#d17a2a" stroke="' + INK + '" stroke-width="3.5" stroke-linejoin="round"/><rect x="250" y="146" width="14" height="40" fill="#ffc94a" stroke="' + INK + '" stroke-width="2.5"/>' +
-      '<g class="fl"><polygon points="232,130 240,120 248,130 240,144" fill="#5ef0ff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/><polygon points="262,124 271,113 280,124 271,140" fill="#5ef0ff" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"/></g>' + gFrame() + '</svg>');
     gdArts = A; return A;
   }
-  function frState() {
-    if (!online.gd) { if (frMode !== 'guide') { frMode = 'guide'; gdPage = 0; } }
-    else if (!online.fac) { if (frMode !== 'guide') frMode = 'pick'; }
-    else if (frMode === 'pick') frMode = 'hub';
+  // --- Guide plein écran (5 pages, glisser ou boutons)
+  var gdFull = document.getElementById('gdFull'), gdSw = null;
+  function renderGuide() {
+    var GT = ['n1t', 'noAllyD', 'n3t', 'n4t', 'g2t'], GD = ['n1d', 'n2d', 'n3d', 'n4d', 'n5d'], GB = [['n1a', 'n1b'], ['n2a', 'n2b'], ['b5a', 'n3b'], ['n4a', 'chatSoon'], ['b2a', 'n5b']], ART = guideArts();
+    var h = '<div class="gfBox"><div class="gfTop"><b>' + esc(tr('front')) + ' <span>· ' + esc(tr('preseason')) + '</span></b><button class="gfSkip" data-g="skip">' + esc(tr('skip')) + ' ›</button></div><div class="gd" id="gd"><div class="gdTrack" id="gdTrack">';
+    GT.forEach(function (k, i) {
+      h += '<div class="gdPage"><div class="gdArt">' + ART[i] + '</div><div class="gdTxt"><i class="gdNum">' + (i + 1) + ' / 5</i><b>' + esc(tr(k)) + '</b><p>' + esc(tr(GD[i])) + '</p><ul><li>' + esc(tr(GB[i][0])) + '</li><li>' + esc(tr(GB[i][1])) + '</li></ul></div></div>';
+    });
+    h += '</div></div><div class="gdNav"><button class="gdArrow" data-g="prev" aria-label="&lt;">‹</button><div class="gdDots">';
+    for (var d = 0; d < 5; d++) h += '<button data-g="d:' + d + '" aria-label="' + (d + 1) + '"></button>';
+    h += '</div><button class="frOk" data-g="next" id="gdNext"></button></div></div>';
+    if (gdFull.getAttribute('data-sig') !== h) { gdFull.innerHTML = h; gdFull.setAttribute('data-sig', h); gdApply(false); }
   }
-  function renderFront() {
-    if (!frontView || frontView.hidden) return;
-    frState();
-    document.getElementById('frSeason').textContent = '· ' + tr('season', { n: 1 });
-    var h = '';
-    if (frMode === 'guide') {
-      var GT = ['chooseFac', 'g2t', 'g3t', 'g4t', 'g5t'], GD = ['g1d', 'g2d', 'g3d', 'g4d', 'g5d'], GB = [['b1a', 'b1b'], ['b2a', 'b2b'], ['b3a', 'b3b'], ['b4a', 'b4b'], ['b5a', 'b5b']], ART = guideArts();
-      h = '<div class="gd" id="gd"><div class="gdTrack" id="gdTrack">';
-      GT.forEach(function (k, i) {
-        h += '<div class="gdPage"><div class="gdArt">' + ART[i] + '</div><div class="gdTxt"><i class="gdNum">' + (i + 1) + ' / 5</i><b>' + esc(tr(k)) + '</b><p>' + esc(tr(GD[i])) + '</p><ul><li>' + esc(tr(GB[i][0])) + '</li><li>' + esc(tr(GB[i][1])) + '</li></ul></div></div>';
-      });
-      h += '</div></div><div class="gdNav"><button class="gdArrow" data-fr="gprev" data-i18n-aria="back" aria-label="&lt;">‹</button><div class="gdDots">';
-      for (var d = 0; d < 5; d++) h += '<button data-fr="g:' + d + '" aria-label="' + (d + 1) + '"></button>';
-      h += '</div><button class="frOk" data-fr="gnext" id="gdNext"></button></div>';
-    } else if (frMode === 'pick') {
-      h = '<p class="frLead">' + esc(tr('chooseFac')) + '</p><div class="frFacs">';
-      ['h', 's'].forEach(function (f) { h += '<button class="frFac' + (frPick === f ? ' sel' : frPick ? ' dim' : '') + '" data-fac="' + f + '" style="--fc:' + FAC[f].c + '">' + svgI(FAC[f].ic) + '<b>' + esc(tr('fac_' + f)) + '</b><small>' + esc(tr('facD_' + f)) + '</small></button>'; });
-      h += '</div><p class="frWarn">⚠ ' + esc(tr('facFinal')) + '</p><div class="frGo"><button class="frOk" data-fr="join"' + (frPick ? '' : ' disabled') + '>' + esc(tr('join') + (frPick ? ' · ' + tr('fac_' + frPick).toUpperCase() : '')) + '</button></div>';
-    } else if (frMode.indexOf('sec:') === 0) {
-      var sc0 = SECTORS.filter(function (q) { return 'sec:' + q.id === frMode; })[0] || SECTORS[0], c0 = sc0.own ? FAC[sc0.own].c : '#9fb6d0';
-      h = '<div class="frSecD"><div class="frSec' + (sc0.own ? '' : ' c') + '" style="--sc:' + c0 + ';--b1:' + sc0.b[0] + ';--b2:' + sc0.b[1] + '">' + svgI(sc0.ic) + '<div><b>' + esc(tr('sec_' + sc0.id)) + '</b><small>' + esc(sc0.own ? tr('fac_' + sc0.own) : tr('contested')) + '</small></div></div>' +
-        '<div class="frBlks"><button class="frBackMap" data-fr="hub">‹ ' + esc(tr('nav_fight')) + '</button><div class="frBlk hz"><b>' + esc(tr('secHazard')) + '</b><p>' + esc(tr('hz_' + sc0.id)) + '</p></div><div class="frBlk tp"><b>' + esc(tr('secTip')) + '</b><p>' + esc(tr('tip_' + sc0.id)) + '</p></div>' +
-        '<div class="frBlk rw"><b>' + esc(tr('secRewardT')) + '</b><p>' + esc(tr('secReward')) + '</p></div><p class="frNote" style="padding:2px 0 0;text-align:start">' + esc(tr('secSoon')) + '</p></div></div>';
-    } else if (frMode === 'chat') {
-      var Fc = FAC[online.fac], fn = tr('fac_' + online.fac), msgs;
-      if (cfg.chat === false) msgs = '<div class="chMsg info"><div><p>' + esc(tr('chatOff')) + '</p></div></div>';
-      else msgs = '<div class="chMsg"><span class="frEmb">' + svgI(Fc.ic) + '</span><div><b>' + esc(fn) + '</b><p>' + esc(tr('chatWelcome', { f: fn })) + '</p></div></div><div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
-      h = '<div class="chWrap" style="--fc:' + Fc.c + '"><div class="chHead">' + svgI('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/>') + '<b>' + esc(tr('chatTitle')) + '</b><span class="frBadge">' + esc(fn) + '</span></div><div class="chList">' + msgs + '</div>' +
-        '<div class="chIn"><input disabled placeholder="' + esc(tr('chatPh')) + '"><button disabled aria-label="' + esc(tr('nav_chat')) + '">' + svgI('<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>') + '</button></div></div>';
-    } else {
-      var F = FAC[online.fac];
-      h = '<div class="frWrap"><div class="frLeft"><div class="frCard" style="--fc:' + F.c + '"><div class="frEmb">' + svgI(F.ic) + '</div><div class="frInfo"><span class="frBadge">' + esc(tr('fac_' + online.fac)) + '</span>' +
-        '<b>' + esc(tr('rank')) + ' : ' + esc(tr('rk0')) + '</b><small>' + esc(tr('pts', { n: 0 })) + ' · ' + esc(tr('season', { n: 1 })) + '</small><div class="frBar"><i style="width:4%"></i></div></div></div>' +
-        '<button class="frAct" data-fr="ghost">' + svgI(FAC.s.ic) + '<span><b>' + esc(tr('ghost')) + '</b><small>' + esc(tr('ghostD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
-        '<button class="frAct" data-fr="rank">' + svgI('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM17 6h3v2a3 3 0 01-3 3M7 6H4v2a3 3 0 003 3"/>') + '<span><b>' + esc(tr('ranking')) + '</b><small>' + esc(tr('rankingD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
-        '</div><div class="frMap">';
-      SECTORS.forEach(function (sc) {
-        var c = sc.own ? FAC[sc.own].c : '#9fb6d0';
-        h += '<button class="frSec' + (sc.own ? '' : ' c') + '" data-fr="sec:' + sc.id + '" style="--sc:' + c + ';--b1:' + sc.b[0] + ';--b2:' + sc.b[1] + '">' + svgI(sc.ic) + '<div><b>' + esc(tr('sec_' + sc.id)) + '</b><small>' + esc(sc.own ? tr('fac_' + sc.own) : tr('contested')) + '</small></div></button>';
-      });
-      h += '</div></div>';
-    }
-    var b = document.getElementById('frBody');
-    if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
-    if (frMode === 'guide') gdApply(false);
-  }
+  function openGuide() { gdPage = 0; renderGuide(); gdFull.hidden = false; gdApply(false); }
+  function closeGuide() { gdFull.hidden = true; online.gd = 1; saveOnline(); frMode = myAlly() ? 'hub' : 'ally'; allyTab = ''; renderAll(); }
   function gdApply(anim) {
     var tk = document.getElementById('gdTrack'); if (!tk) return;
     tk.style.transition = anim ? '' : 'none';
     tk.style.transform = 'translateX(' + (-gdPage * 100) + '%)';
     if (!anim) { void tk.offsetWidth; tk.style.transition = ''; }
-    var pg = tk.children; for (var i = 0; i < pg.length; i++) pg[i].classList.toggle('on', i === gdPage);
-    var dots = document.querySelectorAll('.gdDots button'); for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('on', j === gdPage);
-    var pv = document.querySelector('[data-fr="gprev"]'); if (pv) pv.disabled = gdPage === 0;
+    var pg = tk.children || []; for (var i = 0; i < pg.length; i++) pg[i].classList.toggle('on', i === gdPage);
+    var dots = gdFull.querySelectorAll('.gdDots button'); for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('on', j === gdPage);
+    var pv = gdFull.querySelector('[data-g="prev"]'); if (pv) pv.disabled = gdPage === 0;
     var nx = document.getElementById('gdNext'); if (nx) nx.textContent = gdPage === 4 ? tr('gotIt') : tr('next') + ' ›';
   }
   function gdStep(d) {
     var n = gdPage + d;
-    if (n > 4) { online.gd = 1; saveOnline(); frMode = online.fac ? 'hub' : 'pick'; renderAll(); return; }
+    if (n > 4) { closeGuide(); return; }
     if (n < 0) { gdApply(true); return; }
     gdPage = n; gdApply(true);
+  }
+  gdFull.addEventListener('click', function (ev) {
+    var el = ev.target.closest ? ev.target.closest('[data-g]') : null; if (!el) return;
+    initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(10);
+    var a = el.getAttribute('data-g');
+    if (a === 'next') gdStep(1); else if (a === 'prev') gdStep(-1); else if (a === 'skip') closeGuide();
+    else if (a.indexOf('d:') === 0) { gdPage = +a.slice(2); gdApply(true); }
+  });
+  gdFull.addEventListener('pointerdown', function (ev) { if (ev.target.closest && ev.target.closest('#gd')) gdSw = { x: ev.clientX, y: ev.clientY }; });
+  gdFull.addEventListener('pointermove', function (ev) {
+    if (!gdSw) return; var dx = ev.clientX - gdSw.x, tk = document.getElementById('gdTrack'); if (!tk || Math.abs(dx) < 6) return;
+    tk.style.transition = 'none'; tk.style.transform = 'translateX(calc(' + (-gdPage * 100) + '% + ' + dx.toFixed(1) + 'px))';
+  });
+  function gdEnd(ev) {
+    if (!gdSw) return; var dx = ev.clientX - gdSw.x, dy = ev.clientY - gdSw.y; gdSw = null;
+    var tk = document.getElementById('gdTrack'); if (tk) tk.style.transition = '';
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { beep(520, 0.06, 'triangle', 0.04, 700); gdStep(dx < 0 ? 1 : -1); } else gdApply(true);
+  }
+  gdFull.addEventListener('pointerup', gdEnd);
+  gdFull.addEventListener('pointercancel', function () { gdSw = null; gdApply(true); });
+  // --- Tableau de bord, alliance, chats
+  function renderFront() {
+    if (gdFull.hidden === false) renderGuide();
+    if (!frontView || frontView.hidden) return;
+    if (!online.gd && gdFull.hidden) openGuide();
+    document.getElementById('frSeason').textContent = '· ' + tr('preseason');
+    var ni = document.getElementById('alName'), ti = document.getElementById('alTag');
+    if (ni) alDraft.n = ni.value; if (ti) alDraft.t = ti.value;
+    var me = myAlly(), h = '';
+    if (frMode.indexOf('sec:') === 0) {
+      var sc0 = SECTORS.filter(function (q) { return 'sec:' + q.id === frMode; })[0] || SECTORS[0];
+      h = '<div class="frSecD"><div class="frSec" style="--sc:#9fb6d0;--b1:' + sc0.b[0] + ';--b2:' + sc0.b[1] + '">' + svgI(sc0.ic) + '<div><b>' + esc(tr('sec_' + sc0.id)) + '</b><small>' + esc(tr('secFree')) + '</small></div></div>' +
+        '<div class="frBlks"><button class="frBackMap" data-fr="hub">‹ ' + esc(tr('nav_dash')) + '</button><div class="frBlk hz"><b>' + esc(tr('secHazard')) + '</b><p>' + esc(tr('hz_' + sc0.id)) + '</p></div><div class="frBlk tp"><b>' + esc(tr('secTip')) + '</b><p>' + esc(tr('tip_' + sc0.id)) + '</p></div>' +
+        '<div class="frBlk rw"><b>' + esc(tr('secRewardT')) + '</b><p>' + esc(tr('secReward2')) + '</p></div><p class="frNote" style="padding:2px 0 0;text-align:start">' + esc(tr('secPre')) + '</p></div></div>';
+    } else if (frMode === 'chat') {
+      var SH = '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>', GL = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>', msgs;
+      h = '<div class="chWrap"><div class="seg chTabs"><button data-ch="ally" class="' + (chatTab === 'ally' ? 'on' : '') + '">' + svgI(SH) + esc(tr('ally')) + '</button><button data-ch="srv" class="' + (chatTab === 'srv' ? 'on' : '') + '">' + svgI(GL) + esc(tr('chatServer')) + '</button></div>';
+      if (cfg.chat === false) msgs = '<div class="chMsg info"><div><p>' + esc(tr('chatOff')) + '</p></div></div>';
+      else if (chatTab === 'srv') msgs = '<div class="chMsg" style="--fc:#4fd8ff"><span class="frEmb">' + svgI(GL) + '</span><div><b>' + esc(tr('chatServer')) + '</b><p>' + esc(tr('chatSrvWelcome')) + '</p></div></div><div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
+      else if (!me) msgs = '<div class="chMsg info"><div><p>' + esc(tr('chatNoAlly')) + '</p></div></div><button class="frOk chGo" data-fr="ally">' + esc(tr('noAllyD')) + '</button>';
+      else msgs = '<div class="chMsg" style="--fc:' + me.c + '">' + embHtml(me, 'frEmb') + '<div><b>[' + esc(me.t) + '] ' + esc(me.n) + '</b><p>' + esc(tr('chatWelcome', { f: me.n })) + '</p></div></div><div class="chMsg info"><div><p>' + esc(tr('chatSoon')) + '</p></div></div>';
+      h += '<div class="chList">' + msgs + '</div><div class="chIn"><input disabled placeholder="' + esc(tr('chatPh')) + '"><button disabled aria-label="' + esc(tr('nav_chat')) + '">' + svgI('<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>') + '</button></div></div>';
+    } else if (frMode === 'ally') {
+      var tabs = me ? [['mine', 'allyMine'], ['rank', 'allyRank'], ['list', 'allyJoin']] : [['list', 'allyJoin'], ['new', 'allyCreate'], ['rank', 'allyRank']];
+      if (!tabs.some(function (t) { return t[0] === allyTab; })) allyTab = tabs[0][0];
+      h = '<div class="alWrap"><div class="alTop"><b>' + svgI('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>') + esc(tr('ally')) + '</b><div class="seg alTabs">';
+      tabs.forEach(function (t) { h += '<button data-al="tab:' + t[0] + '" class="' + (allyTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
+      h += '</div></div>';
+      if (allyTab === 'mine' && me) {
+        h += '<div class="alMine" style="--fc:' + me.c + '">' + embHtml(me, 'alEmbBig') + '<div class="alInfo"><span class="frBadge">[' + esc(me.t) + ']</span><b>' + esc(me.n) + '</b><small>' + esc(tr('members', { n: me.m })) + ' · ' + esc(tr('power')) + ' ' + fmtN(me.p) + '</small><small>' + esc(tr('leader')) + ' : ' + esc(me.ld) + '</small></div>' +
+          '<div class="alAct"><button class="alLeave' + (alArm ? ' arm' : '') + '" data-al="leave">' + esc(alArm ? tr('confirmQ') : tr('allyLeave')) + '</button><button class="alGo" data-al="tab:list">' + esc(tr('allyJoin')) + ' ›</button></div></div>';
+        if (!me.mine) h += '<p class="alNote">' + esc(tr('allyDemo')) + '</p>';
+      } else if (allyTab === 'rank') {
+        h += '<div class="alRank">';
+        allyList().forEach(function (a, i) { h += '<div class="alRow' + (me && me.id === a.id ? ' me' : '') + '" style="--fc:' + a.c + '"><i>#' + (i + 1) + '</i>' + embHtml(a) + '<b>' + esc(a.n) + '</b><small>[' + esc(a.t) + ']</small><em>' + esc(tr('members', { n: a.m })) + '</em><strong>' + fmtN(a.p) + '</strong></div>'; });
+        h += '</div><p class="alNote">' + esc(tr('allyDemo')) + '</p>';
+      } else if (allyTab === 'list') {
+        h += '<div class="alGrid">';
+        ALLYS.forEach(function (a) {
+          var inA = me && me.id === a.id;
+          h += '<div class="alCardL" style="--fc:' + a.c + '">' + embHtml(a) + '<div><b>' + esc(a.n) + '</b><small>[' + esc(a.t) + '] · ' + esc(tr('members', { n: inA ? me.m : a.m })) + '</small></div>' + (inA ? '<span class="alIn">' + esc(tr('member')) + '</span>' : '<button class="alJoin" data-al="join:' + a.id + '">' + esc(tr('allyJoin')) + '</button>') + '</div>';
+        });
+        h += '</div><p class="alNote">' + esc(tr('allyDemo')) + '</p>';
+      } else {
+        var pv = { n: alDraft.n || tr('allyName'), t: (alDraft.t || '???').toUpperCase(), ic: alDraft.ic, c: alDraft.c };
+        h += '<div class="alNew"><div class="alForm"><label><span>' + esc(tr('allyName')) + '</span><input id="alName" maxlength="18" autocomplete="off" data-vk="text" value="' + esc(alDraft.n) + '"></label>' +
+          '<label class="tg"><span>' + esc(tr('allyTag')) + '</span><input id="alTag" maxlength="4" autocomplete="off" data-vk="text" value="' + esc(alDraft.t) + '"></label>' +
+          '<div class="alPick"><span>' + esc(tr('allyEmblem')) + '</span><div>';
+        Object.keys(EMB).forEach(function (k) { h += '<button data-al="ic:' + k + '" class="' + (alDraft.ic === k ? 'on' : '') + '">' + svgI(EMB[k]) + '</button>'; });
+        h += '</div><div>';
+        ALCOL.forEach(function (c) { h += '<button data-al="c:' + c + '" class="col' + (alDraft.c === c ? ' on' : '') + '" style="background:' + c + '" aria-label="' + c + '"></button>'; });
+        h += '</div></div>' + (alErr ? '<p class="alErr">' + esc(tr('allyErr')) + '</p>' : '') + '</div><div class="alPrev" style="--fc:' + pv.c + '">' + embHtml(pv, 'alEmbBig') + '<span class="frBadge">[' + esc(pv.t) + ']</span><b>' + esc(pv.n) + '</b><button class="frOk" data-al="create">' + esc(tr('createBtn')) + '</button></div></div>';
+      }
+      h += '</div>';
+    } else {
+      h = '<div class="frWrap"><div class="frLeft"><button class="frCard alCard' + (me ? '' : ' none') + '" data-fr="ally" style="--fc:' + (me ? me.c : '#4fd8ff') + '">' + (me ? embHtml(me, 'frEmb') : '<span class="frEmb">' + svgI('<path d="M12 5v14M5 12h14"/>') + '</span>') +
+        '<span class="frInfo"><span class="frBadge">' + esc(me ? '[' + me.t + ']' : tr('ally')) + '</span><b>' + esc(me ? me.n : tr('noAlly')) + '</b><small>' + esc(me ? tr('members', { n: me.m }) + ' · ' + tr('power') + ' ' + fmtN(me.p) : tr('noAllyD')) + '</small></span><i class="alChev">›</i></button>' +
+        '<button class="frAct" data-fr="ghost">' + svgI(EMB.ghost) + '<span><b>' + esc(tr('ghost')) + '</b><small>' + esc(tr('ghostD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
+        '<button class="frAct" data-fr="rank">' + svgI('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM17 6h3v2a3 3 0 01-3 3M7 6H4v2a3 3 0 003 3"/>') + '<span><b>' + esc(tr('ranking')) + '</b><small>' + esc(tr('rankingD')) + '</small></span><i class="soonTag">' + esc(tr('soonTag')) + '</i></button>' +
+        '</div><div class="frMap">';
+      SECTORS.forEach(function (sc) { h += '<button class="frSec" data-fr="sec:' + sc.id + '" style="--sc:#9fb6d0;--b1:' + sc.b[0] + ';--b2:' + sc.b[1] + '">' + svgI(sc.ic) + '<div><b>' + esc(tr('sec_' + sc.id)) + '</b><small>' + esc(tr('secFree')) + '</small></div></button>'; });
+      h += '</div></div>';
+    }
+    var b = document.getElementById('frBody');
+    if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); fitDirty = true; }
   }
   function renderOnline() {
     var key = view === 'hangar' ? 'drone' : view === 'front' ? (frMode === 'chat' ? 'chat' : 'fight') : '';
     var nb = document.querySelectorAll('.onNb'); for (var i = 0; i < nb.length; i++) nb[i].classList.toggle('on', nb[i].getAttribute('data-on') === key);
-    var gems = GEM + ' ' + bank.d, av = avHtml(profile), nick = profile.nick || tr('profile'), sub = flagOf(cfg.country) + ' ' + (online.fac ? tr('fac_' + online.fac) : tr('rk0'));
+    var me = myAlly(), gems = GEM + ' ' + bank.d, av = avHtml(profile), nick = profile.nick || tr('profile'), sub = flagOf(cfg.country) + ' ' + (me ? '[' + me.t + ']' : tr('rk0'));
     var hs = document.querySelectorAll('.onHead');
     for (var k = 0; k < hs.length; k++) {
       var g = hs[k].querySelector('.onGems'); if (g.getAttribute('data-sig') !== gems) { g.innerHTML = gems; g.setAttribute('data-sig', gems); }
@@ -3225,42 +3409,42 @@
     var el = e.target.closest ? e.target.closest('[data-on]') : null; if (!el) return;
     var a = el.getAttribute('data-on'); initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(10);
     if (a === 'home') { showView('home'); return; }
-    if (a === 'fight') { if (online.gd && online.fac) frMode = 'hub'; showView('front'); renderAll(); return; }
-    if (a === 'chat') { if (online.gd && online.fac) frMode = 'chat'; showView('front'); renderAll(); return; }
+    if (a === 'fight') { frMode = 'hub'; showView('front'); renderAll(); return; }
+    if (a === 'chat') { frMode = 'chat'; showView('front'); renderAll(); return; }
     if (a === 'drone') { hangarFrom = 'front'; showView('hangar'); renderAll(); return; }
     if (a === 'store') { openStore('gems'); return; }
     if (a === 'profile') { pfDraft = JSON.parse(JSON.stringify(profile)); profFrom = view; showView('profile'); }
   }
   frontView.addEventListener('click', onNavClick);
   document.getElementById('hangarView').addEventListener('click', onNavClick);
-  document.getElementById('frHelp').addEventListener('click', function (ev) { ev.stopPropagation(); initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); frMode = 'guide'; gdPage = 0; renderFront(); });
-  var frBody = document.getElementById('frBody'), gdSw = null;
-  frBody.addEventListener('click', function (ev) {
-    var el = ev.target.closest('[data-fac],[data-fr]'); if (!el) return;
+  document.getElementById('frHelp').addEventListener('click', function (ev) { ev.stopPropagation(); initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); openGuide(); });
+  document.getElementById('frBody').addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-al],[data-ch],[data-fr]'); if (!el) return;
+    if (el.tagName === 'INPUT') return;
     initAudio(); beep(520, 0.08, 'triangle', 0.05, 780); vib(12);
-    if (el.hasAttribute('data-fac')) { frPick = el.getAttribute('data-fac'); renderFront(); return; }
+    var ni = document.getElementById('alName'), ti = document.getElementById('alTag');
+    if (ni) alDraft.n = ni.value; if (ti) alDraft.t = ti.value;
+    if (el.hasAttribute('data-ch')) { chatTab = el.getAttribute('data-ch'); renderFront(); return; }
+    if (el.hasAttribute('data-al')) {
+      var q = el.getAttribute('data-al');
+      if (q.indexOf('tab:') === 0) { allyTab = q.slice(4); alArm = 0; alErr = 0; }
+      else if (q.indexOf('join:') === 0) { var A0 = ALLYS.filter(function (x) { return x.id === q.slice(5); })[0]; if (A0) { online.al = { id: A0.id }; saveOnline(); alArm = 0; allyTab = 'mine'; beep(660, 0.15, 'triangle', 0.06, 990); showToast(tr('allyJoined', { a: A0.n })); } }
+      else if (q === 'leave') { if (!alArm) alArm = 1; else { alArm = 0; online.al = null; saveOnline(); allyTab = 'list'; showToast(tr('allyLeft')); } }
+      else if (q.indexOf('ic:') === 0) alDraft.ic = q.slice(3);
+      else if (q.indexOf('c:') === 0) alDraft.c = q.slice(2);
+      else if (q === 'create') {
+        var nm = (alDraft.n || '').trim(), tg = (alDraft.t || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+        if (nm.length < 3 || tg.length < 3 || tg.length > 4) { alErr = 1; }
+        else { alErr = 0; online.al = { mine: 1, id: 'me', n: nm, t: tg, ic: alDraft.ic, c: alDraft.c }; saveOnline(); allyTab = 'mine'; beep(660, 0.15, 'triangle', 0.06, 990); showToast(tr('allyCreated', { a: nm })); alDraft = { n: '', t: '', ic: 'eagle', c: '#4fd8ff' }; }
+      }
+      renderAll(); return;
+    }
     var a = el.getAttribute('data-fr');
     if (a === 'ghost' || a === 'rank') { showToast(tr('onlineSoon')); return; }
-    if (a === 'gnext') { gdStep(1); return; }
-    if (a === 'gprev') { gdStep(-1); return; }
-    if (a.indexOf('g:') === 0) { gdPage = +a.slice(2); gdApply(true); return; }
-    if (a === 'join') { if (!frPick) return; online.fac = frPick; frPick = ''; saveOnline(); frMode = 'hub'; beep(660, 0.15, 'triangle', 0.06, 990); renderAll(); return; }
+    if (a === 'ally') { frMode = 'ally'; allyTab = ''; alArm = 0; renderAll(); return; }
     if (a === 'hub') { frMode = 'hub'; renderAll(); return; }
     if (a.indexOf('sec:') === 0) { frMode = a; renderAll(); return; }
   });
-  function gdScale() { var pn = document.getElementById('panel'); return pn && pn.offsetWidth ? pn.getBoundingClientRect().width / pn.offsetWidth : 1; }
-  frBody.addEventListener('pointerdown', function (ev) { if (ev.target.closest && ev.target.closest('#gd')) gdSw = { x: ev.clientX, y: ev.clientY, s: gdScale() }; });
-  frBody.addEventListener('pointermove', function (ev) {
-    if (!gdSw) return; var dx = ev.clientX - gdSw.x, tk = document.getElementById('gdTrack'); if (!tk || Math.abs(dx) < 6) return;
-    tk.style.transition = 'none'; tk.style.transform = 'translateX(calc(' + (-gdPage * 100) + '% + ' + (dx / gdSw.s).toFixed(1) + 'px))';
-  });
-  function gdEnd(ev) {
-    if (!gdSw) return; var dx = ev.clientX - gdSw.x, dy = ev.clientY - gdSw.y; gdSw = null;
-    var tk = document.getElementById('gdTrack'); if (tk) tk.style.transition = '';
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { beep(520, 0.06, 'triangle', 0.04, 700); gdStep(dx < 0 ? 1 : -1); } else gdApply(true);
-  }
-  frBody.addEventListener('pointerup', gdEnd);
-  frBody.addEventListener('pointercancel', function () { gdSw = null; gdApply(true); });
   hangarView.addEventListener('click', function (e) {
     var el = e.target && e.target.closest ? e.target.closest('[data-hgtab],[data-wrap],[data-oskin],[data-hgact]') : null;
     if (!el || el.disabled) return;
