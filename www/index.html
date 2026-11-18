@@ -678,7 +678,7 @@
   .frWarn { text-align: center; margin: 12px 22px 0; color: #ffb3c1; font-size: 13.5px; font-weight: 700; }
   .frGo .frOk[disabled] { opacity: 0.35; cursor: default; }
   .frBackMap { align-self: flex-start; font: inherit; font-size: 12.5px; padding: 7px 14px; border-radius: 10px; border: 1px solid #2a6f9c; background: transparent; color: #cfe3ff; cursor: pointer; letter-spacing: 0; }
-  .chWrap { display: flex; flex-direction: column; gap: 10px; padding: 0 22px; min-height: 230px; }
+  .chWrap { display: flex; flex-direction: column; gap: 10px; padding: 0 22px; height: 330px; }
   .chHead { display: flex; align-items: center; gap: 10px; } .chHead svg { width: 22px; height: 22px; color: #c77dff; } .chHead b { font-size: 15px; color: #fff; letter-spacing: 1px; }
   .chList { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(6, 12, 22, 0.8); border: 1px solid #2a3f5e; min-height: 140px; }
   .chMsg { display: flex; gap: 10px; align-items: flex-start; max-width: 92%; }
@@ -837,6 +837,11 @@
   .rcRes i { font-style: normal; font-weight: 900; width: 20px; color: #ffd166; } .rcRes span { flex: 1; font-weight: 700; } .rcRes em { font-style: normal; font-size: 12.5px; color: #9fb6d0; } .rcRes strong { min-width: 60px; text-align: end; font-size: 13px; color: #ffc94a; display: inline-flex; align-items: center; justify-content: flex-end; gap: 4px; } .rcRes .gear { width: 15px; height: 15px; }
   .rcRew { margin: 0; text-align: center; font-weight: 800; color: #5dff9b; }
   @media (max-height: 420px) { .rcLobby { gap: 5px; padding: 10px 14px; } .rcHead b { font-size: 18px; } .rcItem { width: 78px; height: 78px; right: 16px; bottom: 16px; } }
+  .chWrap .chList { max-height: none; min-height: 0; }
+  .emer { width: 1em; height: 1em; display: inline-block; vertical-align: -0.15em; flex: none; } .emerTxt { color: #3cf08e !important; }
+  .stCard.emerC { background: radial-gradient(circle at 50% 30%, #0f4a2c, #0a1a12 75%); border: 1px solid #22a45e; } .stCard.emerC em.price { background: #2a0f24; color: #ff8fe3; border: 1px solid #ff5ad7; }
+  .stIco.big .emer { width: 30px; height: 30px; } .alCost { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #3cf08e; } .rcRew .emer, .rcRes .emer { width: 15px; height: 15px; }
+  body.light .emerTxt { color: #0e8a49 !important; } body.light .stCard.emerC { background: radial-gradient(circle at 50% 30%, #d4f7e2, #f4fcf7 78%); border-color: #7fd6a3; } body.light .alCost { color: #0e8a49; }
   .frSeason { font-size: 13px; letter-spacing: 1px; color: #9fb6d0; font-weight: 600; }
   .frWrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px; padding: 0 22px 16px; align-items: stretch; }
   .frLeft { display: flex; flex-direction: column; gap: 10px; }
@@ -1491,6 +1496,10 @@
   :where(body.light) .dsRace::after { background: repeating-linear-gradient(-45deg, rgba(26, 26, 26, 0.05) 0 10px, transparent 10px 20px); }
   :where(body.light) .dsRace small { color: #13863d; }
   :where(body.light) .dsRace em { background: #00993b; color: #f2f9fd; }
+  :where(body.light) .emerTxt { color: #0eba5c !important; }
+  :where(body.light) .stCard.emerC { background: radial-gradient(circle at 50% 30%, #e5faef, #f4fbf7 75%); border: 1px solid #5bdd97; }
+  :where(body.light) .stCard.emerC em.price { background: #f9eff7; color: #990073; border: 1px solid #9b0075; }
+  :where(body.light) .alCost { color: #0eba5c; }
   :where(body.light) .frSeason { color: #2f4660; }
   :where(body.light) .frCard { background: rgba(242, 245, 251, 0.78); }
   :where(body.light) .frAv { background: #eef3fa; }
@@ -1945,7 +1954,7 @@
 <script>
 (function () {
   'use strict';
-  var APP_VERSION = '2.0.9';
+  var APP_VERSION = '2.1.0';
   // Remplacé par true lors de la compilation de la branche « test » (application DSF Test)
   var TEST_MODE = false;
   var LS = (function () {
@@ -2304,6 +2313,11 @@
   var RTL = { ar: 1, fa: 1 };
   var LANG_INFO = { fr: ['Français', 'French francais'], en: ['English', 'anglais english'], es: ['Español', 'Spanish espagnol'], it: ['Italiano', 'Italian italien'], zh: ['中文', 'Chinese chinois'], ru: ['Русский', 'Russian russe'], ar: ['العربية', 'Arabic arabe'], fa: ['فارسی', 'Persian persan farsi'], ja: ['日本語', 'Japanese japonais'], ko: ['한국어', 'Korean coreen'], pt: ['Português', 'Portuguese portugais'], de: ['Deutsch', 'German allemand'], tr: ['Türkçe', 'Turkish turc'], id: ['Indonesia', 'Indonesian indonesien bahasa'], hi: ['हिन्दी', 'Hindi'] };
   var T = {
+    stEmer: ["Émeraudes", "Emeralds", "Esmeraldas", "Smeraldi", "绿宝石", "Изумруды", "الزمرد", "زمرد", "エメラルド", "에메랄드", "Esmeraldas", "Smaragde", "Zümrütler", "Zamrud", "पन्ने"],
+    emerBought: ["+{n} émeraudes !", "+{n} emeralds!", "¡+{n} esmeraldas!", "+{n} smeraldi!", "+{n} 绿宝石！", "+{n} изумрудов!", "+{n} زمرد!", "+{n} زمرد!", "エメラルド +{n}！", "에메랄드 +{n}!", "+{n} esmeraldas!", "+{n} Smaragde!", "+{n} zümrüt!", "+{n} zamrud!", "+{n} पन्ने!"],
+    emerNote: ["Les émeraudes servent à créer une alliance, et bientôt aux émojis spéciaux et aux cadeaux du chat.", "Emeralds are used to create an alliance, and soon for special emojis and chat gifts.", "Las esmeraldas sirven para crear una alianza y pronto para emojis especiales y regalos del chat.", "Gli smeraldi servono a creare un’alleanza e presto per emoji speciali e regali in chat.", "绿宝石用于创建联盟，之后还可用于特殊表情和聊天礼物。", "Изумруды нужны для создания альянса, а скоро — для особых эмодзи и подарков в чате.", "يُستخدم الزمرد لإنشاء تحالف، وقريبًا للرموز الخاصة وهدايا الدردشة.", "زمرد برای ساختن اتحاد است و به‌زودی برای ایموجی‌های ویژه و هدیه‌های چت.", "エメラルドは同盟の作成に使い、今後は特別な絵文字やチャットのギフトにも使えます。", "에메랄드는 동맹 생성에 쓰이며, 곧 특별 이모지와 채팅 선물에도 쓰입니다.", "As esmeraldas servem para criar uma aliança e, em breve, para emojis especiais e presentes no chat.", "Smaragde dienen zum Gründen einer Allianz und bald für Spezial-Emojis und Chat-Geschenke.", "Zümrütler ittifak kurmak için, yakında özel emojiler ve sohbet hediyeleri için kullanılacak.", "Zamrud dipakai untuk membuat aliansi, dan segera untuk emoji khusus serta hadiah chat.", "पन्नों से गठबंधन बनाते हैं, जल्द ही विशेष इमोजी और चैट उपहारों के लिए भी।"],
+    allyCost: ["Création : {n} émeraudes", "Creation: {n} emeralds", "Creación: {n} esmeraldas", "Creazione: {n} smeraldi", "创建：{n} 绿宝石", "Создание: {n} изумрудов", "الإنشاء: {n} زمرد", "ساخت: {n} زمرد", "作成：エメラルド {n}", "생성: 에메랄드 {n}", "Criação: {n} esmeraldas", "Gründung: {n} Smaragde", "Kuruluş: {n} zümrüt", "Pembuatan: {n} zamrud", "निर्माण: {n} पन्ने"],
+    noEmer: ["Pas assez d’émeraudes.", "Not enough emeralds.", "No hay suficientes esmeraldas.", "Smeraldi insufficienti.", "绿宝石不足。", "Недостаточно изумрудов.", "لا يوجد زمرد كافٍ.", "زمرد کافی نیست.", "エメラルドが足りません。", "에메랄드가 부족합니다.", "Esmeraldas insuficientes.", "Nicht genug Smaragde.", "Yeterli zümrüt yok.", "Zamrud tidak cukup.", "पर्याप्त पन्ने नहीं।"],
     raceT: ["Course de drones", "Drone race", "Carrera de drones", "Gara di droni", "无人机竞速", "Гонка дронов", "سباق الطائرات", "مسابقه پهپادها", "ドローンレース", "드론 레이스", "Corrida de drones", "Drohnenrennen", "Drone yarışı", "Balapan drone", "ड्रोन रेस"],
     raceD: ["6 drones, 3 tours, des boîtes d’armes sur la piste : finis premier !", "6 drones, 3 laps, weapon boxes on the track: finish first!", "6 drones, 3 vueltas, cajas de armas en la pista: ¡llega primero!", "6 droni, 3 giri, casse di armi sulla pista: arriva primo!", "6 架无人机、3 圈，赛道上有武器箱：争取第一！", "6 дронов, 3 круга, ящики с оружием на трассе: финишируй первым!", "6 طائرات، 3 لفات، صناديق أسلحة على المسار: اوصل أولًا!", "۶ پهپاد، ۳ دور، جعبه‌های سلاح روی مسیر: اول شو!", "6機・3周、コースに武器ボックス：1位を目指せ！", "드론 6대, 3바퀴, 트랙 위 무기 상자: 1등으로 들어오세요!", "6 drones, 3 voltas, caixas de armas na pista: chegue em primeiro!", "6 Drohnen, 3 Runden, Waffenkisten auf der Strecke: werde Erster!", "6 drone, 3 tur, pistte silah kutuları: birinci bitir!", "6 drone, 3 putaran, kotak senjata di lintasan: finis pertama!", "6 ड्रोन, 3 लैप, ट्रैक पर हथियार बॉक्स: पहले आइए!"],
     raceTrack: ["Piste aérienne", "Air track", "Pista aérea", "Pista aerea", "空中赛道", "Воздушная трасса", "المسار الجوي", "مسیر هوایی", "エアコース", "공중 트랙", "Pista aérea", "Luftstrecke", "Hava pisti", "Lintasan udara", "हवाई ट्रैक"],
@@ -2956,7 +2970,8 @@
     var sb0 = JSON.parse(LS.getItem('droneStrikeBank') || 'null');
     if (sb0 && sb0.c >= 0) { bank.c = Math.floor(sb0.c); for (var bi = 0; bi < ITEMS.length; bi++) bank.inv[ITEMS[bi][0]] = Math.max(0, Math.min(ITEM_MAX, Math.floor((sb0.inv || {})[ITEMS[bi][0]] || 0))); }
   } catch (err) { /* banque vide */ }
-  bank.d = 0;
+  bank.d = 0; bank.e = 0;
+  try { var sbe = JSON.parse(LS.getItem('droneStrikeBank') || 'null'); if (sbe && sbe.e > 0) bank.e = Math.floor(sbe.e); } catch (err) { /* ignore */ }
   try { var sbd = JSON.parse(LS.getItem('droneStrikeBank') || 'null'); if (sbd && sbd.d > 0) bank.d = Math.floor(sbd.d); } catch (err) { /* ignore */ }
   // Drone du mode en ligne : acheté en diamants, commun à tous les jeux
   var OPARTS = [['hull', '#5dff9b'], ['turbo', '#4fd8ff'], ['cannon', '#ffd166'], ['shield', '#6fa8ff'], ['missile', '#ff6b3d'], ['radar', '#c77dff']], OP_PRICE = [5, 12, 25];
@@ -2972,7 +2987,7 @@
   // Évolutions du drone en ligne (une nouvelle forme tous les 50 niveaux) et skins spéciaux
   var EVO = [{ lv: 1, m: 'b', name: 'RAPTOR' }, { lv: 50, m: 'e', name: 'TEMPEST' }, { lv: 100, m: 'f', name: 'NIGHTWING' }, { lv: 150, m: 'g', name: 'LEVIATHAN' }], MAXLV = 200, STEPS = 5;
   var OSKINS = [{ id: 'x', price: 60, atk: 0.08 }];
-  var online = { v: 5, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {}, fac: '', al: null };
+  var online = { v: 6, wrap: '', wraps: {}, lv: 1, step: 0, skin: '', skins: {}, fac: '', al: null };
   bank.g = 0;
   try { var sbg = JSON.parse(LS.getItem('droneStrikeBank') || 'null'); if (sbg && sbg.g > 0) bank.g = Math.floor(sbg.g); } catch (err) { /* ignore */ }
   try {
@@ -2987,6 +3002,7 @@
           if (so.skin && online.skins[so.skin]) online.skin = so.skin;
         }
         if (so.v < 4) { online.lv = 1; online.step = 0; } // V2.0 : le drone en ligne repart du niveau 1
+        if (so.v < 6) { online.lv = 1; online.step = 0; online.resetG = 1; } // V2.1.0 : nouveau barème, retour au premier drone
         if (so.fac === 'h' || so.fac === 's') online.fac = so.fac;
         if (so.gd) online.gd = 1;
         if (so.al && typeof so.al === 'object' && (so.al.mine ? typeof so.al.n === 'string' && typeof so.al.t === 'string' : typeof so.al.id === 'string')) online.al = so.al;
@@ -3008,11 +3024,12 @@
     var hp = Math.round((1200 + f * 140) * mul), atk = Math.round((120 + f * 16) * mul * (1 + sk)), def = Math.round((60 + f * 7) * mul), ms = Math.floor(Math.min(lv, 149) / 10), kz = lv >= 150 ? Math.floor((lv - 140) / 10) : 0;
     return { hp: hp, atk: atk, def: def, ms: ms, kz: kz, pow: hp + atk * 12 + def * 25 + ms * 800 + kz * 2500 };
   }
-  function pressCost(lv) { return 4 + Math.floor(lv * 0.6); }
+  function pressCost(lv) { return Math.round(30 * Math.pow(1.025, lv - 1)); }
   var GEAR = '<svg class="gear" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5a10.5 10.5 0 1 0 0.01 0z" fill="#ffc94a"/><circle cx="12" cy="12" r="7.2" fill="none" stroke="#a8700f" stroke-width="1.5"/><polygon points="12,7.6 13.4,10.6 16.4,12 13.4,13.4 12,16.4 10.6,13.4 7.6,12 10.6,10.6" fill="#a8700f"/></svg>';
   function saveOnline() { try { LS.setItem('droneStrikeOnline', JSON.stringify(online)); } catch (err) { /* ignore */ } }
   saveOnline();
   var COIN = '<svg class="coin" viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="cg" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#ffc83d"/><stop offset="1" stop-color="#c47f0a"/></radialGradient></defs><circle cx="12" cy="12" r="10.5" fill="#a8650a"/><circle cx="12" cy="11.2" r="10" fill="url(#cg)"/><circle cx="12" cy="11.2" r="6.8" fill="none" stroke="#d99a1e" stroke-width="1.4"/><path d="M12 7.2l1.2 2.5 2.7.4-2 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-2-1.9 2.7-.4z" fill="#fff6c8" stroke="#c98a12" stroke-width=".6"/></svg>';
+  var EMER = '<svg class="emer" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2h8l5 5v10l-5 5H8l-5-5V7z" fill="#22d47a"/><path d="M8 2l2 5h4l2-5M3 7h7l-2 10-5 0M21 7h-7l2 10h5M10 7l-2 10 4 5 4-5-2-10" fill="none" stroke="#0a5a30" stroke-width="1.2" stroke-linejoin="round"/></svg>';
   var GEM = '<svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z" fill="#ff5ad7"/><path d="M2 9h20M7 3l5 18 5-18M7 3 9.5 9 12 3l2.5 6L17 3" fill="none" stroke="#6b0a50" stroke-width="1.3" stroke-linejoin="round"/></svg>';
   // Achats par jeu (drone + difficulté) : améliorations, bonus en stock, designs
   // Atelier : prix plus élevés, effets plus modestes et niveaux débloqués au fil des chapitres
@@ -3503,14 +3520,14 @@
     var x, y, s = sc * 0.34, carry = true, yaw = Math.PI;
     if (a.kz) {
       var low = dy + sc * 0.5; s = sc * 0.5; fromX = cx - w * 0.62;
-      if (!!front !== p < 0.55) return;
+      if (front) return;
       if (p < 0.42) { var e = k(0, 0.42); x = fromX + (cx - fromX) * e; y = low - Math.sin(e * Math.PI) * sc * 0.1; }
       else if (p < 0.55) { x = cx; y = low; }
       else if (p < 0.82) { var e2 = k(0.55, 0.82); x = cx; y = low + (dy - low) * e2; s = sc * 0.42 * (1 - 0.7 * e2); }
       else { fireLoad(a, cx, dy, cy0); return; }
       if (p >= 0.42) { ctx.save(); ctx.globalAlpha = 0.5 + 0.3 * Math.sin(t * 12); ctx.strokeStyle = '#ff4d6d'; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(cx, dy + sc * 0.08, sc * 0.3, sc * 0.12, 0, 0, TAU); ctx.stroke(); ctx.restore(); }
       for (var q = 0; q < 2; q++) hg.parts.push({ x: x - cx + (Math.random() - 0.5) * 6, y: y - cy0 + s * 0.2, vx: (Math.random() - 0.5) * 30, vy: 40 + Math.random() * 30, life: 0.3, col: '#ff6b3d' });
-      draw3D(getModel('a', '#ff4d6d', 1), x, y + Math.sin(t * 9) * 1.5, s, (p < 0.55 ? 0 : (p - 0.55) * 10), 0.9, p < 0.42 ? 0.25 : 0, 0, 1, t, false, p < 0.55);
+      draw3D(getModel('a', '#ff4d6d', 1), x, y + Math.sin(t * 9) * 1.5, s, (p < 0.55 ? 0 : (p - 0.55) * 10), 0.9, p < 0.42 ? 0.25 : 0, 0, 1, t, false, true);
       return;
     }
     if (p < 0.35) { var e3 = k(0, 0.35); x = fromX + (cx - fromX) * e3; y = under - Math.sin(e3 * Math.PI) * sc * 0.1; }
@@ -3614,7 +3631,7 @@
     var mname = curModel() === 'x' ? tr('sk_x') : EVO[evoIndex(online.lv)].name;
     document.getElementById('hgName').textContent = mname;
     document.getElementById('hgLv').textContent = tr('lvShort', { n: online.lv });
-    document.getElementById('hgCur').innerHTML = '<button data-hgact="store">' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b><i class="plus">+</i></button><button data-hgact="storeg">' + GEM + '<b class="gemTxt">' + bank.d + '</b><i class="plus">+</i></button>';
+    document.getElementById('hgCur').innerHTML = '<button data-hgact="store">' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b><i class="plus">+</i></button><button data-hgact="storeg">' + GEM + '<b class="gemTxt">' + bank.d + '</b><i class="plus">+</i></button><button data-hgact="storee">' + EMER + '<b class="emerTxt">' + fmtN(bank.e) + '</b><i class="plus">+</i></button>';
     [['up', 'tabUp'], ['skins', 'tabSkins'], ['flags', 'tabFlags'], ['themes', 'tabThemes2']].forEach(function (t) { h += '<button data-hgtab="' + t[0] + '" class="' + (hgTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
     document.getElementById('hgTabs').innerHTML = h;
     h = '';
@@ -3774,33 +3791,36 @@
   document.getElementById('profileBtn').addEventListener('click', function () { pfDraft = JSON.parse(JSON.stringify(profile)); showView('profile'); });
   var profFrom = 'home';
   document.getElementById('profileBack').addEventListener('click', function () { showView(profFrom); });
-  var DPACKS = [[80, 0.99, 0], [450, 4.99, 10], [1000, 9.99, 20], [2200, 19.99, 30]], GPACKS = [[200, 10], [1200, 50], [3000, 110]];
+  var DPACKS = [[80, 0.99, 0], [450, 4.99, 10], [1000, 9.99, 20], [2200, 19.99, 30]], GPACKS = [[200, 10], [1200, 50], [3000, 110]], EPACKS = [[10, 50], [60, 250], [150, 550]], ALLY_COST = 50;
   function eur(v) { try { return new Intl.NumberFormat(cfg.lang === 'zh' ? 'zh-CN' : cfg.lang, { style: 'currency', currency: 'EUR' }).format(v); } catch (err) { return v.toFixed(2) + ' €'; } }
   function renderStore() {
     if (!storeView || storeView.hidden) return;
     var h = '', i;
-    document.getElementById('stCur').innerHTML = '<span>' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b></span><span>' + GEM + '<b class="gemTxt">' + bank.d + '</b></span>';
-    [['gems', 'stGems'], ['gears', 'stGears']].forEach(function (t) { h += '<button data-sttab="' + t[0] + '" class="' + (stTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
+    document.getElementById('stCur').innerHTML = '<span>' + GEAR + '<b class="gearTxt">' + fmtN(bank.g) + '</b></span><span>' + GEM + '<b class="gemTxt">' + bank.d + '</b></span><span>' + EMER + '<b class="emerTxt">' + fmtN(bank.e) + '</b></span>';
+    [['gems', 'stGems'], ['gears', 'stGears'], ['emer', 'stEmer']].forEach(function (t) { h += '<button data-sttab="' + t[0] + '" class="' + (stTab === t[0] ? 'on' : '') + '">' + esc(tr(t[1])) + '</button>'; });
     document.getElementById('stTabs').innerHTML = h;
     h = '<div class="stGrid">';
     if (stTab === 'gems') {
       h += '<button class="stCard free" data-stfree="1"><span class="stIco">' + GEM + '</span><b>' + esc(tr('freeGems')) + '</b><small>' + esc(tr('freeGemsTxt')) + '</small><em>' + esc(tr('playOffline')) + '</em></button>';
       for (i = 0; i < DPACKS.length; i++) h += '<button class="stCard" data-dpack="' + i + '">' + (DPACKS[i][2] ? '<i class="stBonus">+' + DPACKS[i][2] + ' %</i>' : '') + '<span class="stIco big">' + GEM + (i > 1 ? GEM : '') + (i > 2 ? GEM : '') + '</span><b class="gemTxt">' + fmtN(DPACKS[i][0]) + '</b><em class="price">' + esc(eur(DPACKS[i][1])) + '</em></button>';
+    } else if (stTab === 'emer') {
+      for (i = 0; i < EPACKS.length; i++) h += '<button class="stCard emerC" data-epack="' + i + '"' + (bank.d < EPACKS[i][1] ? ' disabled' : '') + '><span class="stIco big">' + EMER + (i > 0 ? EMER : '') + (i > 1 ? EMER : '') + '</span><b class="emerTxt">' + fmtN(EPACKS[i][0]) + '</b><em class="price">' + EPACKS[i][1] + ' ' + GEM + '</em></button>';
     } else {
       for (i = 0; i < GPACKS.length; i++) h += '<button class="stCard gearC" data-gpack="' + i + '"' + (bank.d < GPACKS[i][1] ? ' disabled' : '') + '><span class="stIco big">' + GEAR + (i > 0 ? GEAR : '') + (i > 1 ? GEAR : '') + '</span><b class="gearTxt">' + fmtN(GPACKS[i][0]) + '</b><em class="price">' + GPACKS[i][1] + ' ' + GEM + '</em></button>';
     }
     h += '</div>';
     var b = document.getElementById('stBody');
     if (b.getAttribute('data-sig') !== h) { b.innerHTML = h; b.setAttribute('data-sig', h); }
-    document.getElementById('stNote').textContent = stTab === 'gems' ? tr('payNote') : tr('gearNote');
+    document.getElementById('stNote').textContent = stTab === 'gems' ? tr('payNote') : stTab === 'emer' ? tr('emerNote') : tr('gearNote');
     fitDirty = true;
   }
   storeView.addEventListener('click', function (e) {
-    var el = e.target && e.target.closest ? e.target.closest('[data-sttab],[data-dpack],[data-gpack],[data-stfree]') : null;
+    var el = e.target && e.target.closest ? e.target.closest('[data-sttab],[data-dpack],[data-gpack],[data-epack],[data-stfree]') : null;
     if (!el || el.disabled) return;
     if (el.hasAttribute('data-sttab')) { stTab = el.getAttribute('data-sttab'); renderStore(); return; }
     if (el.hasAttribute('data-stfree')) { if (cGet()) goMenu(); else { document.getElementById('newName').value = ''; showView('game'); } return; }
     if (el.hasAttribute('data-dpack')) { showToast(tr('payUnavailable')); return; }
+    if (el.hasAttribute('data-epack')) { var ep = EPACKS[+el.getAttribute('data-epack')]; if (!ep || bank.d < ep[1]) return; bank.d -= ep[1]; bank.e += ep[0]; saveBank(); initAudio(); beep(880, 0.12, 'triangle', 0.06, 1320); vib([20, 20, 40]); showToast(tr('emerBought', { n: ep[0] })); renderAll(); return; }
     var g = GPACKS[+el.getAttribute('data-gpack')];
     if (!g || bank.d < g[1]) return;
     bank.d -= g[1]; bank.g += g[0]; saveBank();
@@ -4517,7 +4537,7 @@
       Object.keys(EMB).forEach(function (k) { h += '<button data-al="ic:' + k + '" class="' + (alDraft.ic === k ? 'on' : '') + '">' + svgI(EMB[k]) + '</button>'; });
       h += '</div><div>';
       ALCOL.forEach(function (c) { h += '<button data-al="c:' + c + '" class="col' + (alDraft.c === c ? ' on' : '') + '" style="background:' + c + '" aria-label="' + c + '"></button>'; });
-      h += '</div></div>' + (alErr ? '<p class="alErr">' + esc(tr(alErr === 2 ? 'alTagUsed' : 'allyErr')) + '</p>' : '') + '</div><div class="alPrev" style="--fc:' + pv.c + '">' + embHtml(pv, 'alEmbBig') + '<span class="frBadge">[' + esc(pv.t) + ']</span><b>' + esc(pv.n) + '</b><button class="frOk" data-al="create">' + esc(tr('createBtn')) + '</button></div></div>';
+      h += '</div></div>' + (alErr ? '<p class="alErr">' + esc(tr(alErr === 2 ? 'alTagUsed' : 'allyErr')) + '</p>' : '') + '</div><div class="alPrev" style="--fc:' + pv.c + '">' + embHtml(pv, 'alEmbBig') + '<span class="frBadge">[' + esc(pv.t) + ']</span><b>' + esc(pv.n) + '</b><button class="frOk" data-al="create">' + esc(tr('createBtn')) + '</button><small class="alCost">' + EMER + esc(tr('allyCost', { n: ALLY_COST })) + '</small></div></div>';
     }
     h += '</div>';
     if (AL.arm) {
@@ -4533,7 +4553,7 @@
     { id: 'arctic', pts: [[0, 0], [520, -220], [940, -60], [1040, 360], [720, 500], [940, 820], [520, 1040], [80, 880], [-180, 520], [160, 300]], bg: ['#dfeef7', '#b8d4e6'], road: '#3e5468', edge: '#5ef0ff', deco: '#9fc1d8' },
     { id: 'volcano', pts: [[0, 0], [420, 0], [820, -260], [1240, -110], [1290, 360], [920, 470], [680, 820], [260, 770], [-100, 610], [-260, 250]], bg: ['#3a1a14', '#22100c'], road: '#2a2a30', edge: '#ff6b4a', deco: '#5a2418' }
   ];
-  var RW = 92, RLAPS = 3, RQ = { mis: 0.4, shd: 0.3, slw: 0.3 }, RREW = [250, 120, 60, 0, 0, 0];
+  var RW = 92, RLAPS = 3, RQ = { mis: 0.4, shd: 0.3, slw: 0.3 }, RREW = [250, 0, 0, 0, 0, 0], RREWE = [5, 3, 1, 0, 0, 0];
   var RC = { on: false, mode: 'lobby', ti: 0, cv: null, cx: null, raf: 0, last: 0 };
   function rcPath(T) {
     if (T.path) return T.path;
@@ -4664,9 +4684,9 @@
   }
   function rcFinish() { RC.mode = 'fin'; beep(660, 0.3, 'triangle', 0.06, 1320); vib([40, 40, 80]); rcUI(); }
   function rcResults() {
-    var ord = rcOrder(), pos = ord.indexOf(RC.me), rew = RREW[pos] || 0;
-    if (rew) { bank.g += rew; saveBank(); }
-    RC.res = { ord: ord, pos: pos, rew: rew }; RC.mode = 'end'; rcUI();
+    var ord = rcOrder(), pos = ord.indexOf(RC.me), rew = RREW[pos] || 0, rewE = RREWE[pos] || 0;
+    if (rew || rewE) { bank.g += rew; bank.e += rewE; saveBank(); }
+    RC.res = { ord: ord, pos: pos, rew: rew, rewE: rewE }; RC.mode = 'end'; rcUI();
   }
   function rcFmt(t) { t = Math.max(0, t); var m = Math.floor(t / 60), s = t - m * 60; return m + ':' + (s < 10 ? '0' : '') + s.toFixed(1); }
   function rcDraw(t) {
@@ -4746,8 +4766,8 @@
     } else if (RC.mode === 'end' && RC.res) {
       var R = RC.res;
       h = '<div class="rcEnd"><b class="rcBig">' + (R.pos === 0 ? '🏆 ' : '') + esc(tr('raceFin')) + ' ' + (R.pos + 1) + '/6</b><div class="rcRes">';
-      R.ord.forEach(function (r, i) { h += '<div class="' + (r.me ? 'me' : '') + '"><i>' + (i + 1) + '</i><span style="color:' + (r.me ? '#5ef0ff' : r.c) + '">' + esc(r.me ? (profile.nick || tr('raceYou')) : r.n) + '</span><em>' + rcFmt(r.fin) + '</em><strong>' + (RREW[i] ? '+' + RREW[i] + ' ' + GEAR : '') + '</strong></div>'; });
-      h += '</div>' + (R.rew ? '<p class="rcRew">' + esc(tr('raceRew', { n: R.rew })) + '</p>' : '') + '<div class="rcGoRow"><button data-rc="lobby">' + esc(tr('raceBack')) + '</button>' + (rcLeft() > 0 ? '<button class="rcGo" data-rc="go">' + esc(tr('raceAgain')) + ' (' + rcLeft() + ')</button>' : '') + '</div></div>';
+      R.ord.forEach(function (r, i) { h += '<div class="' + (r.me ? 'me' : '') + '"><i>' + (i + 1) + '</i><span style="color:' + (r.me ? '#5ef0ff' : r.c) + '">' + esc(r.me ? (profile.nick || tr('raceYou')) : r.n) + '</span><em>' + rcFmt(r.fin) + '</em><strong>' + (RREW[i] ? '+' + RREW[i] + ' ' + GEAR : '') + (RREWE[i] ? ' +' + RREWE[i] + ' ' + EMER : '') + '</strong></div>'; });
+      h += '</div>' + ((R.rew || R.rewE) ? '<p class="rcRew">' + (R.rew ? '+' + R.rew + ' ' + GEAR + ' ' : '') + (R.rewE ? '+' + R.rewE + ' ' + EMER : '') + '</p>' : '') + '<div class="rcGoRow"><button data-rc="lobby">' + esc(tr('raceBack')) + '</button>' + (rcLeft() > 0 ? '<button class="rcGo" data-rc="go">' + esc(tr('raceAgain')) + ' (' + rcLeft() + ')</button>' : '') + '</div></div>';
     } else {
       h = '<div class="rcHud" id="rcHud"></div><button class="rcQuit" data-rc="lobby" aria-label="×">×</button>' +
         '<button class="rcItem' + (RC.me && RC.me.item ? ' has' : '') + '" data-rc="use">' + (RC.me && RC.me.item ? svgI(RIC[RC.me.item]) + '<small>' + esc(tr('it_' + RC.me.item)) + '</small>' : '<i>?</i>') + '</button>' +
@@ -4958,7 +4978,8 @@
       else if (q === 'create') {
         var nm = (alDraft.n || '').trim(), tg = (alDraft.t || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
         if (nm.length < 3 || tg.length < 3 || tg.length > 4) { alErr = 1; }
-        else if (NET.ok === true) { if (ALLYS.some(function (x) { return x.t === tg; })) alErr = 2; else { alErr = 0; alCreate(nm, tg, alDraft.ic, alDraft.c); alDraft = { n: '', t: '', ic: 'eagle', c: alDraft.c }; } }
+        else if (bank.e < ALLY_COST) { showToast(tr('noEmer')); stTab = 'emer'; }
+        else if (NET.ok === true) { if (ALLYS.some(function (x) { return x.t === tg; })) alErr = 2; else { bank.e -= ALLY_COST; saveBank(); alErr = 0; alCreate(nm, tg, alDraft.ic, alDraft.c); alDraft = { n: '', t: '', ic: 'eagle', c: alDraft.c }; } }
         else { alErr = 0; online.al = { mine: 1, id: 'me', n: nm, t: tg, ic: alDraft.ic, c: alDraft.c }; saveOnline(); allyTab = 'mine'; beep(660, 0.15, 'triangle', 0.06, 990); showToast(tr('allyCreated', { a: nm })); alDraft = { n: '', t: '', ic: 'eagle', c: '#4fd8ff' }; }
       }
       renderAll(); return;
@@ -4978,6 +4999,7 @@
     if (act === 'up') { doUpgrade(); return; }
     if (act === 'store') { openStore('gears'); return; }
     if (act === 'storeg') { openStore('gems'); return; }
+    if (act === 'storee') { openStore('emer'); return; }
     if (act === 'evo') { showView('evo'); return; }
     if (act === 'cancel') { hg.try = null; renderHangar(); return; }
     if (act === 'buy' && hg.try) {
@@ -5465,7 +5487,7 @@
   startBtn.addEventListener('click', startGame);
   if (TEST_MODE) {
     // Version de test : ressources quasi illimitées, rechargées à chaque lancement
-    bank.c = Math.max(bank.c, 999999); bank.d = Math.max(bank.d, 99999); bank.g = Math.max(bank.g, 999999);
+    bank.c = Math.max(bank.c, 999999); bank.d = Math.max(bank.d, 99999); bank.e = Math.max(bank.e, 500); if (online.resetG) { bank.g = 0; delete online.resetG; saveOnline(); }
     try { LS.setItem('droneStrikeBank', JSON.stringify(bank)); } catch (err) { /* ignore */ }
   }
   // Version web installable (iPhone) : mises à jour automatiques et jeu disponible hors connexion
